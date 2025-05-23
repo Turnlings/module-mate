@@ -1,0 +1,45 @@
+$background-color: #333;
+$line-color: #444;
+$font-color: #f0f0f0;
+$font-size: 20px;
+$roundness: 10px;
+
+body {
+    background-color: $background-color;
+    color: $font-color;
+    font-family: Roboto, sans-serif;
+    font-size: $font-size;
+}
+
+.module-list {
+    a {
+        color: $font-color;
+        text-decoration: none;
+    }
+}
+
+.gt-card {
+    padding: $roundness;
+    border-radius: $roundness;
+    border: 1px solid $line-color;
+    margin: 10px;
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2);
+}
+
+.quicklog {
+    input {
+        border-radius: 5px;
+    }
+
+    #module_code {
+        width: 100px;
+    }
+
+    #minutes {
+        width: 50px;
+    }
+
+    input[type="submit"] {
+        background-color: $line-color;
+    }
+}

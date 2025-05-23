@@ -6,6 +6,9 @@
 %p
   %b Name:
   = @uni_module.name
+%p 
+  %b Weighted Average: 
+  = number_with_precision(@uni_module.weighted_average, precision: 2) + '%'
 
 = render 'exams'
 = render 'timelogs'

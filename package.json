@@ -16,16 +16,23 @@
     "@babel/plugin-transform-runtime": "^7.27.1",
     "@babel/preset-env": "^7.27.2",
     "@babel/runtime": "^7.27.1",
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.13",
+    "@popperjs/core": "^2.11.8",
     "@types/babel__core": "^7.20.5",
     "@types/webpack": "^5.28.5",
+    "add": "^2.0.6",
     "babel-loader": "^8.4.1",
+    "bootstrap": "^5.3.6",
     "compression-webpack-plugin": "^9.2.0",
     "shakapacker": "8.3.0",
+    "stimulus": "^3.2.2",
     "terser-webpack-plugin": "^5.3.14",
     "webpack": "^5.99.9",
     "webpack-assets-manifest": "^5.2.1",
     "webpack-cli": "^4.10.0",
-    "webpack-merge": "^5.10.0"
+    "webpack-merge": "^5.10.0",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
     "webpack-dev-server": "^4.15.2"

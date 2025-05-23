@@ -68,6 +68,5 @@ group :test do
 end
 
 gem 'haml-rails'
-gem 'shakapacker'
 gem "bootstrap", "~> 5.3"
 gem "sassc-rails"
