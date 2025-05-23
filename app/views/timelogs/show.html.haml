@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Uni module:
+  = @timelog.uni_module
+%p
+  %b Minutes:
+  = @timelog.minutes
+%p
+  %b Description:
+  = @timelog.description
+
+= link_to 'Edit', edit_timelog_path(@timelog)
+\|
+= link_to 'Back', timelogs_path

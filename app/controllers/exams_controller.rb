@@ -1,0 +1,73 @@
+class ExamsController < ApplicationController
+  before_action :set_exam, only: %i[ show edit update destroy ]
+
+  # GET /exams or /exams.json
+  def index
+    @exams = Exam.all
+  end
+
+  # GET /exams/1 or /exams/1.json
+  def show
+    @uni_module = @exam.uni_module
+  end
+
+  # GET /exams/new
+  def new
+    @uni_module = UniModule.find(params[:uni_module_id])
+    @exam = @uni_module.exams.new
+  end
+
+  # GET /exams/1/edit
+  def edit
+  end
+
+  # POST /exams or /exams.json
+  def create
+    @uni_module = UniModule.find(params[:uni_module_id])
+    @exam = @uni_module.exams.new(exam_params)
+
+    respond_to do |format|
+      if @exam.save
+        format.html { redirect_to uni_module_exam_path(@uni_module, @exam), notice: "Exam was successfully created." }
+        format.json { render :show, status: :created, location: @exam }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @exam.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /exams/1 or /exams/1.json
+  def update
+    respond_to do |format|
+      if @exam.update(exam_params)
+        format.html { redirect_to @exam, notice: "Exam was successfully updated." }
+        format.json { render :show, status: :ok, location: @exam }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @exam.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /exams/1 or /exams/1.json
+  def destroy
+    @exam.destroy!
+
+    respond_to do |format|
+      format.html { redirect_to exams_path, status: :see_other, notice: "Exam was successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_exam
+      @exam = Exam.find(params[:id])
+    end
+
+    # Only allow a list of trusted parameters through.
+    def exam_params
+      params.require(:exam).permit(:weight, :name, :score)
+    end
+end

@@ -1,0 +1,25 @@
+%h1 Listing timelogs
+
+%table
+  %thead
+    %tr
+      %th Uni module
+      %th Minutes
+      %th Description
+      %th
+      %th
+      %th
+
+  %tbody
+    - @timelogs.each do |timelog|
+      %tr
+        %td= timelog.uni_module
+        %td= timelog.minutes
+        %td= timelog.description
+        %td= link_to 'Show', timelog
+        %td= link_to 'Edit', edit_timelog_path(timelog)
+        %td= link_to 'Destroy', timelog, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Timelog', new_timelog_path

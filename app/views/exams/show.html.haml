@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Weight:
+  = @exam.weight
+%p
+  %b Name:
+  = @exam.name
+%p
+  %b Score:
+  = @exam.score
+
+= link_to 'Edit', edit_uni_module_exam_path(@uni_module, @exam)
+\|
+= link_to 'Back', uni_module_exams_path(@uni_module)

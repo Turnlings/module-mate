@@ -1,0 +1,33 @@
+{
+  "packageManager": "npm@10.8.2",
+  "name": "app",
+  "private": true,
+  "version": "0.1.0",
+  "babel": {
+    "presets": [
+      "./node_modules/shakapacker/package/babel/preset.js"
+    ]
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "dependencies": {
+    "@babel/core": "^7.27.1",
+    "@babel/plugin-transform-runtime": "^7.27.1",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/runtime": "^7.27.1",
+    "@types/babel__core": "^7.20.5",
+    "@types/webpack": "^5.28.5",
+    "babel-loader": "^8.4.1",
+    "compression-webpack-plugin": "^9.2.0",
+    "shakapacker": "8.3.0",
+    "terser-webpack-plugin": "^5.3.14",
+    "webpack": "^5.99.9",
+    "webpack-assets-manifest": "^5.2.1",
+    "webpack-cli": "^4.10.0",
+    "webpack-merge": "^5.10.0"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^4.15.2"
+  }
+}

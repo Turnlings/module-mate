@@ -1,0 +1,16 @@
+= form_for @uni_module do |f|
+  - if @uni_module.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@uni_module.errors.count, "error")} prohibited this uni_module from being saved:"
+      %ul
+        - @uni_module.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :code
+    = f.text_field :code
+  .field
+    = f.label :name
+    = f.text_field :name
+  .actions
+    = f.submit 'Save'

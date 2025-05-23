@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Code:
+  = @uni_module.code
+%p
+  %b Name:
+  = @uni_module.name
+
+= render 'exams'
+= render 'timelogs'
+
+= link_to 'Edit', edit_uni_module_path(@uni_module)
+\|
+= link_to 'Back', uni_modules_path

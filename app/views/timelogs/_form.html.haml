@@ -1,0 +1,16 @@
+= form_for [@uni_module, @timelog] do |f|
+  - if @timelog.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@timelog.errors.count, "error")} prohibited this timelog from being saved:"
+      %ul
+        - @timelog.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :minutes
+    = f.number_field :minutes
+  .field
+    = f.label :description
+    = f.text_field :description
+  .actions
+    = f.submit 'Save'
