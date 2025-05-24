@@ -19,6 +19,7 @@ class ExamsController < ApplicationController
 
   # GET /exams/1/edit
   def edit
+    @uni_module = @exam.uni_module
   end
 
   # POST /exams or /exams.json
@@ -39,9 +40,11 @@ class ExamsController < ApplicationController
 
   # PATCH/PUT /exams/1 or /exams/1.json
   def update
+    @uni_module = @exam.uni_module
+    
     respond_to do |format|
       if @exam.update(exam_params)
-        format.html { redirect_to @exam, notice: "Exam was successfully updated." }
+        format.html { redirect_to uni_module_exam_path(@uni_module, @exam), notice: "Exam was successfully updated." }
         format.json { render :show, status: :ok, location: @exam }
       else
         format.html { render :edit, status: :unprocessable_entity }

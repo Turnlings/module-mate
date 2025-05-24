@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_23_181714) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_24_180235) do
   create_table "exams", force: :cascade do |t|
     t.decimal "weight"
     t.string "name"
@@ -44,6 +44,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_23_181714) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "credits"
   end
 
   add_foreign_key "exams", "uni_modules"

@@ -1,16 +1,15 @@
 %p#notice= notice
 
-%p
-  %b Code:
-  = @uni_module.code
-%p
-  %b Name:
-  = @uni_module.name
-%p 
-  %b Weighted Average: 
-  = number_with_precision(@uni_module.weighted_average, precision: 2) + '%'
+.gt-card
+  %h1= @uni_module.code + ' - ' + @uni_module.name
+  %span 
+    %b Credits: 
+    = @uni_module.credits
+  %span 
+    %b Weighted Average: 
+    = number_with_precision(@uni_module.weighted_average, precision: 2) + '%'
 
-= render 'exams'
+  = render 'exams'
 = render 'timelogs'
 
 = link_to 'Edit', edit_uni_module_path(@uni_module)

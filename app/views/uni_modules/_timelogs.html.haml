@@ -1,19 +1,20 @@
-%table
-  %thead
-    %tr
-      %th Minutes
-      %th Description
-      %th
-      %th
-      %th
-
-  %tbody
-    - @uni_module.timelogs.each do |timelog|
+.gt-card
+  %table
+    %thead
       %tr
-        %td= timelog.minutes
-        %td= timelog.description
-        %td= link_to 'Show', uni_module_timelog_path(@uni_module, timelog)
-        %td= link_to 'Edit', edit_uni_module_timelog_path(@uni_module, timelog)
-        %td= link_to 'Destroy', uni_module_timelog_path(@uni_module, timelog), method: :delete, data: { confirm: 'Are you sure?' }
+        %th Minutes
+        %th Description
+        %th
+        %th
+        %th
 
-= link_to 'New Timelog', new_uni_module_timelog_path(@uni_module)
+    %tbody
+      - @uni_module.timelogs.each do |timelog|
+        %tr
+          %td= timelog.minutes
+          %td= timelog.description
+          %td= link_to 'Show', uni_module_timelog_path(@uni_module, timelog)
+          %td= link_to 'Edit', edit_uni_module_timelog_path(@uni_module, timelog)
+          %td= link_to 'Destroy', uni_module_timelog_path(@uni_module, timelog), method: :delete, data: { confirm: 'Are you sure?' }
+
+  = link_to 'New Timelog', new_uni_module_timelog_path(@uni_module)

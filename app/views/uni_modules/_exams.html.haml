@@ -11,12 +11,10 @@
 
     %tbody
       - @uni_module.exams.each do |exam|
-        %tr
-          %td= exam.weight
+        %tr.exam-row
+          %td= exam.weight.to_s + '%'
           %td= exam.name
           %td= exam.score
-          %td= link_to 'Show', uni_module_exam_path(@uni_module, exam)
           %td= link_to 'Edit', edit_uni_module_exam_path(@uni_module, exam)
-          %td= link_to 'Destroy', uni_module_exam_path(@uni_module, exam), method: :delete, data: { confirm: 'Are you sure?' }
 
 = link_to 'New exam', new_uni_module_exam_path(@uni_module)
