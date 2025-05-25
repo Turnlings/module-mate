@@ -25,6 +25,7 @@
     "babel-loader": "^8.4.1",
     "bootstrap": "^5.3.6",
     "compression-webpack-plugin": "^9.2.0",
+    "d3": "^7.9.0",
     "shakapacker": "8.3.0",
     "stimulus": "^3.2.2",
     "terser-webpack-plugin": "^5.3.14",

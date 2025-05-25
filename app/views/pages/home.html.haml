@@ -1,24 +1,32 @@
--# Graph on left
+%div
+  .row
+    .col 
+      -# Graph on left
+      .gt-card
+        %h2 Your Progress
+        #chart-area{ data: { controller: "chart" } }
 
--# Modules
-.gt-card.module-list.mb-3
-  %h2 Current Modules
-  %table.table
-    - @uni_modules.each do |m|
-      = link_to m do
-        .row
-          .col-3= m.code
-          .col= m.name
-          .col-3.text-end= number_with_precision(m.weighted_average, precision: 0) + '%'
+    
+    .col
+      -# Modules
+      .gt-card.module-list.mb-3
+        %h2 Current Modules
+        %table.table
+          - @uni_modules.each do |m|
+            = link_to m do
+              .row
+                .col-3= m.code
+                .col= m.name
+                .col-3.text-end= number_with_precision(m.weighted_average, precision: 0) + '%'
 
-  = link_to "View All Modules", uni_modules_path
+        = link_to "View All Modules", uni_modules_path
 
--# Quick-add time
-.gt-card.quicklog
-  %h2 Quicklog
-  = form_with model: @timelog, url: quick_log_path, local: true do |f|
-    = f.label :module_code
-    = f.text_field :module_code
-    = f.label :minutes
-    = f.number_field :minutes
-    = f.submit 'Add Time'
+      -# Quick-add time
+      .gt-card.quicklog
+        %h2 Quicklog
+        = form_with model: @timelog, url: quick_log_path, local: true do |f|
+          = f.label :module_code
+          = f.text_field :module_code
+          = f.label :minutes
+          = f.number_field :minutes
+          = f.submit 'Add Time'
