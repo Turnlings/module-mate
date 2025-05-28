@@ -2,9 +2,10 @@
   .row
     .col
       -# Graph on left
-      .gt-card.h-100
+      .gt-card{ style: "display: flex; flex-direction: column; height: 100%;" }
         %h2 Your Time Spent
-        = line_chart @module_data, legend: false, width: "100%", height:"80%"
+        .chart-container
+          = line_chart @module_data, legend: false, width: "100%" #, height:"100%"
 
     
     .col

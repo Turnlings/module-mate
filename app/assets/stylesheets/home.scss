@@ -23,7 +23,29 @@ body {
     box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2);
 }
 
-.quicklog {
+.chart-container {
+    flex: 1 1 auto;
+    min-height: 0;
+    position: relative;
+}
+
+.gt-form {
+    input {
+        padding: 0 5px;
+        outline: none;
+        border-radius: 5px;
+        background-color: $line-color;
+        color: $font-color;
+        border: 2px solid $background-color;
+    }
+
+    input[type="submit"] {
+        background-color: $highlight-color;
+        border: none;
+    }
+}
+
+.quicklog { /*Can probably switch to gt-form once polished (TODO)*/
     input {
         outline: none;
         border-radius: 5px;
@@ -43,6 +65,8 @@ body {
     }
 
     input[type="submit"] {
+        background-color: $highlight-color;
+        border: none;
     }
 }
 
