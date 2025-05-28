@@ -3,8 +3,8 @@
     .col 
       -# Graph on left
       .gt-card
-        %h2 Your Progress
-        #chart-area{ data: { controller: "chart" } }
+        %h2 Your Time Spent
+        = line_chart @module_data, legend: false
 
     
     .col

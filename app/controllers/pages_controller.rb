@@ -1,6 +1,13 @@
 class PagesController < ApplicationController
   def home
     @uni_modules = UniModule.all
+
+    @module_data = UniModule.includes(:timelogs).map do |mod|
+      {
+        name: mod.name,
+        data: mod.timelogs.group_by_day(:created_at).sum(:minutes)
+      }
+    end
   end
 
   # Allows for the user to give a module code and minutes and get the time quickly logged

@@ -70,3 +70,5 @@ end
 gem 'haml-rails'
 gem "bootstrap", "~> 5.3"
 gem "sassc-rails"
+gem "chartkick"
+gem "groupdate"
