@@ -55,10 +55,11 @@ class ExamsController < ApplicationController
 
   # DELETE /exams/1 or /exams/1.json
   def destroy
+    @uni_module = @exam.uni_module
     @exam.destroy!
 
     respond_to do |format|
-      format.html { redirect_to exams_path, status: :see_other, notice: "Exam was successfully destroyed." }
+      format.html { redirect_to uni_module_path(@uni_module), status: :see_other, notice: "Exam was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -71,6 +72,6 @@ class ExamsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def exam_params
-      params.require(:exam).permit(:weight, :name, :score)
+      params.require(:exam).permit(:weight, :name, :score, :type, :uni_module_id)
     end
 end

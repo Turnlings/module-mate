@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_28_165449) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_28_200941) do
   create_table "exams", force: :cascade do |t|
     t.decimal "weight"
     t.string "name"
@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_28_165449) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "uni_module_id", null: false
+    t.string "type"
     t.index ["uni_module_id"], name: "index_exams_on_uni_module_id"
   end
 

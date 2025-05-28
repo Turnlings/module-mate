@@ -13,6 +13,9 @@
     = f.label :name
     = f.text_field :name
   .field
+    = f.label :type, "Exam Type"
+    = f.select :type, options_for_select([['Threshold', 'Threshold'],['Paper', 'Paper'],['Solo Coursework', 'Coursework::Solo'],['Group Coursework', 'Coursework::Group']], @exam.type)
+  .field
     = f.label :score
     = f.text_field :score
   .actions

@@ -1,0 +1,19 @@
+@import "variables";
+
+.progress-bar {
+    background-color: $line-color;
+    height: 3px;
+    width: 100%;
+
+    .progress {
+        height: 100%;
+        width: 0;
+        background-color: $highlight-color;
+        transition: width 0.3s ease-in-out;
+    }
+}
+
+.px-12px {
+    padding-left: 12px;
+    padding-right: 12px;
+}

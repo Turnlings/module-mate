@@ -1,5 +1,5 @@
 .container
-  .row
+  .row.mb-3
     .col
       -# Graph on left
       .gt-card{ style: "display: flex; flex-direction: column; height: 100%;" }
@@ -20,6 +20,8 @@
               .col-3= m.code
               .col= m.name
               .col-3.text-end= "#{number_with_precision(m.weighted_average, precision: 0)}%"
+            .row.progress-bar.px-12px
+              .progress{style: "width: #{m.completion_percentage}%"}
 
       -# Quick-add time
       .gt-card.quicklog
@@ -30,3 +32,12 @@
           = f.label :minutes
           = f.number_field :minutes
           = f.submit 'Add Time'
+  .row
+    .col 
+      .gt-card
+        %h2 Upcoming Exams
+    .col
+      .gt-card
+        %h2 Type Split
+        .chart-container
+          = pie_chart @exam_type_data, legend: false, width: "100%" #, height:"100%"

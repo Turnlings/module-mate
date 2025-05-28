@@ -1,4 +1,5 @@
-import { Application } from "@hotwired/stimulus"              
+import { Application } from "@hotwired/stimulus"          
+import "@hotwired/turbo-rails"    
 import "chartkick"
 import "chart.js"
 import "chartjs-adapter-date-fns"

@@ -8,6 +8,8 @@ class PagesController < ApplicationController
         data: mod.timelogs.group_by_day(:created_at).sum(:minutes)
       }
     end
+
+    @exam_type_data = Exam.joins(:uni_module).group(:type).sum('exams.weight * uni_modules.credits / 100')
   end
 
   # Allows for the user to give a module code and minutes and get the time quickly logged
