@@ -1,25 +1,24 @@
-%div
+.container
   .row
-    .col 
+    .col
       -# Graph on left
-      .gt-card
+      .gt-card.h-100
         %h2 Your Time Spent
-        = line_chart @module_data, legend: false
+        = line_chart @module_data, legend: false, width: "100%", height:"80%"
 
     
     .col
       -# Modules
       .gt-card.module-list.mb-3
-        %h2 Current Modules
-        %table.table
-          - @uni_modules.each do |m|
-            = link_to m do
-              .row
-                .col-3= m.code
-                .col= m.name
-                .col-3.text-end= number_with_precision(m.weighted_average, precision: 0) + '%'
-
-        = link_to "View All Modules", uni_modules_path
+        %h2.d-flex.justify-content-between.align-items-center
+          Current Modules
+          = link_to "(View All)", uni_modules_path, style: "font-weight: normal;"
+        - @uni_modules.each do |m|
+          = link_to m do
+            .row
+              .col-3= m.code
+              .col= m.name
+              .col-3.text-end= "#{number_with_precision(m.weighted_average, precision: 0)}%"
 
       -# Quick-add time
       .gt-card.quicklog
