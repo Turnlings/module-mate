@@ -1,4 +1,5 @@
 class UniModule < ApplicationRecord
+  belongs_to :semester, optional: true
   has_many :exams
   has_many :timelogs
 
