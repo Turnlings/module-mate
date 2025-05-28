@@ -11,4 +11,8 @@
   %body
     %header
       = link_to "GradeTracker", root_path
+
+    %p.notice= notice 
+    %p.alert= alert
+    
     = yield
