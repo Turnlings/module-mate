@@ -15,6 +15,9 @@
   .field
     = f.label :type, "Exam Type"
     = f.select :type, options_for_select([['Threshold', 'Threshold'],['Paper', 'Paper'],['Solo Coursework', 'Coursework::Solo'],['Group Coursework', 'Coursework::Group']], @exam.type)
+  .field 
+    = f.label :due, "Due Date"
+    = f.datetime_local_field :due, include_blank: true, default: @exam.due
   .field
     = f.label :score
     = f.text_field :score

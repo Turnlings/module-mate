@@ -23,7 +23,11 @@
             = link_to "Sign Up", new_user_registration_path
 
     .container
-      %p.notice= notice 
-      %p.alert= alert
+      - flash.each do |key, message|
+        - bootstrap_class = case key
+          - when 'notice' then 'alert alert-info'
+          - when 'alert' then 'alert alert-danger'
+          - else 'alert alert-warning'
+        %p{class: bootstrap_class}= message
 
     = yield
