@@ -6,14 +6,14 @@
       .gt-card{ style: "display: flex; flex-direction: column; height: 100%;" }
         %h2 Your Time Spent
         .chart-container
-          = line_chart @module_data, legend: false, width: "100%" #, height:"100%"
+          = line_chart @module_data, curve: false, legend: false, width: "100%" #, height:"100%"
 
     
     .col
       -# Modules
       .gt-card.module-list.mb-3
-        %h2.d-flex.justify-content-between.align-items-center
-          Current Modules
+        .d-flex.justify-content-between.align-items-center
+          %h2 Current Modules
           = link_to "(View All)", uni_modules_path, style: "font-weight: normal;"
         - @uni_modules.each do |m|
           = link_to m do

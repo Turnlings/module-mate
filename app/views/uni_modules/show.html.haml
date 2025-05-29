@@ -1,17 +1,25 @@
-%p#notice= notice
+.container
+  .row
+    .col
+      .gt-card
+        %h1= @uni_module.code + ' - ' + @uni_module.name
+        %span 
+          %b Credits: 
+          = @uni_module.credits
+        %span 
+          %b Weighted Average: 
+          = number_with_precision(@uni_module.weighted_average, precision: 2) + '%'
 
-.gt-card
-  %h1= @uni_module.code + ' - ' + @uni_module.name
-  %span 
-    %b Credits: 
-    = @uni_module.credits
-  %span 
-    %b Weighted Average: 
-    = number_with_precision(@uni_module.weighted_average, precision: 2) + '%'
+        = render 'exams'
+    .col
+      .gt-card
+        %h2 Assessment Type
+        .chart-container
+          = pie_chart @exam_data, legend: false, width: "250px", height: "250px"
 
-  = render 'exams'
-= render 'timelogs'
+  .row
+    = render 'timelogs'
 
-= link_to 'Edit', edit_uni_module_path(@uni_module)
-\|
-= link_to 'Back', uni_modules_path
+  = link_to 'Edit', edit_uni_module_path(@uni_module)
+  \|
+  = link_to 'Back', uni_modules_path

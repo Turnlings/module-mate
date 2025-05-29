@@ -8,6 +8,10 @@ class UniModulesController < ApplicationController
 
   # GET /uni_modules/1 or /uni_modules/1.json
   def show
+    @exam_data = Exam
+      .where(uni_module: @uni_module)
+      .pluck(:name, :weight)
+      .to_h
   end
 
   # GET /uni_modules/new

@@ -2,10 +2,19 @@ class PagesController < ApplicationController
   def home
     @uni_modules = UniModule.all
 
+    # Get the cumulative time logged for each module
     @module_data = UniModule.includes(:timelogs).map do |mod|
+      raw_data = mod.timelogs.group_by_day(:created_at).sum(:minutes)
+      cumulative = {}
+      total = 0
+      raw_data.each do |date, minutes|
+        total += minutes
+        cumulative[date] = total
+      end
+
       {
         name: mod.name,
-        data: mod.timelogs.group_by_day(:created_at).sum(:minutes)
+        data: cumulative
       }
     end
 
