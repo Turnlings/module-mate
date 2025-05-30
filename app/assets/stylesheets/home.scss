@@ -42,6 +42,12 @@ body {
     input[type="submit"] {
         background-color: $highlight-color;
         border: none;
+        padding: 2px 10px;
+        border-radius: 5px;
+
+        &:hover{
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
     }
 }
 
@@ -76,4 +82,58 @@ body {
 
 .section-heading {
     border-bottom: 2px solid $line-color;
+}
+
+.card-heading {
+    color: $font-color;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    h1 {
+        margin: 0;
+    }
+
+    h2 {
+        margin: 0;
+    }
+
+    a {
+        color: $font-color;
+        text-decoration: none;
+        background-color: $highlight-color;
+        padding: 2px 10px;
+        border-radius: 5px;
+    }
+
+    a:hover{
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.link-button {
+    color: $font-color;
+    text-decoration: none;
+    background-color: $highlight-color;
+    padding: 2px 10px;
+    border-radius: 5px;
+
+    &:hover {
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.gt-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid $background-color;
+    }
+
+    tr:nth-child(even) {
+        background-color: $line-color;
+    }
 }

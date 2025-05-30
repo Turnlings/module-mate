@@ -1,8 +1,12 @@
 .container
+  = link_to 'All Modules', uni_modules_path, class: 'link-button'
+
   .row
     .col
       .gt-card
-        %h1= @uni_module.code + ' - ' + @uni_module.name
+        .card-heading
+          %h1= @uni_module.code + ' - ' + @uni_module.name
+          = link_to 'Edit', edit_uni_module_path(@uni_module)
         %span 
           %b Credits: 
           = @uni_module.credits
@@ -15,11 +19,8 @@
       .gt-card
         %h2 Assessment Type
         .chart-container
-          = pie_chart @exam_data, legend: false, width: "250px", height: "250px"
+          = pie_chart @exam_data, legend: false, width: '250px', height: '250px'
 
   .row
-    = render 'timelogs'
-
-  = link_to 'Edit', edit_uni_module_path(@uni_module)
-  \|
-  = link_to 'Back', uni_modules_path
+    .col
+      = render 'timelogs'

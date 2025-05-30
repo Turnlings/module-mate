@@ -1,5 +1,7 @@
-%h1 New uni_module
+.container 
+  .gt-card
+    .card-heading
+      %h1 New Module    
+      = link_to 'All Modules', uni_modules_path
 
-= render 'form'
-
-= link_to 'Back', uni_modules_path
+    = render 'form'

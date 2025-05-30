@@ -33,11 +33,11 @@
           = f.label :minutes
           = f.number_field :minutes
           = f.submit 'Add Time'
-  %h1.section-heading Exams
+  %h1.section-heading Assessments
   .row
     .col 
       .gt-card
-        %h2 Upcoming Exams
+        %h2 Upcoming Assessments
         = link_to @next_exam.name, uni_module_exam_path(@next_exam.uni_module, @next_exam)
         %span.d-block
           %b Due:

@@ -1,7 +1,7 @@
-%h1 Editing uni_module
+.container
+  .gt-card
+    .card-heading
+      %h1 Editing Module
+      = link_to 'Show', @uni_module
 
-= render 'form'
-
-= link_to 'Show', @uni_module
-\|
-= link_to 'Back', uni_modules_path
+    = render 'form'

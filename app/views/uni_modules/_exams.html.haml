@@ -1,12 +1,13 @@
 - if @uni_module.exams.present?
-  %table
+  .card-heading
+    %h2 Assessments
+    = link_to 'Add', new_uni_module_exam_path(@uni_module)
+  %table.gt-table.mt-0
     %thead
       %tr
         %th Weight
         %th Name
         %th Score
-        %th
-        %th
         %th
 
     %tbody
@@ -16,5 +17,3 @@
           %td= exam.name
           %td= exam.score
           %td= link_to 'Edit', edit_uni_module_exam_path(@uni_module, exam)
-
-= link_to 'New exam', new_uni_module_exam_path(@uni_module)

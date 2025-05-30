@@ -1,5 +1,8 @@
 .gt-card
-  %table
+  .card-heading
+    %h2 Timelog
+    = link_to 'Add', new_uni_module_timelog_path(@uni_module)
+  %table.gt-table.mt-0
     %thead
       %tr
         %th Minutes
@@ -16,5 +19,3 @@
           %td= link_to 'Show', uni_module_timelog_path(@uni_module, timelog)
           %td= link_to 'Edit', edit_uni_module_timelog_path(@uni_module, timelog)
           %td= link_to 'Destroy', uni_module_timelog_path(@uni_module, timelog), method: :delete, data: { confirm: 'Are you sure?' }
-
-  = link_to 'New Timelog', new_uni_module_timelog_path(@uni_module)
