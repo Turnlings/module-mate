@@ -73,3 +73,5 @@ gem "sassc-rails"
 gem "chartkick"
 gem "groupdate"
 gem "devise", "~> 4.9"
+
+gem "kaminari", "~> 1.2"

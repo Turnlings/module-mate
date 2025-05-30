@@ -12,6 +12,8 @@ class UniModulesController < ApplicationController
       .where(uni_module: @uni_module)
       .pluck(:name, :weight)
       .to_h
+
+    @timelogs = @uni_module.timelogs.page(params[:page]).per(5)
   end
 
   # GET /uni_modules/new

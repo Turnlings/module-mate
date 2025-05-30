@@ -1,0 +1,11 @@
+@import "variables";
+
+.pagination-box {
+    border: 1px solid $background-color;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    margin: 0 5px;
+}

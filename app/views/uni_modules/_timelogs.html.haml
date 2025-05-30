@@ -12,10 +12,12 @@
         %th
 
     %tbody
-      - @uni_module.timelogs.each do |timelog|
+      - @timelogs.each do |timelog|
         %tr
           %td= timelog.minutes
           %td= timelog.description
           %td= link_to 'Show', uni_module_timelog_path(@uni_module, timelog)
           %td= link_to 'Edit', edit_uni_module_timelog_path(@uni_module, timelog)
           %td= link_to 'Destroy', uni_module_timelog_path(@uni_module, timelog), method: :delete, data: { confirm: 'Are you sure?' }
+
+  = paginate @timelogs
