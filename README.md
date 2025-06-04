@@ -16,6 +16,16 @@ cd grade-tracker
 bundle install
 ```
 
+Create a .env file:
+```bash
+touch .env
+```
+
+Add your devise secret key
+```
+DEVISE_SECRET_KEY=your_random_key_here
+```
+
 Set up the database:
 ```bash
 rails db:create
