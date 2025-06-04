@@ -1,0 +1,14 @@
+= form_for @year do |f|
+  - if @year.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@year.errors.count, "error")} prohibited this year from being saved:"
+      %ul
+        - @year.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+
+  .actions
+    = f.submit 'Save'

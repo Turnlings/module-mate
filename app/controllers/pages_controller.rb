@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   def home
     @uni_modules = UniModule.all
+    @semesters = Semester.all
 
     # Get the cumulative time logged for each module
     @module_data = UniModule.includes(:timelogs).map do |mod|

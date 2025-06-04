@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :years
+  resources :semesters
   devise_for :users
   resources :uni_modules do
     resources :exams

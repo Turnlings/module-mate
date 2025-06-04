@@ -1,0 +1,18 @@
+= form_for @semester do |f|
+  - if @semester.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@semester.errors.count, "error")} prohibited this semester from being saved:"
+      %ul
+        - @semester.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+    
+  .field
+    = f.label :year_id, "Year"
+    = f.collection_select :year_id, Year.all, :id, :name, prompt: "Select Year"
+
+  .actions
+    = f.submit 'Save'

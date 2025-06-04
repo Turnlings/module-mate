@@ -1,5 +1,8 @@
 .container
-  = link_to 'All Modules', uni_modules_path, class: 'link-button'
+  - if @uni_module.semester
+    = link_to 'Back to Semester', semester_path(@uni_module.semester), class: 'link-button'
+  - else
+    = link_to 'All Modules', uni_modules_path, class: 'link-button'
 
   .row
     .col
