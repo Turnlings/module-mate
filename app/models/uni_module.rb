@@ -13,7 +13,7 @@ class UniModule < ApplicationRecord
   def weighted_average
     valid_exams = exams.select { |exam| !exam.score.nil? }
     total_weight = valid_exams.sum(&:weight)
-    weighted_sum = valid_exams.sum { |exam| exam.weight * exam.score }
+    weighted_sum = valid_exams.sum { |exam| exam.weight * exam.adjusted_score }
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
 

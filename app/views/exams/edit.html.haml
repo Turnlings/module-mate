@@ -1,7 +1,10 @@
-%h1 Editing exam
+.container 
+  = link_to 'Back', uni_module_path(@uni_module), class: 'link-button'
 
-= render 'form'
+  .gt-card
+    .card-heading
+      %h1 Editing exam
+      = button_to 'Delete', uni_module_exam_path(@uni_module, @exam), method: :delete, data: { confirm: 'Are you sure?' }
 
-= button_to 'Delete', uni_module_exam_path(@uni_module, @exam), method: :delete, data: { confirm: 'Are you sure?' }
+    = render 'form'
 
-= link_to 'Back', uni_module_path(@uni_module)

@@ -1,25 +1,26 @@
-= form_for [@uni_module, @exam] do |f|
-  - if @exam.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@exam.errors.count, "error")} prohibited this exam from being saved:"
-      %ul
-        - @exam.errors.full_messages.each do |message|
-          %li= message
+.gt-form  
+  = form_for [@uni_module, @exam] do |f|
+    - if @exam.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@exam.errors.count, "error")} prohibited this exam from being saved:"
+        %ul
+          - @exam.errors.full_messages.each do |message|
+            %li= message
 
-  .field
-    = f.label :weight
-    = f.text_field :weight
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :type, "Exam Type"
-    = f.select :type, options_for_select([['Threshold', 'Threshold'],['Paper', 'Paper'],['Solo Coursework', 'Coursework::Solo'],['Group Coursework', 'Coursework::Group']], @exam.type)
-  .field 
-    = f.label :due, "Due Date"
-    = f.datetime_local_field :due, include_blank: true, default: @exam.due
-  .field
-    = f.label :score
-    = f.text_field :score
-  .actions
-    = f.submit 'Save'
+    .field
+      = f.label :weight
+      = f.text_field :weight
+    .field
+      = f.label :name
+      = f.text_field :name
+    .field
+      = f.label :type, "Exam Type"
+      = f.select :type, options_for_select([['Threshold', 'Threshold'],['Paper', 'Paper'],['Solo Coursework', 'Coursework::Solo'],['Group Coursework', 'Coursework::Group']], @exam.type)
+    .field 
+      = f.label :due, "Due Date"
+      = f.datetime_local_field :due, include_blank: true, default: @exam.due
+    .field
+      = f.label :score
+      = f.text_field :score
+    .actions
+      = f.submit 'Save'
