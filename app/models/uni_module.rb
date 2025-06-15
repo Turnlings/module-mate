@@ -17,6 +17,12 @@ class UniModule < ApplicationRecord
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
 
+  # Gets the score you have got so far, ie. the score you would get if you stopped now
+  def achieved_score
+    valid_exams = exams.select { |exam| !exam.score.nil? }
+    valid_exams.sum { |exam| exam.adjusted_score * exam.weight/100 }
+  end
+
   # Gets the percentage completion of the module based on the exams taken
   def completion_percentage
     return 0 if exams.empty?

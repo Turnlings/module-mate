@@ -8,6 +8,7 @@
         %th Weight
         %th Name
         %th Score
+        %th Target
         %th
 
     %tbody
@@ -15,5 +16,6 @@
         %tr.exam-row
           %td= exam.weight.to_s + '%'
           %td= exam.name
-          %td= exam.score
+          %td= "#{number_with_precision(exam.score, precision: 2)}%" if exam.score
+          %td.text-secondary= "#{number_with_precision(exam.target, precision: 2)}%" if exam.target
           %td.text-end.p-0= link_to 'Edit', edit_uni_module_exam_path(@uni_module, exam), class: 'link-button'

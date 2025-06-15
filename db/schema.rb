@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_29_132220) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_15_230849) do
   create_table "exams", force: :cascade do |t|
     t.decimal "weight"
     t.string "name"
@@ -56,6 +56,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_29_132220) do
     t.datetime "updated_at", null: false
     t.integer "credits"
     t.integer "semester_id"
+    t.decimal "target"
     t.index ["semester_id"], name: "index_uni_modules_on_semester_id"
   end
 
