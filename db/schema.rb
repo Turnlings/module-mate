@@ -10,11 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_15_230849) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_16_154749) do
+  create_table "exam_results", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "exam_id", null: false
+    t.decimal "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_exam_results_on_exam_id"
+    t.index ["user_id"], name: "index_exam_results_on_user_id"
+  end
+
   create_table "exams", force: :cascade do |t|
     t.decimal "weight"
     t.string "name"
-    t.decimal "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "uni_module_id", null: false
@@ -47,6 +56,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_15_230849) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["uni_module_id"], name: "index_timelogs_on_uni_module_id"
+  end
+
+  create_table "uni_module_targets", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "uni_module_id", null: false
+    t.decimal "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uni_module_id"], name: "index_uni_module_targets_on_uni_module_id"
+    t.index ["user_id"], name: "index_uni_module_targets_on_user_id"
   end
 
   create_table "uni_modules", force: :cascade do |t|
@@ -82,10 +101,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_15_230849) do
     t.index ["user_id"], name: "index_years_on_user_id"
   end
 
+  add_foreign_key "exam_results", "exams"
+  add_foreign_key "exam_results", "users"
   add_foreign_key "exams", "uni_modules"
   add_foreign_key "gradeds", "uni_modules"
   add_foreign_key "semesters", "years"
   add_foreign_key "timelogs", "uni_modules"
+  add_foreign_key "uni_module_targets", "uni_modules"
+  add_foreign_key "uni_module_targets", "users"
   add_foreign_key "uni_modules", "semesters"
   add_foreign_key "years", "users"
 end

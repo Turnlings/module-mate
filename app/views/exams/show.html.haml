@@ -8,7 +8,7 @@
   = @exam.name
 %p
   %b Score:
-  = @exam.score
+  = @exam.score(current_user)
 
 = link_to 'Edit', edit_uni_module_exam_path(@uni_module, @exam)
 \|

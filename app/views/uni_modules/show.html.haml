@@ -15,10 +15,10 @@
           = @uni_module.credits
         %span 
           %b Weighted Average: 
-          = number_with_precision(@uni_module.weighted_average, precision: 2) + '%'
+          = number_with_precision(@uni_module.weighted_average(current_user), precision: 2) + '%'
         %span 
           %b Achieved Score: 
-          = number_with_precision(@uni_module.achieved_score, precision: 2) + '%'
+          = number_with_precision(@uni_module.achieved_score(current_user), precision: 2) + '%'
 
         = render 'exams'
     .col

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :exams
     resources :timelogs
   end
+  resources :exam_results
 
   post 'quick_log', to: 'pages#quick_log'
 

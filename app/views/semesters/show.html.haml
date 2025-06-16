@@ -21,9 +21,9 @@
             .row
               .col-3= m.code
               .col= m.name
-              .col-3.text-end= "#{number_with_precision(m.weighted_average, precision: 0)}%"
+              .col-3.text-end= "#{number_with_precision(m.weighted_average(current_user), precision: 0)}%"
             .row.progress-bar.px-12px
-              .progress{style: "width: #{m.completion_percentage}%"}
+              .progress{style: "width: #{m.completion_percentage(current_user)}%"}
 
       -# Quick-add time
       .gt-card.quicklog

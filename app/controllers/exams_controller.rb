@@ -20,6 +20,12 @@ class ExamsController < ApplicationController
   # GET /exams/1/edit
   def edit
     @uni_module = @exam.uni_module
+
+    if @exam.result(current_user).nil?
+      @exam_result = ExamResult.new(user: current_user, exam: @exam)
+    else
+      @exam_result = @exam.result(current_user)
+    end
   end
 
   # POST /exams or /exams.json
@@ -72,6 +78,6 @@ class ExamsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def exam_params
-      params.require(:exam).permit(:weight, :name, :score, :type, :uni_module_id, :due)
+      params.require(:exam).permit(:weight, :name, :type, :uni_module_id, :due)
     end
 end

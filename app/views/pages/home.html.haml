@@ -20,7 +20,7 @@
             .row
               .col-3= s.year.name
               .col= s.name
-              .col-3.text-end= "#{number_with_precision(s.weighted_average, precision: 0)}%"
+              .col-3.text-end= "#{number_with_precision(s.weighted_average(current_user), precision: 0)}%"
 
       -# Quick-add time
       .gt-card.quicklog

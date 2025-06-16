@@ -4,8 +4,8 @@ class Threshold < Exam
       Exam.model_name
     end
 
-    def adjusted_score
-      score >= 70 ? 100 : 0
+    def adjusted_score(user)
+      score(user) >= 70 ? 100 : 0
     end
 
 end

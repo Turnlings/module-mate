@@ -1,0 +1,9 @@
+= form_for [@exam_result] do |f|  
+  = f.hidden_field :exam_id, value: @exam.id
+  
+  .field
+    = f.label :score
+    = f.text_field :score
+
+  .actions
+    = f.submit 'Save'
