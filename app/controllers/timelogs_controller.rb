@@ -25,6 +25,7 @@ class TimelogsController < ApplicationController
   def create
     @uni_module = UniModule.find(params[:uni_module_id])
     @timelog = @uni_module.timelogs.new(timelog_params)
+    @timelog.user = current_user
 
     respond_to do |format|
       if @timelog.save

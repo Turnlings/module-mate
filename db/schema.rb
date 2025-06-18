@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_16_154749) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_18_110513) do
   create_table "exam_results", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "exam_id", null: false
@@ -55,7 +55,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_16_154749) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
     t.index ["uni_module_id"], name: "index_timelogs_on_uni_module_id"
+    t.index ["user_id"], name: "index_timelogs_on_user_id"
   end
 
   create_table "uni_module_targets", force: :cascade do |t|
@@ -107,6 +109,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_16_154749) do
   add_foreign_key "gradeds", "uni_modules"
   add_foreign_key "semesters", "years"
   add_foreign_key "timelogs", "uni_modules"
+  add_foreign_key "timelogs", "users"
   add_foreign_key "uni_module_targets", "uni_modules"
   add_foreign_key "uni_module_targets", "users"
   add_foreign_key "uni_modules", "semesters"

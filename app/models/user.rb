@@ -7,5 +7,6 @@ class User < ApplicationRecord
   has_many :years, dependent: :destroy
   has_many :exams, through: :exam_results
   has_many :uni_modules, through: :uni_module_targets
+  has_many :timelogs, dependent: :destroy
   
 end

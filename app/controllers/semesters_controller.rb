@@ -11,8 +11,8 @@ class SemestersController < ApplicationController
     @uni_modules = @semester.uni_modules
 
     # Get the cumulative time logged for each module
-    @module_data = @semester.uni_modules.includes(:timelogs).map do |mod|
-      raw_data = mod.timelogs.group_by_day(:created_at).sum(:minutes)
+    @module_data = @semester.uni_modules.includes(:timelogs).where(timelogs: { user_id: current_user.id }).map do |mod|
+      raw_data = mod.timelogs.for_user(current_user).group_by_day(:created_at).sum(:minutes)
       cumulative = {}
       total = 0
       raw_data.each do |date, minutes|

@@ -13,7 +13,7 @@ class UniModulesController < ApplicationController
       .pluck(:name, :weight)
       .to_h
 
-    @timelogs = @uni_module.timelogs.page(params[:page]).per(5)
+    @timelogs = @uni_module.timelogs.for_user(current_user).page(params[:page]).per(5)
   end
 
   # GET /uni_modules/new
