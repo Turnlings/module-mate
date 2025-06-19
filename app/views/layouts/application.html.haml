@@ -14,7 +14,7 @@
         .title= link_to "GradeTracker", root_path
         .header-links
           - if user_signed_in?
-            = link_to "Profile", edit_user_registration_path
+            = link_to "Profile", user_path(current_user)
             %span=  "|"
             = link_to "Logout", destroy_user_session_path, method: :delete
           - else
