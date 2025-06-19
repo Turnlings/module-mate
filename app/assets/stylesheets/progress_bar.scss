@@ -3,9 +3,9 @@
 .progress-bar {
     background-color: $line-color;
     height: 3px;
-    width: 100%;
 
     .progress {
+        padding: 0;
         height: 100%;
         width: 0;
         background-color: $highlight-color;
