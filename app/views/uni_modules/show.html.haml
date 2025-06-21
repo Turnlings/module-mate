@@ -10,15 +10,20 @@
         .card-heading
           %h1= @uni_module.code + ' - ' + @uni_module.name
           = link_to 'Edit', edit_uni_module_path(@uni_module)
-        %span 
-          %b Credits: 
-          = @uni_module.credits
-        %span 
-          %b Weighted Average: 
-          = number_with_precision(@uni_module.weighted_average(current_user), precision: 2) + '%'
-        %span 
-          %b Achieved Score: 
-          = number_with_precision(@uni_module.achieved_score(current_user), precision: 2) + '%'
+        .row
+          .col.text-center
+            %b Credits
+          .col.text-center
+            %b Weighted Average
+          .col.text-center
+            %b Achieved Score 
+        .row
+          .col.text-center
+            %span.stat= @uni_module.credits
+          .col.text-center
+            %span.stat= number_with_precision(@uni_module.weighted_average(current_user), precision: 2) + '%'
+          .col.text-center
+            %span.stat= number_with_precision(@uni_module.achieved_score(current_user), precision: 2) + '%'
 
         = render 'exams'
     .col
