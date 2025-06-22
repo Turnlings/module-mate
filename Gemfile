@@ -49,6 +49,10 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem 'rspec-rails'
   gem 'factory_bot_rails'
+
+  gem 'rubocop', require: false
+  gem 'brakeman', require: false
+  gem 'bundler-audit', require: false
 end
 
 group :development do
@@ -78,3 +82,5 @@ gem "devise", "~> 4.9"
 gem "kaminari", "~> 1.2"
 
 gem "dotenv-rails", "~> 3.1"
+
+gem 'rack', '>= 3.1.16'
