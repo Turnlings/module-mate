@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class ExamResultsController < ApplicationController
   before_action :set_exam_result, only: [:update]
-  
+
   def create
     @exam = Exam.find(params[:exam_result][:exam_id])
     @uni_module = @exam.uni_module
@@ -23,15 +25,16 @@ class ExamResultsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_exam_result
-      @exam_result = ExamResult.find(params[:id])
-      @exam = @exam_result.exam
-      @uni_module = @exam.uni_module
-    end
 
-    # Only allow a list of trusted parameters through.
-    def exam_result_params
-      params.require(:exam_result).permit(:score, :exam_id, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_exam_result
+    @exam_result = ExamResult.find(params[:id])
+    @exam = @exam_result.exam
+    @uni_module = @exam.uni_module
+  end
+
+  # Only allow a list of trusted parameters through.
+  def exam_result_params
+    params.require(:exam_result).permit(:score, :exam_id, :user_id)
+  end
 end

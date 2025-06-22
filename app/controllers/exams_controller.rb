@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ExamsController < ApplicationController
-  before_action :set_exam, only: %i[ show edit update destroy ]
+  before_action :set_exam, only: %i[show edit update destroy]
 
   # GET /exams or /exams.json
   def index
@@ -21,11 +23,11 @@ class ExamsController < ApplicationController
   def edit
     @uni_module = @exam.uni_module
 
-    if @exam.result(current_user).nil?
-      @exam_result = ExamResult.new(user: current_user, exam: @exam)
-    else
-      @exam_result = @exam.result(current_user)
-    end
+    @exam_result = if @exam.result(current_user).nil?
+                     ExamResult.new(user: current_user, exam: @exam)
+                   else
+                     @exam.result(current_user)
+                   end
   end
 
   # POST /exams or /exams.json
@@ -35,7 +37,7 @@ class ExamsController < ApplicationController
 
     respond_to do |format|
       if @exam.save
-        format.html { redirect_to uni_module_exam_path(@uni_module, @exam), notice: "Exam was successfully created." }
+        format.html { redirect_to uni_module_exam_path(@uni_module, @exam), notice: 'Exam was successfully created.' }
         format.json { render :show, status: :created, location: @exam }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -47,10 +49,10 @@ class ExamsController < ApplicationController
   # PATCH/PUT /exams/1 or /exams/1.json
   def update
     @uni_module = @exam.uni_module
-    
+
     respond_to do |format|
       if @exam.update(exam_params)
-        format.html { redirect_to uni_module_exam_path(@uni_module, @exam), notice: "Exam was successfully updated." }
+        format.html { redirect_to uni_module_exam_path(@uni_module, @exam), notice: 'Exam was successfully updated.' }
         format.json { render :show, status: :ok, location: @exam }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -65,19 +67,22 @@ class ExamsController < ApplicationController
     @exam.destroy!
 
     respond_to do |format|
-      format.html { redirect_to uni_module_path(@uni_module), status: :see_other, notice: "Exam was successfully destroyed." }
+      format.html do
+        redirect_to uni_module_path(@uni_module), status: :see_other, notice: 'Exam was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_exam
-      @exam = Exam.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def exam_params
-      params.require(:exam).permit(:weight, :name, :type, :uni_module_id, :due)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_exam
+    @exam = Exam.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def exam_params
+    params.require(:exam).permit(:weight, :name, :type, :uni_module_id, :due)
+  end
 end

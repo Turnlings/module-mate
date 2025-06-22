@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Coursework
   class Solo < Exam
     # Override for path helpers

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class YearsController < ApplicationController
-  before_action :set_year, only: %i[ show edit update destroy ]
+  before_action :set_year, only: %i[show edit update destroy]
 
   # GET /years or /years.json
   def index
@@ -7,8 +9,7 @@ class YearsController < ApplicationController
   end
 
   # GET /years/1 or /years/1.json
-  def show
-  end
+  def show; end
 
   # GET /years/new
   def new
@@ -16,8 +17,7 @@ class YearsController < ApplicationController
   end
 
   # GET /years/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /years or /years.json
   def create
@@ -28,7 +28,7 @@ class YearsController < ApplicationController
 
     respond_to do |format|
       if @year.save
-        format.html { redirect_to @year, notice: "Year was successfully created." }
+        format.html { redirect_to @year, notice: 'Year was successfully created.' }
         format.json { render :show, status: :created, location: @year }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +41,7 @@ class YearsController < ApplicationController
   def update
     respond_to do |format|
       if @year.update(year_params)
-        format.html { redirect_to @year, notice: "Year was successfully updated." }
+        format.html { redirect_to @year, notice: 'Year was successfully updated.' }
         format.json { render :show, status: :ok, location: @year }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,19 +55,20 @@ class YearsController < ApplicationController
     @year.destroy!
 
     respond_to do |format|
-      format.html { redirect_to years_path, status: :see_other, notice: "Year was successfully destroyed." }
+      format.html { redirect_to years_path, status: :see_other, notice: 'Year was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_year
-      @year = Year.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def year_params
-      params.require(:year).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_year
+    @year = Year.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def year_params
+    params.require(:year).permit(:name)
+  end
 end
