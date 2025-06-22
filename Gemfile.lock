@@ -121,6 +121,11 @@ GEM
     drb (2.2.3)
     erb (5.0.1)
     erubi (1.13.1)
+    factory_bot (6.5.4)
+      activesupport (>= 6.1.0)
+    factory_bot_rails (6.5.0)
+      factory_bot (~> 6.5)
+      railties (>= 6.1.0)
     ffi (1.17.2-x86_64-linux-gnu)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -329,6 +334,7 @@ DEPENDENCIES
   debug
   devise (~> 4.9)
   dotenv-rails (~> 3.1)
+  factory_bot_rails
   groupdate
   haml-rails
   importmap-rails
