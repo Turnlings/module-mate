@@ -1,0 +1,26 @@
+-# Quick-add time
+.gt-card.quicklog
+  %h2 Quicklog
+  = form_with model: @timelog, url: quick_log_path, local: true do |f|
+    .row
+      .col.pe-0
+        = f.text_field :module_code, placeholder: 'Module Code', class: 'form-control'
+      .col.ps-0
+        = f.number_field :minutes, placeholder: 'Minutes', class: 'form-control'
+
+    = f.submit 'Add Time', class: 'mt-1'
+
+-# Modules
+.module-list.mb-3
+  .d-flex.justify-content-between.align-items-center
+    %h2 Modules
+    = link_to "(View All)", uni_modules_path, style: "font-weight: normal;"
+  - if @uni_modules
+    - @uni_modules.each do |m|
+      = link_to m do
+        .row
+          .col-3= m.code
+          .col.text-truncate= m.name
+          .col-2.text-end= "#{number_with_precision(m.weighted_average(current_user), precision: 0)}%"
+        .row.progress-bar.px-12px
+          .progress{style: "width: #{m.completion_percentage(current_user)}%"}

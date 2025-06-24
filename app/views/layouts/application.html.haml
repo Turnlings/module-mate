@@ -10,7 +10,7 @@
     = javascript_importmap_tags
   %body
     %header
-      .container
+      .mx-0.px-3
         .title= link_to "GradeTracker", root_path
         .header-links
           - if user_signed_in?
@@ -30,4 +30,12 @@
           - else 'alert alert-warning'
         %p{class: bootstrap_class}= message
 
-    = yield
+    - if user_signed_in?
+      .container-fluid.d-flex.px-0
+        .sidebar.p-3.flex-shrink-0
+          = render 'layouts/sidebar'
+
+        .main-content.flex-grow-1.p-3
+          = yield
+    - else
+      = yield

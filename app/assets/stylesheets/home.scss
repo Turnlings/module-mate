@@ -8,6 +8,7 @@ body {
 }
 
 .module-list {
+    width: 400px;
     a {
         color: $font-color;
         text-decoration: none;
@@ -52,7 +53,10 @@ body {
 }
 
 .quicklog { /*Can probably switch to gt-form once polished (TODO)*/
+    width: 400px;
+    
     input {
+        height: 30px;
         outline: none;
         border-radius: 5px;
         background-color: $line-color;
@@ -61,18 +65,19 @@ body {
     }
 
     #module_code {
+        margin-right: 4px;
         padding: 0 5px;
-        width: 120px;
     }
 
     #minutes {
+        margin-left: 4px;
         padding: 0 5px;
-        width: 80px;
     }
 
     input[type="submit"] {
         background-color: $highlight-color;
         border: none;
+        width: 100%
     }
 }
 
