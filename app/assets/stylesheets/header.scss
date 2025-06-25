@@ -12,6 +12,19 @@ header {
         text-decoration: none;
     }
 
+    form {
+        display: inline;
+    }
+
+    button {
+        height: 50px;
+        border: none;
+        background-color: $header-color;
+        color: $font-color;
+        text-decoration: none;
+        display: inline;
+    }
+
     .title {
         display: inline-block;
         font-size: 32px;
