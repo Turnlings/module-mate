@@ -20,7 +20,7 @@ class UniModulesController < ApplicationController
 
   # GET /uni_modules/new
   def new
-    @uni_module = UniModule.new
+    @uni_module = UniModule.new(semester_id: params[:semester_id])
   end
 
   # GET /uni_modules/1/edit
@@ -69,6 +69,11 @@ class UniModulesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_uni_module
     @uni_module = UniModule.find(params[:id])
+
+    unless @uni_module.semester.nil?
+      @semester = @uni_module.semester
+      @uni_modules = @semester.uni_modules
+    end
   end
 
   # Only allow a list of trusted parameters through.
