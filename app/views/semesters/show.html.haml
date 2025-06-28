@@ -3,7 +3,20 @@
   %h1.section-heading= @semester.name
 
   -# Stats
-  %span Add Semester Stats Here
+  .row
+    .col.text-center
+      %b Credits
+    .col.text-center
+      %b Weighted Average
+    .col.text-center
+      %b Achieved Score 
+  .row
+    .col.text-center
+      %span.stat= @semester.credits
+    .col.text-center
+      %span.stat= number_with_precision(@semester.weighted_average(current_user), precision: 2) + '%'
+    .col.text-center
+      %span.stat= number_with_precision(@semester.achieved_score(current_user), precision: 2) + '%'
 
   -# Graph
   .gt-card{ style: "display: flex; flex-direction: column; height: 100%;" }
