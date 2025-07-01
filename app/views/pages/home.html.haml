@@ -18,19 +18,10 @@
         - @semesters.each do |s|
           = link_to s do
             .row
-              .col-3= s.year.name
+              .col-4= s.year.name
               .col= s.name
-              .col-3.text-end= "#{number_with_precision(s.weighted_average(current_user), precision: 0)}%"
+              .col-2.text-end= "#{number_with_precision(s.weighted_average(current_user), precision: 0)}%"
 
-      -# Quick-add time
-      .gt-card.quicklog
-        %h2 Quicklog
-        = form_with model: @timelog, url: quick_log_path, local: true do |f|
-          = f.label :module_code
-          = f.text_field :module_code
-          = f.label :minutes
-          = f.number_field :minutes
-          = f.submit 'Add Time'
   %h1.section-heading Assessments
   .row
     .col 
