@@ -12,9 +12,13 @@ class UniModule < ApplicationRecord
     self.code = code.to_s.upcase
   end
 
+  def exams_with_results(user)
+    exams.joins(:exam_results).where(exam_results: { user_id: user.id }).distinct
+  end
+
   # Gets the average score of all of the completed exams so far, weighted by credits
   def weighted_average(user)
-    valid_exams = exams.reject { |exam| exam.score(user).nil? }
+    valid_exams = exams_with_results(user)
     total_weight = valid_exams.sum(&:weight)
     weighted_sum = valid_exams.sum { |exam| exam.weight * exam.adjusted_score(user) }
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
@@ -22,7 +26,7 @@ class UniModule < ApplicationRecord
 
   # Gets the score you have got so far, ie. the score you would get if you stopped now
   def achieved_score(user)
-    valid_exams = exams.reject { |exam| exam.score(user).nil? }
+    valid_exams = exams_with_results(user)
     valid_exams.sum { |exam| exam.adjusted_score(user) * exam.weight / 100 }
   end
 
@@ -30,8 +34,7 @@ class UniModule < ApplicationRecord
   def completion_percentage(user)
     return 0 if exams.empty?
 
-    valid_exams = exams.reject { |exam| exam.score(user).nil? }
-    valid_exams.sum(&:weight)
+    exams_with_results(user).sum(&:weight)
   end
 
   def target(user)
