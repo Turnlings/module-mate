@@ -1,8 +1,22 @@
 .container
   = link_to 'Back to Home', root_path, class: 'link-button'
   %h1.section-heading= @semester.name
-  = link_to 'Share Semester Setup', share_semester_url(@semester.share_token), class: 'link-button'
-
+  %button#copy-share-link.link-button{ type: 'button', 'data-clipboard-text' => share_semester_url(@semester.share_token) } Copy Share Link
+  %span#copy-success{ style: 'display:none; margin-left: 10px; color: green;' } Copied!
+  :javascript
+    //= require clipboard if using asset pipeline, or import in JS if using importmap
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.ClipboardJS) {
+        var clipboard = new ClipboardJS('#copy-share-link');
+        clipboard.on('success', function(e) {
+          var success = document.getElementById('copy-success');
+          success.style.display = 'inline';
+          setTimeout(function() { success.style.display = 'none'; }, 1500);
+          e.clearSelection();
+        });
+      }
+    });
+  
   -# Stats
   .row
     .col.text-center

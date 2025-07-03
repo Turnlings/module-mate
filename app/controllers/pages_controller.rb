@@ -2,11 +2,16 @@
 
 class PagesController < ApplicationController
   def home
-    @uni_modules = UniModule.all
-    @semesters = Semester.all
+    @uni_modules = UniModule.joins(semester: :year)
+                           .where(years: { user_id: current_user.id })
+                           .includes(:timelogs, semester: :year)
+
+    @semesters = Semester.joins(:year)
+                         .where(years: { user_id: current_user.id })
+                         .includes(:uni_modules)
 
     # Get the cumulative time logged for each module
-    @module_data = UniModule.includes(:timelogs).where(timelogs: { user_id: current_user.id }).map do |mod|
+    @module_data = @uni_modules.map do |mod|
       raw_data = mod.timelogs.for_user(current_user).group_by_day(:created_at).sum(:minutes)
       cumulative = {}
       total = 0
@@ -14,16 +19,22 @@ class PagesController < ApplicationController
         total += minutes
         cumulative[date] = total
       end
-
       {
         name: mod.name,
         data: cumulative
       }
     end
 
-    @exam_type_data = Exam.joins(:uni_module).group(:type).sum('exams.weight * uni_modules.credits / 100')
+    @exam_type_data = Exam.joins(:uni_module)
+                          .where(uni_modules: { id: @uni_modules.map(&:id) })
+                          .group(:type)
+                          .sum('exams.weight * uni_modules.credits / 100')
 
-    @next_exam = Exam.where('due > ?', Time.current).order(:due).first
+    @next_exam = Exam.joins(:uni_module)
+                     .where('due > ?', Time.current)
+                     .where(uni_modules: { id: @uni_modules.map(&:id) })
+                     .order(:due)
+                     .first
   end
 
   # Allows for the user to give a module code and minutes and get the time quickly logged

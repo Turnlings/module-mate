@@ -5,16 +5,20 @@ class UniModulesController < ApplicationController
 
   # GET /uni_modules or /uni_modules.json
   def index
-    @uni_modules = UniModule.all
+    @uni_modules = UniModule.joins(semester: :year).where(years: { user_id: current_user.id })
   end
 
   # GET /uni_modules/1 or /uni_modules/1.json
   def show
+    # TODO: implement better security check using CanCanCan or similar
+    unless @uni_module.semester.year.user_id == current_user.id
+      redirect_to uni_modules_path, alert: 'You are not authorized to view this module.'
+      return
+    end
     @exam_data = Exam
                  .where(uni_module: @uni_module)
                  .pluck(:name, :weight)
                  .to_h
-
     @timelogs = @uni_module.timelogs.for_user(current_user).page(params[:page]).per(5)
   end
 

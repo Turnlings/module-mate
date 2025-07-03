@@ -5,7 +5,7 @@ class YearsController < ApplicationController
 
   # GET /years or /years.json
   def index
-    @years = Year.all
+    @years = current_user.years
   end
 
   # GET /years/1 or /years/1.json

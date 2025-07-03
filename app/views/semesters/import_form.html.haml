@@ -1,0 +1,25 @@
+%h2 Import Semester: #{@semester.name}
+
+= form_with url: import_semester_path(@semester.share_token), method: :post, local: true do |f|
+  .form-group
+    = label_tag :year_id, 'Select Year'
+    = select_tag :year_id, options_for_select(@years.map { |y| [y.name, y.id] } + [["Create New Year...", "new"]]), prompt: "Choose a year", class: 'form-control', id: 'year-select'
+  .form-group#new-year-group{ style: 'display:none;' }
+    = label_tag :new_year_name, 'New Year Name'
+    = text_field_tag :new_year_name, '', class: 'form-control'
+  = f.submit 'Import', class: 'btn btn-success'
+
+:javascript
+  document.addEventListener('DOMContentLoaded', function() {
+    var yearSelect = document.getElementById('year-select');
+    var newYearGroup = document.getElementById('new-year-group');
+    if (yearSelect) {
+      yearSelect.addEventListener('change', function() {
+        if (yearSelect.value === 'new') {
+          newYearGroup.style.display = 'block';
+        } else {
+          newYearGroup.style.display = 'none';
+        }
+      });
+    }
+  });
