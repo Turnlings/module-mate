@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   resources :years
   resources :semesters
+  get 'semesters/share/:share_token', to: 'semesters#share', as: :share_semester
   resources :uni_modules do
     resources :exams
     resources :timelogs

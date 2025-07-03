@@ -1,6 +1,7 @@
 .container
   = link_to 'Back to Home', root_path, class: 'link-button'
   %h1.section-heading= @semester.name
+  = link_to 'Share Semester Setup', share_semester_url(@semester.share_token), class: 'link-button'
 
   -# Stats
   .row

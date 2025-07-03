@@ -79,6 +79,12 @@ class SemestersController < ApplicationController
     end
   end
 
+  # GET /semesters/share/:share_token
+  def share
+    @semester = Semester.find_by!(share_token: params[:share_token])
+    # Only show structure, not grades
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

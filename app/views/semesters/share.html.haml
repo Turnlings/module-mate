@@ -1,0 +1,6 @@
+%h2= @semester.name
+- @semester.uni_modules.each do |mod|
+  %h3= mod.name
+  %ul
+    - mod.exams.each do |exam|
+      %li= "#{exam.name} (Weight: #{exam.weight})"
