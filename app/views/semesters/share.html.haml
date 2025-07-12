@@ -1,9 +1,9 @@
 %h2= @semester.name
+= form_with url: import_form_semester_path(@semester.share_token), method: :get, local: true do
+  = submit_tag 'Import this Semester to My Account', class: 'link-button mb-3', data: { confirm: 'Are you sure? This will copy the semester structure to your account.' }
+
 - @semester.uni_modules.each do |mod|
   %h3= mod.name
   %ul
     - mod.exams.each do |exam|
       %li= "#{exam.name} (Weight: #{exam.weight})"
-
-= form_with url: import_form_semester_path(@semester.share_token), method: :get, local: true do
-  = submit_tag 'Import this Semester to My Account', class: 'btn btn-success', data: { confirm: 'Are you sure? This will copy the semester structure to your account.' }
