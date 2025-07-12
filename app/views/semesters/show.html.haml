@@ -1,7 +1,9 @@
 .container
   = link_to 'Back to Home', root_path, class: 'link-button'
   %h1.section-heading= @semester.name
-
+  %button#copy-share-link.link-button{ type: 'button', 'data-clipboard-text' => share_semester_url(@semester.share_token) } Copy Share Link
+  %span#copy-success{ style: 'display:none; margin-left: 10px; color: green;' } Copied!
+  
   -# Stats
   .row
     .col.text-center

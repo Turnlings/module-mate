@@ -4,6 +4,8 @@ class Semester < ApplicationRecord
   has_many :uni_modules, dependent: :destroy
   belongs_to :year
 
+  before_create :generate_share_token
+
   def credits 
     uni_modules.sum(:credits)
   end
@@ -19,5 +21,11 @@ class Semester < ApplicationRecord
     total_weight = uni_modules.sum(&:credits)
     weighted_sum = uni_modules.sum { |m| m.credits * m.achieved_score(user) }
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
+  end
+
+  private
+
+  def generate_share_token
+    self.share_token ||= SecureRandom.urlsafe_base64(10)
   end
 end

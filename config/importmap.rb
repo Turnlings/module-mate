@@ -11,3 +11,4 @@ pin_all_from 'app/javascript/controllers', under: 'controllers'
 pin 'chartkick', to: 'https://cdn.jsdelivr.net/npm/chartkick@5.0.1/dist/chartkick.min.js'
 pin 'chart.js', to: 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js'
 pin 'chartjs-adapter-date-fns', to: 'https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js'
+pin "clipboard" # @2.0.11
