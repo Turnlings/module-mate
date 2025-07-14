@@ -86,6 +86,31 @@ body {
     border-top: 1px solid $background-color;
 }
 
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid $line-color;
+    margin-bottom: 10px;
+
+    .left-button,
+    .right-button {
+        flex: 1 1 0;
+        display: flex; 
+        
+    }
+
+    .right-button {
+        justify-content: flex-end;
+    }
+
+    h1 {
+        flex: 1 1 auto;
+        margin: 0;
+        text-align: center;
+    }
+}
+
 .section-heading {
     border-bottom: 2px solid $line-color;
     display: flex;
