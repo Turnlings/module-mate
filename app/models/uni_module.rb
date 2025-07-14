@@ -2,8 +2,8 @@
 
 class UniModule < ApplicationRecord
   belongs_to :semester, optional: true
-  has_many :exams
-  has_many :timelogs
+  has_many :exams, dependent: :destroy
+  has_many :timelogs, dependent: :destroy
   has_many :uni_module_targets, dependent: :destroy
 
   before_save :normalize_module_code

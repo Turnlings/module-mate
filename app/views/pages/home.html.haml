@@ -1,4 +1,21 @@
 .container
+  - @years.each do |year|
+    .gt-card 
+      .row
+        %h2.col= year.name
+        .col-2.text-end= "#{number_with_precision(year.achieved_score(current_user), precision: 0)}%"
+      - year.semesters.each do |semester|
+        .row
+          .col= semester.name
+          .col-2.text-end= "#{number_with_precision(semester.weighted_average(current_user), precision: 0)}%"
+      = link_to 'More Details', semesters_path(year), class: 'link-button'
+
+
+
+  = link_to '+ New Year', new_year_path, class: 'link-button'
+
+
+
   %h1.section-heading Dashboard
   .row.mb-3
     .col
@@ -18,8 +35,8 @@
         - @semesters.each do |s|
           = link_to s do
             .row
-              .col-4= s.year.name
-              .col= s.name
+              .col-3= s.name
+              .col.text-truncate= s.year.name
               .col-2.text-end= "#{number_with_precision(s.weighted_average(current_user), precision: 0)}%"
 
   %h1.section-heading Assessments

@@ -1,0 +1,24 @@
+@import "variables";
+
+.icon-button {
+  background: none;
+  border: none;
+  color: $font-color;
+  cursor: pointer;
+  padding: 0;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  &:hover {
+    color: darken($font-color, 10%);
+  }
+}
+
+.button-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}

@@ -13,7 +13,7 @@
 -# Modules
 .module-list.mb-3
   .d-flex.justify-content-between.align-items-center
-    %h2 Modules
+    %h2 Current Modules
     = link_to "(View All)", uni_modules_path, style: "font-weight: normal;"
   - if @uni_modules
     - @uni_modules.each do |m|
@@ -21,6 +21,6 @@
         .row
           .col-3= m.code
           .col.text-truncate= m.name
-          .col-2.text-end= "#{number_with_precision(m.weighted_average(current_user), precision: 0)}%"
+          -#.col-2.text-end= "#{number_with_precision(m.weighted_average(current_user), precision: 0)}%"
         .row.progress-bar.px-12px
           .progress{style: "width: #{m.completion_percentage(current_user)}%"}
