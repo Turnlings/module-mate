@@ -11,9 +11,8 @@ RSpec.describe 'Module management', type: :system do
     uni_module = create(:uni_module, user: user)
     visit uni_module_path(uni_module)
 
-    within '#assessments' do
-      click_on 'Add'
-    end
+    find('a[title="Add Assessment"]').click
+
     fill_in 'Weight', with: 10
     fill_in 'Name', with: 'Test Exam'
     click_on 'Save'
