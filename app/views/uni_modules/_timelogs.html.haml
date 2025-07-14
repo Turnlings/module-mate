@@ -1,23 +1,23 @@
 .gt-card
   .card-heading
     %h2 Timelog
-    = link_to 'Add', new_uni_module_timelog_path(@uni_module)
+    .icon-button
+      = link_to new_uni_module_timelog_path(@uni_module) do
+        %i.fa-solid.fa-plus
   %table.gt-table.mt-0
     %thead
       %tr
         %th Minutes
         %th Description
-        %th
-        %th
-        %th
+        %th 
 
     %tbody
       - @timelogs.each do |timelog|
         %tr
           %td= timelog.minutes
           %td= timelog.description
-          %td= link_to 'Show', uni_module_timelog_path(@uni_module, timelog)
-          %td= link_to 'Edit', edit_uni_module_timelog_path(@uni_module, timelog)
-          %td= link_to 'Destroy', uni_module_timelog_path(@uni_module, timelog), method: :delete, data: { confirm: 'Are you sure?' }
-
+          %td.text-end
+            .icon-button
+              = link_to edit_uni_module_timelog_path(@uni_module, timelog) do
+                %i.fa-solid.fa-pen-to-square
   = paginate @timelogs

@@ -1,6 +1,36 @@
-%p#notice= notice
+.section-heading
+  %h1= @year.name
+  .button-row
+    .icon-button
+      = link_to edit_year_path(@year) do
+        %i.fa-solid.fa-pen-to-square
+
+-# Stats
+.row
+  .col.text-center
+    %b Credits
+  .col.text-center
+    %b Weighted Average
+  .col.text-center
+    %b Achieved Score 
+.row
+  .col.text-center
+    %span.stat= @year.credits
+  .col.text-center
+    %span.stat= number_with_precision(@year.weighted_average(current_user), precision: 2) + '%'
+  .col.text-center
+    %span.stat= number_with_precision(@year.achieved_score(current_user), precision: 2) + '%'
+
+- @year.semesters.each do |semester|
+  .gt-card
+    .card-heading
+      %h2= semester.name
+      .button-row
+        .icon-button
+          = link_to semester do
+            %i.fa-solid.fa-square-arrow-up-right
 
 
-= link_to 'Edit', edit_year_path(@year)
-\|
-= link_to 'Back', years_path
+= link_to '+ New Semester', new_semester_path(year_id: @year.id), class: 'link-button'
+
+= link_to 'Back', root_path

@@ -12,7 +12,7 @@
     
   .field
     = f.label :year_id, "Year"
-    = f.collection_select :year_id, Year.all, :id, :name, prompt: "Select Year"
+    = f.collection_select :year_id, current_user.years, :id, :name, prompt: "Select Year"
 
   .actions
     = f.submit 'Save'

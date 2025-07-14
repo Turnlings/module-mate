@@ -20,7 +20,9 @@ class TimelogsController < ApplicationController
   end
 
   # GET /timelogs/1/edit
-  def edit; end
+  def edit
+    @uni_module = @timelog.uni_module
+  end
 
   # POST /timelogs or /timelogs.json
   def create

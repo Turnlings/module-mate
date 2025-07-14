@@ -9,7 +9,9 @@
       .gt-card
         .card-heading
           %h1= @uni_module.code + ' - ' + @uni_module.name
-          = link_to 'Edit', edit_uni_module_path(@uni_module)
+          .icon-button
+            = link_to edit_uni_module_path(@uni_module) do
+              %i.fa-solid.fa-pen-to-square
         .row
           .col.text-center
             %b Credits

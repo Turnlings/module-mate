@@ -1,6 +1,8 @@
 .card-heading#assessments
   %h2 Assessments
-  = link_to 'Add', new_uni_module_exam_path(@uni_module)
+  .icon-button
+    = link_to new_uni_module_exam_path(@uni_module) do
+      %i.fa-solid.fa-plus
 - if @uni_module.exams.present?
   %table.gt-table.mt-0
     %thead
@@ -18,4 +20,7 @@
           %td= exam.name
           %td= "#{number_with_precision(exam.score(current_user), precision: 2)}%" if exam.score(current_user)
           %td.text-secondary= "#{number_with_precision(exam.target(current_user), precision: 2)}%" if exam.target(current_user)
-          %td.text-end.p-0= link_to 'Edit', edit_uni_module_exam_path(@uni_module, exam), class: 'link-button'
+          %td.text-end
+            .icon-button
+              = link_to edit_uni_module_exam_path(@uni_module, exam) do
+                %i.fa-solid.fa-pen-to-square

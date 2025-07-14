@@ -1,5 +1,5 @@
 .container
-  = link_to 'Back to Home', root_path, class: 'link-button'
+  = link_to "Back to #{@semester.year.name}", year_path(@semester.year), class: 'link-button'
   .section-heading
     %h1= @semester.name
     .button-row
@@ -10,8 +10,6 @@
       %button#copy-share-link.icon-button{ type: 'button', 'data-clipboard-text' => share_semester_url(@semester.share_token) }
         %i.fa-solid.fa-share
       %span#copy-success{ style: 'display:none;' } Copied!
-
-  -# TODO: Put all the buttons as like icons, share, mark current, maybe even edit etc
   
   -# Stats
   .row
@@ -35,8 +33,23 @@
     .chart-container
       = line_chart @module_data, curve: false, legend: false, width: "100%" #, height:"100%"
 
-  -# Modules
-  = link_to 'Add Module', new_uni_module_path(semester_id: @semester.id), class: 'link-button'
+  .gt-card.module-list
+    .card-heading
+      %h2 Modules
+      .icon-button
+        = link_to new_uni_module_path(semester_id: @semester.id) do
+          %i.fa-solid.fa-plus
+    - if @uni_modules.any?
+      - @uni_modules.each do |m|
+        = link_to m do
+          .row
+            .col-3= m.code
+            .col.text-truncate= m.name
+            .col-2.text-end= "#{number_with_precision(m.achieved_score(current_user), precision: 0)}%"
+          .row.progress-bar.px-12px
+            .progress{style: "width: #{m.completion_percentage(current_user)}%"}
+    - else
+      %span No modules in this semester.
    
   %h1.section-heading Assessments
   .row
