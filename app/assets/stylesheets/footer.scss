@@ -1,0 +1,16 @@
+@import "variables";
+
+footer {
+    background-color: $line-color;
+    padding: 10px;
+    display: flex;
+    gap: 1rem;
+    justify-content: center; // or center / flex-start as needed
+    align-items: center;
+
+    a {
+        margin: 0 0.5rem;
+        text-decoration: none;
+        color: inherit;
+    }
+}

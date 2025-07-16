@@ -23,28 +23,33 @@
             %span= "|"
             = link_to "Sign Up", new_user_registration_path
 
-    - if user_signed_in?
-      .container-fluid.d-flex.px-0
-        .sidebar.p-3.flex-shrink-0
-          = render 'layouts/sidebar'
+    %main
+      - if user_signed_in?
+        .container-fluid.d-flex.px-0
+          .sidebar.p-3.flex-shrink-0
+            = render 'layouts/sidebar'
 
-        .main-content.flex-grow-1.p-3
-          .container
-            - flash.each do |key, message|
-              - bootstrap_class = case key
-                - when 'notice' then 'alert alert-info'
-                - when 'alert' then 'alert alert-danger'
-                - else 'alert alert-warning'
-              %p{class: bootstrap_class}= message
-          = yield
-    - else
-      .container
-        - flash.each do |key, message|
-          - bootstrap_class = case key
-            - when 'notice' then 'alert alert-info'
-            - when 'alert' then 'alert alert-danger'
-            - else 'alert alert-warning'
-          %p{class: bootstrap_class}= message
-          
-      = yield
+          .main-content.flex-grow-1.p-3
+            .container
+              - flash.each do |key, message|
+                - bootstrap_class = case key
+                  - when 'notice' then 'alert alert-info'
+                  - when 'alert' then 'alert alert-danger'
+                  - else 'alert alert-warning'
+                %p{class: bootstrap_class}= message
+            = yield
+      - else
+        .container
+          - flash.each do |key, message|
+            - bootstrap_class = case key
+              - when 'notice' then 'alert alert-info'
+              - when 'alert' then 'alert alert-danger'
+              - else 'alert alert-warning'
+            %p{class: bootstrap_class}= message
+            
+        = yield
+
+    %footer
+      = link_to "GradeTracker", root_path
+      = link_to "Created by Ryan Turner", "https://github.com/Turnlings", target: "_blank", rel: "noopener"
 

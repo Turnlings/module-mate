@@ -5,7 +5,7 @@ header {
     width: 100%;
     line-height: 60px;
     background-color: $header-color;
-    margin-bottom: 10px;
+    border-bottom: 1px solid $line-color;
 
     a {
         color: $font-color;

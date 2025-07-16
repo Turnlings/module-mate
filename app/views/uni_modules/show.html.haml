@@ -1,45 +1,39 @@
-.container
-  - if @uni_module.semester
-    = link_to 'Back to Semester', semester_path(@uni_module.semester), class: 'link-button'
-  - else
-    = link_to 'All Modules', uni_modules_path, class: 'link-button'
+.page-heading 
+  .left-button
+    .icon-button
+      = link_to semester_path(@uni_module.semester) do
+        %i.fa-solid.fa-arrow-left
+  %h1= @uni_module.code + ' - ' + @uni_module.name
+  .right-button.button-row
+    .icon-button
+      = link_to edit_uni_module_path(@uni_module) do
+        %i.fa-solid.fa-pen-to-square
 
-  .page-heading 
-    .left-button
-      .icon-button
-        = link_to semester_path(@uni_module.semester) do
-          %i.fa-solid.fa-arrow-left
-    %h1= @uni_module.code + ' - ' + @uni_module.name
-    .right-button.button-row
-      .icon-button
-        = link_to edit_uni_module_path(@uni_module) do
-          %i.fa-solid.fa-pen-to-square
+.row
+  .col.text-center
+    %b Credits
+  .col.text-center
+    %b Weighted Average
+  .col.text-center
+    %b Achieved Score 
+.row
+  .col.text-center
+    %span.stat= @uni_module.credits
+  .col.text-center
+    %span.stat= number_with_precision(@uni_module.weighted_average(current_user), precision: 2) + '%'
+  .col.text-center
+    %span.stat= number_with_precision(@uni_module.achieved_score(current_user), precision: 2) + '%'
 
-  .row
-    .col.text-center
-      %b Credits
-    .col.text-center
-      %b Weighted Average
-    .col.text-center
-      %b Achieved Score 
-  .row
-    .col.text-center
-      %span.stat= @uni_module.credits
-    .col.text-center
-      %span.stat= number_with_precision(@uni_module.weighted_average(current_user), precision: 2) + '%'
-    .col.text-center
-      %span.stat= number_with_precision(@uni_module.achieved_score(current_user), precision: 2) + '%'
+.row
+  .col
+    .gt-card
+      = render 'exams'
+  .col-auto
+    .gt-card
+      %h2 Assessment Type
+      .chart-container
+        = pie_chart @exam_data, legend: false, width: '250px', height: '250px'
 
-  .row
-    .col
-      .gt-card
-        = render 'exams'
-    .col-auto
-      .gt-card
-        %h2 Assessment Type
-        .chart-container
-          = pie_chart @exam_data, legend: false, width: '250px', height: '250px'
-
-  .row
-    .col
-      = render 'timelogs'
+.row
+  .col
+    = render 'timelogs'

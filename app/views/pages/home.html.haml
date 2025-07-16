@@ -1,58 +1,60 @@
-.container
-  - @years.each do |year|
-    .gt-card 
+.page-heading
+  .left-button
+  %h1 Dashboard
+  .right-button.button-row
+
+-# Stats
+.row
+  .col.text-center
+    %b Credits
+  .col.text-center
+    %b Weighted Average
+  .col.text-center
+    %b Achieved Score 
+.row
+  .col.text-center
+    %span.stat= current_user.credits
+  .col.text-center
+    %span.stat= number_with_precision(current_user.weighted_average, precision: 2) + '%'
+  .col.text-center
+    %span.stat= number_with_precision(current_user.achieved_score, precision: 2) + '%'
+
+- @years.each do |year|
+  .gt-card 
+    .row
+      %h2.col= year.name
+      .col-2.text-end= "#{number_with_precision(year.achieved_score(current_user), precision: 0)}%"
+    - year.semesters.each do |semester|
       .row
-        %h2.col= year.name
-        .col-2.text-end= "#{number_with_precision(year.achieved_score(current_user), precision: 0)}%"
-      - year.semesters.each do |semester|
-        .row
-          .col= semester.name
-          .col-2.text-end= "#{number_with_precision(semester.weighted_average(current_user), precision: 0)}%"
-      = link_to 'More Details', year_path(year), class: 'link-button'
+        .col= semester.name
+        .col-2.text-end= "#{number_with_precision(semester.weighted_average(current_user), precision: 0)}%"
+    = link_to 'More Details', year_path(year), class: 'link-button'
 
+= link_to '+ New Year', new_year_path, class: 'link-button'
 
+%h1.section-heading Statistics
+.row.mb-3
+  .col
+    -# Graph on left
+    .gt-card{ style: "display: flex; flex-direction: column; height: 100%;" }
+      %h2 Your Time Spent
+      .chart-container
+        = line_chart @module_data, curve: false, legend: false, width: "100%" #, height:"100%"
 
-  = link_to '+ New Year', new_year_path, class: 'link-button'
-
-
-
-  %h1.section-heading Dashboard
-  .row.mb-3
-    .col
-      -# Graph on left
-      .gt-card{ style: "display: flex; flex-direction: column; height: 100%;" }
-        %h2 Your Time Spent
-        .chart-container
-          = line_chart @module_data, curve: false, legend: false, width: "100%" #, height:"100%"
-
-    
-    .col
-      -# Modules
-      .gt-card.module-list.mb-3
-        .d-flex.justify-content-between.align-items-center
-          %h2 Semesters
-          = link_to "(View All)", semesters_path, style: "font-weight: normal;"
-        - @semesters.each do |s|
-          = link_to s do
-            .row
-              .col-3= s.name
-              .col.text-truncate= s.year.name
-              .col-2.text-end= "#{number_with_precision(s.weighted_average(current_user), precision: 0)}%"
-
-  %h1.section-heading Assessments
-  .row
-    .col 
-      .gt-card
-        %h2 Upcoming Assessments
-        - if @next_exam
-          = link_to @next_exam.name, uni_module_exam_path(@next_exam.uni_module, @next_exam)
-          %span.d-block
-            %b Due:
-            = @next_exam.due.strftime("%d %b %Y, %H:%M")
-        - else 
-          %span No upcoming assessments.
-    .col
-      .gt-card
-        %h2 Assessment Type
-        .chart-container
-          = pie_chart @exam_type_data, legend: false, width: "100%" #, height:"100%"
+%h1.section-heading Assessments
+.row
+  .col 
+    .gt-card
+      %h2 Upcoming Assessments
+      - if @next_exam
+        = link_to @next_exam.name, uni_module_exam_path(@next_exam.uni_module, @next_exam)
+        %span.d-block
+          %b Due:
+          = @next_exam.due.strftime("%d %b %Y, %H:%M")
+      - else 
+        %span No upcoming assessments.
+  .col
+    .gt-card
+      %h2 Assessment Type
+      .chart-container
+        = pie_chart @exam_type_data, legend: false, width: "100%" #, height:"100%"

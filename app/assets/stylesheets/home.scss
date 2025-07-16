@@ -1,10 +1,21 @@
 @import "variables";
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 body {
     background-color: $background-color;
     color: $font-color;
     font-family: Roboto, sans-serif;
     font-size: $font-size;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
 }
 
 .module-list {
@@ -18,10 +29,10 @@ body {
 .gt-card {
     padding: $roundness;
     border-radius: $roundness;
-    background-color: $line-color;
+    //background-color: $line-color;
     border: 1px solid $line-color;
-    margin: 10px 0;
-    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2);
+    margin: 0 0 10px;
+    //box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2);
 }
 
 .chart-container {
@@ -53,7 +64,7 @@ body {
 }
 
 .quicklog { /*Can probably switch to gt-form once polished (TODO)*/
-    width: 400px;
+    //width: 400px;
     margin-top: 0;
     
     input {
@@ -84,6 +95,7 @@ body {
 
 .exam-row {
     border-top: 1px solid $background-color;
+    background-color: $background-color;
 }
 
 .page-heading {
@@ -172,11 +184,16 @@ body {
         border-bottom: 1px solid $background-color;
     }
 
-    tr:nth-child(even) {
-        background-color: $line-color;
-    }
+    // tr:nth-child(even) {
+    //     background-color: $line-color;
+    // }
 }
 
 .stat {
     font-size: 40px;
+}
+
+.sidebar {
+    max-width: 400px;
+    border-right: 1px solid $line-color;
 }
