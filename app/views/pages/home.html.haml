@@ -28,7 +28,9 @@
       .row
         .col= semester.name
         .col-2.text-end= "#{number_with_precision(semester.weighted_average(current_user), precision: 0)}%"
-    = link_to 'More Details', year_path(year), class: 'link-button'
+    .text-end.icon-button
+      = link_to year_path(year) do
+        %i.fa-solid.fa-arrow-right
 
 = link_to '+ New Year', new_year_path, class: 'link-button'
 

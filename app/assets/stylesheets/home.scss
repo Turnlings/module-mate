@@ -196,4 +196,27 @@ main {
 .sidebar {
     max-width: 400px;
     border-right: 1px solid $line-color;
+
+    a {
+        color: $font-color;
+        text-decoration: none;
+    }
+
+    .due-date {
+        color: $line-color;
+        font-size: 0.9em;
+        font-style: italic;
+    }
+}
+
+.form-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    margin-bottom: 0.5rem;
+
+    h1 {
+        margin: 0;
+    }
 }

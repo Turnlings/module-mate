@@ -11,9 +11,9 @@
     = f.submit 'Add Time', class: 'mt-1'
 
 -# Modules
-.module-list.mb-3
+.gt-card.module-list
   .d-flex.justify-content-between.align-items-center
-    %h2 Current Modules
+    %h2 Pinned Modules
     = link_to "(View All)", uni_modules_path, style: "font-weight: normal;"
   - if @uni_modules
     - @uni_modules.each do |m|
@@ -24,3 +24,22 @@
           -#.col-2.text-end= "#{number_with_precision(m.weighted_average(current_user), precision: 0)}%"
         .row.progress-bar.px-12px
           .progress{style: "width: #{m.completion_percentage(current_user)}%"}
+
+.gt-card
+  %h2 Upcoming Assessments
+  - if @next_exams
+    - @next_exams.each do |exam|
+      = link_to uni_module_exam_path(exam.uni_module, exam) do 
+        .row
+          .col-12
+            .row 
+              .col-4= exam.uni_module.code
+              .col.text-truncate= exam.name
+              .col-1.text-end.icon-button.pe-3
+                %i.fa-solid.fa-arrow-right
+            .row
+              .col.due-date
+                Due:
+                = exam.due.strftime("%d %b %Y, %H:%M")
+  - else 
+    %span No upcoming assessments.

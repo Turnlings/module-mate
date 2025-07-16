@@ -1,7 +1,8 @@
-%h1 Editing year
+.gt-card.gt-form
+  .form-heading
+    .icon-button
+      = link_to @year do
+        %i.fa-solid.fa-arrow-left
+    %h1 Editing year
 
-= render 'form'
-
-= link_to 'Show', @year
-\|
-= link_to 'Back', years_path
+  = render 'form'

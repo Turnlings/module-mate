@@ -32,11 +32,11 @@ class PagesController < ApplicationController
                           .group(:type)
                           .sum('exams.weight * uni_modules.credits / 100')
 
-    @next_exam = Exam.joins(:uni_module)
+    @next_exams = Exam.joins(:uni_module)
                      .where('due > ?', Time.current)
                      .where(uni_modules: { id: @uni_modules.map(&:id) })
                      .order(:due)
-                     .first
+                     .limit(3)
   end
 
   # Allows for the user to give a module code and minutes and get the time quickly logged
