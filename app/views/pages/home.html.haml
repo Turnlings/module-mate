@@ -20,17 +20,39 @@
     %span.stat= number_with_precision(current_user.achieved_score, precision: 2) + '%'
 
 - @years.each do |year|
+  -# .gt-card 
+  -#   .row
+  -#     %h2.col= year.name
+  -#     %h2.col-3.text-end= "#{number_with_precision(year.achieved_score(current_user), precision: 0)}%"
+  -#   - year.semesters.each do |semester|
+  -#     .row
+  -#       .col= semester.name
+  -#       .col-2.text-end= "#{number_with_precision(semester.weighted_average(current_user), precision: 0)}%"
+  -#   .text-end.icon-button
+  -#     = link_to year_path(year) do
+  -#       %i.fa-solid.fa-arrow-right
+
   .gt-card 
-    .row
-      %h2.col= year.name
-      %h2.col-3.text-end= "#{number_with_precision(year.achieved_score(current_user), precision: 0)}%"
-    - year.semesters.each do |semester|
+    .card-heading
+      %h2= year.name
+      .icon-button
+        = link_to year_path(year) do
+          %i.fa-solid.fa-arrow-right
+    .container-flex
       .row
-        .col= semester.name
-        .col-2.text-end= "#{number_with_precision(semester.weighted_average(current_user), precision: 0)}%"
-    .text-end.icon-button
-      = link_to year_path(year) do
-        %i.fa-solid.fa-arrow-right
+        .col Weighting
+        .col Progress
+        .col Achieved
+      .row 
+        .col Place%
+        .col= "#{number_with_precision(year.progress(current_user), precision: 0)}%"
+        .col= "#{number_with_precision(year.achieved_score(current_user), precision: 0)}%"
+      .row
+        .col.progress-bar
+        .col.progress-bar
+          .progress{style: "width: #{year.progress(current_user)}%"}
+        .col.progress-bar
+          .progress{style: "width: #{year.achieved_score(current_user)}%"}
 
 = link_to '+ New Year', new_year_path, class: 'card-button'
 
