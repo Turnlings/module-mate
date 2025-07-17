@@ -39,7 +39,7 @@
         = link_to year_path(year) do
           %i.fa-solid.fa-arrow-right
     .container-flex
-      .row
+      .row.font-secondary
         .col Weighting
         .col Progress
         .col Achieved
@@ -48,10 +48,10 @@
         .col= "#{number_with_precision(year.progress(current_user), precision: 0)}%"
         .col= "#{number_with_precision(year.achieved_score(current_user), precision: 0)}%"
       .row
-        .col.progress-bar
-        .col.progress-bar
+        .col.progress-bar.mx-12px
+        .col.progress-bar.mx-12px
           .progress{style: "width: #{year.progress(current_user)}%"}
-        .col.progress-bar
+        .col.progress-bar.mx-12px
           .progress{style: "width: #{year.achieved_score(current_user)}%"}
 
 = link_to '+ New Year', new_year_path, class: 'card-button'

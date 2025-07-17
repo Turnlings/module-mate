@@ -198,8 +198,7 @@ main {
     }
 
     .due-date {
-        color: $line-color;
-        font-size: 0.9em;
+        color: $font-secondary-color;
         font-style: italic;
     }
 
@@ -215,4 +214,9 @@ main {
     width: 100px !important;
     flex: 0 0 100px;
     max-width: 100px;
+}
+
+.font-secondary {
+    color: $font-secondary-color;
+    font-size: 0.8em;
 }

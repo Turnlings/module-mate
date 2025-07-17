@@ -27,7 +27,7 @@
 }
 
 .card-button {
-  color: $line-color;
+  color: $font-secondary-color;
   text-align: center;
   padding: $roundness;
   border-radius: $roundness;
@@ -36,6 +36,7 @@
   margin: 0 0 10px;
   max-width: 100%;
   text-decoration: none;
+  font-size: 0.8em;
 
   &:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
