@@ -6,7 +6,9 @@
         %ul
           - @uni_module.errors.full_messages.each do |message|
             %li= message
-
+    .field
+      = f.label :semester_id, "Semester"
+      = f.collection_select :semester_id, Semester.all, :id, :name, prompt: "Select a Semester"
     .field
       = f.label :code
       = f.text_field :code
@@ -16,9 +18,6 @@
     .field 
       = f.label :credits
       = f.number_field :credits
-    .field
-      = f.label :semester_id, "Semester"
-      = f.collection_select :semester_id, Semester.all, :id, :name, prompt: "Select a Semester"
 
     .actions
       = f.submit 'Save'

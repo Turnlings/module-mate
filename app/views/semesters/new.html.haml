@@ -1,8 +1,6 @@
-%h1 New semester
+.form-card-container
+  .gt-card
+    .card-heading
+      %h1 New Semester
 
-= render 'form'
-
-- if @semester.year_id
-  = link_to 'Back to Year', year_path(@semester.year_id), class: 'link-button'
-- else
-  = link_to 'Back to Semesters', semesters_path, class: 'link-button'
+    = render 'form'
