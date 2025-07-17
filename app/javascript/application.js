@@ -23,6 +23,14 @@ function setupClipboard() {
   }
 }
 
+window.addEventListener('resize', function() {
+  if (window.Chartkick && Chartkick.charts) {
+    for (const chartId in Chartkick.charts) {
+      Chartkick.charts[chartId].redraw();
+    }
+  }
+});
+
 // For Turbo/Hotwire
 document.addEventListener('turbo:load', setupClipboard);
 // For non-Turbo fallback

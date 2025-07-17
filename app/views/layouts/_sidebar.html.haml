@@ -19,7 +19,7 @@
     - @uni_modules.each do |m|
       = link_to m do
         .row
-          .col-3= m.code
+          .col.mod-code= m.code
           .col.text-truncate= m.name
           -#.col-2.text-end= "#{number_with_precision(m.weighted_average(current_user), precision: 0)}%"
         .row.progress-bar.px-12px
@@ -33,7 +33,7 @@
         .row
           .col-12
             .row 
-              .col-4= exam.uni_module.code
+              .col.mod-code= exam.uni_module.code
               .col.text-truncate= exam.name
               .col-1.text-end.icon-button.pe-3
                 %i.fa-solid.fa-arrow-right

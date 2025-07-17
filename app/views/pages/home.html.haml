@@ -23,7 +23,7 @@
   .gt-card 
     .row
       %h2.col= year.name
-      .col-2.text-end= "#{number_with_precision(year.achieved_score(current_user), precision: 0)}%"
+      %h2.col-3.text-end= "#{number_with_precision(year.achieved_score(current_user), precision: 0)}%"
     - year.semesters.each do |semester|
       .row
         .col= semester.name
@@ -35,13 +35,11 @@
 = link_to '+ New Year', new_year_path, class: 'link-button'
 
 %h1.section-heading Statistics
-.row.mb-3
-  .col
-    -# Graph on left
-    .gt-card{ style: "display: flex; flex-direction: column; height: 100%;" }
-      %h2 Your Time Spent
-      .chart-container
-        = line_chart @module_data, curve: false, legend: false, width: "100%" #, height:"100%"
+-# Graph on left
+.gt-card
+  %h2 Your Time Spent
+  .chart-container
+    = line_chart @module_data, curve: false, legend: false, width: "100%", height:"300px", library: { responsive: true, maintainAspectRatio: false }
 
 %h1.section-heading Assessments
 .row
