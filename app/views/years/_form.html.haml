@@ -11,5 +11,9 @@
       = f.label :name
       = f.text_field :name
 
+    .field
+      = f.label :weighting
+      = f.number_field :weighting, step: 0.01, min: 0, max: 100
+
     .actions
       = f.submit 'Save'
