@@ -46,7 +46,7 @@
       .row 
         .col 
           - if year.weighting.present?
-            = "#{year.weighting}%"
+            = "#{number_with_precision(year.weighting, precision: 0)}%"
           - else
             = "N/A"
         .col= "#{number_with_precision(year.progress(current_user), precision: 0)}%"

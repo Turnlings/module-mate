@@ -18,6 +18,7 @@ class Year < ApplicationRecord
 
   # The percentage of credits completed by the user in this year
   def progress(user)
+    return 0 if semesters.empty?
     completed_credits = semesters.sum { |s| s.progress(user) }
     completed_credits / semesters.count
   end
