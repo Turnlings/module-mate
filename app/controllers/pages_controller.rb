@@ -27,6 +27,20 @@ class PagesController < ApplicationController
       }
     end
 
+    @assessment_data = current_user.exam_results
+                                   .includes(:exam)
+                                   .map { |res| [res.exam.due, res.score] }
+
+    @exam_data = current_user.exam_results
+      .includes(:exam)
+      .select { |res| res.exam&.due.present? && res.score.present? }
+      .map do |res|
+        {
+          name: res.exam.name,
+          data: [[res.exam.due.to_date, res.score.to_f]]
+        }
+      end
+
     @exam_type_data = Exam.joins(:uni_module)
                           .where(uni_modules: { id: @uni_modules.map(&:id) })
                           .group(:type)

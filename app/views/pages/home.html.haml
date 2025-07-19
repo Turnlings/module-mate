@@ -75,16 +75,11 @@
 .row
   .col 
     .gt-card
-      %h2 Upcoming Assessments
-      - if @next_exam
-        = link_to @next_exam.name, uni_module_exam_path(@next_exam.uni_module, @next_exam)
-        %span.d-block
-          %b Due:
-          = @next_exam.due.strftime("%d %b %Y, %H:%M")
-      - else 
-        %span No upcoming assessments.
+      %h2 All Assessments
+      .chart-container
+        = line_chart @exam_data, legend: false, width: "100%", height:"300px", points: true, curve: false 
   .col
     .gt-card
       %h2 Assessment Type
       .chart-container
-        = pie_chart @exam_type_data, legend: false, width: "100%" #, height:"100%"
+        = pie_chart @exam_type_data, legend: false, width: "100%", height:"300px"
