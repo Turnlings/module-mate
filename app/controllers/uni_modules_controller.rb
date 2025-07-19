@@ -6,6 +6,11 @@ class UniModulesController < ApplicationController
   # GET /uni_modules or /uni_modules.json
   def index
     @uni_modules = UniModule.joins(semester: :year).where(years: { user_id: current_user.id })
+
+    if params[:search].present?
+      query = "%#{params[:search]}%"
+      @uni_modules = @uni_modules.where("LOWER(uni_modules.code) LIKE ? OR LOWER(uni_modules.name) LIKE ?", query.downcase, query.downcase)
+    end
   end
 
   # GET /uni_modules/1 or /uni_modules/1.json

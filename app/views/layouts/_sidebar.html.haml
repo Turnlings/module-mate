@@ -22,7 +22,7 @@
           .col.mod-code= m.code
           .col.text-truncate= m.name
           -#.col-2.text-end= "#{number_with_precision(m.weighted_average(current_user), precision: 0)}%"
-        .row.progress-bar.px-12px
+        .row.progress-bar
           .progress{style: "width: #{m.completion_percentage(current_user)}%"}
 
 .gt-card
@@ -38,7 +38,7 @@
               .col-1.text-end.icon-button.pe-3
                 %i.fa-solid.fa-arrow-right
             .row
-              .col.due-date
+              .col.due-date.font-secondary
                 Due:
                 = exam.due.strftime("%d %b %Y, %H:%M")
   - else 

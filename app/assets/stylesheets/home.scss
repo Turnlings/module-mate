@@ -56,28 +56,6 @@ main {
     box-sizing: border-box;
 }
 
-.gt-form {
-    input {
-        padding: 0 5px;
-        outline: none;
-        border-radius: 5px;
-        background-color: $line-color;
-        color: $font-color;
-        border: 2px solid $background-color;
-    }
-
-    input[type="submit"] {
-        background-color: $highlight-color;
-        border: none;
-        padding: 2px 10px;
-        border-radius: 5px;
-
-        &:hover{
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-        }
-    }
-}
-
 .quicklog { /*Can probably switch to gt-form once polished (TODO)*/
     //width: 400px;
     margin-top: 0;
@@ -220,8 +198,7 @@ main {
     }
 
     .due-date {
-        color: $line-color;
-        font-size: 0.9em;
+        color: $font-secondary-color;
         font-style: italic;
     }
 
@@ -233,20 +210,13 @@ main {
     }
 }
 
-.form-heading {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
-    margin-bottom: 0.5rem;
-
-    h1 {
-        margin: 0;
-    }
-}
-
 .col.mod-code {
     width: 100px !important;
     flex: 0 0 100px;
     max-width: 100px;
+}
+
+.font-secondary {
+    color: $font-secondary-color;
+    font-size: 0.8em;
 }

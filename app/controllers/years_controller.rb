@@ -69,6 +69,6 @@ class YearsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def year_params
-    params.require(:year).permit(:name)
+    params.require(:year).permit(:name, :weighting)
   end
 end

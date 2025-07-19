@@ -23,6 +23,12 @@ class Semester < ApplicationRecord
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
 
+  def progress(user)
+    total_credits = uni_modules.sum(:credits)
+    completed_credits = uni_modules.sum { |m| m.completion_percentage(user) * m.credits }
+    total_credits.zero? ? 0 : (completed_credits / total_credits)
+  end
+
   private
 
   def generate_share_token

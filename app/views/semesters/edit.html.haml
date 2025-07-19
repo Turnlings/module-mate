@@ -1,7 +1,9 @@
-%h1 Editing semester
+.form-card-container
+  .gt-card
+    .form-heading
+      .icon-button 
+        = link_to @semester do
+          %i.fa-solid.fa-arrow-left
+      %h1 Editing Semester
 
-= render 'form'
-
-= link_to 'Show', @semester
-\|
-= link_to 'Back', semesters_path
+    = render 'form'
