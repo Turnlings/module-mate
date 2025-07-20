@@ -2,10 +2,6 @@
 
 class PagesController < ApplicationController
   def home
-    @uni_modules = UniModule.joins(semester: :year)
-                           .where(years: { user_id: current_user.id })
-                           .includes(:timelogs, semester: :year)
-
     @semesters = Semester.joins(:year)
                          .where(years: { user_id: current_user.id })
                          .includes(:uni_modules)
@@ -45,12 +41,6 @@ class PagesController < ApplicationController
                           .where(uni_modules: { id: @uni_modules.map(&:id) })
                           .group(:type)
                           .sum('exams.weight * uni_modules.credits / 100')
-
-    @next_exams = Exam.joins(:uni_module)
-                     .where('due > ?', Time.current)
-                     .where(uni_modules: { id: @uni_modules.map(&:id) })
-                     .order(:due)
-                     .limit(3)
   end
 
   # Allows for the user to give a module code and minutes and get the time quickly logged

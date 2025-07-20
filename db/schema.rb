@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_18_211949) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_20_105241) do
   create_table "exam_results", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "exam_id", null: false
@@ -80,6 +80,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_18_211949) do
     t.integer "credits"
     t.integer "semester_id"
     t.decimal "target"
+    t.boolean "pinned", default: false
     t.index ["semester_id"], name: "index_uni_modules_on_semester_id"
   end
 

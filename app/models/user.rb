@@ -27,4 +27,9 @@ class User < ApplicationRecord
     return 0 if years.empty?
     years.sum { |year| year.achieved_score(self) } / years.size
   end
+
+  def pinned_modules
+    UniModule.joins(semester: { year: :user })
+             .where(pinned: true, years: { user_id: id })
+  end
 end

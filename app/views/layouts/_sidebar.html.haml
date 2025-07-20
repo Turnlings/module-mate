@@ -12,11 +12,13 @@
 
 -# Modules
 .gt-card.module-list
-  .d-flex.justify-content-between.align-items-center
+  .card-heading
     %h2 Pinned Modules
-    = link_to "(View All)", uni_modules_path, style: "font-weight: normal;"
-  - if @uni_modules
-    - @uni_modules.each do |m|
+    .icon-button
+      = link_to uni_modules_path do
+        %i.fa-solid.fa-arrow-right
+  - if @pinned_modules
+    - @pinned_modules.each do |m|
       = link_to m do
         .row
           .col.mod-code= m.code

@@ -43,3 +43,11 @@
     color: lighten($line-color, 20%);
   }
 }
+
+.unselected {
+  color: $font-secondary-color;
+
+  &:hover {
+    color: $link-hover-color;
+  }
+}
