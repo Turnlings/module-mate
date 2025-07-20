@@ -4,7 +4,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: [:google_oauth2]
 
   has_many :years, dependent: :destroy
   has_many :exam_results, dependent: :destroy
@@ -12,6 +13,14 @@ class User < ApplicationRecord
   has_many :uni_modules, through: :uni_module_targets
   has_many :timelogs, dependent: :destroy
 
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      # Add other user info as needed
+    end
+  end
+  
   def credits
     years.sum{|year| year.credits}
   end
