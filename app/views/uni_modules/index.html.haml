@@ -9,6 +9,7 @@
 %table
   %thead
     %tr
+      %th
       %th Code
       %th Name
       %th Credits
@@ -18,6 +19,14 @@
   %tbody
     - @uni_modules.each do |uni_module|
       %tr
+        %td
+          = button_to pin_uni_module_path(uni_module), method: :patch, form_class: 'icon-button', class: 'icon-button' do
+            - if uni_module.pinned?
+              .icon-button
+                %i.fa-solid.fa-thumbtack
+            - else
+              .icon-button.unselected
+                %i.fa-solid.fa-thumbtack
         %td= uni_module.code
         %td= uni_module.name
         %td= uni_module.credits
@@ -26,6 +35,4 @@
           = link_to uni_module do
             %i.fa-solid.fa-arrow-right
 
-%br
-
-= link_to 'New Uni module', new_uni_module_path, class: 'link-button'
+= link_to '+ New Module', new_uni_module_path, class: 'card-button'

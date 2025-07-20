@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   resources :uni_modules do
     resources :exams
     resources :timelogs
+
+    member do
+      patch :pin
+    end
   end
   resources :exam_results
 
