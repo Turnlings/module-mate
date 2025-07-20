@@ -23,4 +23,19 @@ RSpec.describe 'Module management', type: :system do
 
     expect(page).to have_content 'Test Exam'
   end
+
+  it 'can pin a module' do
+    login_as user
+
+    uni_module = create(:uni_module, user: user)
+    visit uni_modules_path
+
+    expect(page).to have_content uni_module.code
+
+    find('button[title="Pin module"]').click
+
+    visit '/'
+
+    expect(page).to have_content uni_module.code
+  end
 end

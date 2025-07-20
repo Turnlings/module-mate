@@ -20,7 +20,7 @@
     - @uni_modules.each do |uni_module|
       %tr
         %td
-          = button_to pin_uni_module_path(uni_module), method: :patch, form_class: 'icon-button', class: 'icon-button' do
+          = button_to pin_uni_module_path(uni_module), method: :patch, class: 'icon-button', title: (uni_module.pinned? ? 'Unpin module' : 'Pin module') do
             - if uni_module.pinned?
               .icon-button
                 %i.fa-solid.fa-thumbtack
