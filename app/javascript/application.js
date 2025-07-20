@@ -23,18 +23,28 @@ function setupClipboard() {
   }
 }
 
-window.addEventListener('resize', function() {
+function redrawCharts() {
   if (window.Chartkick && Chartkick.charts) {
     for (const chartId in Chartkick.charts) {
       Chartkick.charts[chartId].redraw();
     }
   }
+}
+
+// Redraw on resize
+window.addEventListener('resize', redrawCharts);
+
+// Redraw on Turbo page load
+document.addEventListener('turbo:load', () => {
+  setupClipboard();
+  redrawCharts();
 });
 
-// For Turbo/Hotwire
-document.addEventListener('turbo:load', setupClipboard);
-// For non-Turbo fallback
-document.addEventListener('DOMContentLoaded', setupClipboard);
+// Redraw on normal load (non-Turbo fallback)
+document.addEventListener('DOMContentLoaded', () => {
+  setupClipboard();
+  redrawCharts();
+});
 
 const application = Application.start()
 

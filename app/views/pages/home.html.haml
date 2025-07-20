@@ -72,14 +72,12 @@
     = line_chart @module_data, curve: false, legend: false, width: "100%", height:"300px", library: { responsive: true, maintainAspectRatio: false }
 
 %h1.section-heading Assessments
-.row
-  .col 
-    .gt-card
-      %h2 All Assessments
-      .chart-container
-        = line_chart @exam_data, legend: false, width: "100%", height:"300px", points: true, curve: false 
-  .col
-    .gt-card
-      %h2 Assessment Type
-      .chart-container
-        = pie_chart @exam_type_data, legend: false, width: "100%", height:"300px"
+.gt-card
+  %h2 All Assessments
+  .chart-container
+    = line_chart @exam_data, legend: false, width: "100%", height:"300px", points: true, curve: false, library: { responsive: true, maintainAspectRatio: false }
+
+.gt-card
+  %h2 Assessment Type
+  .chart-container
+    = pie_chart @exam_type_data, legend: false, width: "100%", height:"300px"
