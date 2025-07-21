@@ -10,7 +10,7 @@
               %i.fa-brands.fa-google
               %span Sign in with Google
           - else
-            = button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false }
+            = button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class: 'omniauth'
 
     .divider 
       %span or
