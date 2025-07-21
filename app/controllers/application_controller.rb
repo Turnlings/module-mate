@@ -3,6 +3,10 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!, :set_sidebar_content
 
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, alert: exception.message
+  end
+
   private
 
   def set_sidebar_content

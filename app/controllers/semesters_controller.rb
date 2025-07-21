@@ -2,6 +2,8 @@
 
 class SemestersController < ApplicationController
   before_action :set_semester, only: %i[show edit update destroy]
+  authorize_resource
+  skip_authorize_resource only: %i[import_form import]
 
   # GET /semesters or /semesters.json
   def index

@@ -2,6 +2,7 @@
 
 class ExamsController < ApplicationController
   before_action :set_exam, only: %i[show edit update destroy]
+  authorize_resource
 
   # GET /exams or /exams.json
   def index

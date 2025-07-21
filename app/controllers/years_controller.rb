@@ -2,6 +2,7 @@
 
 class YearsController < ApplicationController
   before_action :set_year, only: %i[show edit update destroy]
+  authorize_resource
 
   # GET /years or /years.json
   def index

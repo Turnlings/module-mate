@@ -96,6 +96,7 @@ GEM
     bundler-audit (0.9.2)
       bundler (>= 1.2.0, < 3)
       thor (~> 1.0)
+    cancancan (3.6.1)
     capybara (3.40.0)
       addressable
       matrix
@@ -416,6 +417,7 @@ DEPENDENCIES
   bootstrap (~> 5.3)
   brakeman
   bundler-audit
+  cancancan (~> 3.6)
   capybara
   chartkick
   debug
