@@ -10,7 +10,22 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1 or /users/1.json
-  def show; end
+  def show
+    @exam_data = @user.exam_results
+      .includes(:exam)
+      .select { |res| res.exam&.due.present? && res.score.present? }
+      .map do |res|
+        {
+          name: res.exam.name,
+          data: [[res.exam.due.to_date, res.score.to_f]]
+        }
+      end
+
+    @exam_type_data = Exam.joins(:uni_module)
+                          .where(uni_modules: { id: @uni_modules.map(&:id) })
+                          .group(:type)
+                          .sum('exams.weight * uni_modules.credits / 100')
+  end
 
   # GET /users/new
   def new

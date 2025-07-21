@@ -4,7 +4,7 @@
       .icon-button 
         = link_to :back do
           %i.fa-solid.fa-arrow-left
-      %h2 Edit #{resource_name.to_s.humanize}
+      %h2 Edit Account
     = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
       = render "devise/shared/error_messages", resource: resource
       .field
@@ -36,7 +36,7 @@
       .actions
         = f.submit "Update"
   .gt-card
-    %h3 Cancel my account
+    %h3 Cancel Account
     %div
       Unhappy? 
       =button_to "Cancel my account", registration_path(resource_name), class: 'link-button delete', data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete

@@ -7,3 +7,12 @@
     %b Joined:
     = @user.created_at.strftime("%d %B, %Y")
 
+.gt-card
+  %h1.section-heading Assessments
+  %h2 All Assessments
+  .chart-container
+    = line_chart @exam_data, legend: false, width: "100%", height:"300px", points: true, curve: false, library: { responsive: true, maintainAspectRatio: false }
+
+  %h2 Assessment Type
+  .chart-container
+    = pie_chart @exam_type_data, legend: false, width: "100%", height:"300px"
