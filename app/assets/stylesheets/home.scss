@@ -27,7 +27,7 @@ main {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    padding: 20px;
+    padding: 16px;
 }
 
 .module-list {
@@ -159,19 +159,6 @@ main {
     }
 }
 
-.link-button {
-    color: $font-color;
-    text-decoration: none;
-    background-color: $highlight-color;
-    padding: 2px 10px;
-    border-radius: 5px;
-    border: none;
-
-    &:hover {
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    }
-}
-
 .gt-table {
     width: 100%;
     border-collapse: collapse;
@@ -222,7 +209,85 @@ main {
     max-width: 100px;
 }
 
+.unstyle-link {
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
 .font-secondary {
     color: $font-secondary-color;
     font-size: 0.8em;
+}
+
+.login-container {
+    max-width: 400px;
+    width: 100%;
+    height: 100%;
+    margin: 5% auto 0;
+}
+
+.login {
+    h2 {
+        margin-bottom: 20px;
+    }
+    .omniauth {
+        color: $font-color;
+        background: none;
+        border: 1px solid $line-color;
+        border-radius: $roundness;
+        font-size: 1.5rem;
+        margin: 10px auto;
+        i {
+            margin-right: 8px;
+        }
+    }
+
+    .field {
+        margin-bottom: 10px;
+    }
+
+    #user_remember_me {
+        width: 20px;
+        margin: 0 8px 0 0;
+    }
+
+    .checkbox-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem; 
+    }
+}
+
+.center {
+    text-align: center;
+    a {
+        display: inline-block;
+    }
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: $font-secondary-color;
+    font-size: 0.9rem;
+    margin: 20px 0 10px;
+
+    &::before,
+    &::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid $line-color;
+    }
+
+    &::before {
+        margin-right: 10px;
+    }
+
+    &::after {
+        margin-left: 10px;
+    }
 }

@@ -2,6 +2,7 @@
 
 class UniModulesController < ApplicationController
   before_action :set_uni_module, only: %i[show edit update destroy]
+  authorize_resource
 
   # GET /uni_modules or /uni_modules.json
   def index

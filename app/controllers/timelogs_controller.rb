@@ -2,6 +2,7 @@
 
 class TimelogsController < ApplicationController
   before_action :set_timelog, only: %i[show edit update destroy]
+  authorize_resource
 
   # GET /timelogs or /timelogs.json
   def index

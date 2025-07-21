@@ -1,5 +1,18 @@
 @import "variables";
 
+.link-button {
+    color: $font-color;
+    text-decoration: none;
+    background-color: $highlight-color;
+    padding: 2px 10px;
+    border-radius: 5px;
+    border: none;
+
+    &:hover {
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+}
+
 .icon-button {
   background: none;
   border: none;
@@ -50,4 +63,8 @@
   &:hover {
     color: $link-hover-color;
   }
+}
+
+.delete {
+  background-color: $delete-color;
 }

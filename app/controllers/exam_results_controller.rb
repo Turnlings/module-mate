@@ -2,6 +2,7 @@
 
 class ExamResultsController < ApplicationController
   before_action :set_exam_result, only: [:update]
+  authorize_resource
 
   def create
     @exam = Exam.find(params[:exam_result][:exam_id])
