@@ -25,6 +25,10 @@ class UniModule < ApplicationRecord
     exams.joins(:exam_results).where(exam_results: { user_id: user.id }).distinct
   end
 
+  def progress(user)
+    exams_with_results(user).sum(:weight)/100
+  end
+
   # Gets the average score of all of the completed exams so far, weighted by credits
   def weighted_average(user)
     valid_exams = exams_with_results(user)

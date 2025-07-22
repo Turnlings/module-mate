@@ -1,15 +1,17 @@
-%p#notice= notice
-
-%p
-  %b Weight:
-  = @exam.weight
-%p
-  %b Name:
-  = @exam.name
-%p
-  %b Score:
-  = @exam.score(current_user)
-
-= link_to 'Edit', edit_uni_module_exam_path(@uni_module, @exam)
-\|
-= link_to 'Back', uni_module_path(@uni_module)
+= link_to uni_module_path(@uni_module), class:'unstyle-link font-secondary mb-1' do
+  %i.fa-solid.fa-arrow-left
+  %span="Back to #{@uni_module.code} - #{@uni_module.name}"
+.gt-card 
+  .card-heading
+    %h1= @exam.name
+    .icon-button
+      = link_to edit_uni_module_exam_path(@uni_module, @exam) do
+        %i.fa-solid.fa-pen-to-square
+  - if @exam.due
+    .font-secondary= @exam.due.strftime("%d %b %Y, %H:%M")
+  - if @exam.score(current_user)
+    %h1= @exam.score(current_user).to_s + '%'
+    .progress-bar 
+      .progress{style: "width: #{@exam.score(current_user)}%"}
+  - else
+    .font-secondary No score recorded

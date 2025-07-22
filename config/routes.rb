@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     end
   end
   resources :exam_results
+  resources :uni_module_targets
 
   post 'quick_log', to: 'pages#quick_log'
 
