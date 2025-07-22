@@ -21,9 +21,12 @@ Create a .env file:
 touch .env
 ```
 
-Add your devise secret key
-```
+Add environment variables (replace values as needed):
+*Variables required to sign in with Google can be found at the [Google Cloud Console](https://console.cloud.google.com/)*
+```env
 DEVISE_SECRET_KEY=your_random_key_here
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
 ```
 
 Set up the database:
