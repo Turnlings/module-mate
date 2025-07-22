@@ -34,7 +34,9 @@ class UniModulesController < ApplicationController
   end
 
   # GET /uni_modules/1/edit
-  def edit; end
+  def edit
+    @uni_module_target = UniModuleTarget.find_by(uni_module: @uni_module, user: current_user) || UniModuleTarget.new(user: current_user, uni_module: @uni_module)
+  end
 
   # POST /uni_modules or /uni_modules.json
   def create

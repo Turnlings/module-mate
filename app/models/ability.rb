@@ -35,6 +35,7 @@ class Ability
     can :manage, UniModule, semester: { year: { user_id: user.id } }
     can :manage, Exam, uni_module: { semester: { year: { user_id: user.id } } }
     can :manage, ExamResult, user_id: user.id
+    can :manage, UniModuleTarget, user_id: user.id
     can :manage, Timelog, user_id: user.id
     can :manage, User, id: user.id
   end
