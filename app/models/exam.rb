@@ -1,9 +1,18 @@
 # frozen_string_literal: true
 
 class Exam < ApplicationRecord
+  MAX_EXAMS_PER_MODULE = 20
+
   belongs_to :uni_module
   has_many :users, through: :exam_results
   has_many :exam_results, dependent: :destroy
+  validate :module_exam_limit, on: :create
+
+  def module_exam_limit
+    if uni_module.exams.count >= MAX_EXAMS_PER_MODULE
+      errors.add(:base, "You can only have up to #{MAX_EXAMS_PER_MODULE} exams per module.")
+    end
+  end
 
   def score(user)
     result = ExamResult.find_by(user: user, exam: self)

@@ -1,8 +1,17 @@
 # frozen_string_literal: true
 
 class Year < ApplicationRecord
+  MAX_YEARS_PER_USER = 10
+
   has_many :semesters, dependent: :destroy
   belongs_to :user
+  validate :user_year_limit, on: :create
+
+  def user_year_limit
+    if user.years.count >= MAX_YEARS_PER_USER
+      errors.add(:base, "You can only have up to #{MAX_YEARS_PER_USER} years.")
+    end
+  end
 
   def credits
     semesters.includes(:uni_modules).sum { |s| s.credits }

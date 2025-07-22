@@ -1,12 +1,21 @@
 # frozen_string_literal: true
 
 class UniModule < ApplicationRecord
+  MAX_MODULES_PER_SEMESTER = 20
+
   belongs_to :semester, optional: true
   has_many :exams, dependent: :destroy
   has_many :timelogs, dependent: :destroy
   has_many :uni_module_targets, dependent: :destroy
+  validate :semester_module_limit, on: :create
 
   before_save :normalize_module_code
+
+  def semester_module_limit
+    if semester.uni_modules.count >= MAX_MODULES_PER_SEMESTER
+      errors.add(:base, "You can only have up to #{MAX_MODULES_PER_SEMESTER} modules per semester.")
+    end
+  end
 
   def normalize_module_code
     self.code = code.to_s.upcase

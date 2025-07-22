@@ -1,10 +1,18 @@
 # frozen_string_literal: true
 
 class Semester < ApplicationRecord
+  MAX_SEMESTERS_PER_YEAR = 6
+
   has_many :uni_modules, dependent: :destroy
   belongs_to :year
-
   before_create :generate_share_token
+  validate :year_semester_limit, on: :create
+
+  def year_semester_limit
+    if year.semesters.count >= MAX_SEMESTERS_PER_YEAR
+      errors.add(:base, "You can only have up to #{MAX_SEMESTERS_PER_YEAR} semesters per year.")
+    end
+  end
 
   def credits 
     uni_modules.sum(:credits)
