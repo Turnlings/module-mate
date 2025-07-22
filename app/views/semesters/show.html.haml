@@ -44,7 +44,7 @@
       .row 
         .col 
           - if uni_module.credits.present?
-            = "#{number_with_precision(uni_module.credits, precision: 0)}%"
+            = number_with_precision(uni_module.credits, precision: 0)
           - else
             = "N/A"
         .col= "#{number_with_precision(uni_module.progress(current_user), precision: 0)}%"
