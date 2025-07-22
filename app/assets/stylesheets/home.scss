@@ -27,7 +27,7 @@ main {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    padding: 16px;
+    padding: 1rem;
 }
 
 .module-list {
@@ -67,25 +67,29 @@ main {
     margin-top: 0;
     
     input {
+        width: 100%;
         height: 30px;
         outline: none;
         border-radius: 5px;
         background-color: $line-color;
         color: $font-color;
-        border: 2px solid $background-color;
+        border: none;
     }
 
-    #module_code {
-        margin-right: 4px;
-        padding: 0 5px;
+    .split-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 0.5rem;
     }
 
-    #minutes {
-        margin-left: 4px;
-        padding: 0 5px;
+    #module_code, #minutes {
+        margin: 0;
+        padding: 0 0.5rem;
     }
 
     input[type="submit"] {
+        margin-top: 0.5rem;
         background-color: $highlight-color;
         border: none;
         width: 100%
@@ -183,7 +187,7 @@ main {
     max-width: 400px;
     border-right: 1px solid $line-color;
     flex-shrink: 0;
-    padding: 16px;
+    padding: 1rem;
 
     a {
         color: $font-color;
@@ -241,7 +245,7 @@ main {
         font-size: 1.5rem;
         margin: 10px auto;
         i {
-            margin-right: 8px;
+            margin-right: 0.5rem;
         }
     }
 
@@ -251,7 +255,7 @@ main {
 
     #user_remember_me {
         width: 20px;
-        margin: 0 8px 0 0;
+        margin: 0 0.5rem 0 0;
     }
 
     .checkbox-container {
