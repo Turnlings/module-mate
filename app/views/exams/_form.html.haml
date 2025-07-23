@@ -1,4 +1,4 @@
-.gt-form  
+.gt-form
   = form_for [@uni_module, @exam] do |f|
     - if @exam.errors.any?
       #error_explanation
@@ -16,7 +16,7 @@
     .field
       = f.label :type, "Exam Type"
       = f.select :type, options_for_select([['Threshold', 'Threshold'],['Paper', 'Paper'],['Solo Coursework', 'Coursework::Solo'],['Group Coursework', 'Coursework::Group']], @exam.type)
-    .field 
+    .field
       = f.label :due, "Due Date"
       = f.datetime_local_field :due, include_blank: true, default: @exam.due
     .actions

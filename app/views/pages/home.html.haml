@@ -10,7 +10,7 @@
   .col.text-center
     %b Average Score
   .col.text-center
-    %b Achieved Score 
+    %b Achieved Score
 .row
   .col.text-center
     %span.stat= current_user.credits
@@ -21,7 +21,7 @@
 
 - @year_data.each do |data|
   - year = data[:year]
-  .gt-card 
+  .gt-card
     .card-heading
       %h2= year.name
       .icon-button
@@ -32,8 +32,8 @@
         .col Weighting
         .col Progress
         .col Achieved
-      .row 
-        .col 
+      .row
+        .col
           - if data[:weighting].present?
             = "#{number_with_precision(data[:weighting], precision: 0)}%"
           - else
