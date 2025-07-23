@@ -1,4 +1,4 @@
-.login-container  
+.login-container
   .gt-card.gt-form.login
     .center
       %h2 Sign Up to GradeTracker
@@ -22,7 +22,7 @@
       .actions
         = f.submit "Sign up"
 
-    .divider 
+    .divider
       %span or
 
     .center
@@ -34,6 +34,6 @@
               %span Sign in with Google
           - else
             = button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class: 'omniauth'
-  
-  .center 
+
+  .center
     = link_to "Sign in", new_session_path(resource_name), class: 'unstyle-link font-secondary center'

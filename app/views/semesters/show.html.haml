@@ -20,7 +20,7 @@
   .col.text-center
     %b Weighted Average
   .col.text-center
-    %b Achieved Score 
+    %b Achieved Score
 .row
   .col.text-center
     %span.stat= @semester.credits
@@ -30,7 +30,7 @@
     %span.stat= number_with_precision(@semester.achieved_score(current_user), precision: 2) + '%'
 
 - @uni_modules.each do |uni_module|
-  .gt-card 
+  .gt-card
     .card-heading
       %h2= uni_module.code + " - " + uni_module.name
       .icon-button
@@ -41,8 +41,8 @@
         .col Credits
         .col Progress
         .col Achieved
-      .row 
-        .col 
+      .row
+        .col
           - if uni_module.credits.present?
             = number_with_precision(uni_module.credits, precision: 0)
           - else
@@ -67,10 +67,10 @@
   %h2 Your Time Spent
   .chart-container
     = line_chart @module_data, curve: false, legend: false, width: "100%" #, height:"100%"
-  
+
 %h1.section-heading Assessments
 .row
-  .col 
+  .col
     .gt-card
       %h2 Upcoming Assessments
       - if @next_exam
@@ -78,7 +78,7 @@
         %span.d-block
           %b Due:
           = @next_exam.due.strftime("%d %b %Y, %H:%M")
-      - else 
+      - else
         %span No upcoming assessments.
   .col
     .gt-card

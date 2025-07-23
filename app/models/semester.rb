@@ -14,7 +14,7 @@ class Semester < ApplicationRecord
     end
   end
 
-  def credits 
+  def credits
     uni_modules.sum(:credits)
   end
 

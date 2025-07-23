@@ -45,9 +45,9 @@ class UniModule < ApplicationRecord
 
   # Gets the percentage completion of the module based on the exams taken
   def completion_percentage(user)
-    return 0 if exams.empty?
+    return 0 if exams.exists?
 
-    exams_with_results(user).sum(&:weight)
+    exams_with_results(user).sum(:weight)
   end
 
   def target(user)

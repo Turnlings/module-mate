@@ -13,10 +13,6 @@ class SemestersController < ApplicationController
   # GET /semesters/1 or /semesters/1.json
   def show
     @uni_modules = @semester.uni_modules
-    unless @semester.year.user_id == current_user.id
-      redirect_to semesters_path, alert: 'You are not authorized to view this semester.'
-      return
-    end
 
     # Get the cumulative time logged for each module
     @module_data = @semester.uni_modules.includes(:timelogs).where(timelogs: { user_id: current_user.id }).map do |mod|

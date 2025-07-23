@@ -45,10 +45,9 @@
               - when 'alert' then 'alert alert-danger'
               - else 'alert alert-warning'
             %p{class: bootstrap_class}= message
-            
+
           = yield
 
     %footer
       = link_to "GradeTracker", root_path
       = link_to "Created by Ryan Turner", "https://github.com/Turnlings", target: "_blank", rel: "noopener"
-

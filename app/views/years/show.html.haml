@@ -16,7 +16,7 @@
   .col.text-center
     %b Weighted Average
   .col.text-center
-    %b Achieved Score 
+    %b Achieved Score
 .row
   .col.text-center
     %span.stat= @year.credits
@@ -26,7 +26,7 @@
     %span.stat= number_with_precision(@year.achieved_score(current_user), precision: 2) + '%'
 
 - @year.semesters.each do |semester|
-  .gt-card 
+  .gt-card
     .card-heading
       %h2= semester.name
       .icon-button
@@ -36,7 +36,7 @@
       .row.font-secondary
         .col Progress
         .col Achieved
-      .row 
+      .row
         .col= "#{number_with_precision(semester.progress(current_user), precision: 0)}%"
         .col= "#{number_with_precision(semester.achieved_score(current_user), precision: 0)}%"
       .row
@@ -44,6 +44,5 @@
           .progress{style: "width: #{semester.progress(current_user)}%"}
         .col.progress-bar.mx-12px
           .progress{style: "width: #{semester.achieved_score(current_user)}%"}
-
 
 = link_to '+ New Semester', new_semester_path(year_id: @year.id), class: 'card-button'

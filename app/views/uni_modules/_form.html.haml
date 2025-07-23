@@ -1,4 +1,4 @@
-.gt-form  
+.gt-form
   = form_for @uni_module do |f|
     - if @uni_module.errors.any?
       #error_explanation
@@ -15,7 +15,7 @@
     .field
       = f.label :name
       = f.text_field :name
-    .field 
+    .field
       = f.label :credits
       = f.number_field :credits
 

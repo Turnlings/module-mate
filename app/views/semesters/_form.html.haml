@@ -1,4 +1,4 @@
-.gt-form  
+.gt-form
   = form_for @semester do |f|
     - if @semester.errors.any?
       #error_explanation
@@ -10,7 +10,7 @@
     .field
       = f.label :year_id, "Year"
       = f.collection_select :year_id, current_user.years, :id, :name, prompt: "Select Year"
-      
+
     .field
       = f.label :name
       = f.text_field :name

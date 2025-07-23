@@ -1,7 +1,7 @@
-.form-card-container  
+.form-card-container
   .gt-card.gt-form
     .form-heading
-      .icon-button 
+      .icon-button
         = link_to :back do
           %i.fa-solid.fa-arrow-left
       %h2 Edit Account
@@ -38,5 +38,5 @@
   .gt-card
     %h3 Cancel Account
     %div
-      Unhappy? 
+      Unhappy?
       =button_to "Cancel my account", registration_path(resource_name), class: 'link-button delete', data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete

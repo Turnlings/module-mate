@@ -6,10 +6,17 @@ class PagesController < ApplicationController
                          .where(years: { user_id: current_user.id })
                          .includes(:uni_modules)
 
-    @years = Year.where(user_id: current_user.id).includes(:semesters).order(weighting: :desc)
+    @year_data = current_user.years.order(weighting: :desc).map do |year|
+      {
+        year: year,
+        weighting: year.weighting,
+        progress: year.progress(current_user),
+        achieved: year.achieved_score(current_user)
+      }
+    end
 
     # Get the cumulative time logged for each module
-    @module_data = @uni_modules.map do |mod|
+    @module_data = current_user.uni_modules.map do |mod|
       raw_data = mod.timelogs.for_user(current_user).group_by_day(:created_at).sum(:minutes)
       cumulative = {}
       total = 0
