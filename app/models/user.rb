@@ -22,7 +22,7 @@ class User < ApplicationRecord
       # Add other user info as needed
     end
   end
-  
+
   def credits
     uni_modules.sum(:credits)
   end

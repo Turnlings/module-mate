@@ -16,11 +16,6 @@ class UniModulesController < ApplicationController
 
   # GET /uni_modules/1 or /uni_modules/1.json
   def show
-    # TODO: implement better security check using CanCanCan or similar
-    unless @uni_module.semester.year.user_id == current_user.id
-      redirect_to uni_modules_path, alert: 'You are not authorized to view this module.'
-      return
-    end
     @exam_data = Exam
                  .where(uni_module: @uni_module)
                  .pluck(:name, :weight)
