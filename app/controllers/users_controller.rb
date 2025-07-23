@@ -22,7 +22,7 @@ class UsersController < ApplicationController
       end
 
     @exam_type_data = Exam.joins(:uni_module)
-                          .where(uni_modules: { id: @uni_modules.map(&:id) })
+                          .where(uni_modules: current_user.uni_modules)
                           .group(:type)
                           .sum('exams.weight * uni_modules.credits / 100')
   end
