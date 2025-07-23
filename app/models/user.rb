@@ -8,9 +8,11 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:google_oauth2]
 
   has_many :years, dependent: :destroy
+  has_many :semesters, through: :years
+  has_many :uni_modules, through: :semesters
+  has_many :exams, through: :uni_modules
   has_many :exam_results, dependent: :destroy
-  has_many :exams, through: :exam_results
-  has_many :uni_modules, through: :uni_module_targets
+  has_many :uni_module_targets, dependent: :destroy
   has_many :timelogs, dependent: :destroy
 
   def self.from_omniauth(auth)
@@ -22,14 +24,14 @@ class User < ApplicationRecord
   end
   
   def credits
-    years.sum{|year| year.credits}
+    uni_modules.sum(:credits)
   end
 
-  def weighted_average
-    return 0 if years.empty?
-    total_weight = years.sum { |year| year.semesters.sum(&:credits) }
-    weighted_sum = years.sum { |year| year.semesters.sum { |semester| semester.credits * semester.weighted_average(self) } }
-    total_weight.zero? ? 0 : (weighted_sum / total_weight)
+  # Of those exams completed, get the average score
+  def average_score
+    return 0 if exam_results.empty?
+
+    exam_results.sum(:score) / exam_results.count.to_f
   end
 
   def achieved_score
