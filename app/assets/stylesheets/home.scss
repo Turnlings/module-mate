@@ -295,3 +295,23 @@ main {
         margin-left: 10px;
     }
 }
+
+.alert-bar {
+    width: 100%;
+    padding: 0.5rem;
+    text-align: center;
+    margin: 0;
+}
+
+.ab-notice {
+    background-color: #99cc33;
+}
+
+.ab-danger {
+    background-color: #B00020;
+
+}
+
+.ab-warning {
+    background-color: #facc15;
+}

@@ -19,31 +19,22 @@
               %i.fa-solid.fa-circle-user
           - else
             = link_to "Sign In", new_user_session_path, style: "font-size: 20px;"
-
+    %div 
+      - flash.each do |key, message|
+        - bootstrap_class = case key
+          - when 'notice' then 'alert-bar ab-notice'
+          - when 'alert' then 'alert-bar ab-danger'
+          - else 'alert-bar ab-warning'
+        %p{class: bootstrap_class}= message
     %main
       - if user_signed_in?
         .sidebar
           = render 'layouts/sidebar'
 
         .main-content
-          .container
-            - flash.each do |key, message|
-              - bootstrap_class = case key
-                - when 'notice' then 'alert alert-info'
-                - when 'alert' then 'alert alert-danger'
-                - else 'alert alert-warning'
-              %p{class: bootstrap_class}= message
           = yield
       - else
-        .container
-          - flash.each do |key, message|
-            - bootstrap_class = case key
-              - when 'notice' then 'alert alert-info'
-              - when 'alert' then 'alert alert-danger'
-              - else 'alert alert-warning'
-            %p{class: bootstrap_class}= message
-
-          = yield
+        = yield
 
     %footer
       = link_to "GradeTracker", root_path
