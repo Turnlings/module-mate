@@ -15,13 +15,10 @@
         .title= link_to "ModuleMate", root_path
         .header-links
           - if user_signed_in?
-            = link_to "Profile", user_path(current_user)
-            %span=  "|"
-            = button_to "Logout", destroy_user_session_path, method: :delete
+            = link_to user_path(current_user) do
+              %i.fa-solid.fa-circle-user
           - else
-            = link_to "Login", new_user_session_path
-            %span= "|"
-            = link_to "Sign Up", new_user_registration_path
+            = link_to "Sign In", new_user_session_path, style: "font-size: 20px;"
 
     %main
       - if user_signed_in?

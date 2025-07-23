@@ -1,7 +1,9 @@
 @import "variables";
 
+$header-height: 60px;
+
 header {
-    height: 60px;
+    height: $header-height;
     width: 100%;
     line-height: 60px;
     background-color: $header-color;
@@ -27,11 +29,15 @@ header {
 
     .title {
         display: inline-block;
-        font-size: 32px;
+        font-size: 2rem;
     }
 
     .header-links {
+        height: $header-height;
+        line-height: $header-height;
         float: right;
-        margin-right: 20px;
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
     }
 }

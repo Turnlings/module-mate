@@ -7,6 +7,8 @@
     %b Joined:
     = @user.created_at.strftime("%d %B, %Y")
 
+  = button_to "Logout", destroy_user_session_path, method: :delete, class: 'link-button'
+
 .gt-card
   %h1.section-heading Assessments
   %h2 All Assessments
