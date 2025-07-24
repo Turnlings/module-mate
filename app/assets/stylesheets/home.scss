@@ -304,14 +304,14 @@ main {
 }
 
 .ab-notice {
-    background-color: #99cc33;
+    background-color: $success;
 }
 
 .ab-danger {
-    background-color: #B00020;
+    background-color: $danger;
 
 }
 
 .ab-warning {
-    background-color: #facc15;
+    background-color: $warning;
 }
