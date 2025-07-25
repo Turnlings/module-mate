@@ -19,8 +19,6 @@ body {
 }
 
 main {
-    width: calc(100% - 400px); 
-    margin-left: 400px;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -28,12 +26,18 @@ main {
 
     @media (max-width: $breakpoint-lg) {
         flex-direction: column;
-        width: 100%; 
-        margin: 0;
     }
 }
 
 .not-header {
+    width: calc(100% - 400px); 
+    margin-left: 400px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.not-header-login {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -239,17 +243,23 @@ h2 {
 }
 
 .login-container {
-    max-width: 400px;
-    width: 100%;
-    height: 100%;
-    margin: 5% auto 0;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .login {
-    h2 {
-        margin-bottom: 20px;
+    width: fit-content;
+    .gt-card {
+        padding: 1rem;
+    }
+
+    h1 {
+        margin-bottom: 1rem;
     }
     .omniauth {
+        width: 100%;
         color: $font-color;
         background: none;
         border: 1px solid $line-color;
@@ -262,18 +272,23 @@ h2 {
     }
 
     .field {
+        border-radius: $roundness;
         margin-bottom: 10px;
     }
 
     #user_remember_me {
         width: 20px;
-        margin: 0 0.5rem 0 0;
+        margin: 0;
     }
 
     .checkbox-container {
         display: flex;
         align-items: center;
         gap: 0.5rem; 
+    }
+
+    input[type="submit"] {
+        margin: 0.5rem 0 !important;
     }
 }
 
@@ -290,7 +305,7 @@ h2 {
     text-align: center;
     color: $font-secondary-color;
     font-size: 0.9rem;
-    margin: 20px 0 10px;
+    margin: 0.5rem 0;
 
     &::before,
     &::after {
@@ -321,9 +336,12 @@ h2 {
 
 .ab-danger {
     background-color: $danger;
-
 }
 
 .ab-warning {
     background-color: $warning;
+}
+
+.text-danger {
+    color: $danger;
 }
