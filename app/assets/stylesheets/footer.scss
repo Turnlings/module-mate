@@ -7,10 +7,17 @@ footer {
     gap: 1rem;
     justify-content: center; // or center / flex-start as needed
     align-items: center;
+    width: calc(100% - 400px); 
+    margin-left: 400px;
 
     a {
         margin: 0 0.5rem;
         text-decoration: none;
         color: inherit;
+    }
+
+    @media (max-width: $breakpoint-lg) {
+        width: 100%; 
+        margin: 0;
     }
 }

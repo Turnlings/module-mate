@@ -1,3 +1,13 @@
+.side-heading
+  .title= link_to "ModuleMate", root_path
+  .account
+    - if user_signed_in?
+      = link_to user_path(current_user), class: 'font-secondary unstyle-link' do
+        %i.fa-solid.fa-circle-user
+        %span= current_user.email
+    - else
+      = link_to "Sign In", new_user_session_path, style: "font-size: 20px;"
+
 -# Quick-add time
 .gt-card.quicklog
   %h2 Quicklog

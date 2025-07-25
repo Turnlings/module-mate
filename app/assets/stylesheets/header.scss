@@ -1,43 +1,45 @@
 @import "variables";
 
-$header-height: 60px;
-
 header {
-    height: $header-height;
-    width: 100%;
-    line-height: 60px;
-    background-color: $header-color;
-    border-bottom: 1px solid $line-color;
+    background-color: $bg-dark;
+    max-width: 400px;
+    border-right: 1px solid $bg-light;
+    flex-shrink: 0;
+    padding: 1rem;
+    height: 100vh;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    flex-shrink: 0;  
 
+    .side-heading {
+        .title {
+            font-size: 2.5rem;
+            line-height: 2.5rem;
+        }
+
+        .account {
+            margin-bottom: 0.5rem;
+        }
+
+        border-bottom: 1px solid $bg-light;
+        margin-bottom: 0.5rem;
+    }
     a {
         color: $font-color;
         text-decoration: none;
     }
 
-    form {
-        display: inline;
+    .due-date {
+        color: $font-secondary-color;
+        font-style: italic;
     }
 
-    button {
-        height: 50px;
-        border: none;
-        background-color: $header-color;
-        color: $font-color;
-        text-decoration: none;
-        display: inline;
-    }
-
-    .title {
-        display: inline-block;
-        font-size: 2rem;
-    }
-
-    .header-links {
-        height: $header-height;
-        line-height: $header-height;
-        float: right;
-        font-size: 2rem;
-        display: flex;
-        align-items: center;
+    @media (max-width: $breakpoint-lg) {
+        width: 100%;
+        max-width: 100%;
+        border-right: none;
+        position: relative;
+        height: fit-content;
     }
 }

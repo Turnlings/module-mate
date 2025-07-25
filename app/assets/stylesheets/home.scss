@@ -1,26 +1,55 @@
 @import "variables";
 
 html, body {
-  height: 100%;
-  margin: 0;
+    height: 100%;
+    margin: 0;
+    color: $font-color;
+    font-family: Roboto, sans-serif;
+    font-size: $font-size;
 }
 
 body {
     background-color: $background-color;
-    color: $font-color;
-    font-family: Roboto, sans-serif;
-    font-size: $font-size;
     display: flex;
-    flex-direction: column;
-}
-
-main {
-    flex: 1;
-    display: flex;
+    flex-direction: row;
 
     @media (max-width: $breakpoint-lg) {
         flex-direction: column;
     }
+}
+
+main {
+    width: calc(100% - 400px); 
+    margin-left: 400px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    @media (max-width: $breakpoint-lg) {
+        flex-direction: column;
+        width: 100%; 
+        margin: 0;
+    }
+}
+
+.not-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1, h2, h3 {
+    color: $text-bold;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
 }
 
 .main-content {
@@ -28,6 +57,9 @@ main {
     flex-direction: column;
     flex-grow: 1;
     padding: 1rem;
+    width: 100%;
+    max-width: $max-page-width;
+    margin: 0 auto;
 }
 
 .module-list {
@@ -36,6 +68,10 @@ main {
         color: $font-color;
         text-decoration: none;
     }
+
+    .card-heading {
+        margin-bottom: 0.5rem;
+    }
 }
 
 .gt-card {
@@ -43,7 +79,7 @@ main {
     border-radius: $roundness;
     //background-color: $line-color;
     border: 1px solid $line-color;
-    margin: 0 0 10px;
+    margin: 0 0 0.5rem;
     max-width: 100%;
     //box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2);
 }
@@ -181,30 +217,6 @@ main {
 
 .stat {
     font-size: 40px;
-}
-
-.sidebar {
-    max-width: 400px;
-    border-right: 1px solid $line-color;
-    flex-shrink: 0;
-    padding: 1rem;
-
-    a {
-        color: $font-color;
-        text-decoration: none;
-    }
-
-    .due-date {
-        color: $font-secondary-color;
-        font-style: italic;
-    }
-
-    @media (max-width: $breakpoint-lg) {
-        width: 100%;
-        max-width: 100%;
-        border-right: none;
-
-    }
 }
 
 .col.mod-code {

@@ -11,31 +11,20 @@
     = javascript_importmap_tags
   %body
     %header
-      .mx-0.px-3
-        .title= link_to "ModuleMate", root_path
-        .header-links
-          - if user_signed_in?
-            = link_to user_path(current_user) do
-              %i.fa-solid.fa-circle-user
-          - else
-            = link_to "Sign In", new_user_session_path, style: "font-size: 20px;"
-    %div 
-      - flash.each do |key, message|
-        - bootstrap_class = case key
-          - when 'notice' then 'alert-bar ab-notice'
-          - when 'alert' then 'alert-bar ab-danger'
-          - else 'alert-bar ab-warning'
-        %p{class: bootstrap_class}= message
-    %main
-      - if user_signed_in?
-        .sidebar
-          = render 'layouts/sidebar'
-
+      = render 'layouts/sidebar'
+    
+    .not-header
+      %main
+        %div 
+          - flash.each do |key, message|
+            - bootstrap_class = case key
+              - when 'notice' then 'alert-bar ab-notice'
+              - when 'alert' then 'alert-bar ab-danger'
+              - else 'alert-bar ab-warning'
+            %p{class: bootstrap_class}= message
         .main-content
           = yield
-      - else
-        = yield
 
-    %footer
-      = link_to "GradeTracker", root_path
-      = link_to "Created by Ryan Turner", "https://github.com/Turnlings", target: "_blank", rel: "noopener"
+      %footer
+        = link_to "GradeTracker", root_path
+        = link_to "Created by Ryan Turner", "https://github.com/Turnlings", target: "_blank", rel: "noopener"
