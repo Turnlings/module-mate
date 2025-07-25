@@ -2,7 +2,9 @@
   = f.hidden_field :exam_id, value: @exam.id
 
   .field
-    = f.label :score
+    = f.label :score do
+      Percentage
+      %span.font-secondary= " (%)"
     = f.text_field :score
 
   .actions

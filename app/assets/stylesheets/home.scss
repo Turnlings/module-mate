@@ -1,26 +1,59 @@
 @import "variables";
 
 html, body {
-  height: 100%;
-  margin: 0;
+    height: 100%;
+    margin: 0;
+    color: $font-color;
+    font-family: Roboto, sans-serif;
+    font-size: $font-size;
 }
 
 body {
     background-color: $background-color;
-    color: $font-color;
-    font-family: Roboto, sans-serif;
-    font-size: $font-size;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+
+    @media (max-width: $breakpoint-lg) {
+        flex-direction: column;
+    }
 }
 
 main {
     flex: 1;
     display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 
     @media (max-width: $breakpoint-lg) {
         flex-direction: column;
     }
+}
+
+.not-header {
+    width: calc(100% - 400px); 
+    margin-left: 400px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.not-header-login {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1, h2, h3 {
+    color: $text-bold;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
 }
 
 .main-content {
@@ -28,6 +61,9 @@ main {
     flex-direction: column;
     flex-grow: 1;
     padding: 1rem;
+    width: 100%;
+    max-width: $max-page-width;
+    margin: 0 auto;
 }
 
 .module-list {
@@ -36,6 +72,10 @@ main {
         color: $font-color;
         text-decoration: none;
     }
+
+    .card-heading {
+        margin-bottom: 0.5rem;
+    }
 }
 
 .gt-card {
@@ -43,7 +83,7 @@ main {
     border-radius: $roundness;
     //background-color: $line-color;
     border: 1px solid $line-color;
-    margin: 0 0 10px;
+    margin: 0 0 0.5rem;
     max-width: 100%;
     //box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2);
 }
@@ -183,30 +223,6 @@ main {
     font-size: 40px;
 }
 
-.sidebar {
-    max-width: 400px;
-    border-right: 1px solid $line-color;
-    flex-shrink: 0;
-    padding: 1rem;
-
-    a {
-        color: $font-color;
-        text-decoration: none;
-    }
-
-    .due-date {
-        color: $font-secondary-color;
-        font-style: italic;
-    }
-
-    @media (max-width: $breakpoint-lg) {
-        width: 100%;
-        max-width: 100%;
-        border-right: none;
-
-    }
-}
-
 .col.mod-code {
     width: 100px !important;
     flex: 0 0 100px;
@@ -227,17 +243,23 @@ main {
 }
 
 .login-container {
-    max-width: 400px;
-    width: 100%;
-    height: 100%;
-    margin: 5% auto 0;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .login {
-    h2 {
-        margin-bottom: 20px;
+    width: fit-content;
+    .gt-card {
+        padding: 1rem;
+    }
+
+    h1 {
+        margin-bottom: 1rem;
     }
     .omniauth {
+        width: 100%;
         color: $font-color;
         background: none;
         border: 1px solid $line-color;
@@ -250,18 +272,23 @@ main {
     }
 
     .field {
+        border-radius: $roundness;
         margin-bottom: 10px;
     }
 
     #user_remember_me {
         width: 20px;
-        margin: 0 0.5rem 0 0;
+        margin: 0;
     }
 
     .checkbox-container {
         display: flex;
         align-items: center;
         gap: 0.5rem; 
+    }
+
+    input[type="submit"] {
+        margin: 0.5rem 0 !important;
     }
 }
 
@@ -278,7 +305,7 @@ main {
     text-align: center;
     color: $font-secondary-color;
     font-size: 0.9rem;
-    margin: 20px 0 10px;
+    margin: 0.5rem 0;
 
     &::before,
     &::after {
@@ -294,4 +321,27 @@ main {
     &::after {
         margin-left: 10px;
     }
+}
+
+.alert-bar {
+    width: 100%;
+    padding: 0.5rem;
+    text-align: center;
+    margin: 0;
+}
+
+.ab-notice {
+    background-color: $success;
+}
+
+.ab-danger {
+    background-color: $danger;
+}
+
+.ab-warning {
+    background-color: $warning;
+}
+
+.text-danger {
+    color: $danger;
 }

@@ -16,12 +16,12 @@
     input, select {
         height: 34px;
         width: 100%;
-        padding: 0 5px;
+        padding: 0 0.5rem;
         outline: none;
         border-radius: 5px;
         background-color: $line-color;
         color: $font-color;
-        border: 2px solid $background-color;
+        border: none;
         margin-bottom: 4px;
     }
 

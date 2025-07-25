@@ -1,15 +1,34 @@
-$header-color: #000103;
-$background-color: #333138;
-$line-color: #515052;
-$font-color: #fffffa;
-$font-secondary-color: #878787;
-$highlight-color: #00538F;
-$link-hover-color: #cccccc;
-$delete-color: rgb(200, 0, 0);
+$bg-dark: hsl(250, 2, 10);
+$bg: hsl(250, 2, 15);
+$bg-light: hsl(250, 2, 25);
+
+$brand: hsl(210, 80, 30);
+
+$text-bold: hsl(0, 0, 95);
+$text: hsl(0, 0, 90);
+$text-muted: hsl(0, 0, 60);
+
+$success: hsl(120, 80%, 30%);
+$warning: hsl(50, 80%, 30%);
+$danger: hsl(0, 80, 30);
+
 $font-size: 20px;
 $roundness: 10px;
+
+$max-page-width: 1400px;
 
 $breakpoint-sm: 576px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 992px;
 $breakpoint-xl: 1200px;
+
+/* Deprecated styles to be fazed out */
+
+$header-color: $bg-dark;
+$background-color: $bg;
+$line-color: $bg-light;
+$font-color: $text;
+$font-secondary-color: $text-muted;
+$highlight-color: $brand;
+$link-hover-color: #cccccc;
+$delete-color: $danger;

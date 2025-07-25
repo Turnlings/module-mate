@@ -80,11 +80,13 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   # Bullet configuration
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.alert = true            # pop up a JavaScript alert in the browser
-    Bullet.bullet_logger = true    # log to the Bullet log file
-    Bullet.rails_logger = true     # log to the Rails log
-    Bullet.add_footer = true       # add alerts to the bottom of pages
-  end
+  # config.after_initialize do
+  #   Bullet.enable = true
+  #   Bullet.alert = true            # pop up a JavaScript alert in the browser
+  #   Bullet.bullet_logger = true    # log to the Bullet log file
+  #   Bullet.rails_logger = true     # log to the Rails log
+  #   Bullet.add_footer = true       # add alerts to the bottom of pages
+  # end
+
+  Rack::MiniProfiler.config.enabled = false
 end

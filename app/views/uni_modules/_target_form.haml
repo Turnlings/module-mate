@@ -2,7 +2,9 @@
   = f.hidden_field :uni_module_id, value: @uni_module.id
 
   .field
-    = f.label :score
+    = f.label :score do
+      Target
+      %span.font-secondary= " (%)"
     = f.text_field :score
 
   .actions

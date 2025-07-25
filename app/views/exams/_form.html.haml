@@ -8,7 +8,9 @@
             %li= message
 
     .field
-      = f.label :weight
+      = f.label :weight do
+        Weight
+        %span.font-secondary= " (%)"
       = f.text_field :weight
     .field
       = f.label :name
