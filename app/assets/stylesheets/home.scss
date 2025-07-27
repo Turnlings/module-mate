@@ -219,6 +219,11 @@ h2 {
     // }
 }
 
+.th-content {
+  display: inline-flex;
+  gap: 0.5rem;
+}
+
 .stat {
     font-size: 40px;
 }
@@ -345,3 +350,12 @@ h2 {
 .text-danger {
     color: $danger;
 }
+
+.icon {
+    display: inline-block;
+  background: none;
+  border: none;
+  color: $font-color;
+  padding: 0;
+}
+
