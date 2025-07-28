@@ -27,6 +27,10 @@ class User < ApplicationRecord
     uni_modules.sum(:credits)
   end
 
+  def correct_weight_sum?
+    years.sum(:weighting) == 100
+  end
+
   # Of those exams completed, get the average score
   def average_score
     return 0 if exam_results.empty?

@@ -28,11 +28,11 @@
   - if @pinned_modules
     - @pinned_modules.each do |m|
       = link_to m do
-        .row
-          .col.mod-code= m.code
-          .col.text-truncate= m.name
+        .name-row{class: "#{'module-selected' if m == @uni_module}"}
+          .mod-code= m.code
+          .mod-name= m.name
           -#.col-2.text-end= "#{number_with_precision(m.weighted_average(current_user), precision: 0)}%"
-        .row.progress-bar
+        .progress-bar
           .progress{style: "width: #{m.completion_percentage(current_user)}%"}
 
 .gt-card

@@ -79,7 +79,27 @@ h2 {
     }
 
     .card-heading {
-        margin-bottom: 0.5rem;
+        margin-bottom: 0;
+    }
+
+    .name-row {
+        margin-top: 0.5rem;
+        display: flex;
+    }
+
+    .mod-code {
+        flex: 0 0 100px;
+    }
+
+    .mod-name {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .module-selected {
+        color: $text-muted;
     }
 }
 
@@ -233,12 +253,6 @@ h2 {
     font-size: 40px;
 }
 
-.col.mod-code {
-    width: 100px !important;
-    flex: 0 0 100px;
-    max-width: 100px;
-}
-
 .unstyle-link {
     text-decoration: none;
 
@@ -364,3 +378,6 @@ h2 {
   padding: 0;
 }
 
+.text-brand-light {
+    color: $brand-light
+}

@@ -6,14 +6,14 @@
 -# Stats
 .row
   .col.text-center
-    %b Credits
+    %b Modules
   .col.text-center
     %b Average Score
   .col.text-center
     %b Achieved Score
 .row
   .col.text-center
-    %span.stat= current_user.credits
+    %span.stat= current_user.uni_modules.count
   .col.text-center
     %span.stat= number_with_precision(current_user.average_score, precision: 2) + '%'
   .col.text-center
@@ -29,7 +29,12 @@
           %i.fa-solid.fa-arrow-right
     .container-flex
       .row.font-secondary
-        .col Weighting
+        .col
+          .th-content
+            %span Weighting
+            - unless current_user.correct_weight_sum?
+              .icon-button.text-danger
+                %i.fa-solid.fa-triangle-exclamation{ title: 'Total weight must be 100%' }
         .col Progress
         .col Achieved
       .row
