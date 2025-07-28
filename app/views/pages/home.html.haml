@@ -4,20 +4,16 @@
   .right-button.button-row
 
 -# Stats
-.row
-  .col.text-center
-    %b Modules
-  .col.text-center
-    %b Average Score
-  .col.text-center
-    %b Achieved Score
-.row
-  .col.text-center
-    %span.stat= current_user.uni_modules.count
-  .col.text-center
-    %span.stat= number_with_precision(current_user.average_score, precision: 2) + '%'
-  .col.text-center
-    %span.stat= number_with_precision(current_user.achieved_score, precision: 2) + '%'
+.stats-container 
+  .stat 
+    .stat-header Module Count
+    .stat-content= link_to current_user.uni_modules.count, uni_modules_path
+  .stat 
+    .stat-header Average Score
+    .stat-content= number_with_precision(current_user.average_score, precision: 2) + '%'
+  .stat 
+    .stat-header Achieved Score
+    .stat-content= number_with_precision(current_user.achieved_score, precision: 2) + '%'
 
 - @year_data.each do |data|
   - year = data[:year]
