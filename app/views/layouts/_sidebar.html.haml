@@ -8,48 +8,49 @@
     - else
       = link_to "Sign In", new_user_session_path, style: "font-size: 20px;"
 
--# Quick-add time
-.gt-card.quicklog
-  %h2 Quicklog
-  = form_with model: @timelog, url: quick_log_path, local: true do |f|
-    .split-row
-      = f.text_field :module_code, placeholder: 'Module Code', class: "m-0"
-      = f.number_field :minutes, placeholder: 'Minutes', class: "m-0"
+.side-content
+  -# Quick-add time
+  .gt-card.quicklog
+    %h2 Quicklog
+    = form_with model: @timelog, url: quick_log_path, local: true do |f|
+      .split-row
+        = f.text_field :module_code, placeholder: 'Module Code', class: "m-0"
+        = f.number_field :minutes, placeholder: 'Minutes', class: "m-0"
 
-    = f.submit 'Add Time'
+      = f.submit 'Add Time'
 
--# Modules
-.gt-card.module-list
-  .card-heading
-    %h2 Pinned Modules
-    .icon-button
-      = link_to uni_modules_path do
-        %i.fa-solid.fa-arrow-right
-  - if @pinned_modules
-    - @pinned_modules.each do |m|
-      = link_to m do
-        .row
-          .col.mod-code= m.code
-          .col.text-truncate= m.name
-          -#.col-2.text-end= "#{number_with_precision(m.weighted_average(current_user), precision: 0)}%"
-        .row.progress-bar
-          .progress{style: "width: #{m.completion_percentage(current_user)}%"}
+  -# Modules
+  .gt-card.module-list
+    .card-heading
+      %h2 Pinned Modules
+      .icon-button
+        = link_to uni_modules_path do
+          %i.fa-solid.fa-arrow-right
+    - if @pinned_modules
+      - @pinned_modules.each do |m|
+        = link_to m do
+          .name-row{class: "#{'module-selected' if m == @uni_module}"}
+            .mod-code= m.code
+            .mod-name= m.name
+            -#.col-2.text-end= "#{number_with_precision(m.weighted_average(current_user), precision: 0)}%"
+          .progress-bar
+            .progress{style: "width: #{m.completion_percentage(current_user)}%"}
 
-.gt-card
-  %h2 Upcoming Assessments
-  - if @next_exams
-    - @next_exams.each do |exam|
-      = link_to uni_module_exam_path(exam.uni_module, exam) do
-        .row
-          .col-12
-            .row
-              .col.mod-code= exam.uni_module.code
-              .col.text-truncate= exam.name
-              .col-1.text-end.icon-button.pe-3
-                %i.fa-solid.fa-arrow-right
-            .row
-              .col.due-date.font-secondary
-                Due:
-                = exam.due.strftime("%d %b %Y, %H:%M")
-  - else
-    %span No upcoming assessments.
+  .gt-card
+    %h2 Upcoming Assessments
+    - if @next_exams
+      - @next_exams.each do |exam|
+        = link_to uni_module_exam_path(exam.uni_module, exam) do
+          .row
+            .col-12
+              .row
+                .col.mod-code= exam.uni_module.code
+                .col.text-truncate= exam.name
+                .col-1.text-end.icon-button.pe-3
+                  %i.fa-solid.fa-arrow-right
+              .row
+                .col.due-date.font-secondary
+                  Due:
+                  = exam.due.strftime("%d %b %Y, %H:%M")
+    - else
+      %span No upcoming assessments.

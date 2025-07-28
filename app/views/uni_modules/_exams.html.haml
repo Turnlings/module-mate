@@ -7,7 +7,12 @@
   %table.gt-table.mt-0
     %thead
       %tr
-        %th Weight
+        %th 
+          .th-content
+            %span="Weight"
+            - unless @uni_module.correct_weight_sum?
+              .icon-button.text-danger
+                %i.fa-solid.fa-triangle-exclamation{ title: 'Total weight must be 100%' }
         %th Name
         %th Score
         %th Target

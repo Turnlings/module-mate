@@ -23,8 +23,15 @@ header {
         }
 
         border-bottom: 1px solid $bg-light;
-        margin-bottom: 0.5rem;
     }
+
+    .side-content {
+        margin-top: 0.5rem;
+        @media (max-width: $breakpoint-lg) {
+            display: none;
+        }
+    }
+
     a {
         color: $font-color;
         text-decoration: none;
@@ -41,5 +48,9 @@ header {
         border-right: none;
         position: relative;
         height: fit-content;
+    }
+
+    @media (max-width: $breakpoint-md) {
+        padding: 0.5rem;
     }
 }

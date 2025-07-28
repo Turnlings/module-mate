@@ -25,6 +25,10 @@ class UniModule < ApplicationRecord
     exams.joins(:exam_results).where(exam_results: { user_id: user.id }).distinct
   end
 
+  def correct_weight_sum?
+    exams.sum(:weight) == 100
+  end
+
   def progress(user)
     exams_with_results(user).sum(:weight)/100
   end
