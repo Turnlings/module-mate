@@ -1,0 +1,24 @@
+.font-secondary {
+  color: $font-secondary-color;
+  font-size: 0.8em;
+}
+
+.text-brand-light {
+  color: $brand-light
+}
+
+.unstyle-link {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.icon {
+  display: inline-block;
+  background: none;
+  border: none;
+  color: $font-color;
+  padding: 0;
+}
