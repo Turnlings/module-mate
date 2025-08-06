@@ -36,21 +36,16 @@
           .progress-bar
             .progress{style: "width: #{m.completion_percentage(current_user)}%"}
 
-  .gt-card
+  .gt-card.upcoming-assessments
     %h2 Upcoming Assessments
     - if @next_exams
       - @next_exams.each do |exam|
         = link_to uni_module_exam_path(exam.uni_module, exam) do
-          .row
-            .col-12
-              .row
-                .col.mod-code= exam.uni_module.code
-                .col.text-truncate= exam.name
-                .col-1.text-end.icon-button.pe-3
-                  %i.fa-solid.fa-arrow-right
-              .row
-                .col.due-date.font-secondary
-                  Due:
-                  = exam.due.strftime("%d %b %Y, %H:%M")
+          .name-row
+            .mod-code= exam.uni_module.code
+            .text-truncate= exam.name
+          .due-date.font-secondary
+            Due:
+            = exam.due.strftime("%d %b %Y, %H:%M")
     - else
       %span No upcoming assessments.

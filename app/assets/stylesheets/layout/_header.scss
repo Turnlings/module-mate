@@ -98,10 +98,14 @@ header {
     margin-bottom: 0;
   }
 
-  .name-row {
-    margin-top: 0.5rem;
-    display: flex;
+  .module-selected {
+    color: $text-muted;
   }
+}
+
+.name-row {
+  margin-top: 0.5rem;
+  display: flex;
 
   .mod-code {
     flex: 0 0 100px;
@@ -112,9 +116,5 @@ header {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  .module-selected {
-    color: $text-muted;
   }
 }
