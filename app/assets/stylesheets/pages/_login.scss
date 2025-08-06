@@ -1,0 +1,49 @@
+.login-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login {
+  width: fit-content;
+  .gt-card {
+    padding: 1rem;
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+  }
+  .omniauth {
+    width: 100%;
+    color: $font-color;
+    background: none;
+    border: 1px solid $line-color;
+    border-radius: $roundness;
+    font-size: 1.5rem;
+    margin: 10px auto;
+    i {
+        margin-right: 0.5rem;
+    }
+  }
+
+  .field {
+    border-radius: $roundness;
+    margin-bottom: 10px;
+  }
+
+  #user_remember_me {
+    width: 20px;
+    margin: 0;
+  }
+
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; 
+  }
+
+  input[type="submit"] {
+    margin: 0.5rem 0 !important;
+  }
+}

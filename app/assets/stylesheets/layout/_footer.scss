@@ -1,19 +1,19 @@
 footer {
-    background-color: $line-color;
-    padding: 10px;
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    align-items: center;
+  background-color: $line-color;
+  padding: 10px;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
 
-    a {
-        margin: 0 0.5rem;
-        text-decoration: none;
-        color: inherit;
-    }
+  a {
+    margin: 0 0.5rem;
+    text-decoration: none;
+    color: inherit;
+  }
 
-    @media (max-width: $breakpoint-lg) {
-        width: 100%; 
-        margin: 0;
-    }
+  @media (max-width: $breakpoint-lg) {
+    width: 100%; 
+    margin: 0;
+  }
 }
