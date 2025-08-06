@@ -37,10 +37,15 @@ class PagesController < ApplicationController
 
   # Allows for the user to give a module code and minutes and get the time quickly logged
   def quick_log
+    minutes = params[:minutes].to_i
+    if minutes.nil? || minutes <= 0 
+      redirect_to root_path, alert: 'Time logged must be positive.'
+      return
+    end
+
     # Strip input and find module
-    raw_input = params[:module_code].to_s.strip.upcase
-    code_number = raw_input[/\d+/]
-    @uni_module = UniModule.where('code LIKE ?', "%#{code_number}").first
+    code = params[:module_code].to_s.strip.upcase
+    @uni_module = UniModule.where('code LIKE ?', "%#{code}%").first
 
     # TODO: what if somebody takes like COM101 and MAT101??
 

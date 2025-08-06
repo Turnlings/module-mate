@@ -9,7 +9,7 @@
       = link_to edit_semester_path(@semester) do
         %i.fa-solid.fa-pen-to-square
 
-    %button#copy-share-link.icon-button{ type: 'button', 'data-clipboard-text' => share_semester_url(@semester.share_token) }
+    %button#copy-share-link.icon-button{ type: 'button', title: 'Copy share link', 'data-clipboard-text' => share_semester_url(@semester.share_token) }
       %i.fa-solid.fa-share
     %span#copy-success{ style: 'display:none;' } Copied!
 
