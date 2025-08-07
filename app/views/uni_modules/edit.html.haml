@@ -8,3 +8,7 @@
 
   .gt-card.gt-form
     = render 'target_form'
+
+  .gt-card
+    %h2= "Delete " + @uni_module.name 
+    = button_to 'Delete', uni_module_path(@uni_module), method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'link-button delete w-100'

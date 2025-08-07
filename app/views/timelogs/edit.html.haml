@@ -1,5 +1,14 @@
-%h1 Editing timelog
+.form-card-container
+  = link_to uni_module_path(@uni_module), class:'unstyle-link font-secondary mb-1' do
+    %i.fa-solid.fa-arrow-left
+    %span="Back to #{@uni_module.code} - #{@uni_module.name}"
 
-= render 'form'
+  .gt-card.gt-form
+    .card-heading
+      %h1 Editing Timelog
 
-= link_to 'Back', uni_module_timelogs_path(@uni_module)
+    = render 'form'
+
+  .gt-card
+    %h2 Delete Timelog 
+    = button_to 'Delete', uni_module_timelog_path(@uni_module, @timelog), method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'link-button delete w-100' 

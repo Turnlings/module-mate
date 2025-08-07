@@ -8,6 +8,6 @@
 
     = render 'form'
 
-  .gt-card 
-    %h2 Delete Year
-    = button_to 'Delete', year_path(@year), method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'link-button delete'
+  .gt-card
+    %h2= "Delete " + @year.name 
+    = button_to 'Delete', year_path(@year), method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'link-button delete w-100'
