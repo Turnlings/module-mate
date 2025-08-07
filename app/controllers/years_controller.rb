@@ -56,7 +56,7 @@ class YearsController < ApplicationController
     @year.destroy!
 
     respond_to do |format|
-      format.html { redirect_to years_path, status: :see_other, notice: 'Year was successfully destroyed.' }
+      format.html { redirect_to root_path, status: :see_other, notice: 'Year was successfully deleted.' }
       format.json { head :no_content }
     end
   end

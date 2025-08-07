@@ -57,10 +57,11 @@ class TimelogsController < ApplicationController
 
   # DELETE /timelogs/1 or /timelogs/1.json
   def destroy
+    @uni_module = @timelog.uni_module
     @timelog.destroy!
 
     respond_to do |format|
-      format.html { redirect_to timelogs_path, status: :see_other, notice: 'Timelog was successfully destroyed.' }
+      format.html { redirect_to uni_module_path(@uni_module), status: :see_other, notice: 'Timelog was successfully deleted.' }
       format.json { head :no_content }
     end
   end

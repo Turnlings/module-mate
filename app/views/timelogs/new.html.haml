@@ -1,5 +1,10 @@
-%h1 New timelog
+.form-card-container
+  = link_to uni_module_path(@uni_module), class:'unstyle-link font-secondary mb-1' do
+    %i.fa-solid.fa-arrow-left
+    %span="Back to #{@uni_module.code} - #{@uni_module.name}"
 
-= render 'form'
+  .gt-card.gt-form
+    .form-heading
+      %h1 New Timelog
 
-= link_to 'Back', uni_module_timelogs_path(@uni_module)
+    = render 'form'

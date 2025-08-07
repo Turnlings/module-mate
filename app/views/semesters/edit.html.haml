@@ -7,3 +7,7 @@
       %h1 Editing Semester
 
     = render 'form'
+
+  .gt-card
+    %h2= "Delete " + @semester.name 
+    = button_to 'Delete', semester_path(@semester), method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'link-button delete w-100'
