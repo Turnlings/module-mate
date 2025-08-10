@@ -44,7 +44,6 @@ class User < ApplicationRecord
   end
 
   def pinned_modules
-    UniModule.joins(semester: { year: :user })
-             .where(pinned: true, years: { user_id: id })
+    uni_modules.where(pinned: true)
   end
 end

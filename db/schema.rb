@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_20_105241) do
+ActiveRecord::Schema[7.1].define(version: 2025_08_10_203319) do
   create_table "exam_results", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "exam_id", null: false
@@ -51,6 +51,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_20_105241) do
     t.index ["year_id"], name: "index_semesters_on_year_id"
   end
 
+  create_table "semesters_uni_modules", id: false, force: :cascade do |t|
+    t.integer "semester_id", null: false
+    t.integer "uni_module_id", null: false
+    t.index ["semester_id", "uni_module_id"], name: "index_semesters_uni_modules_on_semester_id_and_uni_module_id"
+    t.index ["uni_module_id", "semester_id"], name: "index_semesters_uni_modules_on_uni_module_id_and_semester_id"
+  end
+
   create_table "timelogs", force: :cascade do |t|
     t.integer "uni_module_id", null: false
     t.integer "minutes"
@@ -78,10 +85,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_20_105241) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "credits"
-    t.integer "semester_id"
     t.decimal "target"
     t.boolean "pinned", default: false
-    t.index ["semester_id"], name: "index_uni_modules_on_semester_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -116,6 +121,5 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_20_105241) do
   add_foreign_key "timelogs", "users"
   add_foreign_key "uni_module_targets", "uni_modules"
   add_foreign_key "uni_module_targets", "users"
-  add_foreign_key "uni_modules", "semesters"
   add_foreign_key "years", "users"
 end

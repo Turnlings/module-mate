@@ -3,7 +3,7 @@
 class UniModule < ApplicationRecord
   MAX_MODULES_PER_SEMESTER = 20
 
-  belongs_to :semester, optional: true
+  has_and_belongs_to_many :semesters
   has_many :exams, dependent: :destroy
   has_many :timelogs, dependent: :destroy
   has_many :uni_module_targets, dependent: :destroy
@@ -12,7 +12,7 @@ class UniModule < ApplicationRecord
   before_save :normalize_module_code
 
   def semester_module_limit
-    if semester.uni_modules.count >= MAX_MODULES_PER_SEMESTER
+    if semesters.any? && semesters.first.uni_modules.count >= MAX_MODULES_PER_SEMESTER
       errors.add(:base, "You can only have up to #{MAX_MODULES_PER_SEMESTER} modules per semester.")
     end
   end
