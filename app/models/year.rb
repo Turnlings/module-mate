@@ -43,4 +43,9 @@ class Year < ApplicationRecord
     weighted_sum = uni_modules.sum { |m| m.credit_share * m.achieved_score(user) }
     weighted_sum / total_credits
   end
+
+  # Good enough with weighted average TODO: use exam results instead
+  def average_score(user)
+    uni_modules.sum { |m| m.weighted_average(user) } / uni_modules.count
+  end
 end

@@ -9,20 +9,17 @@
       = link_to edit_uni_module_path(@uni_module) do
         %i.fa-solid.fa-pen-to-square
 
-.row
-  .col.text-center
-    %b Credits
-  .col.text-center
-    %b Weighted Average
-  .col.text-center
-    %b Achieved Score
-.row
-  .col.text-center
-    %span.stat= @uni_module.credits
-  .col.text-center
-    %span.stat= number_with_precision(@uni_module.weighted_average(current_user), precision: 2) + '%'
-  .col.text-center
-    %span.stat= number_with_precision(@uni_module.achieved_score(current_user), precision: 2) + '%'
+-# Stats
+.stats-container 
+  .stat 
+    .stat-header Credits
+    .stat-content= number_with_precision(@uni_module.credits, precision: 0)
+  .stat 
+    .stat-header Weighted Average
+    .stat-content= number_with_precision(@uni_module.weighted_average(current_user), precision: 2) + '%'
+  .stat 
+    .stat-header Achieved Score
+    .stat-content= number_with_precision(@uni_module.achieved_score(current_user), precision: 2) + '%'
 
 .row
   .col
