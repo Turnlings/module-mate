@@ -11,7 +11,12 @@
 }
 
 .gt-form {
-  input, select {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"], 
+  input[type="number"],
+  input[type="submit"],
+  select {
     height: 34px;
     width: 100%;
     padding: 0 0.5rem;
@@ -21,6 +26,21 @@
     color: $font-color;
     border: none;
     margin-bottom: 4px;
+  }
+
+  input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: $brand;
+    cursor: pointer;
+    border-radius: 4px; /* slightly rounded edges */
+    border: none;
+    background-color: $bg-light;
+  }
+
+  .checkbox {
+    display: block;
+    cursor: pointer;
   }
 
   input[type="submit"] {

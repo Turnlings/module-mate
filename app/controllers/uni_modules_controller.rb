@@ -25,7 +25,7 @@ class UniModulesController < ApplicationController
 
   # GET /uni_modules/new
   def new
-    @uni_module = UniModule.new(semester_id: params[:semester_id])
+    @uni_module = UniModule.new(semester_ids: [params[:semester_id]])
   end
 
   # GET /uni_modules/1/edit
@@ -91,6 +91,6 @@ class UniModulesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def uni_module_params
-    params.require(:uni_module).permit(:code, :name, :credits, :semester_id, :target)
+    params.require(:uni_module).permit(:code, :name, :credits, :target, semester_ids: [])
   end
 end
