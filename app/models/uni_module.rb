@@ -21,8 +21,14 @@ class UniModule < ApplicationRecord
     self.code = code.to_s.upcase
   end
 
+  def credit_share
+    credits.to_f / semesters.count
+  end
+
   def exams_with_results(user)
-    exams.joins(:exam_results).where(exam_results: { user_id: user.id }).distinct
+    exams.joins(:exam_results)
+         .where(exam_results: { user_id: user.id })
+         .where.not(exam_results: { score: nil })
   end
 
   def correct_weight_sum?
@@ -30,7 +36,7 @@ class UniModule < ApplicationRecord
   end
 
   def progress(user)
-    exams_with_results(user).sum(:weight)/100
+    exams_with_results(user).sum(:weight)
   end
 
   # Gets the average score of all of the completed exams so far, weighted by credits
