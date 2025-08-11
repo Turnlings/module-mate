@@ -26,8 +26,8 @@ RSpec.describe 'Visiting the homepage', type: :system do
     login_as user
     year = create(:year, user: user, name: 'Year 1', weighting: 50)
     semester = create(:semester, year: year, name: 'Semester 1')
-    uni_module = create(:uni_module, semester: semester, credits: 30)
-    create(:uni_module, semester: semester, credits: 30) # Another module to ensure calculation is correct
+    uni_module = create(:uni_module, semesters: [semester], credits: 30)
+    create(:uni_module, semesters: [semester], credits: 30) # Another module to ensure calculation is correct
     exam = create(:exam, uni_module: uni_module)
     create(:exam_result, user: user, exam: exam, score: 80)
     

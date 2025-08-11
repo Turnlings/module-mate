@@ -7,8 +7,11 @@
           - @uni_module.errors.full_messages.each do |message|
             %li= message
     .field
-      = f.label :semester_id, "Semester"
-      = f.collection_select :semester_id, Semester.all, :id, :name, prompt: "Select a Semester"
+      = f.label :semester_ids, "Semesters"
+      = f.collection_check_boxes :semester_ids, current_user.semesters, :id, :name do |b|
+        .checkbox
+          = b.check_box
+          = "#{b.object.year.name} / #{b.object.name}"
     .field
       = f.label :code
       = f.text_field :code

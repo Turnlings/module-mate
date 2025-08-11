@@ -16,7 +16,7 @@ class Year < ApplicationRecord
   end
 
   def credits
-    uni_modules.sum(:credits)
+    uni_modules.sum { |m| m.credit_share}
   end
 
   # The average of all the grades of the semesters in this year
@@ -28,45 +28,19 @@ class Year < ApplicationRecord
 
   # The percentage of credits completed by the user in this year
   def progress(user)
-    # return 0 if semesters.empty?
-    # completed_credits = semesters.sum { |s| s.progress(user) }
-    # completed_credits / semesters.count
+    # Calculate for each module: credit_share * completion_percentage
+    completed_credits = uni_modules.sum { |m| m.credit_share * m.completion_percentage(user) / 100.0 }
+    total_credits = uni_modules.sum { |m| m.credit_share }
 
-    # completed = exams.joins(:exam_results).where(exam_results: { user_id: user.id }).distinct.sum(:weight)
-    # total = exams.sum(:weight)
-
-    completed = ExamResult
-      .joins(exam: :uni_module)
-      .where(exam: exams, user: user)
-      .sum(<<~SQL.squish)
-        exams.weight
-        * uni_modules.credits
-      SQL
-
-    total = exams
-      .joins(:uni_module)
-      .sum(<<~SQL.squish)
-        exams.weight
-        * uni_modules.credits
-      SQL
-
-    total.zero? ? 0 : (completed.to_f / total.to_f) * 100
+    total_credits.zero? ? 0 : (completed_credits / total_credits) * 100
   end
 
   # The accumulated score of all the completed exams in this year
   def achieved_score(user)
-    return 0 if credits.zero?
+    total_credits = uni_modules.sum { |m| m.credit_share }
+    return 0 if total_credits.zero?
 
-    scores = ExamResult
-      .joins(exam: :uni_module)
-      .where(exam: exams, user: user)
-      .sum(<<~SQL.squish)
-        exam_results.score
-        * exams.weight
-        * uni_modules.credits
-        / 100.0
-      SQL
-
-    scores / credits
+    weighted_sum = uni_modules.sum { |m| m.credit_share * m.achieved_score(user) }
+    weighted_sum / total_credits
   end
 end

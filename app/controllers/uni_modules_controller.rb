@@ -6,7 +6,7 @@ class UniModulesController < ApplicationController
 
   # GET /uni_modules or /uni_modules.json
   def index
-    @uni_modules = UniModule.joins(semester: :year).where(years: { user_id: current_user.id })
+    @uni_modules = current_user.uni_modules
 
     if params[:search].present?
       query = "%#{params[:search]}%"
@@ -25,7 +25,7 @@ class UniModulesController < ApplicationController
 
   # GET /uni_modules/new
   def new
-    @uni_module = UniModule.new(semester_id: params[:semester_id])
+    @uni_module = UniModule.new(semester_ids: [params[:semester_id]])
   end
 
   # GET /uni_modules/1/edit
@@ -86,14 +86,11 @@ class UniModulesController < ApplicationController
   def set_uni_module
     @uni_module = UniModule.find(params[:id])
 
-    unless @uni_module.semester.nil?
-      @semester = @uni_module.semester
-      @uni_modules = @semester.uni_modules
-    end
+    @semester = @uni_module.semesters.first
   end
 
   # Only allow a list of trusted parameters through.
   def uni_module_params
-    params.require(:uni_module).permit(:code, :name, :credits, :semester_id, :target)
+    params.require(:uni_module).permit(:code, :name, :credits, :target, semester_ids: [])
   end
 end

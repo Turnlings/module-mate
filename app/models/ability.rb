@@ -32,8 +32,8 @@ class Ability
     return unless user.present?
     can :manage, Year, user_id: user.id
     can :manage, Semester, year: { user_id: user.id }
-    can :manage, UniModule, semester: { year: { user_id: user.id } }
-    can :manage, Exam, uni_module: { semester: { year: { user_id: user.id } } }
+    can :manage, UniModule, semesters: { year: { user_id: user.id } }
+    can :manage, Exam, uni_module: { semesters: { year: { user_id: user.id } } }
     can :manage, ExamResult, user_id: user.id
     can :manage, UniModuleTarget, user_id: user.id
     can :manage, Timelog, user_id: user.id

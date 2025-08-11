@@ -3,7 +3,7 @@
 class UniModule < ApplicationRecord
   MAX_MODULES_PER_SEMESTER = 20
 
-  belongs_to :semester, optional: true
+  has_and_belongs_to_many :semesters
   has_many :exams, dependent: :destroy
   has_many :timelogs, dependent: :destroy
   has_many :uni_module_targets, dependent: :destroy
@@ -12,7 +12,7 @@ class UniModule < ApplicationRecord
   before_save :normalize_module_code
 
   def semester_module_limit
-    if semester.uni_modules.count >= MAX_MODULES_PER_SEMESTER
+    if semesters.any? && semesters.first.uni_modules.count >= MAX_MODULES_PER_SEMESTER
       errors.add(:base, "You can only have up to #{MAX_MODULES_PER_SEMESTER} modules per semester.")
     end
   end
@@ -21,8 +21,14 @@ class UniModule < ApplicationRecord
     self.code = code.to_s.upcase
   end
 
+  def credit_share
+    credits.to_f / semesters.count
+  end
+
   def exams_with_results(user)
-    exams.joins(:exam_results).where(exam_results: { user_id: user.id }).distinct
+    exams.joins(:exam_results)
+         .where(exam_results: { user_id: user.id })
+         .where.not(exam_results: { score: nil })
   end
 
   def correct_weight_sum?
@@ -30,7 +36,7 @@ class UniModule < ApplicationRecord
   end
 
   def progress(user)
-    exams_with_results(user).sum(:weight)/100
+    exams_with_results(user).sum(:weight)
   end
 
   # Gets the average score of all of the completed exams so far, weighted by credits
