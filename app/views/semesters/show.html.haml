@@ -63,21 +63,3 @@
   %h2 Your Time Spent
   .chart-container
     = line_chart @module_data, curve: false, legend: false, width: "100%" #, height:"100%"
-
-%h1.section-heading Assessments
-.row
-  .col
-    .gt-card
-      %h2 Upcoming Assessments
-      - if @next_exam
-        = link_to @next_exam.name, uni_module_exam_path(@next_exam.uni_module, @next_exam)
-        %span.d-block
-          %b Due:
-          = @next_exam.due.strftime("%d %b %Y, %H:%M")
-      - else
-        %span No upcoming assessments.
-  .col
-    .gt-card
-      %h2 Assessment Type
-      .chart-container
-        = pie_chart @exam_type_data, legend: false, width: "100%" #, height:"100%"

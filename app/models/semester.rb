@@ -28,6 +28,7 @@ class Semester < ApplicationRecord
 
   # Good enough with weighted average TODO: use exam results instead
   def average_score(user)
+    return 0 if uni_modules.empty?
     uni_modules.sum { |m| m.weighted_average(user) } / uni_modules.count
   end
 
