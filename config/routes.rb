@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       patch :pin
     end
   end
-  resources :exam_results, only: [:create, :update]
+  resources :exam_results, only: [:create, :edit, :update]
   resources :uni_module_targets, only: [:create, :update]
 
   post 'quick_log', to: 'pages#quick_log'

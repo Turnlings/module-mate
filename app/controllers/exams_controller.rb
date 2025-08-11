@@ -23,12 +23,6 @@ class ExamsController < ApplicationController
   # GET /exams/1/edit
   def edit
     @uni_module = @exam.uni_module
-
-    @exam_result = if @exam.result(current_user).nil?
-                     ExamResult.new(user: current_user, exam: @exam)
-                   else
-                     @exam.result(current_user)
-                   end
   end
 
   # POST /exams or /exams.json
