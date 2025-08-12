@@ -73,3 +73,9 @@ h2 {
     padding: 0.5rem;
   }
 }
+
+@media (max-width: $breakpoint-sm) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+}

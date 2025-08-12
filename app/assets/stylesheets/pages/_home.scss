@@ -38,7 +38,7 @@
   display: flex;
   flex: 1 1;
   width: 100%;
-  min-height: 300px;
+  // min-height: 300px;
   min-width: 0;
   max-width: 100%;
   box-sizing: border-box;
@@ -59,7 +59,7 @@
 
     td {
       padding: 8px;
-      background-color: $bg-light;
+      background-color: $bg-half-light;
       border-top: 1px solid $bg-light;
       border-bottom: 1px solid $bg-light;
     }
