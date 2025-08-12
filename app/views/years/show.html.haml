@@ -33,7 +33,11 @@
         .col Progress
         .col Achieved
       .row
-        .col= "#{number_with_precision(semester.progress(current_user), precision: 0)}%"
+        .col.d-flex.align-items-center
+          - progress = semester.progress(current_user)
+          = "#{number_with_precision(progress, precision: 0)}%"
+          - if progress == 100
+            .chip-success Completed
         .col= "#{number_with_precision(semester.achieved_score(current_user), precision: 0)}%"
       .row
         .col.progress-bar.mx-12px

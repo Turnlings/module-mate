@@ -21,6 +21,17 @@
   color: $danger;
 }
 
+.chip-success {
+  display: flex;
+  align-items: center;
+  border: 1px solid $success;
+  border-radius: 15px;
+  color: $success;
+  font-size: 0.8rem;
+  margin-left: 12px;
+  padding: 0 8px;
+}
+
 .chip-warning {
   display: flex;
   align-items: center;
