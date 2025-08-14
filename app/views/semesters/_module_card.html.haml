@@ -1,0 +1,34 @@
+- cache [uni_module, current_user] do  
+  .gt-card
+    .card-heading
+      %h2= uni_module.code + " - " + uni_module.name
+      .icon-button
+        = link_to uni_module do
+          %i.fa-solid.fa-arrow-right
+    .container-flex
+      .row.font-secondary
+        .col Credits
+        .col Progress
+        .col Achieved
+      .row
+        .col
+          - if uni_module.credits.present?
+            = number_with_precision(uni_module.credits, precision: 0)
+          - else
+            = "N/A"
+        .col.d-flex.align-items-center
+          - progress = uni_module.progress(current_user)
+          = "#{number_with_precision(progress, precision: 0)}%"
+          - if progress == 100
+            .chip-success.hide-on-mobile Completed
+        .col= "#{number_with_precision(uni_module.achieved_score(current_user), precision: 0)}%"
+      .row
+        .col.progress-bar.mx-12px
+          - if uni_module.credits.present?
+            .progress{style: "width: #{uni_module.credits.to_f / @semester.credits * 100}%"}
+          - else
+            .progress{style: "width: 0%"}
+        .col.progress-bar.mx-12px
+          .progress{style: "width: #{uni_module.progress(current_user)}%"}
+        .col.progress-bar.mx-12px
+          .progress{style: "width: #{uni_module.achieved_score(current_user)}%"}

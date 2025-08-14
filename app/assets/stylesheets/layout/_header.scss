@@ -14,6 +14,11 @@ header {
     .title {
       font-size: 2.5rem;
       line-height: 2.5rem;
+
+      @media (max-width: $breakpoint-sm) {
+        font-size: 2rem;
+        line-height: 2rem;
+      }
     }
 
     .account {
@@ -117,4 +122,8 @@ header {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+}
+
+.date-row {
+  display: flex;
 }

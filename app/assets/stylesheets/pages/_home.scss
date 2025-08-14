@@ -38,7 +38,7 @@
   display: flex;
   flex: 1 1;
   width: 100%;
-  min-height: 300px;
+  // min-height: 300px;
   min-width: 0;
   max-width: 100%;
   box-sizing: border-box;
@@ -48,20 +48,33 @@
   }
 }
 
-.exam-row {
-  border-top: 1px solid $background-color;
-  background-color: $background-color;
-}
-
 .gt-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0 8px;
   margin: 10px 0;
 
-  th, td {
-    padding: 10px;
+  .exam-row, .timelog-row {
     text-align: left;
-    border-bottom: 1px solid $background-color;
+
+    td {
+      padding: 8px;
+      background-color: $bg-half-light;
+      border-top: 1px solid $bg-light;
+      border-bottom: 1px solid $bg-light;
+    }
+
+    td:first-child {
+      border-left: 1px solid $bg-light;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+    }
+
+    td:last-child {
+      border-right: 1px solid $bg-light;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
   }
 }
 

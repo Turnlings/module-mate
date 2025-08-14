@@ -44,8 +44,13 @@
           .name-row
             .mod-code= exam.uni_module.code
             .text-truncate= exam.name
-          .due-date.font-secondary
-            Due:
-            = exam.due.strftime("%d %b %Y, %H:%M")
+          .date-row
+            .due-date.font-secondary
+              Due:
+              = exam.due.strftime("%d %b %Y, %H:%M")
+            - if exam.due < 1.day.from_now
+              .chip-danger= "#{((exam.due - Time.current)/1.hour).ceil} Hours"
+            - elsif exam.due < 1.week.from_now
+              .chip-warning= "#{(exam.due.to_date - Date.today).to_i} Days"
     - else
       %span No upcoming assessments.

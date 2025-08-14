@@ -9,9 +9,5 @@
   = render 'form'
 
 .gt-card
-  .gt-form
-    = render 'result_form'
-
-.gt-card
   %h2= "Delete " + @exam.name 
   = button_to 'Delete', uni_module_exam_path(@uni_module, @exam), method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'link-button delete w-100'

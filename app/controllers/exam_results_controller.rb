@@ -17,6 +17,15 @@ class ExamResultsController < ApplicationController
     end
   end
 
+  def edit
+    @exam = Exam.find(params[:id])
+    @exam_result = if @exam.result(current_user).nil?
+                  ExamResult.new(user: current_user, exam: @exam)
+                else
+                  @exam.result(current_user)
+                end
+  end
+
   def update
     if @exam_result.update(exam_result_params)
       redirect_to uni_module_path(@uni_module), notice: 'Exam result was successfully updated.'

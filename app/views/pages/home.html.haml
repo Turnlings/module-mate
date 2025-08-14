@@ -39,7 +39,11 @@
             = "#{number_with_precision(data[:weighting], precision: 0)}%"
           - else
             = "N/A"
-        .col= "#{number_with_precision(data[:progress], precision: 0)}%"
+        .col.d-flex.align-items-center
+          - progress = data[:progress]
+          = "#{number_with_precision(progress, precision: 0)}%"
+          - if progress == 100
+            .chip-success Completed
         .col= "#{number_with_precision(data[:achieved], precision: 0)}%"
       .row
         .col.progress-bar.mx-12px

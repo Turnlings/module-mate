@@ -26,6 +26,12 @@ class Semester < ApplicationRecord
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
 
+  # Good enough with weighted average TODO: use exam results instead
+  def average_score(user)
+    return 0 if uni_modules.empty?
+    uni_modules.sum { |m| m.weighted_average(user) } / uni_modules.count
+  end
+
   def achieved_score(user)
     total_weight = uni_modules.sum { |m| m.credit_share }
     weighted_sum = uni_modules.sum { |m| m.credit_share * m.achieved_score(user) }
