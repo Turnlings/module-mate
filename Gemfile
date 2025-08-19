@@ -78,6 +78,10 @@ group :test do
   gem 'simplecov', require: false
 end
 
+group :production do
+  gem 'pg', '~> 1.6'
+end
+
 gem 'bootstrap', '~> 5.3'
 gem 'chartkick'
 gem 'devise', '~> 4.9'
