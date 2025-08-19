@@ -249,6 +249,7 @@ GEM
     parser (3.3.8.0)
       ast (~> 2.4.1)
       racc
+    pg (1.6.1-x86_64-linux)
     popper_js (2.11.8)
     pp (0.6.2)
       prettyprint
@@ -442,6 +443,7 @@ DEPENDENCIES
   omniauth
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
+  pg (~> 1.6)
   puma (>= 5.0)
   rack (>= 3.1.16)
   rack-mini-profiler
