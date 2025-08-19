@@ -23,7 +23,7 @@
 
   @media (max-width: $breakpoint-sm) {
     .stat-header {
-      font-size: 0.8rem;
+      font-size: $secondary-size;
     }
 
     .stat-content {
