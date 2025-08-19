@@ -12,6 +12,8 @@
         .checkbox
           = b.check_box
           = "#{b.object.year.name} / #{b.object.name}"
+    - if current_user.semesters.empty?
+      %span.font-secondary.text-danger You currently have no semesters. Please create one under the relevant year to continue.
     .field
       = f.label :code
       = f.text_field :code

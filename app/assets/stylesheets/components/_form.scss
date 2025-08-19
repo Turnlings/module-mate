@@ -41,8 +41,10 @@
   }
 
   .checkbox {
-    display: block;
+    display: flex;
+    align-items: center;
     cursor: pointer;
+    gap: 0.5rem;
   }
 
   input[type="submit"] {
@@ -51,9 +53,11 @@
     padding: 2px 10px;
     border-radius: 5px;
     margin-top: 4px;
+    transition: all 0.2s ease;
 
-    &:hover{
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    &:hover {
+      background-color: $brand-light;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     }
   }
 }
