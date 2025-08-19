@@ -28,7 +28,7 @@
 - @uni_modules.each do |uni_module|
   = render partial: 'module_card', locals: { uni_module: uni_module }
 
-= link_to '+ New Module', new_uni_module_path(semester_id: @semester.id), class: 'card-button'
+= link_to '+ New Module', new_uni_module_path(semester_id: @semester.id), class: 'card-button section-margin'
 
 -# Graph
 .gt-card
