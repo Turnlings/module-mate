@@ -67,6 +67,9 @@ group :development do
   gem 'stackprof'
   gem 'bullet'
 
+  gem 'letter_opener'
+  gem 'letter_opener_web' # optional, gives a /letter_opener UI
+
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
@@ -101,3 +104,4 @@ gem 'omniauth-google-oauth2'
 
 gem 'cancancan', '~> 3.6'
 
+gem 'postmark-rails'
