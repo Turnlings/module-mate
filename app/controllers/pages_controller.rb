@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class PagesController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:about, :contact, :help, :privacy, :terms]
+
   def home
     @semesters = Semester.joins(:year)
                          .where(years: { user_id: current_user.id })
