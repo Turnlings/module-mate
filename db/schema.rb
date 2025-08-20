@@ -90,7 +90,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_19_214716) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -99,7 +98,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_19_214716) do
     t.datetime "updated_at", null: false
     t.string "provider"
     t.string "uid"
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.string "email"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
