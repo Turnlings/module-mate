@@ -14,13 +14,13 @@
 
   --success: hsl(120, 80%, 30%);
   --warning: hsl(50, 80%, 30%);
-  --danger: hsl(0, 80, 30);
+  --danger: hsl(0, 80%, 30%);
 }
 
 [data-theme="light"] {
-  --bg-dark: hsl(210, 2%, 80%);
-  --bg: hsl(210, 2%, 90%);
-  --bg-half-light: hsl(210, 2%, 88%);
+  --bg-dark: hsl(210, 2%, 90%);
+  --bg: hsl(210, 2%, 85%);
+  --bg-half-light: hsl(210, 2%, 87%);
   --bg-light: hsl(210, 2%, 70%);
 
   // The same in lightmode
@@ -34,5 +34,5 @@
 
   --success: hsl(120, 100%, 40%);
   --warning: hsl(50, 100%, 40%);
-  --danger: hsl(0, 100, 40);
+  --danger: hsl(0, 100%, 40%);
 }

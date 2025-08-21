@@ -58,39 +58,6 @@ header {
   }
 }
 
-.quicklog { /*Can probably switch to gt-form once polished (TODO)*/
-  //width: 400px;
-  margin-top: 0;
-  
-  input[type="text"], input[type="number"] {
-    width: 100%;
-    height: 30px;
-    outline: none;
-    border-radius: 5px;
-    background-color: $line-color;
-    color: $font-color;
-    border: none;
-  }
-
-  .split-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 0.5rem;
-  }
-
-  #module_code, #minutes {
-    margin: 0;
-    padding: 0 0.5rem;
-  }
-
-  input[type="submit"] {
-    margin-top: 0.5rem;
-    border: none;
-    width: 100%
-  }
-}
-
 .module-list {
   width: 100%;
   a {

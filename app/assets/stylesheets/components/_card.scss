@@ -1,9 +1,5 @@
 .gt-card {
-  padding: $roundness;
-  border-radius: $roundness;
-  border: 1px solid var(--bg-light);
-  margin: 0 0 0.5rem;
-  max-width: 100%;
+  @include card;
 }
 
 .card-heading {
