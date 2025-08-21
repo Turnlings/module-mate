@@ -1,5 +1,18 @@
 .gt-card {
   @include card;
+
+  position: relative;
+}
+
+.gt-card-link {
+  a::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+  }
 }
 
 .card-heading {
