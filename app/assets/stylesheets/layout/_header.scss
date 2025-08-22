@@ -11,6 +11,10 @@ header {
   flex-shrink: 0;  
 
   .side-heading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     .title {
       font-size: 2.5rem;
       line-height: 2.5rem;
@@ -22,10 +26,42 @@ header {
     }
 
     .account {
-      margin-bottom: 0.5rem;
+      font-size: $secondary-size;
+      display: flex;
+      justify-content: space-between;
+      align-items: center; 
+
+      .profile {
+        order: 1;
+      
+        color: $text-muted;
+      }
+      .moon { order: 2;}
+
+      @media (max-width: $breakpoint-lg) {
+        font-size: 1.5rem;
+        justify-content: end;
+        gap: 1rem;
+
+        .profile { 
+          order: 2;
+
+          span {
+            display: none;
+          }
+        }
+        .moon { order: 1;}
+      }
     }
 
+    padding-bottom: 0.5rem;
     border-bottom: 1px solid $bg-light;
+
+    @media (max-width: $breakpoint-lg) {
+      flex-direction: row;
+      justify-content: space-between;
+      padding-bottom: 0;
+    }
   }
 
   .side-content {

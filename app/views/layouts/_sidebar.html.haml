@@ -2,13 +2,13 @@
   .title= link_to "ModuleMate", root_path
   .account
     - if user_signed_in?
-      = link_to user_path(current_user), class: 'font-secondary unstyle-link' do
+      = link_to user_path(current_user), class: 'unstyle-link profile' do
         %i.fa-solid.fa-circle-user
         %span= current_user.email
     - else
       = link_to "Sign In", new_user_session_path, style: "font-size: 20px;"
 
-    %button#theme-toggle.icon-button.float-end
+    %button#theme-toggle.icon-button.float-end.moon
       %i.fa-solid.fa-moon
 
 .side-content
