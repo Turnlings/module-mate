@@ -7,18 +7,18 @@
     = render "layouts/meta"
     = csrf_meta_tags
     = csp_meta_tag
+
+
+    :javascript
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme) document.documentElement.dataset.theme = savedTheme;
+
+
     = stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload"
     = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css", rel: "stylesheet", crossorigin: "anonymous"
     = javascript_importmap_tags
 
   %body
-    :javascript
-      if (!window.savedThemeApplied) {
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme) document.body.dataset.theme = savedTheme;
-        window.savedThemeApplied = true;
-      }
-
     - if user_signed_in?
       %header
         = render 'layouts/sidebar'

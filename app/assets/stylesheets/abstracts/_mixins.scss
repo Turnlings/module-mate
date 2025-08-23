@@ -5,7 +5,7 @@
   margin: 0 0 0.5rem;
   max-width: 100%;
 
-  body[data-theme="light"] & {
+  html[data-theme="light"] & {
     background-color: $bg-dark;
   }
 }
