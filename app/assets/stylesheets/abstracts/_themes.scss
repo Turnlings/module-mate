@@ -15,6 +15,13 @@
   --success: hsl(120, 80%, 30%);
   --warning: hsl(50, 80%, 30%);
   --danger: hsl(0, 80%, 30%);
+
+  // Chartkick colours
+  --chart-color-1: #00538F;
+  --chart-color-2: #8a0f0f;
+  --chart-color-3: #8a750f;
+  --chart-color-4: #33B648;
+  --chart-color-5: #C266C2;
 }
 
 [data-theme="light"] {
@@ -35,4 +42,11 @@
   --success: hsl(120, 100%, 40%);
   --warning: hsl(50, 100%, 40%);
   --danger: hsl(0, 100%, 40%);
+
+  // Chartkick colours
+  --chart-color-1: #1980e6;
+  --chart-color-2: #cc0000;
+  --chart-color-3: #ccaa00;
+  --chart-color-4: #00cc00;
+  --chart-color-5: #C266C2;
 }
