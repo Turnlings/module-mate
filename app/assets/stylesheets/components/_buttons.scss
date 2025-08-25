@@ -1,5 +1,5 @@
 .link-button {
-  color: $font-color;
+  color: $text-button;
   text-decoration: none;
   background-color: $brand;
   padding: 2px 10px;
@@ -40,13 +40,12 @@
 }
 
 .card-button {
+  @include card;
+
+  margin-bottom: 1.5rem;
   color: $font-secondary-color;
   text-align: center;
-  padding: $roundness;
-  border-radius: $roundness;
   background-color: inherit;
-  border: 1px solid $line-color;
-  max-width: 100%;
   text-decoration: none;
   font-size: 0.8em;
   transition: all 0.2s ease;

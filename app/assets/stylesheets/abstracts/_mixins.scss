@@ -1,0 +1,11 @@
+@mixin card {
+  padding: $roundness;
+  border-radius: $roundness;
+  border: 1px solid $bg-light;
+  margin: 0 0 0.5rem;
+  max-width: 100%;
+
+  html[data-theme="light"] & {
+    background-color: $bg-dark;
+  }
+}

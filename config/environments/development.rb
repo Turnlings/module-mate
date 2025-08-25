@@ -91,4 +91,7 @@ Rails.application.configure do
   # end
 
   Rack::MiniProfiler.config.enabled = false
+
+  config.assets.debug = true
+  config.assets.compile = true
 end

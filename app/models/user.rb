@@ -7,6 +7,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
 
+  # Encrypt email deterministically so Devise can query it
+  # encrypts :email, deterministic: true
+
   has_many :years, dependent: :destroy
   has_many :semesters, through: :years
   has_many :uni_modules, through: :semesters

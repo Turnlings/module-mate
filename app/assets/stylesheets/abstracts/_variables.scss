@@ -1,18 +1,19 @@
-$bg-dark: hsl(210, 2, 10);
-$bg: hsl(210, 2, 15);
-$bg-half-light: hsl(210, 2, 18);
-$bg-light: hsl(210, 2, 25);
+$bg-dark: var(--bg-dark);
+$bg: var(--bg);
+$bg-half-light: var(--bg-half-light);
+$bg-light: var(--bg-light);
 
-$brand: hsl(210, 80, 30);
-$brand-light: hsl(210, 80, 50);
+$brand: var(--brand);
+$brand-light: var(--brand-light);
 
-$text-bold: hsl(0, 0, 95);
-$text: hsl(0, 0, 90);
-$text-muted: hsl(0, 0, 60);
+$text-bold: var(--text-bold);
+$text: var(--text);
+$text-muted: var(--text-muted);
+$text-button: var(--text-button);
 
-$success: hsl(120, 80%, 30%);
-$warning: hsl(50, 80%, 30%);
-$danger: hsl(0, 80, 30);
+$success: var(--success);
+$warning: var(--warning);
+$danger: var(--danger);
 
 $font-size: 18px;
 $secondary-size: 0.9rem;

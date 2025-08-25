@@ -3,6 +3,7 @@ import "@hotwired/turbo-rails"
 import "chartkick"
 import "chart.js"
 import "chartjs-adapter-date-fns"
+import "./theme"
 
 import ClipboardJS from "clipboard";
 

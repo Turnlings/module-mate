@@ -28,8 +28,9 @@
   border-radius: 15px;
   color: $success;
   font-size: $secondary-size;
+  line-height: $secondary-size;
   margin-left: 12px;
-  padding: 0 8px;
+  padding: 2px 8px;
 }
 
 .chip-warning {
@@ -54,4 +55,21 @@
   line-height: $secondary-size;
   margin-left: 12px;
   padding: 0 8px;
+}
+
+[data-theme="light"] {
+  .chip-success { 
+    color: $text-button;
+    background-color: $success;
+  }
+
+  .chip-warning {
+    color: $text-button;
+    background-color: $warning;
+  }
+
+  .chip-danger {
+    color: $text-button;
+    background-color: $danger;
+  }
 }
