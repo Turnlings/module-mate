@@ -1,6 +1,8 @@
-# Module Mate (Working Title)
+# ModuleMate
 
-A Ruby on Rails web app that helps students track study time, manage upcoming exams, record scores, and calculate final grades. Built to replace the fragmented spreadsheets I used in my first two years at university, with a scalable design ready for multiple users.
+A Ruby on Rails web app that helps students track study time, manage upcoming exams, record scores, and calculate final grades. Built to replace the fragmented spreadsheets I used in my first two years at university, with a scalable design ready for multiple users.  
+
+Try the app live: [ModuleMate](https://modulemate.app)
 
 ## Features
 
