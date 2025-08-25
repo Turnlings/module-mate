@@ -6,6 +6,8 @@ document.addEventListener("turbo:load", () => {
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme) doc.dataset.theme = savedTheme;
 
+  if (!toggleBtn) { return; }
+
   // Add event listener
   toggleBtn.addEventListener("click", () => {
     const newTheme = doc.dataset.theme === "light" ? "dark" : "light";

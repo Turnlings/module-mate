@@ -32,6 +32,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root 'pages#home'
 
+  get 'dashboard', to: 'pages#dashboard'
+
   # Fix for sign out bug
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'

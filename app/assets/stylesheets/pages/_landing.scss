@@ -1,0 +1,53 @@
+.landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1000px;
+  gap: 4rem;
+  margin: 3rem auto;
+
+  .front {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+
+    .title-and-blurb {
+      text-align: center;
+
+      .site-name {
+        font-size: 3rem;
+      }
+    }
+  }
+
+  .main-action {
+    font-size: 1.5rem;
+    border-radius: $roundness;
+    padding: 0.5rem 2rem;
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+
+    @media (max-width: $breakpoint-sm) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .github {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    @media (max-width: $breakpoint-sm) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .gt-card p {
+    margin: 0;
+  }
+}
