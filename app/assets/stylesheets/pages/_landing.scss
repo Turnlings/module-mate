@@ -84,3 +84,11 @@
     color: $text-muted;
   }
 }
+
+.logo {
+  width: 64px;
+  height: auto;
+  .brand {
+    fill: $brand;
+  }
+}
