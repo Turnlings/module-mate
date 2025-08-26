@@ -23,6 +23,12 @@
         = render 'layouts/sidebar'
     
     %div{class: (user_signed_in? ? "not-header" : "not-header-login")}
+      - if !user_signed_in?
+        .false-header 
+          .content
+            = link_to root_path, class: "sitename" do
+              %h1 ModuleMate
+            = link_to "Log in", new_user_session_path, class: "login"
       %main
         %div 
           - flash.each do |key, message|
