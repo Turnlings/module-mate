@@ -1,65 +1,39 @@
-.page-heading
-  .left-button
-  %h1 Dashboard
-  .right-button.button-row
+.landing
+  .front
+    .title-and-tag
+      %h1.site-name ModuleMate
+      %span.tagline Track your effort, master your exams.
 
--# Stats
-.stats-container 
-  .stat 
-    .stat-header Module Count
-    .stat-content= link_to current_user.uni_modules.count, uni_modules_path
-  .stat 
-    .stat-header Average Score
-    .stat-content= number_with_precision(current_user.average_score, precision: 2) + '%'
-  .stat 
-    .stat-header Achieved Score
-    .stat-content= number_with_precision(current_user.achieved_score, precision: 2) + '%'
+    .options
+      = link_to "Get Started", new_user_session_path, class: 'link-button main-action'
 
-- @year_data.each do |data|
-  - year = data[:year]
-  .gt-card
-    .card-heading
-      %h2= year.name
-      .icon-button.gt-card-link
-        = link_to year_path(year) do
-          %i.fa-solid.fa-arrow-right
-    .container-flex
-      .row.font-secondary
-        .col
-          .th-content
-            %span Weighting
-            - unless current_user.correct_weight_sum?
-              .icon-button.text-danger
-                %i.fa-solid.fa-triangle-exclamation{ title: 'Total weight must be 100%' }
-        .col Progress
-        .col Achieved
-      .row
-        .col
-          - if data[:weighting].present?
-            = "#{number_with_precision(data[:weighting], precision: 0)}%"
-          - else
-            = "N/A"
-        .col.d-flex.align-items-center
-          - progress = data[:progress]
-          = "#{number_with_precision(progress, precision: 0)}%"
-          - if progress == 100
-            .chip-success Completed
-        .col= "#{number_with_precision(data[:achieved], precision: 0)}%"
-      .row
-        .col.progress-bar.mx-12px
-          - width = data[:weighting].presence || 0
-          .progress{style: "width: #{width}%"}
-        .col.progress-bar.mx-12px
-          .progress{style: "width: #{data[:progress]}%"}
-        .col.progress-bar.mx-12px
-          .progress{style: "width: #{data[:achieved]}%"}
+  .features 
+    .gt-card
+      %h3 Track Time
 
+      %p.small Boost your productivity by keeping track of the amount of time you spend on different modules. Easily record short study sessions with the Quicklog feature.
 
-= link_to '+ New Year', new_year_path, class: 'card-button section-margin'
+    .gt-card
+      %h3 Manage Exams 
 
-%h1.section-heading Statistics
--# Graph on left
-.gt-card
-  %h2 Your Time Spent
-  .chart-container
-    = line_chart @module_data, curve: false, legend: false, width: "100%", height:"300px", library: { responsive: true, maintainAspectRatio: false }
+      %p.small Organise exam information into one place and have ModuleMate tell you what is coming up next and what matters most.
+
+    .gt-card 
+      %h3 Record Scores
+
+      %p.small Simply enter your scores and their weightings and let ModuleMate calculate your achieved score, and what you need to reach your target.
+
+  .screenshots
+    %h2 Neatly organised and customisable
+    = image_tag "dashboard.png", alt: "ModuleMate Dashboard", class: "dashboard"
+
+  .github 
+    .left 
+      = inline_svg "github.svg", class: "svg"
+    .right
+      %h2 Open Source 
+      %p This project began as a personal tool for the original developer, but it’s open for anyone to explore and improve. Whether you’d like to add a feature, fix a bug, or just learn from the code, contributions are welcome!
+      .action
+        = link_to "https://github.com/Turnlings/module-mate", target: "_blank", rel: "noopener", class: "link-button" do
+          %i.fab.fa-github
+          View on GitHub

@@ -85,6 +85,7 @@ RSpec.describe 'Account', type: :system do
       end
 
       visit '/'
+      click_on 'Log in'
 
       fill_in 'Email', with: 'test@example.com'
       fill_in 'Password', with: 'password'
