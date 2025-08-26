@@ -1,8 +1,8 @@
 .landing
   .front
-    .title-and-blurb
+    .title-and-tag
       %h1.site-name ModuleMate
-      %span.font-secondary Track study time, manage upcoming exams, record scores, and calculate final grades.
+      %span.tagline Track your effort, master your exams.
 
     .options
       = link_to "Get Started", new_user_session_path, class: 'link-button main-action'
@@ -24,7 +24,8 @@
       %p.small Simply enter your scores and their weightings and let ModuleMate calculate your achieved score, and what you need to reach your target.
 
   .screenshots
-    %p Screenshots here
+    %h2 Neatly organised and customisable
+    = image_tag "dashboard.png", alt: "ModuleMate Dashboard", class: "dashboard"
 
   .github 
     .left 
