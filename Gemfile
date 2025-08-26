@@ -105,3 +105,5 @@ gem 'omniauth-google-oauth2'
 gem 'cancancan', '~> 3.6'
 
 gem 'postmark-rails'
+
+gem 'inline_svg'

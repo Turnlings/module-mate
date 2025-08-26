@@ -90,3 +90,25 @@ h3 {
 .section-margin {
   margin-bottom: 1.5rem;
 }
+
+.svg {
+  fill: green;
+  width: 100%;
+  height: auto;
+
+  .theme {
+    fill: $brand;
+  }
+
+  .back {
+    fill: $bg-half-light;
+  }
+
+  .light {
+    fill: $bg-light;
+  }
+
+  .dark {
+    fill: $bg-dark;
+  }
+}

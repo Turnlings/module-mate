@@ -5,6 +5,7 @@
   max-width: 1000px;
   gap: 4rem;
   margin: 3rem auto;
+  line-height: 1.5;
 
   .front {
     display: flex;
@@ -40,7 +41,7 @@
   .github {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    gap: 2rem;
 
     @media (max-width: $breakpoint-sm) {
       grid-template-columns: 1fr;
