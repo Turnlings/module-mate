@@ -16,44 +16,7 @@
     .stat-content= number_with_precision(current_user.achieved_score, precision: 2) + '%'
 
 - @year_data.each do |data|
-  - year = data[:year]
-  .gt-card
-    .card-heading
-      %h2= year.name
-      .icon-button.gt-card-link
-        = link_to year_path(year) do
-          %i.fa-solid.fa-arrow-right
-    .container-flex
-      .row.font-secondary
-        .col
-          .th-content
-            %span Weighting
-            - unless current_user.correct_weight_sum?
-              .icon-button.text-danger
-                %i.fa-solid.fa-triangle-exclamation{ title: 'Total weight must be 100%' }
-        .col Progress
-        .col Achieved
-      .row
-        .col
-          - if data[:weighting].present?
-            = "#{number_with_precision(data[:weighting], precision: 0)}%"
-          - else
-            = "N/A"
-        .col.d-flex.align-items-center
-          - progress = data[:progress]
-          = "#{number_with_precision(progress, precision: 0)}%"
-          - if progress == 100
-            .chip-success Completed
-        .col= "#{number_with_precision(data[:achieved], precision: 0)}%"
-      .row
-        .col.progress-bar.mx-12px
-          - width = data[:weighting].presence || 0
-          .progress{style: "width: #{width}%"}
-        .col.progress-bar.mx-12px
-          .progress{style: "width: #{data[:progress]}%"}
-        .col.progress-bar.mx-12px
-          .progress{style: "width: #{data[:achieved]}%"}
-
+  = render partial: 'year_card', locals: { data: data }
 
 = link_to '+ New Year', new_year_path, class: 'card-button section-margin'
 
