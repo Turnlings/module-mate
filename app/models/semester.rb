@@ -3,8 +3,8 @@
 class Semester < ApplicationRecord
   MAX_SEMESTERS_PER_YEAR = 6
 
+  belongs_to :year, touch: true
   has_and_belongs_to_many :uni_modules, dependent: :destroy
-  belongs_to :year
   before_create :generate_share_token
   validate :year_semester_limit, on: :create
 

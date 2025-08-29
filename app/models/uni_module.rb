@@ -72,6 +72,7 @@ class UniModule < ApplicationRecord
   private
 
   def touch_semesters
-    semesters.touch_all
+    # Can't use touch_all as that does't trigger callbacks
+    semesters.each(&:touch)
   end
 end

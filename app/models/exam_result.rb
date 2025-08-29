@@ -2,5 +2,5 @@
 
 class ExamResult < ApplicationRecord
   belongs_to :user
-  belongs_to :exam
+  belongs_to :exam, touch: true
 end
