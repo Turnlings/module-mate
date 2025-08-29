@@ -4,6 +4,8 @@ class UniModule < ApplicationRecord
   MAX_MODULES_PER_SEMESTER = 20
 
   has_and_belongs_to_many :semesters
+  after_commit :touch_semesters
+
   has_many :exams, dependent: :destroy
   has_many :timelogs, dependent: :destroy
   has_many :uni_module_targets, dependent: :destroy
@@ -65,5 +67,11 @@ class UniModule < ApplicationRecord
     return nil if target.nil? || target.score.nil?
 
     target.score
+  end
+
+  private
+
+  def touch_semesters
+    semesters.touch_all
   end
 end
