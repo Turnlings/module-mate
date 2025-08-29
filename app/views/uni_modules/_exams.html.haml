@@ -27,7 +27,7 @@
           %td= "#{number_with_precision(exam.score(current_user), precision: 2)}%" if exam.score(current_user)
           %td.text-start
             .icon-button
-              = link_to edit_exam_result_path(exam) do
+              = link_to edit_exam_result_path(exam), { title: "Edit #{exam.name} Score" } do
                 %i.fa-solid.fa-pen-to-square
           %td.text-secondary= "#{number_with_precision(exam.target(current_user), precision: 2)}%" if exam.target(current_user)
           %td.text-end

@@ -3,7 +3,7 @@
 class Exam < ApplicationRecord
   MAX_EXAMS_PER_MODULE = 20
 
-  belongs_to :uni_module
+  belongs_to :uni_module, touch: true
   has_many :users, through: :exam_results
   has_many :exam_results, dependent: :destroy
   validate :module_exam_limit, on: :create

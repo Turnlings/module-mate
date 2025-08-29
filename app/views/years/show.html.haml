@@ -22,28 +22,7 @@
     .stat-content= number_with_precision(@year.achieved_score(current_user), precision: 2) + '%'
 
 - @year.semesters.each do |semester|
-  .gt-card
-    .card-heading
-      %h2= semester.name
-      .icon-button.gt-card-link
-        = link_to semester_path(semester) do
-          %i.fa-solid.fa-arrow-right
-    .container-flex
-      .row.font-secondary
-        .col Progress
-        .col Achieved
-      .row
-        .col.d-flex.align-items-center
-          - progress = semester.progress(current_user)
-          = "#{number_with_precision(progress, precision: 0)}%"
-          - if progress == 100
-            .chip-success.hide-on-mobile Completed
-        .col= "#{number_with_precision(semester.achieved_score(current_user), precision: 0)}%"
-      .row
-        .col.progress-bar.mx-12px
-          .progress{style: "width: #{semester.progress(current_user)}%"}
-        .col.progress-bar.mx-12px
-          .progress{style: "width: #{semester.achieved_score(current_user)}%"}
+  = render partial: 'semester_card', locals: { semester: semester }
 
 = link_to '+ New Semester', new_semester_path(year_id: @year.id), class: 'card-button section-margin'
 
