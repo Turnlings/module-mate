@@ -2,19 +2,33 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title GradeTracker
+    %title ModuleMate
     %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+    = render "layouts/meta"
     = csrf_meta_tags
     = csp_meta_tag
+
     = stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload"
     = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css", rel: "stylesheet", crossorigin: "anonymous"
+
+    :javascript
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme) document.documentElement.dataset.theme = savedTheme;
+
     = javascript_importmap_tags
+
   %body
     - if user_signed_in?
       %header
         = render 'layouts/sidebar'
     
     %div{class: (user_signed_in? ? "not-header" : "not-header-login")}
+      - if !user_signed_in?
+        .false-header 
+          .content
+            = link_to root_path, class: "sitename" do
+              %h1 ModuleMate
+            = link_to "Log in", new_user_session_path, class: "login"
       %main
         %div 
           - flash.each do |key, message|

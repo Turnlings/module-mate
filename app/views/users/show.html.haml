@@ -1,7 +1,9 @@
 .gt-card
   .card-heading
     %h1= @user.email
-    = link_to 'Edit Profile', edit_user_registration_path
+    .icon-button
+      = link_to edit_user_registration_path do
+        %i.fa-solid.fa-pen-to-square
 
   .font-secondary
     %b Joined:

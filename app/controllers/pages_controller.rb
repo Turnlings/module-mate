@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:about, :contact, :help, :privacy, :terms]
+  skip_before_action :authenticate_user!, only: [:home, :about, :contact, :help, :privacy, :terms]
 
   def home
+    redirect_to dashboard_path if user_signed_in?
+  end
+
+  def dashboard
     @semesters = Semester.joins(:year)
                          .where(years: { user_id: current_user.id })
                          .includes(:uni_modules)

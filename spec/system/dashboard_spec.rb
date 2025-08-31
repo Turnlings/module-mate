@@ -33,6 +33,6 @@ RSpec.describe 'Visiting the homepage', type: :system do
     
     visit '/'
     expect(page).to have_content 'Achieved'
-    expect(page).to have_content '40%'
+    expect(page).to have_content '20%'
   end
 end

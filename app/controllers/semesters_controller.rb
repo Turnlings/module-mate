@@ -29,10 +29,6 @@ class SemestersController < ApplicationController
         data: cumulative
       }
     end
-
-    @exam_type_data = Exam.joins(:uni_module).group(:type).sum('exams.weight * uni_modules.credits / 100')
-
-    @next_exam = Exam.where('due > ?', Time.current).order(:due).first
   end
 
   # GET /semesters/new

@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 html, body {
-  height: 100%;
+  min-height: 100dvh;
   margin: 0;
   color: $text;
-  font-family: Roboto, sans-serif;
+  font-family: 'Inter', Roboto, sans-serif;
   font-size: $font-size;
+  font-weight: 400;
 }
 
 body {
@@ -75,5 +78,41 @@ h3 {
 
   @media (max-width: $breakpoint-md) {
     padding: 0.5rem;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+}
+
+.section-margin {
+  margin-bottom: 1.5rem;
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+
+  .theme {
+    fill: $brand;
+  }
+
+  .back {
+    fill: $bg;
+  }
+
+  .half-light {
+    fill: $bg-half-light;
+  }
+
+  .light {
+    fill: $bg-light;
+  }
+
+  .dark {
+    fill: $bg-dark;
+    opacity: 0.5;
   }
 }

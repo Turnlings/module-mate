@@ -3,8 +3,8 @@
 class Semester < ApplicationRecord
   MAX_SEMESTERS_PER_YEAR = 6
 
+  belongs_to :year, touch: true
   has_and_belongs_to_many :uni_modules, dependent: :destroy
-  belongs_to :year
   before_create :generate_share_token
   validate :year_semester_limit, on: :create
 
@@ -24,6 +24,12 @@ class Semester < ApplicationRecord
     total_weight = valid_modules.sum { |m| m.credit_share }
     weighted_sum = valid_modules.sum { |m| m.credit_share * m.weighted_average(user) }
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
+  end
+
+  # Good enough with weighted average TODO: use exam results instead
+  def average_score(user)
+    return 0 if uni_modules.empty?
+    uni_modules.sum { |m| m.weighted_average(user) } / uni_modules.count
   end
 
   def achieved_score(user)

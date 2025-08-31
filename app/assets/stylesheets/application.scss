@@ -1,7 +1,9 @@
 @import "bootstrap";
 
 // Abstracts
+@import "abstracts/themes";
 @import "abstracts/variables";
+@import "abstracts/mixins";
 
 // Base
 @import "base/base";
@@ -23,3 +25,5 @@
 // Pages
 @import "pages/home";
 @import "pages/login";
+@import "pages/landing";
+

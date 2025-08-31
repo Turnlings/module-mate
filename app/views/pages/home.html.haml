@@ -1,61 +1,59 @@
-.page-heading
-  .left-button
-  %h1 Dashboard
-  .right-button.button-row
+.landing
+  .front
+    .title-and-tag
+      %h1.site-name ModuleMate
+      %span.tagline Track your effort, master your exams.
 
--# Stats
-.stats-container 
-  .stat 
-    .stat-header Module Count
-    .stat-content= link_to current_user.uni_modules.count, uni_modules_path
-  .stat 
-    .stat-header Average Score
-    .stat-content= number_with_precision(current_user.average_score, precision: 2) + '%'
-  .stat 
-    .stat-header Achieved Score
-    .stat-content= number_with_precision(current_user.achieved_score, precision: 2) + '%'
+    .options
+      = link_to "Get Started", new_user_session_path, class: 'link-button main-action'
 
-- @year_data.each do |data|
-  - year = data[:year]
-  .gt-card
-    .card-heading
-      %h2= year.name
-      .icon-button
-        = link_to year_path(year) do
-          %i.fa-solid.fa-arrow-right
-    .container-flex
-      .row.font-secondary
-        .col
-          .th-content
-            %span Weighting
-            - unless current_user.correct_weight_sum?
-              .icon-button.text-danger
-                %i.fa-solid.fa-triangle-exclamation{ title: 'Total weight must be 100%' }
-        .col Progress
-        .col Achieved
-      .row
-        .col
-          - if data[:weighting].present?
-            = "#{number_with_precision(data[:weighting], precision: 0)}%"
-          - else
-            = "N/A"
-        .col= "#{number_with_precision(data[:progress], precision: 0)}%"
-        .col= "#{number_with_precision(data[:achieved], precision: 0)}%"
-      .row
-        .col.progress-bar.mx-12px
-          - width = data[:weighting].presence || 0
-          .progress{style: "width: #{width}%"}
-        .col.progress-bar.mx-12px
-          .progress{style: "width: #{data[:progress]}%"}
-        .col.progress-bar.mx-12px
-          .progress{style: "width: #{data[:achieved]}%"}
+  .features 
+    .gt-card
+      %i.fa-solid.fa-hourglass-start
+      %h3 Track Time
+
+      %p.small Log study sessions quickly and see where your hours really go.
+
+    .gt-card
+      %i.fa-solid.fa-calendar-days
+      %h3 Manage Exams 
+
+      %p.small Keep all your exam dates in one place and know what’s coming next.
+
+    .gt-card 
+      %i.fa-solid.fa-chart-simple
+      %h3 Record Scores
+
+      %p.small Track grades and see exactly what you need to hit your target.
+
+  .screenshots
+    = image_tag "dashboard.png", alt: "ModuleMate Dashboard", class: "dashboard"
+
+  .split-section
+    .left 
+      = image_tag "track.png", alt: "Track Time", class: "track-time"
+    .right
+      %h2 Stay On Top
+      %p Make sure no module gets ignored by tracking every minute. This could be the motivation you need to achieve your potential.
+      %p Easily record short study sessions with the Quicklog feature.
 
 
-= link_to '+ New Year', new_year_path, class: 'card-button'
+  .split-section
+    .left 
+      %h2 Know Your Progress
+      %p Just enter your course structure and your scores and ModuleMate will calculate your achieved score, aswell as what you need to get to achieve your target.
+      %p Visual dashboards help you see which modules or assignments have the biggest impact on your final grade, so you can focus your efforts where it matters most.
+    .right
+      = image_tag "module.png", alt: "Track Exams", class: "module"
 
-%h1.section-heading Statistics
--# Graph on left
-.gt-card
-  %h2 Your Time Spent
-  .chart-container
-    = line_chart @module_data, curve: false, legend: false, width: "100%", height:"300px", library: { responsive: true, maintainAspectRatio: false }
+  .split-section
+    .left 
+      .svg-wrapper
+        = inline_svg "github.svg", class: "svg"
+    .right
+      %h2 Open Source & Free
+      %p This project began as a personal tool for the original developer, but it’s open for anyone to explore and improve. Whether you’d like to add a feature, fix a bug, or just learn from the code, contributions are welcome!
+      .action
+        = link_to "https://github.com/Turnlings/module-mate", target: "_blank", rel: "noopener", class: "link-button" do
+          %i.fab.fa-github
+          View on GitHub

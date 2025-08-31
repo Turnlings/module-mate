@@ -14,74 +14,24 @@
     %span#copy-success{ style: 'display:none;' } Copied!
 
 -# Stats
-.row
-  .col.text-center
-    %b Credits
-  .col.text-center
-    %b Weighted Average
-  .col.text-center
-    %b Achieved Score
-.row
-  .col.text-center
-    %span.stat= @semester.credits
-  .col.text-center
-    %span.stat= number_with_precision(@semester.weighted_average(current_user), precision: 2) + '%'
-  .col.text-center
-    %span.stat= number_with_precision(@semester.achieved_score(current_user), precision: 2) + '%'
+.stats-container 
+  .stat 
+    .stat-header Credits
+    .stat-content= number_with_precision(@semester.credits, precision: 0)
+  .stat 
+    .stat-header Average Score
+    .stat-content= number_with_precision(@semester.average_score(current_user), precision: 2) + '%'
+  .stat 
+    .stat-header Achieved Score
+    .stat-content= number_with_precision(@semester.achieved_score(current_user), precision: 2) + '%'
 
 - @uni_modules.each do |uni_module|
-  .gt-card
-    .card-heading
-      %h2= uni_module.code + " - " + uni_module.name
-      .icon-button
-        = link_to uni_module do
-          %i.fa-solid.fa-arrow-right
-    .container-flex
-      .row.font-secondary
-        .col Credits
-        .col Progress
-        .col Achieved
-      .row
-        .col
-          - if uni_module.credits.present?
-            = number_with_precision(uni_module.credits, precision: 0)
-          - else
-            = "N/A"
-        .col= "#{number_with_precision(uni_module.progress(current_user), precision: 0)}%"
-        .col= "#{number_with_precision(uni_module.achieved_score(current_user), precision: 0)}%"
-      .row
-        .col.progress-bar.mx-12px
-          - if uni_module.credits.present?
-            .progress{style: "width: #{uni_module.credits.to_f / @semester.credits * 100}%"}
-          - else
-            .progress{style: "width: 0%"}
-        .col.progress-bar.mx-12px
-          .progress{style: "width: #{uni_module.progress(current_user)}%"}
-        .col.progress-bar.mx-12px
-          .progress{style: "width: #{uni_module.achieved_score(current_user)}%"}
+  = render partial: 'module_card', locals: { uni_module: uni_module }
 
-= link_to '+ New Module', new_uni_module_path(semester_id: @semester.id), class: 'card-button'
+= link_to '+ New Module', new_uni_module_path(semester_id: @semester.id), class: 'card-button section-margin'
 
 -# Graph
 .gt-card
   %h2 Your Time Spent
   .chart-container
     = line_chart @module_data, curve: false, legend: false, width: "100%" #, height:"100%"
-
-%h1.section-heading Assessments
-.row
-  .col
-    .gt-card
-      %h2 Upcoming Assessments
-      - if @next_exam
-        = link_to @next_exam.name, uni_module_exam_path(@next_exam.uni_module, @next_exam)
-        %span.d-block
-          %b Due:
-          = @next_exam.due.strftime("%d %b %Y, %H:%M")
-      - else
-        %span No upcoming assessments.
-  .col
-    .gt-card
-      %h2 Assessment Type
-      .chart-container
-        = pie_chart @exam_type_data, legend: false, width: "100%" #, height:"100%"

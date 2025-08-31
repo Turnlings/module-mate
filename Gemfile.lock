@@ -1,35 +1,35 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    actioncable (7.1.5.1)
-      actionpack (= 7.1.5.1)
-      activesupport (= 7.1.5.1)
+    actioncable (7.1.5.2)
+      actionpack (= 7.1.5.2)
+      activesupport (= 7.1.5.2)
       nio4r (~> 2.0)
       websocket-driver (>= 0.6.1)
       zeitwerk (~> 2.6)
-    actionmailbox (7.1.5.1)
-      actionpack (= 7.1.5.1)
-      activejob (= 7.1.5.1)
-      activerecord (= 7.1.5.1)
-      activestorage (= 7.1.5.1)
-      activesupport (= 7.1.5.1)
+    actionmailbox (7.1.5.2)
+      actionpack (= 7.1.5.2)
+      activejob (= 7.1.5.2)
+      activerecord (= 7.1.5.2)
+      activestorage (= 7.1.5.2)
+      activesupport (= 7.1.5.2)
       mail (>= 2.7.1)
       net-imap
       net-pop
       net-smtp
-    actionmailer (7.1.5.1)
-      actionpack (= 7.1.5.1)
-      actionview (= 7.1.5.1)
-      activejob (= 7.1.5.1)
-      activesupport (= 7.1.5.1)
+    actionmailer (7.1.5.2)
+      actionpack (= 7.1.5.2)
+      actionview (= 7.1.5.2)
+      activejob (= 7.1.5.2)
+      activesupport (= 7.1.5.2)
       mail (~> 2.5, >= 2.5.4)
       net-imap
       net-pop
       net-smtp
       rails-dom-testing (~> 2.2)
-    actionpack (7.1.5.1)
-      actionview (= 7.1.5.1)
-      activesupport (= 7.1.5.1)
+    actionpack (7.1.5.2)
+      actionview (= 7.1.5.2)
+      activesupport (= 7.1.5.2)
       nokogiri (>= 1.8.5)
       racc
       rack (>= 2.2.4)
@@ -37,35 +37,35 @@ GEM
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
-    actiontext (7.1.5.1)
-      actionpack (= 7.1.5.1)
-      activerecord (= 7.1.5.1)
-      activestorage (= 7.1.5.1)
-      activesupport (= 7.1.5.1)
+    actiontext (7.1.5.2)
+      actionpack (= 7.1.5.2)
+      activerecord (= 7.1.5.2)
+      activestorage (= 7.1.5.2)
+      activesupport (= 7.1.5.2)
       globalid (>= 0.6.0)
       nokogiri (>= 1.8.5)
-    actionview (7.1.5.1)
-      activesupport (= 7.1.5.1)
+    actionview (7.1.5.2)
+      activesupport (= 7.1.5.2)
       builder (~> 3.1)
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
-    activejob (7.1.5.1)
-      activesupport (= 7.1.5.1)
+    activejob (7.1.5.2)
+      activesupport (= 7.1.5.2)
       globalid (>= 0.3.6)
-    activemodel (7.1.5.1)
-      activesupport (= 7.1.5.1)
-    activerecord (7.1.5.1)
-      activemodel (= 7.1.5.1)
-      activesupport (= 7.1.5.1)
+    activemodel (7.1.5.2)
+      activesupport (= 7.1.5.2)
+    activerecord (7.1.5.2)
+      activemodel (= 7.1.5.2)
+      activesupport (= 7.1.5.2)
       timeout (>= 0.4.0)
-    activestorage (7.1.5.1)
-      actionpack (= 7.1.5.1)
-      activejob (= 7.1.5.1)
-      activerecord (= 7.1.5.1)
-      activesupport (= 7.1.5.1)
+    activestorage (7.1.5.2)
+      actionpack (= 7.1.5.2)
+      activejob (= 7.1.5.2)
+      activerecord (= 7.1.5.2)
+      activesupport (= 7.1.5.2)
       marcel (~> 1.0)
-    activesupport (7.1.5.1)
+    activesupport (7.1.5.2)
       base64
       benchmark (>= 0.3)
       bigdecimal
@@ -110,6 +110,8 @@ GEM
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
     chartkick (5.1.5)
+    childprocess (5.1.0)
+      logger (~> 1.5)
     concurrent-ruby (1.3.5)
     connection_pool (2.5.3)
     crass (1.0.6)
@@ -164,6 +166,9 @@ GEM
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
+    inline_svg (1.10.0)
+      activesupport (>= 3.0)
+      nokogiri (>= 1.6)
     io-console (0.8.0)
     irb (1.15.2)
       pp (>= 0.6.0)
@@ -188,6 +193,17 @@ GEM
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
     language_server-protocol (3.17.0.5)
+    launchy (3.1.1)
+      addressable (~> 2.8)
+      childprocess (~> 5.0)
+      logger (~> 1.6)
+    letter_opener (1.10.0)
+      launchy (>= 2.2, < 4)
+    letter_opener_web (3.0.0)
+      actionmailer (>= 6.1)
+      letter_opener (~> 1.9)
+      railties (>= 6.1)
+      rexml
     lint_roller (1.1.0)
     logger (1.7.0)
     loofah (2.24.1)
@@ -209,7 +225,7 @@ GEM
     mutex_m (0.3.0)
     net-http (0.6.0)
       uri
-    net-imap (0.5.8)
+    net-imap (0.5.9)
       date
       net-protocol
     net-pop (0.1.2)
@@ -249,7 +265,13 @@ GEM
     parser (3.3.8.0)
       ast (~> 2.4.1)
       racc
+    pg (1.6.1-x86_64-linux)
     popper_js (2.11.8)
+    postmark (1.25.1)
+      json
+    postmark-rails (0.22.1)
+      actionmailer (>= 3.0.0)
+      postmark (>= 1.21.3, < 2.0)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
@@ -275,20 +297,20 @@ GEM
       rack (>= 1.3)
     rackup (2.2.1)
       rack (>= 3)
-    rails (7.1.5.1)
-      actioncable (= 7.1.5.1)
-      actionmailbox (= 7.1.5.1)
-      actionmailer (= 7.1.5.1)
-      actionpack (= 7.1.5.1)
-      actiontext (= 7.1.5.1)
-      actionview (= 7.1.5.1)
-      activejob (= 7.1.5.1)
-      activemodel (= 7.1.5.1)
-      activerecord (= 7.1.5.1)
-      activestorage (= 7.1.5.1)
-      activesupport (= 7.1.5.1)
+    rails (7.1.5.2)
+      actioncable (= 7.1.5.2)
+      actionmailbox (= 7.1.5.2)
+      actionmailer (= 7.1.5.2)
+      actionpack (= 7.1.5.2)
+      actiontext (= 7.1.5.2)
+      actionview (= 7.1.5.2)
+      activejob (= 7.1.5.2)
+      activemodel (= 7.1.5.2)
+      activerecord (= 7.1.5.2)
+      activestorage (= 7.1.5.2)
+      activesupport (= 7.1.5.2)
       bundler (>= 1.15.0)
-      railties (= 7.1.5.1)
+      railties (= 7.1.5.2)
     rails-dom-testing (2.3.0)
       activesupport (>= 5.0.0)
       minitest
@@ -296,9 +318,9 @@ GEM
     rails-html-sanitizer (1.6.2)
       loofah (~> 2.21)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
-    railties (7.1.5.1)
-      actionpack (= 7.1.5.1)
-      activesupport (= 7.1.5.1)
+    railties (7.1.5.2)
+      actionpack (= 7.1.5.2)
+      activesupport (= 7.1.5.2)
       irb
       rackup (>= 1.0.0)
       rake (>= 12.2)
@@ -409,7 +431,7 @@ GEM
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
     websocket (1.2.11)
-    websocket-driver (0.7.7)
+    websocket-driver (0.8.0)
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -436,16 +458,21 @@ DEPENDENCIES
   groupdate
   haml-rails
   importmap-rails
+  inline_svg
   jbuilder
   kaminari (~> 1.2)
+  letter_opener
+  letter_opener_web
   memory_profiler
   omniauth
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
+  pg (~> 1.6)
+  postmark-rails
   puma (>= 5.0)
   rack (>= 3.1.16)
   rack-mini-profiler
-  rails (~> 7.1.3)
+  rails (~> 7.1.5.2)
   rspec-rails
   rubocop
   sassc-rails

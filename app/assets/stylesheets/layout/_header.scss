@@ -11,16 +11,57 @@ header {
   flex-shrink: 0;  
 
   .side-heading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     .title {
       font-size: 2.5rem;
       line-height: 2.5rem;
+
+      @media (max-width: $breakpoint-sm) {
+        font-size: 2rem;
+        line-height: 2rem;
+      }
     }
 
     .account {
-      margin-bottom: 0.5rem;
+      font-size: $secondary-size;
+      display: flex;
+      justify-content: space-between;
+      align-items: center; 
+
+      .profile {
+        order: 1;
+      
+        color: $text-muted;
+      }
+      .moon { order: 2;}
+
+      @media (max-width: $breakpoint-lg) {
+        font-size: 1.5rem;
+        justify-content: end;
+        gap: 1rem;
+
+        .profile { 
+          order: 2;
+
+          span {
+            display: none;
+          }
+        }
+        .moon { order: 1;}
+      }
     }
 
+    padding-bottom: 0.5rem;
     border-bottom: 1px solid $bg-light;
+
+    @media (max-width: $breakpoint-lg) {
+      flex-direction: row;
+      justify-content: space-between;
+      padding-bottom: 0;
+    }
   }
 
   .side-content {
@@ -50,40 +91,6 @@ header {
 
   @media (max-width: $breakpoint-md) {
     padding: 0.5rem;
-  }
-}
-
-.quicklog { /*Can probably switch to gt-form once polished (TODO)*/
-  //width: 400px;
-  margin-top: 0;
-  
-  input {
-    width: 100%;
-    height: 30px;
-    outline: none;
-    border-radius: 5px;
-    background-color: $line-color;
-    color: $font-color;
-    border: none;
-  }
-
-  .split-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 0.5rem;
-  }
-
-  #module_code, #minutes {
-    margin: 0;
-    padding: 0 0.5rem;
-  }
-
-  input[type="submit"] {
-    margin-top: 0.5rem;
-    background-color: $highlight-color;
-    border: none;
-    width: 100%
   }
 }
 
@@ -117,4 +124,8 @@ header {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+}
+
+.date-row {
+  display: flex;
 }

@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       patch :pin
     end
   end
-  resources :exam_results, only: [:create, :update]
+  resources :exam_results, only: [:create, :edit, :update]
   resources :uni_module_targets, only: [:create, :update]
 
   post 'quick_log', to: 'pages#quick_log'
@@ -34,8 +34,14 @@ Rails.application.routes.draw do
   get 'privacy', to: 'pages#privacy'
   get 'terms', to: 'pages#terms'
 
+  get 'dashboard', to: 'pages#dashboard'
+
   # Fix for sign out bug
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
+  end
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
 end

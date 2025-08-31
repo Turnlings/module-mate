@@ -2,22 +2,25 @@
   .title= link_to "ModuleMate", root_path
   .account
     - if user_signed_in?
-      = link_to user_path(current_user), class: 'font-secondary unstyle-link' do
+      = link_to user_path(current_user), class: 'unstyle-link profile' do
         %i.fa-solid.fa-circle-user
         %span= current_user.email
     - else
       = link_to "Sign In", new_user_session_path, style: "font-size: 20px;"
 
+    %button#theme-toggle.icon-button.float-end.moon
+      %i.fa-solid.fa-moon
+
 .side-content
   -# Quick-add time
-  .gt-card.quicklog
+  .gt-card.gt-form
     %h2 Quicklog
     = form_with model: @timelog, url: quick_log_path, local: true do |f|
       .split-row
         = f.text_field :module_code, placeholder: 'Module Code', class: "m-0"
         = f.number_field :minutes, placeholder: 'Minutes', class: "m-0"
 
-      = f.submit 'Add Time'
+      = f.submit 'Add Time', class: "link-button"
 
   -# Modules
   .gt-card.module-list
@@ -44,8 +47,13 @@
           .name-row
             .mod-code= exam.uni_module.code
             .text-truncate= exam.name
-          .due-date.font-secondary
-            Due:
-            = exam.due.strftime("%d %b %Y, %H:%M")
+          .date-row
+            .due-date.font-secondary
+              Due:
+              = exam.due.strftime("%d %b %Y, %H:%M")
+            - if exam.due < 1.day.from_now
+              .chip-danger= "#{((exam.due - Time.current)/1.hour).ceil} Hours"
+            - elsif exam.due < 1.week.from_now
+              .chip-warning= "#{(exam.due.to_date - Date.today).to_i} Days"
     - else
       %span No upcoming assessments.

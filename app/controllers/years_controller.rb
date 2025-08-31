@@ -10,7 +10,24 @@ class YearsController < ApplicationController
   end
 
   # GET /years/1 or /years/1.json
-  def show; end
+  def show
+    # Get the cumulative time logged for each module
+    @module_data = @year.uni_modules.includes(:timelogs).where(timelogs: { user_id: current_user.id }).map do |mod|
+      raw_data = mod.timelogs.for_user(current_user).group_by_day(:created_at).sum(:minutes)
+      cumulative = {}
+      total = 0
+      raw_data.each do |date, minutes|
+        total += minutes
+        cumulative[date] = total
+      end
+
+      {
+        name: mod.name,
+        data: cumulative
+      }
+    end
+  
+  end
 
   # GET /years/new
   def new

@@ -1,9 +1,10 @@
+//= require theme
+
 import { Application } from "@hotwired/stimulus"          
 import "@hotwired/turbo-rails"    
 import "chartkick"
 import "chart.js"
 import "chartjs-adapter-date-fns"
-
 import ClipboardJS from "clipboard";
 
 function setupClipboard() {

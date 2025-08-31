@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 ruby '3.2.3'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.1.3'
+gem 'rails', '~> 7.1.5.2'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -67,6 +67,9 @@ group :development do
   gem 'stackprof'
   gem 'bullet'
 
+  gem 'letter_opener'
+  gem 'letter_opener_web' # optional, gives a /letter_opener UI
+
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
@@ -76,6 +79,10 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
+end
+
+group :production do
+  gem 'pg', '~> 1.6'
 end
 
 gem 'bootstrap', '~> 5.3'
@@ -97,3 +104,6 @@ gem 'omniauth-google-oauth2'
 
 gem 'cancancan', '~> 3.6'
 
+gem 'postmark-rails'
+
+gem 'inline_svg'

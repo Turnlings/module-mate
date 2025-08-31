@@ -1,0 +1,28 @@
+.page-heading
+  .left-button
+  %h1 Dashboard
+  .right-button.button-row
+
+-# Stats
+.stats-container 
+  .stat 
+    .stat-header Module Count
+    .stat-content= link_to current_user.uni_modules.count, uni_modules_path
+  .stat 
+    .stat-header Average Score
+    .stat-content= number_with_precision(current_user.average_score, precision: 2) + '%'
+  .stat 
+    .stat-header Achieved Score
+    .stat-content= number_with_precision(current_user.achieved_score, precision: 2) + '%'
+
+- @year_data.each do |data|
+  = render partial: 'year_card', locals: { data: data }
+
+= link_to '+ New Year', new_year_path, class: 'card-button section-margin'
+
+%h1.section-heading Statistics
+-# Graph on left
+.gt-card
+  %h2 Your Time Spent
+  .chart-container
+    = line_chart @module_data, curve: false, legend: false, width: "100%", height:"300px", library: { responsive: true, maintainAspectRatio: false }

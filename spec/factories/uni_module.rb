@@ -7,6 +7,7 @@ FactoryBot.define do
 
     name { "Introduction to Software Engineering" }
     code { "COM1001" }
+    credits { 20 }
 
     after(:create) do |uni_module, evaluator|
       if evaluator.semesters.any?

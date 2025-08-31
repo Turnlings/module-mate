@@ -1,0 +1,52 @@
+:root {
+  --bg-dark: hsl(210, 2%, 10%);
+  --bg: hsl(210, 2%, 15%);
+  --bg-half-light: hsl(210, 2%, 18%);
+  --bg-light: hsl(210, 2%, 25%);
+
+  --brand: hsl(210, 80%, 30%);
+  --brand-light: hsl(210, 80%, 50%);
+
+  --text-bold: hsl(0, 0%, 95%);
+  --text: hsl(0, 0%, 90%);
+  --text-muted: hsl(0, 0%, 60%);
+  --text-button: hsl(0, 0%, 90%);
+
+  --success: hsl(120, 80%, 30%);
+  --warning: hsl(50, 80%, 30%);
+  --danger: hsl(0, 80%, 30%);
+
+  // Chartkick colours
+  --chart-color-1: #00538F;
+  --chart-color-2: #8a0f0f;
+  --chart-color-3: #8a750f;
+  --chart-color-4: #33B648;
+  --chart-color-5: #C266C2;
+}
+
+[data-theme="light"] {
+  --bg-dark: hsl(210, 2%, 90%);
+  --bg: hsl(210, 2%, 85%);
+  --bg-half-light: hsl(210, 2%, 87%);
+  --bg-light: hsl(210, 2%, 70%);
+
+  // The same in lightmode
+  --brand: hsl(210, 80%, 50%);
+  --brand-light: hsl(210, 80%, 50%);
+
+  --text-bold: hsl(0, 0%, 5%);
+  --text: hsl(0, 0%, 10%);
+  --text-muted: hsl(0, 0%, 40%);
+  --text-button: hsl(0, 0%, 90%);
+
+  --success: hsl(120, 100%, 40%);
+  --warning: hsl(50, 100%, 40%);
+  --danger: hsl(0, 100%, 40%);
+
+  // Chartkick colours
+  --chart-color-1: #1980e6;
+  --chart-color-2: #cc0000;
+  --chart-color-3: #ccaa00;
+  --chart-color-4: #00cc00;
+  --chart-color-5: #C266C2;
+}

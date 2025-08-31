@@ -10,39 +10,24 @@
         %i.fa-solid.fa-pen-to-square
 
 -# Stats
-.row
-  .col.text-center
-    %b Credits
-  .col.text-center
-    %b Weighted Average
-  .col.text-center
-    %b Achieved Score
-.row
-  .col.text-center
-    %span.stat= @year.credits
-  .col.text-center
-    %span.stat= number_with_precision(@year.weighted_average(current_user), precision: 2) + '%'
-  .col.text-center
-    %span.stat= number_with_precision(@year.achieved_score(current_user), precision: 2) + '%'
+.stats-container 
+  .stat 
+    .stat-header Credits
+    .stat-content= number_with_precision(@year.credits, precision: 0)
+  .stat 
+    .stat-header Average Score
+    .stat-content= number_with_precision(@year.average_score(current_user), precision: 2) + '%'
+  .stat 
+    .stat-header Achieved Score
+    .stat-content= number_with_precision(@year.achieved_score(current_user), precision: 2) + '%'
 
 - @year.semesters.each do |semester|
-  .gt-card
-    .card-heading
-      %h2= semester.name
-      .icon-button
-        = link_to semester_path(semester) do
-          %i.fa-solid.fa-arrow-right
-    .container-flex
-      .row.font-secondary
-        .col Progress
-        .col Achieved
-      .row
-        .col= "#{number_with_precision(semester.progress(current_user), precision: 0)}%"
-        .col= "#{number_with_precision(semester.achieved_score(current_user), precision: 0)}%"
-      .row
-        .col.progress-bar.mx-12px
-          .progress{style: "width: #{semester.progress(current_user)}%"}
-        .col.progress-bar.mx-12px
-          .progress{style: "width: #{semester.achieved_score(current_user)}%"}
+  = render partial: 'semester_card', locals: { semester: semester }
 
-= link_to '+ New Semester', new_semester_path(year_id: @year.id), class: 'card-button'
+= link_to '+ New Semester', new_semester_path(year_id: @year.id), class: 'card-button section-margin'
+
+-# Graph
+.gt-card
+  %h2 Your Time Spent
+  .chart-container
+    = line_chart @module_data, curve: false, legend: false, width: "100%" #, height:"100%"
