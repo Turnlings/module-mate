@@ -41,12 +41,31 @@
     @media (max-width: $breakpoint-sm) {
       grid-template-columns: 1fr;
     }
+
+    .gt-card {
+      text-align: center;
+
+      i {
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+        font-size: 2rem;
+        color: $text-muted;
+      }
+
+      p {
+        margin-bottom: 0.5rem;
+      }
+    }
   }
 
-  .github {
+  .track-time, .module {
+    padding: 0.5rem;
+  }
+
+  .split-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: 3rem;
 
     @media (max-width: $breakpoint-sm) {
       grid-template-columns: 1fr;
@@ -64,7 +83,7 @@
     }
   }
 
-  img {
+  img, .svg-wrapper {
     width: 100%;
     height: auto;
     border-radius: $roundness;
