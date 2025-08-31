@@ -118,3 +118,19 @@
       margin-left: 10px;
   }
 }
+
+.md {
+  max-width: $breakpoint-lg;
+  margin: 0 auto;
+
+  .title-section {
+    h1 {
+      margin: 0;
+    }
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    border-bottom: 1px solid $bg-light;
+  }
+}
