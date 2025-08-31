@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home]
+  skip_before_action :authenticate_user!, only: [:home, :about, :contact, :help, :privacy, :terms]
 
   def home
     redirect_to dashboard_path if user_signed_in?

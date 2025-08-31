@@ -4,6 +4,18 @@
       .center
         %h1 Sign in to ModuleMate
 
+        - if devise_mapping.omniauthable?
+          - resource_class.omniauth_providers.each do |provider|
+            - if provider == :google_oauth2
+              = button_to omniauth_authorize_path(resource_name, :google_oauth2), data: { turbo: false }, class: 'omniauth' do
+                %i.fa-brands.fa-google
+                %span Sign in with Google
+            - else
+              = button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class: 'omniauth'
+      
+      .divider
+        %span or
+
       = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
         .field
           = f.label :email
@@ -21,19 +33,6 @@
         .actions
           = f.submit "Sign in"
 
-      .divider
-        %span or
-
-      - if devise_mapping.omniauthable?
-        - resource_class.omniauth_providers.each do |provider|
-          - if provider == :google_oauth2
-            = button_to omniauth_authorize_path(resource_name, :google_oauth2), data: { turbo: false }, class: 'omniauth' do
-              %i.fa-brands.fa-google
-              %span Sign in with Google
-          - else
-            = button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class: 'omniauth'
-    
-    %div
-      .center
-        = link_to "Sign up", new_registration_path(resource_name), class: 'unstyle-link font-secondary center'
+      .center.mt-2
+        = link_to "Dont have an account? Then Sign up.", new_registration_path(resource_name), class: 'unstyle-link font-secondary center'
 

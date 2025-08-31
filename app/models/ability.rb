@@ -38,5 +38,8 @@ class Ability
     can :manage, UniModuleTarget, user_id: user.id
     can :manage, Timelog, user_id: user.id
     can :manage, User, id: user.id
+
+    can :read, :privacy
+    can :read, :terms
   end
 end

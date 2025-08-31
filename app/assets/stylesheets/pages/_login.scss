@@ -44,6 +44,12 @@
   }
 
   input[type="submit"] {
-    margin: 0.5rem 0 !important;
+    margin-top: 0.5rem !important;
+    height: 2rem;
+    font-size: 1.2rem;
+  }
+
+  .checkbox-container a {
+    color: $brand-light;
   }
 }

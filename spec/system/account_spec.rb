@@ -12,6 +12,7 @@ RSpec.describe 'Account', type: :system do
       fill_in 'Email', with: "test@account.com"
       fill_in 'Password', with: "Test_Password123"
       fill_in 'Password confirmation', with: "Test_Password123"
+      check 'user_terms_of_service'
 
       click_on 'Sign up'
 
@@ -22,6 +23,7 @@ RSpec.describe 'Account', type: :system do
       fill_in 'Email', with: "notanemail"
       fill_in 'Password', with: "Test_Password123"
       fill_in 'Password confirmation', with: "Test_Password123"
+      check 'user_terms_of_service'
 
       click_on 'Sign up'
 
@@ -32,6 +34,7 @@ RSpec.describe 'Account', type: :system do
       fill_in 'Email', with: "test@account.com"
       fill_in 'Password', with: "123"
       fill_in 'Password confirmation', with: "123"
+      check 'user_terms_of_service'
 
       click_on 'Sign up'
 
@@ -42,6 +45,7 @@ RSpec.describe 'Account', type: :system do
       fill_in 'Email', with: "test@account.com"
       fill_in 'Password', with: "Test_Password123"
       fill_in 'Password confirmation', with: "Test_Password12345"
+      check 'user_terms_of_service'
 
       click_on 'Sign up'
 
