@@ -18,6 +18,11 @@ class User < ApplicationRecord
   has_many :uni_module_targets, dependent: :destroy
   has_many :timelogs, dependent: :destroy
 
+  # For ToS and Privacy Policy
+  attr_accessor :terms_of_service
+  validates :terms_of_service, acceptance: { accept: '1' }
+  before_create :set_terms_agreed_at, if: -> { terms_of_service == '1' }
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
@@ -48,5 +53,11 @@ class User < ApplicationRecord
 
   def pinned_modules
     uni_modules.where(pinned: true)
+  end
+
+  private
+
+  def set_terms_agreed_at
+    self.terms_of_service_agreed_at = Time.current
   end
 end
