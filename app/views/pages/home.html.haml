@@ -9,30 +9,49 @@
 
   .features 
     .gt-card
+      %i.fa-solid.fa-hourglass-start
       %h3 Track Time
 
-      %p.small Boost your productivity by keeping track of the amount of time you spend on different modules. Easily record short study sessions with the Quicklog feature.
+      %p.small Log study sessions quickly and see where your hours really go.
 
     .gt-card
+      %i.fa-solid.fa-calendar-days
       %h3 Manage Exams 
 
-      %p.small Organise exam information into one place and have ModuleMate tell you what is coming up next and what matters most.
+      %p.small Keep all your exam dates in one place and know what’s coming next.
 
     .gt-card 
+      %i.fa-solid.fa-chart-simple
       %h3 Record Scores
 
-      %p.small Simply enter your scores and their weightings and let ModuleMate calculate your achieved score, and what you need to reach your target.
+      %p.small Track grades and see exactly what you need to hit your target.
 
   .screenshots
-    %h2 Neatly organised and customisable
     = image_tag "dashboard.png", alt: "ModuleMate Dashboard", class: "dashboard"
 
-  .github 
+  .split-section
+    .left 
+      = image_tag "track.png", alt: "Track Time", class: "track-time"
+    .right
+      %h2 Stay On Top
+      %p Make sure no module gets ignored by tracking every minute. This could be the motivation you need to achieve your potential.
+      %p Easily record short study sessions with the Quicklog feature.
+
+
+  .split-section
+    .left 
+      %h2 Know Your Progress
+      %p Just enter your course structure and your scores and ModuleMate will calculate your achieved score, aswell as what you need to get to achieve your target.
+      %p Visual dashboards help you see which modules or assignments have the biggest impact on your final grade, so you can focus your efforts where it matters most.
+    .right
+      = image_tag "module.png", alt: "Track Exams", class: "module"
+
+  .split-section
     .left 
       .svg-wrapper
         = inline_svg "github.svg", class: "svg"
     .right
-      %h2 Open Source 
+      %h2 Open Source & Free
       %p This project began as a personal tool for the original developer, but it’s open for anyone to explore and improve. Whether you’d like to add a feature, fix a bug, or just learn from the code, contributions are welcome!
       .action
         = link_to "https://github.com/Turnlings/module-mate", target: "_blank", rel: "noopener", class: "link-button" do
