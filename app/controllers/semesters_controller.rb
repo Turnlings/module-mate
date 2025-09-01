@@ -85,8 +85,12 @@ class SemestersController < ApplicationController
     end
   end
 
-  # GET /semesters/share/:share_token
-  def share
+  def share 
+    @semester = Semester.find_by!(share_token: params[:share_token])
+  end
+
+  # GET /semesters/import_form/:share_token
+  def import_form
     @semester = Semester.find_by!(share_token: params[:share_token])
     @years = current_user.years.order(:name)
   end
