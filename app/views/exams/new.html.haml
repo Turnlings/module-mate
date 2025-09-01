@@ -1,5 +1,10 @@
-%h1 New exam
+.form-card-container  
+  = link_to uni_module_path(@uni_module), class:'unstyle-link font-secondary mb-1' do
+    %i.fa-solid.fa-arrow-left
+    %span="Back to #{@uni_module.code}"
 
-= render 'form'
+  .gt-card
+    .form-heading
+      %h1 New exam
 
-= link_to 'Back', uni_module_exams_path(@uni_module, @exam)
+    = render 'form'
