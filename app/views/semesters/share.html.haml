@@ -1,9 +1,49 @@
-%h2= @semester.name
-= form_with url: import_form_semester_path(@semester.share_token), method: :get, local: true do
-  = submit_tag 'Import this Semester to My Account', class: 'link-button mb-3', data: { confirm: 'Are you sure? This will copy the semester structure to your account.' }
+.form-card-container  
+  .gt-card
+    %h2= "Import #{@semester.name}"
 
-- @semester.uni_modules.each do |mod|
-  %h3= mod.name
-  %ul
-    - mod.exams.each do |exam|
-      %li= "#{exam.name} (Weight: #{exam.weight})"
+    - @semester.uni_modules.each do |mod|
+      %h3= "#{mod.code} - #{mod.name} (#{mod.credits} Credits)"
+      %table.gt-table.mt-0
+        %colgroup
+          %col{style: "width:25%"}
+          %col{style: "width:75%"}
+        %thead
+          %tr
+            %th Weight
+            %th Name
+
+        %tbody
+          - mod.exams.each do |exam|
+            %tr.exam-row
+              %td= "#{exam.weight}%"
+              %td= exam.name
+
+    %p.font-secondary
+      Copy the structure of this semester to a new semester in your account. 
+      This lets you apply your own scores to the modules in the given semester.
+
+    .gt-form
+      = form_with url: import_semester_path(@semester.share_token), method: :post, local: true do |f|
+        .form-group
+          = label_tag :year_id, 'Select Year'
+          = select_tag :year_id, options_for_select(@years.map { |y| [y.name, y.id] } + [["Create New Year...", "new"]]), prompt: "Choose a year", class: 'form-control', id: 'year-select'
+        .form-group#new-year-group{ style: 'display:none;' }
+          = label_tag :new_year_name, 'New Year Name'
+          = text_field_tag :new_year_name, '', class: 'form-control'
+        = f.submit 'Import', data: { turbo_confirm: 'Are you sure? This will copy the semester structure to your account.' }
+
+    :javascript
+      document.addEventListener('DOMContentLoaded', function() {
+        var yearSelect = document.getElementById('year-select');
+        var newYearGroup = document.getElementById('new-year-group');
+        if (yearSelect) {
+          yearSelect.addEventListener('change', function() {
+            if (yearSelect.value === 'new') {
+              newYearGroup.style.display = 'block';
+            } else {
+              newYearGroup.style.display = 'none';
+            }
+          });
+        }
+      });
