@@ -7,7 +7,12 @@ class SemestersController < ApplicationController
 
   # GET /semesters or /semesters.json
   def index
-    @semesters = Semester.joins(:year).where(years: { user_id: current_user.id })
+    @semesters = current_user.semesters
+
+    if params[:search].present?
+      query = "%#{params[:search]}%"
+      @semesters = @semesters.where("LOWER(semesters.name) LIKE ?", "%#{query.downcase}%")
+    end
   end
 
   # GET /semesters/1 or /semesters/1.json

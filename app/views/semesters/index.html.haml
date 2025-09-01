@@ -1,14 +1,12 @@
-%h1 Listing semesters
+%h1 All Semesters
+
+.gt-form.section-margin
+  = form_with url: semesters_path, method: :get, local: true do
+    = label_tag :search, "Search Semesters:"
+    = text_field_tag :search, params[:search]
+    = submit_tag "Search"
 
 - @semesters.each do |semester|
-  .gt-card
-    .card-heading
-      %h2= semester.name
-      = link_to 'Edit', edit_semester_path(semester)
-    %td= link_to 'Show', semester
-    %td= link_to 'Edit', edit_semester_path(semester)
-    %td= button_to 'Destroy', semester, method: :delete, data: { confirm: 'Are you sure?' }
+  = render partial: 'shared/semester_card', locals: { semester: semester }
 
-%br
-
-= link_to 'New Semester', new_semester_path
+= link_to '+ New Semester', new_semester_path(), class: 'card-button section-margin'
