@@ -127,6 +127,14 @@ class SemestersController < ApplicationController
     redirect_to semester_path(new_semester), notice: 'Semester imported! You can now edit it as your own.'
   end
 
+  def import_redirect
+    if params[:share_token]
+      redirect_to import_form_semester_path(params[:share_token])
+    else 
+      redirect_to new_semester_path(), error: 'Invalid share token'
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

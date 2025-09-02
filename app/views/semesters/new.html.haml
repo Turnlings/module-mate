@@ -5,4 +5,18 @@
 
     = render 'form'
 
-    %span.font-secondary You can also import templates from other users by following their share link.
+  .gt-card
+    .card-heading
+      %h1 Import Semester
+
+    %span.font-secondary 
+      You can copy the template of another users semester.
+
+    .gt-form
+      = form_with url: import_redirect_semester_path(), method: :post, local: true do |f|
+        .field
+          = f.label :share_token, "Enter Code"
+          = f.text_field :share_token
+        
+        .actions
+          = f.submit 'Import'
