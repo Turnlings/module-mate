@@ -8,13 +8,19 @@ import "chartjs-adapter-date-fns"
 import ClipboardJS from "clipboard";
 
 function setupClipboard() {
+  // Clean up old instance
   if (window._clipboardInstance) {
     window._clipboardInstance.destroy();
   }
-  if (document.getElementById('copy-share-link')) {
-    window._clipboardInstance = new ClipboardJS('#copy-share-link');
+
+  // Use class instead of ID, e.g. <button class="copy-btn" data-clipboard-text="...">
+  var buttons = document.querySelectorAll('.copy-btn');
+  if (buttons.length > 0) {
+    window._clipboardInstance = new ClipboardJS('.copy-btn');
+
     window._clipboardInstance.on('success', function(e) {
-      var success = document.getElementById('copy-success');
+      // Find the related success element next to the clicked button
+      var success = e.trigger.parentElement.querySelector('.copy-success');
       if (success) {
         success.style.display = 'inline';
         setTimeout(function() { success.style.display = 'none'; }, 1500);

@@ -1,13 +1,14 @@
-= link_to uni_module_exam_path(@uni_module, @exam), class:'unstyle-link font-secondary mb-1' do
-  %i.fa-solid.fa-arrow-left
-  %span="Back to #{@uni_module.code} - #{@exam.name}"
+.form-card-container    
+  = link_to uni_module_exam_path(@uni_module, @exam), class:'unstyle-link font-secondary mb-1' do
+    %i.fa-solid.fa-arrow-left
+    %span="Back to #{@uni_module.code} - #{@exam.name}"
 
-.gt-card
-  .card-heading
-    %h1 Editing exam
+  .gt-card
+    .card-heading
+      %h1 Editing exam
 
-  = render 'form'
+    = render 'form'
 
-.gt-card
-  %h2= "Delete " + @exam.name 
-  = button_to 'Delete', uni_module_exam_path(@uni_module, @exam), method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'link-button delete w-100'
+  .gt-card
+    %h2= "Delete " + @exam.name 
+    = button_to 'Delete', uni_module_exam_path(@uni_module, @exam), method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'link-button delete w-100'

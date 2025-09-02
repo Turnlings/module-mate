@@ -5,11 +5,12 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
   resources :users, only: [:show]
-  resources :years
+  resources :years, except: [:index]
   resources :semesters
   get 'semesters/share/:share_token', to: 'semesters#share', as: :share_semester
-  post 'semesters/import/:share_token', to: 'semesters#import', as: :import_semester
   get 'semesters/import_form/:share_token', to: 'semesters#import_form', as: :import_form_semester
+  post 'semesters/import/:share_token', to: 'semesters#import', as: :import_semester
+  post "import_redirect", to: "semesters#import_redirect", as: :import_redirect_semester
   resources :uni_modules do
     resources :exams
     resources :timelogs

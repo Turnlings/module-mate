@@ -4,11 +4,6 @@ class YearsController < ApplicationController
   before_action :set_year, only: %i[show edit update destroy]
   authorize_resource
 
-  # GET /years or /years.json
-  def index
-    @years = current_user.years
-  end
-
   # GET /years/1 or /years/1.json
   def show
     # Get the cumulative time logged for each module

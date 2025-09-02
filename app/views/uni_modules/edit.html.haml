@@ -1,8 +1,11 @@
 .form-card-container
+  = link_to uni_module_path(@uni_module), class:'unstyle-link font-secondary mb-1' do
+    %i.fa-solid.fa-arrow-left
+    %span="Back to #{@uni_module.code}"
+
   .gt-card
     .card-heading
       %h1 Editing Module
-      = link_to 'Show', @uni_module
 
     = render 'form'
 

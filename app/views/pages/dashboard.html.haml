@@ -16,7 +16,7 @@
     .stat-content= number_with_precision(current_user.achieved_score, precision: 2) + '%'
 
 - @year_data.each do |data|
-  = render partial: 'year_card', locals: { data: data }
+  = render partial: 'shared/year_card', locals: { data: data }
 
 = link_to '+ New Year', new_year_path, class: 'card-button section-margin'
 

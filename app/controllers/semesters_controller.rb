@@ -7,7 +7,12 @@ class SemestersController < ApplicationController
 
   # GET /semesters or /semesters.json
   def index
-    @semesters = Semester.joins(:year).where(years: { user_id: current_user.id })
+    @semesters = current_user.semesters
+
+    if params[:search].present?
+      query = "%#{params[:search]}%"
+      @semesters = @semesters.where("LOWER(semesters.name) LIKE ?", "%#{query.downcase}%")
+    end
   end
 
   # GET /semesters/1 or /semesters/1.json
@@ -80,13 +85,11 @@ class SemestersController < ApplicationController
     end
   end
 
-  # GET /semesters/share/:share_token
-  def share
+  def share 
     @semester = Semester.find_by!(share_token: params[:share_token])
-    # Only show structure, not grades
   end
 
-  # GET /semesters/import_form
+  # GET /semesters/import_form/:share_token
   def import_form
     @semester = Semester.find_by!(share_token: params[:share_token])
     @years = current_user.years.order(:name)
@@ -122,6 +125,14 @@ class SemestersController < ApplicationController
       end
     end
     redirect_to semester_path(new_semester), notice: 'Semester imported! You can now edit it as your own.'
+  end
+
+  def import_redirect
+    if params[:share_token]
+      redirect_to import_form_semester_path(params[:share_token])
+    else 
+      redirect_to new_semester_path(), error: 'Invalid share token'
+    end
   end
 
   private

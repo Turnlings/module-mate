@@ -1,9 +1,27 @@
-%h2= @semester.name
-= form_with url: import_form_semester_path(@semester.share_token), method: :get, local: true do
-  = submit_tag 'Import this Semester to My Account', class: 'link-button mb-3', data: { confirm: 'Are you sure? This will copy the semester structure to your account.' }
+.form-card-container  
+  = link_to semester_path(@semester), class:'unstyle-link font-secondary mb-1' do
+    %i.fa-solid.fa-arrow-left
+    %span="Back to #{@semester.name}"
+    
+  .gt-card 
+    %h1= "Share #{@semester.name} Structure"
+    %p
+      You can share the setup of your semester, including modules and exams with other users.
+      They can either use the code in their own new semester page.
+      Or they can just follow the link.
 
-- @semester.uni_modules.each do |mod|
-  %h3= mod.name
-  %ul
-    - mod.exams.each do |exam|
-      %li= "#{exam.name} (Weight: #{exam.weight})"
+    %h3
+      Share using unique code
+    .copy-text-box
+      %span= @semester.share_token
+      %button.copy-btn.icon-button{ type: 'button', title: 'Copy Code', 'data-clipboard-text' => @semester.share_token }
+        %i.fa-solid.fa-copy
+        %span.copy-success{ style: 'display:none;' } Copied!
+
+    %h3
+      Share using link
+    .copy-text-box
+      %span= import_form_semester_url(@semester.share_token)
+      %button.copy-btn.icon-button{ type: 'button', title: 'Copy Link', 'data-clipboard-text' => import_form_semester_url(@semester.share_token) }
+        %i.fa-solid.fa-copy
+        %span.copy-success{ style: 'display:none;' } Copied!

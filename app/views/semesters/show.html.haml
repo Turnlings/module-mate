@@ -8,10 +8,9 @@
     .icon-button
       = link_to edit_semester_path(@semester) do
         %i.fa-solid.fa-pen-to-square
-
-    %button#copy-share-link.icon-button{ type: 'button', title: 'Copy share link', 'data-clipboard-text' => share_semester_url(@semester.share_token) }
-      %i.fa-solid.fa-share
-    %span#copy-success{ style: 'display:none;' } Copied!
+    .icon-button 
+      = link_to share_semester_url(@semester.share_token), { title: 'Share Template' } do
+        %i.fa-solid.fa-share
 
 -# Stats
 .stats-container 
@@ -26,7 +25,7 @@
     .stat-content= number_with_precision(@semester.achieved_score(current_user), precision: 2) + '%'
 
 - @uni_modules.each do |uni_module|
-  = render partial: 'module_card', locals: { uni_module: uni_module }
+  = render partial: 'shared/module_card', locals: { uni_module: uni_module }
 
 = link_to '+ New Module', new_uni_module_path(semester_id: @semester.id), class: 'card-button section-margin'
 
