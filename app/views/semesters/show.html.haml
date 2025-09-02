@@ -9,7 +9,7 @@
       = link_to edit_semester_path(@semester) do
         %i.fa-solid.fa-pen-to-square
     .icon-button 
-      = link_to share_semester_url(@semester.share_token) do
+      = link_to share_semester_url(@semester.share_token), { title: 'Share Template' } do
         %i.fa-solid.fa-share
 
 -# Stats

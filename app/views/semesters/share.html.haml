@@ -14,7 +14,7 @@
       Share using unique code
     .copy-text-box
       %span= @semester.share_token
-      %button.copy-btn.icon-button{ type: 'button', title: 'Copy share link', 'data-clipboard-text' => @semester.share_token }
+      %button.copy-btn.icon-button{ type: 'button', title: 'Copy Code', 'data-clipboard-text' => @semester.share_token }
         %i.fa-solid.fa-copy
         %span.copy-success{ style: 'display:none;' } Copied!
 
@@ -22,6 +22,6 @@
       Share using link
     .copy-text-box
       %span= import_form_semester_url(@semester.share_token)
-      %button.copy-btn.icon-button{ type: 'button', title: 'Copy share link', 'data-clipboard-text' => import_form_semester_url(@semester.share_token) }
+      %button.copy-btn.icon-button{ type: 'button', title: 'Copy Link', 'data-clipboard-text' => import_form_semester_url(@semester.share_token) }
         %i.fa-solid.fa-copy
         %span.copy-success{ style: 'display:none;' } Copied!

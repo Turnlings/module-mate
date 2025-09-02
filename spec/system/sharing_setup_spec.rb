@@ -11,8 +11,11 @@ RSpec.describe 'Sharing setup', type: :system do
 
       visit semester_path(semester)
 
-      expect(page).to have_selector('button[title="Copy share link"]')
-      find('button[title="Copy share link"]').click
+      expect(page).to have_selector('a[title="Share Template"]')
+      find('a[title="Share Template"]').click
+
+      expect(page).to have_selector('button[title="Copy Link"]')
+      find('button[title="Copy Link"]').click
 
       expect(page).to have_content 'Copied!'
     end
@@ -25,17 +28,36 @@ RSpec.describe 'Sharing setup', type: :system do
       year = create(:year, user: user)
       semester = create(:semester, year: year)
 
-      visit share_semester_path(semester.share_token)
-
-      click_on 'Import this Semester to My Account'
+      visit import_form_semester_path(semester.share_token)
 
       select 'Create New Year...', from: 'year-select'
 
-      click_on 'Import'
-
-      visit year_path(year)
+      accept_alert do
+        click_on 'Import'
+      end
 
       expect(page).to have_content semester.name
     end
+  end
+
+  it 'lets you import with the share token' do
+    login_as user
+    year = create(:year, user: user)
+    semester = create(:semester, year: year)
+
+    visit new_semester_path
+
+    fill_in 'share_token', with: semester.share_token
+
+    click_on 'Import'
+
+    select 'Create New Year...', from: 'year-select'
+
+    accept_alert do
+      click_on 'Import'
+    end
+
+    expect(page).to have_content semester.name
+
   end
 end
