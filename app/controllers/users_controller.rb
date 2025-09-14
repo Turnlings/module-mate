@@ -25,6 +25,23 @@ class UsersController < ApplicationController
                           .where(uni_module: current_user.uni_modules)
                           .group(:type)
                           .sum('exams.weight * uni_modules.credits / 100')
+
+    start_date = 104.days.ago.to_date
+    end_date   = Date.today
+
+    # Get summed minutes per day as strings
+    raw_logs = current_user.timelogs
+                .where("created_at >= ?", start_date.beginning_of_day)
+                .group("DATE(created_at)")
+                .sum(:minutes)
+    
+    # Normalize keys to string YYYY-MM-DD
+    normalized_logs = raw_logs.transform_keys { |k| k.to_date.to_s }
+
+    # Fill missing days with 0
+    @contributions = (start_date..end_date).map do |date|
+      { date: date.to_s, value: normalized_logs[date.to_s] || 0 }
+    end
   end
 
   private
