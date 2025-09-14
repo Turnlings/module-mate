@@ -1,3 +1,6 @@
+import React from "react";
+import PropTypes from 'prop-types';
+
 function ContributionGraph({ data }) {
   const colorScale = (value) => {
     if (value === 0) return "#2d2e2f";
@@ -40,4 +43,4 @@ ContributionGraph.propTypes = {
   ),
 };
 
-export default ContributionGraph
+export default ContributionGraph;

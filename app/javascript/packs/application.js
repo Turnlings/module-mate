@@ -6,6 +6,13 @@ Chartkick.use(Chart)
 import "chartjs-adapter-date-fns"
 import ClipboardJS from "clipboard";
 import "./theme.js"
+import "./mount_components";
+
+// Support component names relative to this directory:
+var componentRequireContext = require.context("../components", true);
+var ReactRailsUJS = require("react_ujs");
+ReactRailsUJS.useContext(componentRequireContext);
+
 
 function setupClipboard() {
   // Clean up old instance
