@@ -107,3 +107,5 @@ gem 'cancancan', '~> 3.6'
 gem 'postmark-rails'
 
 gem 'inline_svg'
+
+gem "react-rails", '~> 3.2'

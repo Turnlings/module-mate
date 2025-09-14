@@ -11,6 +11,9 @@
 
   = button_to "Logout", destroy_user_session_path, method: :delete, class: 'link-button'
 
+.gt-card 
+  = react_component("HelloWorld", { name: "Rails + React" })
+
 .gt-card
   %h1.section-heading Assessments
   %h2 All Assessments
