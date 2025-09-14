@@ -11,21 +11,14 @@ function ContributionGraph({ data }) {
   };
 
   // Parse dates
-  const parsedData = data.map((d) => ({ ...d, dateObj: new Date(d.date) }));
-
-  // Find weekday of first date (0 = Sunday, 1 = Monday)
-  const firstDay = parsedData[0].dateObj.getDay();
-  const offset = (firstDay === 0 ? 6 : firstDay - 1); // Monday = 0 offset
-
-  // Add empty items for offset
-  const gridData = Array(offset).fill({ date: "", value: 0 }).concat(parsedData);
+  const gridData = data.map((d) => ({ ...d, dateObj: new Date(d.date) }));
 
   return (
     <div
       style={{
         display: "grid",
-        gridTemplateRows: "repeat(7, 1fr)", // 7 rows tall
-        gridAutoFlow: "column", // fill top-to-bottom, then next column
+        gridTemplateRows: "repeat(7, 1fr)",
+        gridAutoFlow: "column",
         gridAutoColumns: "1fr",
         maxWidth: "100%",
         gap: "3px",

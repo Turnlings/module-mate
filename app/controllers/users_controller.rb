@@ -27,6 +27,7 @@ class UsersController < ApplicationController
                           .sum('exams.weight * uni_modules.credits / 100')
 
     start_date = 180.days.ago.to_date
+    start_date += (1 - start_date.wday) % 7 # Move to next Monday
     end_date   = Date.today
 
     # Get summed minutes per day as strings
