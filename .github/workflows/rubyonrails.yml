@@ -18,19 +18,31 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      # Add or replace dependency steps here
+
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@78c01b705fd9d5ad960d432d3a0cfa341d50e410 # v1.179.1
         with:
           ruby-version: '3.2.3'
           bundler-cache: true
-      # Add or replace database setup steps here
+
+      # Install Node.js & Yarn for Shakapacker
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20' # or whatever your project requires
+          cache: 'yarn'
+
+      - name: Install JS dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Precompile Shakapacker packs
+        run: RAILS_ENV=test bin/rails assets:precompile
+
       - name: Set up database schema
         run: bin/rails db:schema:load
-      # Add or replace test runners here
+
       - name: Run tests
         run: bundle exec rspec
-
 
   lint:
     runs-on: ubuntu-latest
