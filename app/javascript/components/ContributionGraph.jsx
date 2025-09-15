@@ -4,10 +4,14 @@ import PropTypes from "prop-types";
 function ContributionGraph({ data }) {
   const colorScale = (value) => {
     if (value === 0) return "var(--bg-half-light)";
-    if (value < 60) return "hsl(120, 20%, 30%)";
-    if (value < 120) return "hsl(120, 50%, 30%)";
-    if (value < 240) return "hsl(120, 75%, 30%)";
-    return "hsl(120, 100%, 30%)";
+
+    // 4 hours is the base for good
+    const max = 240;
+    const clamped = Math.min(value, max);
+
+    const sat = 20 + (clamped / max) * (100 - 20);
+
+    return `hsl(120, ${sat}%, 30%)`;
   };
 
   // Parse dates
