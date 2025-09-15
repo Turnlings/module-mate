@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_08_31_181227) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_15_132207) do
   create_table "exam_results", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "exam_id", null: false
@@ -65,6 +65,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_31_181227) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
+    t.date "date"
     t.index ["uni_module_id"], name: "index_timelogs_on_uni_module_id"
     t.index ["user_id"], name: "index_timelogs_on_user_id"
   end

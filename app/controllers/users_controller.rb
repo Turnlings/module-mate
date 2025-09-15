@@ -32,8 +32,8 @@ class UsersController < ApplicationController
 
     # Get summed minutes per day as strings
     raw_logs = current_user.timelogs
-                .where("created_at >= ?", start_date.beginning_of_day)
-                .group("DATE(created_at)")
+                .where("date >= ?", start_date.beginning_of_day)
+                .group(:date)
                 .sum(:minutes)
 
     # Normalize keys to string YYYY-MM-DD

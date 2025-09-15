@@ -28,6 +28,7 @@
     color: $font-color;
     border: none;
     margin-bottom: 4px;
+    color-scheme: dark;
   }
 
   input[type="checkbox"] {
@@ -75,4 +76,19 @@
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
+}
+
+[data-theme="light"] {
+  .gt-form {
+    input[type="text"],
+    input[type="email"],
+    input[type="password"], 
+    input[type="number"],
+    input[type="submit"],
+    input[type="date"],
+    input[type="datetime-local"],
+    select {
+    color-scheme: light;
+    }
+  }
 }

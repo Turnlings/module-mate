@@ -23,7 +23,7 @@ class PagesController < ApplicationController
 
     # Get the cumulative time logged for each module
     @module_data = current_user.uni_modules.map do |mod|
-      raw_data = mod.timelogs.for_user(current_user).group_by_day(:created_at).sum(:minutes)
+      raw_data = mod.timelogs.for_user(current_user).group_by_day(:date).sum(:minutes)
       cumulative = {}
       total = 0
       raw_data.each do |date, minutes|
@@ -58,6 +58,7 @@ class PagesController < ApplicationController
     if @uni_module
       @timelog = @uni_module.timelogs.new(minutes: params[:minutes])
       @timelog.user = current_user
+      @timelog.date = Date.current
 
       if @timelog.save
         redirect_to root_path, notice: 'Time logged successfully.'

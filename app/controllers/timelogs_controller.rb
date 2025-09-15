@@ -18,6 +18,7 @@ class TimelogsController < ApplicationController
   def new
     @uni_module = UniModule.find(params[:uni_module_id])
     @timelog = @uni_module.timelogs.new
+    @timelog.date = Date.current
   end
 
   # GET /timelogs/1/edit
@@ -75,6 +76,6 @@ class TimelogsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def timelog_params
-    params.require(:timelog).permit(:uni_module_id, :minutes, :description)
+    params.require(:timelog).permit(:uni_module_id, :date, :minutes, :description)
   end
 end
