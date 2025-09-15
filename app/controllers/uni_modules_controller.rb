@@ -20,7 +20,7 @@ class UniModulesController < ApplicationController
                  .where(uni_module: @uni_module)
                  .pluck(:name, :weight)
                  .to_h
-    @timelogs = @uni_module.timelogs.for_user(current_user).order(created_at: :desc).page(params[:page]).per(5)
+    @timelogs = @uni_module.timelogs.for_user(current_user).order(date: :desc).page(params[:page]).per(5)
   end
 
   # GET /uni_modules/new

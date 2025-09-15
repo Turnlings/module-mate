@@ -5,7 +5,9 @@
       %ul
         - @timelog.errors.full_messages.each do |message|
           %li= message
-
+  .field
+    = f.label :date
+    = f.date_field :date
   .field
     = f.label :minutes
     = f.number_field :minutes

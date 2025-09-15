@@ -11,6 +11,10 @@
 
   = button_to "Logout", destroy_user_session_path, method: :delete, class: 'link-button'
 
+.gt-card 
+  %h1.section-heading Activity
+  %div{ data: { react_component: "ContributionGraph", props: ({ data: @contributions }).to_json } }
+
 .gt-card
   %h1.section-heading Assessments
   %h2 All Assessments

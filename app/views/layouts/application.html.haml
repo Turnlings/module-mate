@@ -15,7 +15,7 @@
       const savedTheme = localStorage.getItem("theme");
       if (savedTheme) document.documentElement.dataset.theme = savedTheme;
 
-    = javascript_importmap_tags
+    = javascript_pack_tag "application", "data-turbo-track": "reload", defer: true
 
   %body
     - if user_signed_in?

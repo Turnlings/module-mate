@@ -9,6 +9,12 @@ default: &default
   # Notice that this is a relative path to source_path
   source_entry_path: packs
 
+  extensions:
+  - .js
+  - .jsx
+  - .ts
+  - .tsx
+
   # If nested_entries is true, then we'll pick up subdirectories within the source_entry_path.
   # You cannot set this option to true if you set source_entry_path to '/'
   nested_entries: true
