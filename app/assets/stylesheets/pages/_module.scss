@@ -1,0 +1,16 @@
+.module-heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  @media (max-width: $breakpoint-sm) {
+    flex-direction: column;
+    gap: 0;
+
+    .name {
+      font-size: 1rem;
+    }
+  }
+}
