@@ -4,6 +4,8 @@ A Ruby on Rails web app that helps students track study time, manage upcoming ex
 
 Try the app live: [ModuleMate](https://modulemate.app)
 
+![A screenshot showing an example dashboard setup](app/assets/images/dashboard.png)
+
 ## Features
 
 - Track study sessions by module and duration
