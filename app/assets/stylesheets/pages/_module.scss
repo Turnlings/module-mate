@@ -14,3 +14,22 @@
     }
   }
 }
+
+.stats-container {
+  .exams {
+    grid-column: span 2;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    .exams, .graph-split {
+      grid-column: span 3;
+    }
+  }
+}
+
+#exam-chart {
+  max-width: 200px;
+  max-height: 200px;
+  // aspect-ratio: 1/1;
+  // height: auto;
+}

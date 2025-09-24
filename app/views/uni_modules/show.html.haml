@@ -24,15 +24,14 @@
     .stat-header Achieved Score
     .stat-content= number_with_precision(@uni_module.achieved_score(current_user), precision: 2) + '%'
 
-.row
-  .col
+  .exams 
     .gt-card
       = render 'exams'
-  .col-auto
+  .graph-split
     .gt-card
       %h2 Assessment Split
       .chart-container
-        = pie_chart @exam_data, legend: false, width: '250px', height: '250px'
+        = pie_chart @exam_data, legend: false, width: "100%", library: { aspectRatio: "1|1" }, id: 'exam-chart'
 
 .row
   .col
