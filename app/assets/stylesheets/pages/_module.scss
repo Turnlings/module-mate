@@ -1,0 +1,35 @@
+.module-heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  @media (max-width: $breakpoint-sm) {
+    flex-direction: column;
+    gap: 0;
+
+    .name {
+      font-size: 1rem;
+    }
+  }
+}
+
+.stats-container {
+  .exams {
+    grid-column: span 2;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    .exams, .graph-split {
+      grid-column: span 3;
+    }
+  }
+}
+
+#exam-chart {
+  max-width: 200px;
+  max-height: 200px;
+  // aspect-ratio: 1/1;
+  // height: auto;
+}

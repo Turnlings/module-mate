@@ -26,7 +26,7 @@
           - progress = data[:progress]
           = "#{number_with_precision(progress, precision: 0)}%"
           - if progress == 100
-            .chip-success Completed
+            .chip-success.hide-on-mobile Completed
         .col= "#{number_with_precision(data[:achieved], precision: 0)}%"
       .row
         .col.progress-bar.mx-12px

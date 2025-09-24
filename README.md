@@ -4,6 +4,8 @@ A Ruby on Rails web app that helps students track study time, manage upcoming ex
 
 Try the app live: [ModuleMate](https://modulemate.app)
 
+![A screenshot showing an example dashboard setup](app/assets/images/dashboard.png)
+
 ## Features
 
 - Track study sessions by module and duration
@@ -15,15 +17,15 @@ Try the app live: [ModuleMate](https://modulemate.app)
 
 ### Requirements
 
-- Ruby 3.3.3
-- Rails 7.1.5.1
+- Ruby 3.2.3
+- Rails 7.2.2.2
 
 ### Setup
 
 Clone and install dependencies:
 ```bash
-git clone https://github.com/Turnlings/grade-tracker.git
-cd grade-tracker
+git clone https://github.com/Turnlings/module-mate.git
+cd module-mate
 bundle install
 ```
 
@@ -38,6 +40,7 @@ Add environment variables (replace values as needed):
 DEVISE_SECRET_KEY=your_random_key_here
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
+POSTMARK_API_TOKEN=your_postmark_api_token
 ```
 
 Set up the database:
