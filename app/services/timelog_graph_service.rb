@@ -1,7 +1,8 @@
 class TimelogGraphService
-  def initialize(user, scope)
+  def initialize(user, scope, cumulative: true)
     @user = user
     @scope = scope
+    @cumulative = cumulative
   end
 
   def call
@@ -16,16 +17,18 @@ class TimelogGraphService
     modules.includes(:timelogs).map do |mod|
       {
         name: mod.name,
-        data: cumulative_for(mod)
+        data: processed_data(mod)
       }
     end
   end
 
   private
 
-  def cumulative_for(mod)
+  def processed_data(mod)
+    raw = mod.timelogs.for_user(@user).group_by_day(:date).sum(:minutes)
+    return raw unless @cumulative
+
     total = 0
-    mod.timelogs.for_user(@user).group_by_day(:date).sum(:minutes)
-       .transform_values { |m| total += m }
+    raw.transform_values { |m| total += m }
   end
 end
