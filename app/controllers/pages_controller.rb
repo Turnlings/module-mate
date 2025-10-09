@@ -21,7 +21,9 @@ class PagesController < ApplicationController
       }
     end
 
-    @module_data = TimelogGraphService.new(current_user, current_user).call
+    cumulative = params[:cumulative] != "false"
+    service = TimelogGraphService.new(current_user, current_user, cumulative: cumulative)
+    @module_data = service.call
 
     @assessment_data = current_user.exam_results
                                    .includes(:exam)
