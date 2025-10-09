@@ -21,20 +21,9 @@ class PagesController < ApplicationController
       }
     end
 
-    # Get the cumulative time logged for each module
-    @module_data = current_user.uni_modules.map do |mod|
-      raw_data = mod.timelogs.for_user(current_user).group_by_day(:date).sum(:minutes)
-      cumulative = {}
-      total = 0
-      raw_data.each do |date, minutes|
-        total += minutes
-        cumulative[date] = total
-      end
-      {
-        name: mod.name,
-        data: cumulative
-      }
-    end
+    cumulative = params[:cumulative] != "false"
+    service = TimelogGraphService.new(current_user, current_user, cumulative: cumulative)
+    @module_data = service.call
 
     @assessment_data = current_user.exam_results
                                    .includes(:exam)
