@@ -19,7 +19,9 @@ class SemestersController < ApplicationController
   def show
     @uni_modules = @semester.uni_modules
 
-    @module_data = TimelogGraphService.new(current_user, @semester).call
+    cumulative = params[:cumulative] != "false"
+    service = TimelogGraphService.new(current_user, @semester, cumulative: cumulative)
+    @module_data = service.call
   end
 
   # GET /semesters/new
