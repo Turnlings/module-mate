@@ -66,6 +66,10 @@ header {
 
   .side-content {
     margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
     @media (max-width: $breakpoint-lg) {
       display: none;
     }

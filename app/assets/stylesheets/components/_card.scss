@@ -28,3 +28,9 @@
     margin: 0;
   }
 }
+
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem
+}
