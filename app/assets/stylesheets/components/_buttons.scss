@@ -44,19 +44,17 @@
 
 .card-button {
   @include card;
-
-  margin-bottom: 1.5rem;
-  color: $font-secondary-color;
+  color: $text-muted;
   text-align: center;
-  background-color: inherit;
   text-decoration: none;
   font-size: 0.8em;
   transition: all 0.2s ease;
 
   &:hover {
     color: $text;
-    border: 1px solid $text;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.7);
+    box-shadow: 
+      inset 0 1px 2px $bg-light,
+      0 2px 6px $shadow;
   }
 }
 
