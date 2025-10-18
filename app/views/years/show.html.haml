@@ -21,10 +21,11 @@
     .stat-header Achieved Score
     .stat-content= number_with_precision(@year.achieved_score(current_user), precision: 2) + '%'
 
-- @year.semesters.each do |semester|
-  = render partial: 'shared/semester_card', locals: { semester: semester }
+.cards-container
+  - @year.semesters.each do |semester|
+    = render partial: 'shared/semester_card', locals: { semester: semester }
 
-= link_to '+ New Semester', new_semester_path(year_id: @year.id), class: 'card-button section-margin'
+  = link_to '+ New Semester', new_semester_path(year_id: @year.id), class: 'card-button'
 
 -# Graph
 .gt-card

@@ -1,5 +1,5 @@
 header {
-  background-color: $bg-dark;
+  background-color: $sidebar;
   width: 400px;
   border-right: 1px solid $bg-light;
   flex-shrink: 0;
@@ -66,6 +66,10 @@ header {
 
   .side-content {
     margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
     @media (max-width: $breakpoint-lg) {
       display: none;
     }

@@ -10,7 +10,7 @@ html, body {
 }
 
 body {
-  background-color: $bg;
+  background-color: $bg-dark;
   display: flex;
   flex-direction: row;
 
@@ -75,6 +75,7 @@ h3 {
   width: 100%;
   max-width: $max-page-width;
   margin: 0 auto;
+  gap: 0.5rem;
 
   @media (max-width: $breakpoint-md) {
     padding: 0.5rem;
