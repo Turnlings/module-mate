@@ -48,7 +48,9 @@ class User < ApplicationRecord
 
   def achieved_score
     return 0 if years.empty?
-    years.sum { |year| year.achieved_score(self) } / years.size
+    total = years.sum { |year| year.achieved_score(self) * year.weighting }
+    total_weight =  years.sum { |year| year.weighting }
+    total / total_weight
   end
 
   def pinned_modules
