@@ -26,6 +26,11 @@ class Year < ApplicationRecord
     weighted_sum / credits
   end
 
+  def weighting_non_null
+    return 0 if weighting.nil?
+    weighting
+  end
+
   # The percentage of credits completed by the user in this year
   def progress(user)
     # Calculate for each module: credit_share * completion_percentage
