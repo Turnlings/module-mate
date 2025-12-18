@@ -45,9 +45,10 @@ class TimelogsController < ApplicationController
 
   # PATCH/PUT /timelogs/1 or /timelogs/1.json
   def update
+    @uni_module = @timelog.uni_module
     respond_to do |format|
       if @timelog.update(timelog_params)
-        format.html { redirect_to @timelog, notice: 'Timelog was successfully updated.' }
+        format.html { redirect_to uni_module_path(@uni_module), notice: 'Timelog was successfully updated.' }
         format.json { render :show, status: :ok, location: @timelog }
       else
         format.html { render :edit, status: :unprocessable_entity }
