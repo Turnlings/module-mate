@@ -49,6 +49,12 @@ rails db:create
 rails db:migrate
 ```
 
+Setup JS dependencies:
+```bash
+yarn install
+bin/rails shakapacker:compile
+```
+
 Start the server:
 ```bash
 rails s
