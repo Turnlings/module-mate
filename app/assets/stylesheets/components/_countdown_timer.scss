@@ -1,0 +1,11 @@
+.countdown-card{
+  @include card;
+}
+
+.countdown{
+  display: flex;
+  background:pink;
+  flex-direction: row;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
