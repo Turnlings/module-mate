@@ -15,3 +15,16 @@
       .progress{style: "width: #{@exam.score(current_user)}%"}
   - else
     .font-secondary No score recorded
+.countdown-container
+  .countdown-card
+    %h1= @time_until_due[0]
+    %h3= "Days"
+  .countdown-card
+    %h1= @time_until_due[1]
+    %h3= "Hours"
+  .countdown-card
+    %h1= @time_until_due[2]
+    %h3= "Minutes"
+  .countdown-card
+    %h1=@time_until_due[3].to_i
+    %h3= "Seconds"

@@ -108,3 +108,5 @@ gem 'inline_svg'
 gem "react-rails", '~> 3.2'
 
 gem "shakapacker", "~> 8.3.0"
+
+gem "tzinfo"
