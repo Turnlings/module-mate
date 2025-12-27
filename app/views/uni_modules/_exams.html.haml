@@ -16,21 +16,19 @@
         %th Name
         %th Score
         %th
-        %th Target
-        %th
 
     %tbody
       - @uni_module.exams.each do |exam|
         %tr.exam-row
           %td= exam.weight.to_s + '%'
           %td= exam.name
-          %td= "#{number_with_precision(exam.score(current_user), precision: 2)}%" if exam.score(current_user)
-          %td.text-start
-            .icon-button
-              = link_to edit_exam_result_path(exam), { title: "Edit #{exam.name} Score" } do
-                %i.fa-solid.fa-pen-to-square
-          %td.text-secondary= "#{number_with_precision(exam.target(current_user), precision: 2)}%" if exam.target(current_user)
+          - if exam.score(current_user)
+            %td= "#{number_with_precision(exam.score(current_user), precision: 2)}%"
+          - elsif exam.target(current_user)
+            %td.text-secondary= "#{number_with_precision(exam.target(current_user), precision: 2)}%"
+          - else 
+            %td
           %td.text-end
             .icon-button
-              = link_to edit_uni_module_exam_path(@uni_module, exam) do
-                %i.fa-solid.fa-pen-to-square
+              = link_to uni_module_exam_path(@uni_module, exam) do
+                %i.fa-solid.fa-arrow-right
