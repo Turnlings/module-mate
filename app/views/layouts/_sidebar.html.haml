@@ -15,7 +15,7 @@
   -# Quick-add time
   .gt-card.gt-form
     %h2 Quicklog
-    = form_with model: @timelog, url: quick_log_path, local: true do |f|
+    = form_with url: quick_log_path, local: true do |f|
       .split-row
         = f.text_field :module_code, placeholder: 'Module Code', class: "m-0"
         = f.number_field :minutes, placeholder: 'Minutes', class: "m-0"
