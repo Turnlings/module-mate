@@ -23,21 +23,15 @@
       = f.submit 'Add Time', class: "link-button"
 
   -# Modules
-  .gt-card.module-list
-    .card-heading
-      %h2 Pinned Modules
-      .icon-button
-        = link_to uni_modules_path do
-          %i.fa-solid.fa-arrow-right
+  .module-list
+    = link_to uni_modules_path do
+      All Modules
     - if @pinned_modules
       - @pinned_modules.each do |m|
-        = link_to m do
-          .name-row{class: "#{'module-selected' if m == @uni_module}"}
-            .mod-code= m.code
+        = link_to m, class: "#{'module-selected' if m == @uni_module}" do
+          .name-row
             .mod-name= m.name
-            -#.col-2.text-end= "#{number_with_precision(m.weighted_average(current_user), precision: 0)}%"
-          .progress-bar
-            .progress{style: "width: #{m.completion_percentage(current_user)}%"}
+            .mod-code= m.code
 
   .gt-card.upcoming-assessments
     %h2 Upcoming Assessments
@@ -45,8 +39,8 @@
       - @next_exams.each do |exam|
         = link_to uni_module_exam_path(exam.uni_module, exam) do
           .name-row
-            .mod-code= exam.uni_module.code
             .text-truncate= exam.name
+            .mod-code= exam.uni_module.code
           .date-row
             .due-date.font-secondary
               Due:

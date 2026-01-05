@@ -100,9 +100,21 @@ header {
 
 .module-list {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
   a {
+    display: block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: $bg-half-light;
     color: $font-color;
     text-decoration: none;
+
+    &:hover {
+      background-color: $bg-light;
+    }
   }
 
   .card-heading {
@@ -110,16 +122,16 @@ header {
   }
 
   .module-selected {
-    color: $text-muted;
+    background-color: $bg-light;
   }
 }
 
 .name-row {
-  margin-top: 0.5rem;
   display: flex;
+  justify-content: space-between;
 
   .mod-code {
-    flex: 0 0 100px;
+    color: $text-muted
   }
 
   .mod-name {
