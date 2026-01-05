@@ -79,7 +79,7 @@ hr {
   width: 100%;
   max-width: $max-page-width;
   margin: 0 auto;
-  gap: 0.5rem;
+  gap: 1rem;
 
   @media (max-width: $breakpoint-md) {
     padding: 0.5rem;
