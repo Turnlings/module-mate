@@ -57,11 +57,9 @@
     margin-top: 4px;
     transition: all 0.2s ease;
     margin-top: 0.5rem;
-    box-shadow: 0 2px 6px $shadow;
 
     &:hover {
       background-color: $brand-light;
-      box-shadow: 0 4px 6px $shadow;
     }
   }
 
@@ -70,6 +68,17 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 0.5rem;
+  }
+
+  .form-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+
+    > * {
+      margin: 0 !important;
+    }
   }
 }
 

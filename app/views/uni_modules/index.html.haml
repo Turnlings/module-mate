@@ -1,38 +1,40 @@
-%h1 All Modules
+.gt-empty-card 
+  .heading
+    %h1 All Modules
+    .gt-form
+      = form_with url: uni_modules_path, method: :get, local: true do
+        .form-row
+          = text_field_tag :search, params[:search]
+          = submit_tag "Search"
 
-.gt-form
-  = form_with url: uni_modules_path, method: :get, local: true do
-    = label_tag :search, "Search Modules:"
-    = text_field_tag :search, params[:search]
-    = submit_tag "Search"
+  .body
+    %table.w-100
+      %thead
+        %tr
+          %th
+          %th Code
+          %th Name
+          %th Credits
+          %th Achieved Score
+          %th
 
-%table
-  %thead
-    %tr
-      %th
-      %th Code
-      %th Name
-      %th Credits
-      %th Achieved Score
-      %th
+      %tbody
+        - @uni_modules.each do |uni_module|
+          %tr
+            %td
+              = button_to pin_uni_module_path(uni_module), method: :patch, class: 'icon-button', title: (uni_module.pinned? ? 'Unpin module' : 'Pin module') do
+                - if uni_module.pinned?
+                  .icon-button
+                    %i.fa-solid.fa-thumbtack
+                - else
+                  .icon-button.unselected
+                    %i.fa-solid.fa-thumbtack
+            %td= uni_module.code
+            %td= uni_module.name
+            %td= uni_module.credits
+            %td= number_with_precision(uni_module.achieved_score(current_user), precision: 2) + '%'
+            %td.icon-button
+              = link_to uni_module do
+                %i.fa-solid.fa-arrow-right
 
-  %tbody
-    - @uni_modules.each do |uni_module|
-      %tr
-        %td
-          = button_to pin_uni_module_path(uni_module), method: :patch, class: 'icon-button', title: (uni_module.pinned? ? 'Unpin module' : 'Pin module') do
-            - if uni_module.pinned?
-              .icon-button
-                %i.fa-solid.fa-thumbtack
-            - else
-              .icon-button.unselected
-                %i.fa-solid.fa-thumbtack
-        %td= uni_module.code
-        %td= uni_module.name
-        %td= uni_module.credits
-        %td= number_with_precision(uni_module.achieved_score(current_user), precision: 2) + '%'
-        %td.icon-button
-          = link_to uni_module do
-            %i.fa-solid.fa-arrow-right
-
-= link_to '+ New Module', new_uni_module_path, class: 'card-button'
+    = link_to '+ New Module', new_uni_module_path, class: 'card-button w-100 mt-2'
