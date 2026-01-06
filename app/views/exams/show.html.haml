@@ -25,13 +25,13 @@
 - if @time_until_due
   .countdown-container
     .countdown-card
-      %h1= @time_until_due[0]
+      %h1= @time_until_due[0].to_i
       %h3= "Days"
     .countdown-card
-      %h1= @time_until_due[1]
+      %h1= @time_until_due[1].to_i
       %h3= "Hours"
     .countdown-card
-      %h1= @time_until_due[2]
+      %h1= @time_until_due[2].to_i
       %h3= "Minutes"
     .countdown-card
       %h1=@time_until_due[3].to_i
