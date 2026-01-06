@@ -35,3 +35,27 @@
   gap: 0.5rem;
   margin-bottom: 0.5rem;
 }
+
+.gt-empty-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  border: 1px solid $bg-half-light;
+
+  .heading {
+    background-color: $bg-half-light;
+    padding: 1rem;
+
+    display: flex;
+    justify-content: space-between;
+
+    h2, select {
+      margin: 0;
+    }
+  }
+
+  .body {
+    background-color: $bg;
+    padding: 1rem;
+  }
+}

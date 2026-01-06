@@ -11,9 +11,12 @@
     .stat-content= number_with_precision(current_user.achieved_score, precision: 2) + '%'
 
 -# Graph on left
-.gt-card
-  .card-heading
-    %h2 Your Time Spent
+.gt-empty-card
+  .heading
+    .mini-stat
+      .title Minutes Spent
+      .figure= current_user.total_minutes
+
     = form_with url: request.path,
                 method: :get,
                 local: true,
@@ -24,8 +27,9 @@
           { selected: params[:cumulative] || "true" },
           { onchange: "this.form.submit()", class: "cumulative-dropdown" }
 
-  .chart-container
-    = line_chart @module_data, curve: false, legend: false, width: "100%", height:"300px", library: { responsive: true, maintainAspectRatio: false }
+  .body
+    .chart-container
+      = line_chart @module_data, curve: false, legend: false, width: "100%", height:"300px", library: { responsive: true, maintainAspectRatio: false }
 
 -# Years
 .cards-container

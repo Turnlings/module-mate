@@ -35,3 +35,18 @@
     }
   }
 }
+
+.mini-stat {
+  display: flex;
+  flex-direction: column;
+  .title {
+    color: $text-muted;
+    font-size: $secondary-size;
+  }
+
+  .figure {
+    color: $brand-light;
+    font-size: 2rem;
+    line-height: 2rem;
+  }
+}
