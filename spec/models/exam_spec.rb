@@ -17,6 +17,9 @@ RSpec.describe Exam, type: :model do
       exam3.due = DateTime.new(2026, 4, 1, 0, 0, 0, 0)
 
       result1 = exam1.time_until_due(DateTime.new(2025, 12, 1, 0, 0, 0))
+      # Intentionally use a fixed historical "current" date here so that the
+      # number of days between 2023-01-01 and the due date 2026-03-01 is
+      # deterministic and independent of the actual current date.
       result2 = exam2.time_until_due(DateTime.new(2023, 1, 1, 0, 0, 0))
       result3 = exam3.time_until_due(DateTime.new(2027, 8, 1, 0, 0, 0))
       result4 = exam1.time_until_due(DateTime.new(2026, 1, 1, 16, 30, 51))
