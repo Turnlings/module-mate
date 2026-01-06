@@ -15,7 +15,10 @@
   }
 }
 
-.stats-container {
+.exams-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.5rem;
   .exams {
     grid-column: span 2;
   }
