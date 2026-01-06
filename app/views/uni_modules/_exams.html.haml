@@ -1,34 +1,24 @@
-.card-heading#assessments
+.heading#assessments
   %h2 Assessments
+  - unless @uni_module.correct_weight_sum?
+    .icon-button.text-danger
+      %i.fa-solid.fa-triangle-exclamation{ title: 'Total weight must be 100%' }
   .icon-button
     = link_to new_uni_module_exam_path(@uni_module), { title: 'Add Assessment' } do
       %i.fa-solid.fa-plus
-- if @uni_module.exams.present?
-  %table.gt-table.mt-0
-    %thead
-      %tr
-        %th.text-start.px-2
-          .th-content
-            %span="Weight"
-            - unless @uni_module.correct_weight_sum?
-              .icon-button.text-danger
-                %i.fa-solid.fa-triangle-exclamation{ title: 'Total weight must be 100%' }
-        %th.text-start.px-2 Name
-        %th.text-start.px-2 Score
-        %th
-
-    %tbody
+.body
+  - if @uni_module.exams.present?
+    .exams-list
       - @uni_module.exams.each do |exam|
-        %tr.exam-row
-          %td= exam.weight.to_s + '%'
-          %td= exam.name
-          - if exam.score(current_user)
-            %td= "#{number_with_precision(exam.score(current_user), precision: 2)}%"
-          - elsif exam.target(current_user)
-            %td.text-secondary= "#{number_with_precision(exam.target(current_user), precision: 2)}%"
-          - else 
-            %td
-          %td.text-end
-            .icon-button
-              = link_to uni_module_exam_path(@uni_module, exam) do
-                %i.fa-solid.fa-arrow-right
+        = link_to uni_module_exam_path(@uni_module, exam) do
+          .space-between
+            .name= exam.name
+            - if exam.score(current_user)
+              .actual= "#{number_with_precision(exam.score(current_user), precision: 2)}%"
+            - elsif exam.target(current_user)
+              .predicted= "#{number_with_precision(exam.target(current_user), precision: 2)}%"
+            - else 
+              .empty 
+          .space-between
+            .font-secondary= exam.weight.to_s + '% Weighting'
+            .font-secondary= exam.due&.strftime("#{exam.due.day.ordinalize} %b")

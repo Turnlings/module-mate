@@ -21,6 +21,7 @@
   color: $font-color;
   cursor: pointer;
   padding: 0;
+  align-items: center;
 
   a {
     color: inherit;
@@ -28,6 +29,7 @@
     background: none !important;
     padding: 0;
     border-radius: 0;
+    align-items: center;
   }
 
   &:hover {

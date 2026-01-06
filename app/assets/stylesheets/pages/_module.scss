@@ -33,3 +33,28 @@
   // aspect-ratio: 1/1;
   // height: auto;
 }
+
+.exams-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  a {
+    @include card;
+
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: $text;
+
+    &:hover {
+      background-color: $bg-light;
+    }
+
+    .space-between {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+}
