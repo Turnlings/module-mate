@@ -9,9 +9,9 @@ class Exam < ApplicationRecord
   validate :module_exam_limit, on: :create
 
   def module_exam_limit
-    if uni_module.exams.count >= MAX_EXAMS_PER_MODULE
-      errors.add(:base, "You can only have up to #{MAX_EXAMS_PER_MODULE} exams per module.")
-    end
+    return unless uni_module.exams.count >= MAX_EXAMS_PER_MODULE
+
+    errors.add(:base, "You can only have up to #{MAX_EXAMS_PER_MODULE} exams per module.")
   end
 
   def score(user)
@@ -34,5 +34,19 @@ class Exam < ApplicationRecord
 
   def result(user)
     ExamResult.find_by(user: user, exam: self)
+  end
+
+  def time_until_due(date)
+    return [0, 0, 0, 0] if due.nil? || date.nil? || due < date
+
+    # Ensure both objects are valid date times
+
+    return [0, 0, 0, 0] unless due.respond_to?(:to_time) && date.respond_to?(:to_time)
+
+    difference = (due.to_time - date.to_time)
+    mm, ss = difference.divmod(60)
+    hh, mm = mm.divmod(60)
+    dd, hh = hh.divmod(24)
+    [dd, hh, mm, ss]
   end
 end

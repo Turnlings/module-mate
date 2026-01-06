@@ -11,6 +11,8 @@ class ExamsController < ApplicationController
 
   # GET /exams/1 or /exams/1.json
   def show
+    time_zone = TZInfo::Timezone.get(Rails.application.config.time_zone)
+    @time_until_due = @exam.time_until_due(time_zone.now)
     @uni_module = @exam.uni_module
   end
 
