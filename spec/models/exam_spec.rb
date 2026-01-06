@@ -28,5 +28,4 @@ RSpec.describe Exam, type: :model do
     end
   end
 
-
 end
