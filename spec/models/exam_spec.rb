@@ -5,17 +5,12 @@ require 'rails_helper'
 RSpec.describe Exam, type: :model do
   context 'with multiple exams' do
     it 'should return the time remaining to the exam' do
-
       exam1 = Exam.new
-
       exam1.due = DateTime.new(2026, 1, 2, 0, 0, 0, 0)
       exam2 = Exam.new
-
       exam2.due = DateTime.new(2026, 3, 1, 0, 0, 0, 0)
       exam3 = Exam.new
-
       exam3.due = DateTime.new(2026, 4, 1, 0, 0, 0, 0)
-
       result1 = exam1.time_until_due(DateTime.new(2025, 12, 1, 0, 0, 0))
       # Intentionally use a fixed historical "current" date here so that the
       # number of days between 2023-01-01 and the due date 2026-03-01 is
