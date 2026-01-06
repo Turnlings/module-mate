@@ -24,6 +24,7 @@
     .stat-header Achieved Score
     .stat-content= number_with_precision(@uni_module.achieved_score(current_user), precision: 2) + '%'
 
+.stats-container
   .exams 
     .gt-card
       = render 'exams'

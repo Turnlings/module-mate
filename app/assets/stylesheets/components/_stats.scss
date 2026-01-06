@@ -1,6 +1,7 @@
 .stats-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
   text-align: center;
   gap: 0.5rem;
 
@@ -9,7 +10,7 @@
   }
 
   .stat-header {
-    color: $text;
+    color: $text-muted;
     font-size: 1rem;
   }
 

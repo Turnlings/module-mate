@@ -116,18 +116,18 @@ header {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
 
   a {
     display: block;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
-    background-color: $bg-half-light;
+    // background-color: $bg-half-light;
     color: $font-color;
     text-decoration: none;
 
     &:hover {
-      background-color: $bg-light;
+      background-color: $bg-half-light;
     }
   }
 
@@ -136,7 +136,7 @@ header {
   }
 
   .module-selected {
-    background-color: $bg-light;
+    background-color: $bg-half-light;
   }
 }
 

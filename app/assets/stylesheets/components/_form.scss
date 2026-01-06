@@ -24,11 +24,15 @@
     padding: 0 0.5rem;
     outline: none;
     border-radius: 5px;
-    background-color: $bg;
+    background-color: $bg-light;
     color: $font-color;
     border: none;
     margin-bottom: 4px;
     color-scheme: dark;
+  }
+
+  select {
+    color: $text-muted;
   }
 
   input[type="checkbox"] {
