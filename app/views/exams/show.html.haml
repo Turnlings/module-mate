@@ -22,16 +22,17 @@
     .icon-button
       = link_to edit_exam_result_path(@exam), { title: "Edit #{@exam.name} Score" } do
         %i.fa-solid.fa-pen-to-square
-.countdown-container
-  .countdown-card
-    %h1= @time_until_due[0]
-    %h3= "Days"
-  .countdown-card
-    %h1= @time_until_due[1]
-    %h3= "Hours"
-  .countdown-card
-    %h1= @time_until_due[2]
-    %h3= "Minutes"
-  .countdown-card
-    %h1= @time_until_due[3].to_i
-    %h3= "Seconds"
+- if @time_until_due
+  .countdown-container
+    .countdown-card
+      %h1= @time_until_due[0]
+      %h3= "Days"
+    .countdown-card
+      %h1= @time_until_due[1]
+      %h3= "Hours"
+    .countdown-card
+      %h1= @time_until_due[2]
+      %h3= "Minutes"
+    .countdown-card
+      %h1=@time_until_due[3].to_i
+      %h3= "Seconds"
