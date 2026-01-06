@@ -5,6 +5,8 @@ class Semester < ApplicationRecord
 
   belongs_to :year, touch: true
   has_and_belongs_to_many :uni_modules, dependent: :destroy
+  has_many :exams, through: :uni_modules
+  has_many :exam_results, through: :exams
   before_create :generate_share_token
   validate :year_semester_limit, on: :create
 
@@ -26,10 +28,10 @@ class Semester < ApplicationRecord
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
 
-  # Good enough with weighted average TODO: use exam results instead
+  # The average score of all exam results belonging to the semester
   def average_score(user)
-    return 0 if uni_modules.empty?
-    uni_modules.sum { |m| m.weighted_average(user) } / uni_modules.count
+    return 0 if exam_results.empty?
+    exam_results.sum(&:score).to_f / exam_results.count
   end
 
   def achieved_score(user)

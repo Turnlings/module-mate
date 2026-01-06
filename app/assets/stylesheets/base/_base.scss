@@ -117,3 +117,10 @@ h3 {
     opacity: 0.5;
   }
 }
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}

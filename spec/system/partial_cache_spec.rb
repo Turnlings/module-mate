@@ -15,7 +15,7 @@ RSpec.describe 'Partial caching', type: :system do
       expect(page).to have_content '0%'
 
       # Set a result
-      visit uni_module_path(exam.uni_module)
+      visit uni_module_exam_path(exam.uni_module, exam)
       find("a[title='Edit #{exam.name} Score']").click
 
       fill_in 'exam_result_score', with: 50

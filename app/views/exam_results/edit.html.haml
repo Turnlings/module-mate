@@ -1,7 +1,7 @@
 .form-card-container
-  = link_to uni_module_path(@exam.uni_module), class:'unstyle-link font-secondary mb-1' do
+  = link_to uni_module_exam_path(@exam.uni_module, @exam), class:'unstyle-link font-secondary mb-1' do
     %i.fa-solid.fa-arrow-left
-    %span="Back to #{@exam.uni_module.code}"
+    %span="Back to #{@exam.uni_module.code} - #{@exam.name}"
 
   .gt-card.gt-form
     .card-heading 
