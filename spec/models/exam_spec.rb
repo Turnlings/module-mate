@@ -21,7 +21,7 @@ RSpec.describe Exam, type: :model do
 
       expect(result1).to eq [32, 0, 0, 0]
       expect(result2).to eq [1155, 0, 0, 0]
-      expect(result3).to eq [-487, 0, 0, 0]
+      expect(result3).to eq [0, 0, 0, 0]
       expect(result4).to eq [0, 7, 29, 9]
     end
   end

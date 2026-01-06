@@ -12,7 +12,6 @@ class Exam < ApplicationRecord
     return unless uni_module.exams.count >= MAX_EXAMS_PER_MODULE
 
     errors.add(:base, "You can only have up to #{MAX_EXAMS_PER_MODULE} exams per module.")
-
   end
 
   def score(user)
@@ -38,14 +37,16 @@ class Exam < ApplicationRecord
   end
 
   def time_until_due(date)
-    unless due.nil?
-      difference = (due - date)
-      mm, ss = difference.divmod(60)
-      hh, mm = mm.divmod(60)
-      dd, hh = hh.divmod(24)
-      return [dd, hh, mm, ss]
-    end
-    [0, 0, 0, 0]
+    return [0, 0, 0, 0] if due.nil? || date.nil? || due < date
 
+    # Ensure both objects are valid date times
+
+    return [0, 0, 0, 0] unless due.respond_to?(:to_time) && date.respond_to?(:to_time)
+
+    difference = (due.to_time - date.to_time)
+    mm, ss = difference.divmod(60)
+    hh, mm = mm.divmod(60)
+    dd, hh = hh.divmod(24)
+    [dd, hh, mm, ss]
   end
 end
