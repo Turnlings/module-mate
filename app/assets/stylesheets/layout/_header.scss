@@ -127,7 +127,7 @@ header {
     text-decoration: none;
 
     &:hover {
-      background-color: $bg-half-light;
+      background-color: $bg-light;
     }
   }
 
@@ -136,7 +136,7 @@ header {
   }
 
   .module-selected {
-    background-color: $bg-half-light;
+    background-color: $bg-light;
   }
 }
 
