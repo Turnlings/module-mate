@@ -27,6 +27,12 @@ class ExamResultsController < ApplicationController
   end
 
   def update
+    if exam_result_params[:score].blank?
+      @exam_result.destroy
+      redirect_to uni_module_path(@uni_module), notice: 'Exam result was removed.'
+      return
+    end
+    
     if @exam_result.update(exam_result_params)
       redirect_to uni_module_path(@uni_module), notice: 'Exam result was successfully updated.'
     else

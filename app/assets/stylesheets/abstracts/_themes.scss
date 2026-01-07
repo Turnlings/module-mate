@@ -24,6 +24,9 @@
   --chart-color-3: #8a750f;
   --chart-color-4: #33B648;
   --chart-color-5: #C266C2;
+
+  // Bootstrap overrides
+  --bs-secondary-color: var(--text-muted);
 }
 
 [data-theme="light"] {
@@ -53,4 +56,7 @@
   --chart-color-3: #ccaa00;
   --chart-color-4: #00cc00;
   --chart-color-5: #C266C2;
+
+  // Bootstrap overrides
+  --bs-secondary-color: var(--text-muted);
 }

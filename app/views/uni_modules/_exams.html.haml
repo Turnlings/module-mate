@@ -16,9 +16,9 @@
             - if exam.score(current_user)
               .actual= "#{number_with_precision(exam.score(current_user), precision: 2)}%"
             - elsif exam.target(current_user)
-              .predicted= "#{number_with_precision(exam.target(current_user), precision: 2)}%"
+              .required.text-muted= "Required: #{number_with_precision(exam.target(current_user), precision: 2)}%"
             - else 
-              .empty 
+              .empty.text-muted= "No Score"
           .space-between
             .font-secondary= exam.weight.to_s + '% Weighting'
-            .font-secondary= exam.due&.strftime("#{exam.due.day.ordinalize} %b")
+            .font-secondary= exam.due&.strftime("%-d %b %Y")
