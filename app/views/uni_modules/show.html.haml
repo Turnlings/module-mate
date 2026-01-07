@@ -8,6 +8,13 @@
     .hide-on-mobile= " - " 
     .name= @uni_module.name
   .right-button.button-row
+    = button_to pin_uni_module_path(@uni_module), method: :patch, class: 'icon-button', title: (@uni_module.pinned? ? 'Unpin module' : 'Pin module') do
+      - if @uni_module.pinned?
+        .icon-button
+          %i.fa-solid.fa-thumbtack
+      - else
+        .icon-button.unselected
+          %i.fa-solid.fa-thumbtack
     .icon-button
       = link_to edit_uni_module_path(@uni_module) do
         %i.fa-solid.fa-pen-to-square

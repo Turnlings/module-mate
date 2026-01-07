@@ -8,33 +8,14 @@
           = submit_tag "Search"
 
   .body
-    %table.w-100
-      %thead
-        %tr
-          %th
-          %th Code
-          %th Name
-          %th Credits
-          %th Achieved Score
-          %th
-
-      %tbody
-        - @uni_modules.each do |uni_module|
-          %tr
-            %td
-              = button_to pin_uni_module_path(uni_module), method: :patch, class: 'icon-button', title: (uni_module.pinned? ? 'Unpin module' : 'Pin module') do
-                - if uni_module.pinned?
-                  .icon-button
-                    %i.fa-solid.fa-thumbtack
-                - else
-                  .icon-button.unselected
-                    %i.fa-solid.fa-thumbtack
-            %td= uni_module.code
-            %td= uni_module.name
-            %td= uni_module.credits
-            %td= number_with_precision(uni_module.achieved_score(current_user), precision: 2) + '%'
-            %td.icon-button
-              = link_to uni_module do
-                %i.fa-solid.fa-arrow-right
+    .link-cards-list
+      - @uni_modules.each do |uni_module|
+        = link_to uni_module do
+          .space-between 
+            .name= uni_module.name
+            .score= number_with_precision(uni_module.achieved_score(current_user), precision: 2) + '%'
+          .space-between 
+            .font-secondary= uni_module.code
+            .font-secondary= uni_module.credits.to_s + ' Credits'
 
     = link_to '+ New Module', new_uni_module_path, class: 'card-button w-100 mt-2'

@@ -8,7 +8,7 @@
       %i.fa-solid.fa-plus
 .body
   - if @uni_module.exams.present?
-    .exams-list
+    .link-cards-list
       - @uni_module.exams.each do |exam|
         = link_to uni_module_exam_path(@uni_module, exam) do
           .space-between
