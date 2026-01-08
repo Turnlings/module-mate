@@ -27,6 +27,8 @@
 
   // Bootstrap overrides
   --bs-secondary-color: var(--text-muted);
+  --bs-modal-color: var(--text);
+  --bs-modal-bg: var(--bg-half-light);
 }
 
 [data-theme="light"] {

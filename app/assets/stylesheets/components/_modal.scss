@@ -1,0 +1,13 @@
+.gt-modal {
+  color: $text;
+  background-color: $bg-half-light;
+
+  .modal-header {
+    border-bottom: 1px solid $bg-light;
+  }
+
+  .btn-close {
+    --bs-btn-close-color: $text;
+    color: $text;
+  }
+}

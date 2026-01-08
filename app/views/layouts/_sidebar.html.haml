@@ -13,20 +13,13 @@
         %i.fa-solid.fa-moon
 
   .side-content
-    -# Quick-add time
-    .gt-outline-card.gt-form
-      %h2 Quicklog
-      = form_with model: @timelog, url: quick_log_path, local: true do |f|
-        .split-row
-          = f.text_field :module_code, placeholder: 'Module Code', class: "m-0"
-          = f.number_field :minutes, placeholder: 'Minutes', class: "m-0"
-
-        = f.submit 'Add Time', class: "link-button"
-
     -# Modules
     .module-list
       = link_to root_path do
         Dashboard
+      = link_to "Quicklog",
+        quick_log_form_path,
+        data: { turbo_frame: "modal"}
       = link_to uni_modules_path do
         All Modules
       - if @pinned_modules.present?

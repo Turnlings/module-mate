@@ -30,6 +30,8 @@ class PagesController < ApplicationController
                                    .map { |res| [res.exam.due, res.score] }
   end
 
+  def quick_log_form; end
+
   # Allows for the user to give a module code and minutes and get the time quickly logged
   def quick_log
     minutes = params[:minutes].to_i
@@ -50,7 +52,10 @@ class PagesController < ApplicationController
       @timelog.date = Date.current
 
       if @timelog.save
-        redirect_to root_path, notice: 'Time logged successfully.'
+        respond_to do |format|
+          format.turbo_stream
+          format.html { redirect_to root_path }
+        end
       else
         redirect_to root_path, alert: 'Failed to log time.'
       end
@@ -75,5 +80,12 @@ class PagesController < ApplicationController
 
   def internal_server_error
     render file: "#{Rails.root}/public/500.html", status: :internal_server_error
+  end
+
+  def close_modal
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_back fallback_location: root_path }
+    end
   end
 end

@@ -22,7 +22,9 @@ Rails.application.routes.draw do
   resources :exam_results, only: [:create, :edit, :update]
   resources :uni_module_targets, only: [:create, :update]
 
+  get 'quick_log_form', to: 'pages#quick_log_form'
   post 'quick_log', to: 'pages#quick_log'
+  get 'close_modal', to: 'pages#close_modal'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

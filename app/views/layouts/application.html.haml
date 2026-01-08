@@ -40,6 +40,8 @@
         .main-content
           = yield
 
+        = turbo_frame_tag "modal"
+
       %footer
         = link_to "ModuleMate", root_path
         = link_to "Privacy Policy", privacy_path
