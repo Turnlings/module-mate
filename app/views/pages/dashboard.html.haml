@@ -28,7 +28,7 @@
       = f.select :cumulative,
           [["Cumulative", "true"], ["Daily", "false"]],
           { selected: params[:cumulative] || "true" },
-          { onchange: "this.form.submit()", class: "cumulative-dropdown" }
+          { onchange: "this.form.submit()", class: "cumulative-dropdown text-muted" }
 
   .body
     .chart-container

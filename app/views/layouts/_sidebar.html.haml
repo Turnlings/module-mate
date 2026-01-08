@@ -15,6 +15,7 @@
   .side-content
     -# Modules
     .module-list
+      %hr
       = link_to root_path do
         Dashboard
       = link_to "Quicklog",
@@ -23,7 +24,7 @@
       = link_to uni_modules_path do
         All Modules
       - if @pinned_modules.present?
-        %hr
+        %hr 
         .font-secondary.px-3 Pinned Modules
         - @pinned_modules.each do |m|
           = link_to m, class: "#{'module-selected' if m == @uni_module}" do
@@ -31,9 +32,8 @@
               .mod-name= m.name
               .mod-code= m.code
 
-    %hr
+      %hr
 
-    .upcoming-assessments
       -# TODO: Do I want a link to all upcoming exams 
       .font-secondary.px-3 Upcoming Assessments
       - if @next_exams

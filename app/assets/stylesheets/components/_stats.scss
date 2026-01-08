@@ -3,7 +3,7 @@
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
   text-align: center;
-  gap: 0.5rem;
+  gap: 1rem;
 
   .stat {
     @include card;
@@ -11,17 +11,18 @@
 
   .stat-header {
     color: $text-muted;
-    font-size: 1rem;
+    font-size: $secondary-size;
   }
 
   .stat-content {
     color: $brand-light;
     font-size: 2rem;
+    line-height: 2rem;
     text-decoration: none;
 
     a {
-        color: inherit;
-        text-decoration: inherit;
+      color: inherit;
+      text-decoration: inherit;
     }
   }
 
