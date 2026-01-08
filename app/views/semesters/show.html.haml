@@ -1,16 +1,15 @@
 .page-heading
-  .left-button
-    .icon-button
-      = link_to year_path(@semester.year) do
-        %i.fa-solid.fa-arrow-left
-  %h1= "#{@semester.year.name}/#{@semester.name}"
-  .right-button.button-row
-    .icon-button
-      = link_to edit_semester_path(@semester) do
-        %i.fa-solid.fa-pen-to-square
+  %nav
+    %ol.breadcrumb
+      %li.breadcrumb-item= link_to @semester.year.name, @semester.year
+      %li.breadcrumb-item.active= @semester.name
+  .button-row
     .icon-button 
       = link_to share_semester_url(@semester.share_token), { title: 'Share Template' } do
         %i.fa-solid.fa-share
+    .icon-button
+      = link_to edit_semester_path(@semester) do
+        %i.fa-solid.fa-pen-to-square
 
 -# Stats
 .stats-container 

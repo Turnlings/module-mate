@@ -1,25 +1,13 @@
 .page-heading {
-  @include card;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  .left-button,
-  .right-button {
-    flex: 1 1 0;
-    display: flex; 
-      
-  }
+  font-size: 1.5rem;
 
-  .right-button {
-    justify-content: flex-end;
-  }
-
-  h1 {
-    flex: 1 1 auto;
-    margin: 0;
-    text-align: center;
+  .icon-button {
+    font-size: 1rem;
+    size: $text;
   }
 }
 
