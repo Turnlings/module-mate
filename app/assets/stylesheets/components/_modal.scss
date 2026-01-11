@@ -4,6 +4,8 @@
 
   .modal-header {
     border-bottom: 1px solid $bg-light;
+    display: flex;
+    justify-content: space-between;
   }
 
   .btn-close {

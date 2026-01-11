@@ -4,11 +4,8 @@
       .modal-content.gt-modal
         .modal-header
           %h5.modal-title= title
-          = link_to "",
-            close_modal_path,
-            class: "btn-close",
-            aria: { label: "Close" },
-            data: { turbo_frame: "_top" }
+          = link_to close_modal_path, class: "icon-button", aria: { label: "Close" }, data: { turbo_frame: "_top" } do
+            %i.fa-solid.fa-x
 
         .modal-body
           = yield

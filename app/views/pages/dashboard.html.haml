@@ -35,7 +35,7 @@
       = line_chart @module_data, curve: false, legend: false, width: "100%", height:"300px", library: { responsive: true, maintainAspectRatio: false }
 
 -# Years
-.cards-container
+.link-cards-list
   - @year_data.each do |data|
     = render partial: 'shared/year_card', locals: { data: data }
 
