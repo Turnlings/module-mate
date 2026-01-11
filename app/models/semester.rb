@@ -7,6 +7,7 @@ class Semester < ApplicationRecord
   has_and_belongs_to_many :uni_modules, dependent: :destroy
   has_many :exams, through: :uni_modules
   has_many :exam_results, through: :exams
+  has_many :timelogs, through: :uni_modules
   before_create :generate_share_token
   validate :year_semester_limit, on: :create
 
@@ -18,6 +19,10 @@ class Semester < ApplicationRecord
 
   def credits
     uni_modules.sum { |m| m.credit_share}
+  end
+
+  def total_minutes
+    timelogs.sum(:minutes)
   end
 
   def weighted_average(user)
