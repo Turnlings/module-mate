@@ -1,0 +1,6 @@
+- flash.each do |key, message|
+  - bootstrap_class = case key
+    - when 'notice' then 'alert-bar ab-notice'
+    - when 'alert' then 'alert-bar ab-danger'
+    - else 'alert-bar ab-warning'
+  %p{class: bootstrap_class}= message

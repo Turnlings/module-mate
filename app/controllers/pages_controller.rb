@@ -35,8 +35,14 @@ class PagesController < ApplicationController
   # Allows for the user to give a module code and minutes and get the time quickly logged
   def quick_log
     minutes = params[:minutes].to_i
-    if minutes.nil? || minutes <= 0 
-      redirect_to root_path, alert: 'Time logged must be positive.'
+    if minutes.nil? || minutes <= 0
+      respond_to do |format|
+        format.turbo_stream do
+          flash.now[:alert] = 'Time logged must be positive.'
+          render 'pages/quick_log_error', status: :unprocessable_entity
+        end
+        format.html { redirect_to root_path, alert: 'Time logged must be positive.' }
+      end
       return
     end
 
@@ -46,21 +52,34 @@ class PagesController < ApplicationController
 
     # TODO: what if somebody takes like COM101 and MAT101??
 
-    if @uni_module
-      @timelog = @uni_module.timelogs.new(minutes: params[:minutes])
-      @timelog.user = current_user
-      @timelog.date = Date.current
-
-      if @timelog.save
-        respond_to do |format|
-          format.turbo_stream
-          format.html { redirect_to root_path }
+    unless @uni_module
+      respond_to do |format|
+        format.turbo_stream do
+          flash.now[:alert] = 'Module not found.'
+          render 'pages/quick_log_error', status: :not_found
         end
-      else
-        redirect_to root_path, alert: 'Failed to log time.'
+        format.html { redirect_to root_path, alert: 'Module not found.' }
+      end
+      return
+    end
+
+    @timelog = @uni_module.timelogs.new(minutes: params[:minutes])
+    @timelog.user = current_user
+    @timelog.date = Date.current
+
+    if @timelog.save
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to root_path }
       end
     else
-      redirect_to root_path, alert: 'Module not found.'
+      respond_to do |format|
+        format.turbo_stream do
+          flash.now[:alert] = 'Failed to log time.'
+          render 'pages/quick_log_error', status: :unprocessable_entity
+        end
+        format.html { redirect_to root_path, alert: 'Failed to log time.' }
+      end
     end
   end
 

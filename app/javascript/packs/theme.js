@@ -6,7 +6,6 @@ document.addEventListener("turbo:load", () => {
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme) doc.dataset.theme = savedTheme;
 
-  // Apply theme colors to any existing charts (safe if Chartkick isn't present)
   applyThemeToCharts();
 
   if (!toggleBtns.length) return;
@@ -22,7 +21,6 @@ document.addEventListener("turbo:load", () => {
       doc.dataset.theme = newTheme;
       localStorage.setItem("theme", newTheme);
 
-      // Update charts if present
       applyThemeToCharts();
     });
   });
