@@ -1,34 +1,12 @@
 - cache [uni_module.semesters.first, uni_module, current_user] do  
-  .gt-card
-    .card-heading
-      %h2= uni_module.code + " - " + uni_module.name
-      .icon-button.gt-card-link
-        = link_to uni_module do
-          %i.fa-solid.fa-arrow-right
-    .container-flex
-      .row.font-secondary
-        .col Credits
-        .col Progress
-        .col Achieved
-      .row
-        .col
-          - if uni_module.credits.present?
-            = number_with_precision(uni_module.credits, precision: 0)
-          - else
-            = "N/A"
-        .col.d-flex.align-items-center
-          - progress = uni_module.progress(current_user)
-          = "#{number_with_precision(progress, precision: 0)}%"
-          - if progress == 100
-            .chip-success.hide-on-mobile Completed
-        .col= "#{number_with_precision(uni_module.achieved_score(current_user), precision: 0)}%"
-      .row
-        .col.progress-bar.mx-12px
-          - if uni_module.credits.present?
-            .progress{style: "width: #{uni_module.credit_share / @semester.credits * 100}%"}
-          - else
-            .progress{style: "width: 0%"}
-        .col.progress-bar.mx-12px
-          .progress{style: "width: #{uni_module.progress(current_user)}%"}
-        .col.progress-bar.mx-12px
-          .progress{style: "width: #{uni_module.achieved_score(current_user)}%"}
+  = link_to uni_module_path(uni_module) do
+    - progress = uni_module.progress(current_user)
+    .space-between
+      .space-between
+        .name= uni_module.code + " - " + uni_module.name
+        - if progress == 100
+          .chip-success.hide-on-mobile.ms-2 Completed
+      .actual= "#{number_with_precision(uni_module.achieved_score(current_user), precision: 0)}%"
+    .space-between
+      .font-secondary= "#{uni_module.credits.present? ? number_with_precision(uni_module.credits, precision: 0) : "N/A"} Credits"
+      .font-secondary= "#{number_with_precision(progress, precision: 0)}% Completed"

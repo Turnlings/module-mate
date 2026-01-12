@@ -23,11 +23,15 @@
     .stat-header Achieved Score
     .stat-content= number_with_precision(@semester.achieved_score(current_user), precision: 2) + '%'
 
-.cards-container
-  - @uni_modules.each do |uni_module|
-    = render partial: 'shared/module_card', locals: { uni_module: uni_module }
+.gt-empty-card
+  .heading
+    %h3 Modules
+  .body
+    .link-cards-list
+      - @uni_modules.each do |uni_module|
+        = render partial: 'shared/module_card', locals: { uni_module: uni_module }
 
-  = link_to '+ New Module', new_uni_module_path(semester_id: @semester.id), class: 'card-button'
+      = link_to '+ New Module', new_uni_module_path(semester_id: @semester.id), class: 'card-button'
 
 -# Graph
 .gt-empty-card

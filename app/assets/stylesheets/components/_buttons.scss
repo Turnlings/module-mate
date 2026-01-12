@@ -45,7 +45,7 @@
 
 .card-button {
   @include card;
-  color: $text-muted;
+  color: $text-muted !important;
   text-align: center;
   text-decoration: none;
   font-size: $secondary-size;
@@ -54,7 +54,7 @@
   justify-content: center;
 
   &:hover {
-    color: $text;
+    color: $text !important;
     background-color: $bg-light;
   }
 }

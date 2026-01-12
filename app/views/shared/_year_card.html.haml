@@ -6,7 +6,11 @@
       .actual= "#{number_with_precision(data[:achieved], precision: 0)}%"
     .space-between
       .font-secondary= "#{number_with_precision(data[:weighting], precision: 0)}% Weighting"
-      .font-secondary= "#{number_with_precision(data[:progress], precision: 0)}% Completed"
+      %div
+        - progress = data[:progress]
+        - if progress == 100
+          .chip-success.hide-on-mobile Completed
+        .font-secondary= "#{number_with_precision(progress, precision: 0)}% Completed"
   
   -# .gt-card
   -#   .card-heading

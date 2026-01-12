@@ -50,8 +50,13 @@
     display: flex;
     justify-content: space-between;
 
-    h1, h2, select {
+    h1, h2, h3, select {
       margin: 0;
+      color: $text;
+    }
+
+    h2 {
+      font-weight: normal;
     }
 
     @media (max-width: $breakpoint-sm) {
