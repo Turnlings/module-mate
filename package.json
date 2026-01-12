@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@babel/preset-react": "^7.27.1",
+    "@swc/core": "^1.15.8",
     "swc-loader": "^0.2.6",
     "webpack-dev-server": "4"
   },
