@@ -6,10 +6,7 @@
   gap: 1rem;
 
   .stat {
-    background-color: $bg;
-    border: 1px solid $bg-half-light;
-    padding: 1rem;
-    border-radius: 0.5rem
+    @include card;
   }
 
   .stat-header {
