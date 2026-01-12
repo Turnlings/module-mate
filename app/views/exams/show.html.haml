@@ -1,6 +1,10 @@
-= link_to uni_module_path(@uni_module), class:'unstyle-link font-secondary mb-1' do
-  %i.fa-solid.fa-arrow-left
-  %span="Back to #{@uni_module.code} - #{@uni_module.name}"
+.page-heading  
+  %nav
+    %ol.breadcrumb
+      %li.breadcrumb-item= link_to @semester.year.name, @semester.year
+      %li.breadcrumb-item= link_to @semester.name, @semester 
+      %li.breadcrumb-item= link_to @uni_module.name, @uni_module 
+      %li.breadcrumb-item.active= @exam.name
 .gt-card
   .card-heading
     %h1= @exam.name

@@ -9,6 +9,10 @@
     font-size: 1rem;
     size: $text;
   }
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: 1rem;
+  }
 }
 
 .section-heading {
