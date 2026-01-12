@@ -30,6 +30,10 @@
   @media (max-width: $breakpoint-sm) {
     gap: 0.5rem;
 
+    .stat {
+      padding: 0.5rem;
+    }
+
     .stat-header {
       font-size: $secondary-size;
     }
