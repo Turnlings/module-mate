@@ -6,7 +6,10 @@
   gap: 1rem;
 
   .stat {
-    @include card;
+    background-color: $bg;
+    border: 1px solid $bg-half-light;
+    padding: 1rem;
+    border-radius: 0.5rem
   }
 
   .stat-header {
@@ -28,6 +31,8 @@
 
 
   @media (max-width: $breakpoint-sm) {
+    gap: 0.5rem;
+
     .stat-header {
       font-size: $secondary-size;
     }

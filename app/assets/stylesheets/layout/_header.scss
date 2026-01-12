@@ -165,6 +165,25 @@ header {
   .show-lg {
     display: none !important;
   }
+
+  // Bootstrap offcanvas theming to match the sidebar
+  .offcanvas {
+    background-color: $sidebar;
+    color: $font-color;
+
+    .offcanvas-header {
+      border-bottom: 1px solid $bg-light;
+    }
+
+    a {
+      color: $font-color;
+      text-decoration: none;
+    }
+
+    .btn-close {
+      filter: invert(1);
+    }
+  }
 }
 
 @media (min-width: $breakpoint-lg) {
