@@ -56,6 +56,19 @@ document.addEventListener('turbo:load', () => {
   redrawCharts();
 });
 
+// Fix for the graphs flitting in and out on turbo render
+Chartkick.config.autoDestroy = false
+
+window.addEventListener('turbo:before-render', () => {
+  Chartkick.eachChart(chart => {
+    if (!chart.element.isConnected) {
+      chart.destroy()
+      delete Chartkick.charts[chart.element.id]
+    }
+  })
+})
+// End of fix
+
 // Redraw on normal load (non-Turbo fallback)
 document.addEventListener('DOMContentLoaded', () => {
   setupClipboard();
