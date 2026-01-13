@@ -57,6 +57,10 @@ class User < ApplicationRecord
     uni_modules.where(pinned: true)
   end
 
+  def total_minutes
+    timelogs.sum(:minutes)
+  end
+
   private
 
   def set_terms_agreed_at

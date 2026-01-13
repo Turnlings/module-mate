@@ -1,31 +1,39 @@
 .stats-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
   text-align: center;
-  gap: 0.5rem;
+  gap: 1rem;
 
   .stat {
     @include card;
   }
 
   .stat-header {
-    color: $text;
-    font-size: 1rem;
+    color: $text-muted;
+    font-size: $secondary-size;
   }
 
   .stat-content {
     color: $brand-light;
     font-size: 2rem;
+    line-height: 2rem;
     text-decoration: none;
 
     a {
-        color: inherit;
-        text-decoration: inherit;
+      color: inherit;
+      text-decoration: inherit;
     }
   }
 
 
   @media (max-width: $breakpoint-sm) {
+    gap: 0.5rem;
+
+    .stat {
+      padding: 0.5rem;
+    }
+
     .stat-header {
       font-size: $secondary-size;
     }
@@ -33,5 +41,20 @@
     .stat-content {
       font-size: 1rem;
     }
+  }
+}
+
+.mini-stat {
+  display: flex;
+  flex-direction: column;
+  .title {
+    color: $text-muted;
+    font-size: $secondary-size;
+  }
+
+  .figure {
+    color: $brand-light;
+    font-size: 2rem;
+    line-height: 2rem;
   }
 }

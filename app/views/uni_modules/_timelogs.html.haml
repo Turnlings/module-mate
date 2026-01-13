@@ -1,25 +1,26 @@
-.gt-card
-  .card-heading
+.gt-empty-card
+  .heading
     %h2 Timelog
     .icon-button
       = link_to new_uni_module_timelog_path(@uni_module), title: 'Log time' do
         %i.fa-solid.fa-plus
-  %table.gt-table.mt-0
-    %thead
-      %tr
-        %th.px-2 Date
-        %th.px-2 Minutes
-        %th.px-2 Description
-        %th
+  .body
+    %table.gt-table.mt-0
+      %thead
+        %tr
+          %th.px-2 Date
+          %th.px-2 Minutes
+          %th.px-2 Description
+          %th
 
-    %tbody
-      - @timelogs.each do |timelog|
-        %tr.timelog-row
-          %td= timelog.created_at.strftime('%Y-%m-%d')
-          %td= timelog.minutes
-          %td= timelog.description
-          %td.text-end
-            .icon-button
-              = link_to edit_uni_module_timelog_path(@uni_module, timelog) do
-                %i.fa-solid.fa-pen-to-square
-  = paginate @timelogs
+      %tbody
+        - @timelogs.each do |timelog|
+          %tr.timelog-row
+            %td= timelog.created_at.strftime('%Y-%m-%d')
+            %td= timelog.minutes
+            %td= timelog.description
+            %td.text-end
+              .icon-button
+                = link_to edit_uni_module_timelog_path(@uni_module, timelog) do
+                  %i.fa-solid.fa-pen-to-square
+    = paginate @timelogs

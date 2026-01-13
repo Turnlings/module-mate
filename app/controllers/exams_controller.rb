@@ -14,6 +14,7 @@ class ExamsController < ApplicationController
     time_zone = TZInfo::Timezone.get(Rails.application.config.time_zone)
     @time_until_due = @exam.time_until_due(time_zone.now)
     @uni_module = @exam.uni_module
+    @semester = @uni_module.semesters.first
   end
 
   # GET /exams/new

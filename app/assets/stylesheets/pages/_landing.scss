@@ -42,7 +42,7 @@
       grid-template-columns: 1fr;
     }
 
-    .gt-card {
+    .gt-empty-card {
       text-align: center;
 
       i {
@@ -54,6 +54,10 @@
 
       p {
         margin-bottom: 0.5rem;
+      }
+
+      .body {
+        border-radius: 0.5rem;
       }
     }
   }

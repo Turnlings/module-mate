@@ -1,9 +1,7 @@
 .page-heading
-  .left-button.button-row
-    .icon-button
-      = link_to root_path do
-        %i.fa-solid.fa-arrow-left
-  %h1= @year.name
+  %nav
+    %ol.breadcrumb
+      %li.breadcrumb-item.active= @year.name
   .right-button.button-row
     .icon-button
       = link_to edit_year_path(@year) do
@@ -21,25 +19,33 @@
     .stat-header Achieved Score
     .stat-content= number_with_precision(@year.achieved_score(current_user), precision: 2) + '%'
 
-.cards-container
-  - @year.semesters.each do |semester|
-    = render partial: 'shared/semester_card', locals: { semester: semester }
+.gt-empty-card
+  .heading
+    %h3 Semesters
+  .body
+    .link-cards-list
+      - @year.semesters.each do |semester|
+        = render partial: 'shared/semester_card', locals: { semester: semester }
 
-  = link_to '+ New Semester', new_semester_path(year_id: @year.id), class: 'card-button'
+      = link_to '+ New Semester', new_semester_path(year_id: @year.id), class: 'card-button'
 
 -# Graph
-.gt-card
-  .card-heading
-    %h2 Your Time Spent
-    = form_with url: request.path, method: :get, local: true, html: { class: "cumulative-toggle-form" } do |f|
-      - if params[:cumulative] != "false"
-        = f.hidden_field :cumulative, value: false
-        .background
-          = f.submit "", class: "toggle-true"
-      - else 
-        = f.hidden_field :cumulative, value: true
-        .background
-          = f.submit "", class: "toggle-false"
-      Cumulative
-  .chart-container
-    = line_chart @module_data, curve: false, legend: false, width: "100%" #, height:"100%"
+.gt-empty-card
+  .heading
+    .mini-stat
+      .title Minutes Spent
+      .figure= @year.total_minutes
+
+    = form_with url: request.path,
+                method: :get,
+                local: true,
+                html: { class: "gt-form cumulative-toggle-form" } do |f|
+
+      = f.select :cumulative,
+          [["Cumulative", "true"], ["Daily", "false"]],
+          { selected: params[:cumulative] || "true" },
+          { onchange: "this.form.submit()", class: "cumulative-dropdown text-muted" }
+
+  .body
+    .chart-container
+      = line_chart @module_data, curve: false, legend: false, width: "100%" #, height:"100%"
