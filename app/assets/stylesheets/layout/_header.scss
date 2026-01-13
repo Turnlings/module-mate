@@ -1,6 +1,6 @@
 header {
   background-color: $sidebar;
-  width: 400px;
+  width: 360px;
   border-right: 1px solid $bg-light;
   flex-shrink: 0;
   padding: 1rem;
@@ -8,7 +8,10 @@ header {
   overflow-y: auto;
   position: fixed;
   top: 0;
-  flex-shrink: 0;  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
 
   .side-heading {
     display: flex;
@@ -33,8 +36,6 @@ header {
 
       .profile {
         order: 1;
-      
-        color: $text-muted;
       }
       .moon { order: 2;}
 
@@ -54,13 +55,9 @@ header {
       }
     }
 
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid $bg-light;
-
     @media (max-width: $breakpoint-lg) {
       flex-direction: row;
       justify-content: space-between;
-      padding-bottom: 0;
     }
   }
 
@@ -72,6 +69,23 @@ header {
     
     @media (max-width: $breakpoint-lg) {
       display: none;
+    }
+  }
+
+  .account-bottom {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: $bg-half-light;
+    color: $font-color;
+    text-decoration: none;
+
+    .profile {
+      &:hover {
+        text-decoration: none;
+        color: $text-muted;
+      }
     }
   }
 
@@ -98,11 +112,23 @@ header {
   }
 }
 
-.module-list {
+.module-list, .upcoming-assessments {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
   a {
+    display: block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    // background-color: $bg-half-light;
     color: $font-color;
     text-decoration: none;
+
+    &:hover {
+      background-color: $bg-light;
+    }
   }
 
   .card-heading {
@@ -110,16 +136,16 @@ header {
   }
 
   .module-selected {
-    color: $text-muted;
+    background-color: $bg-light;
   }
 }
 
 .name-row {
-  margin-top: 0.5rem;
   display: flex;
+  justify-content: space-between;
 
   .mod-code {
-    flex: 0 0 100px;
+    color: $text-muted
   }
 
   .mod-name {
@@ -132,4 +158,36 @@ header {
 
 .date-row {
   display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: $breakpoint-lg) {
+  .show-lg {
+    display: none !important;
+  }
+
+  // Bootstrap offcanvas theming to match the sidebar
+  .offcanvas {
+    background-color: $sidebar;
+    color: $font-color;
+
+    .offcanvas-header {
+      border-bottom: 1px solid $bg-light;
+    }
+
+    a {
+      color: $font-color;
+      text-decoration: none;
+    }
+
+    .btn-close {
+      filter: invert(1);
+    }
+  }
+}
+
+@media (min-width: $breakpoint-lg) {
+  .hide-lg {
+    display: none !important;
+  }
 }

@@ -6,7 +6,8 @@
     = text_field_tag :search, params[:search]
     = submit_tag "Search"
 
-- @semesters.each do |semester|
-  = render partial: 'shared/semester_card', locals: { semester: semester }
+.link-cards-list
+  - @semesters.each do |semester|
+    = render partial: 'shared/semester_card', locals: { semester: semester }
 
-= link_to '+ New Semester', new_semester_path(), class: 'card-button section-margin'
+  = link_to '+ New Semester', new_semester_path(), class: 'card-button section-margin'

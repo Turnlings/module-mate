@@ -1,6 +1,10 @@
-= link_to uni_module_path(@uni_module), class:'unstyle-link font-secondary mb-1' do
-  %i.fa-solid.fa-arrow-left
-  %span="Back to #{@uni_module.code} - #{@uni_module.name}"
+.page-heading  
+  %nav
+    %ol.breadcrumb
+      %li.breadcrumb-item= link_to @semester.year.name, @semester.year
+      %li.breadcrumb-item= link_to @semester.name, @semester 
+      %li.breadcrumb-item= link_to @uni_module.name, @uni_module 
+      %li.breadcrumb-item.active= @exam.name
 .gt-card
   .card-heading
     %h1= @exam.name
@@ -10,8 +14,29 @@
   - if @exam.due
     .font-secondary= @exam.due.strftime("%d %b %Y, %H:%M")
   - if @exam.score(current_user)
-    %h1= @exam.score(current_user).to_s + '%'
+    .flex-row
+      %h1.mb-0= @exam.score(current_user).to_s + '%'
+      .icon-button
+        = link_to edit_exam_result_path(@exam), { title: "Edit #{@exam.name} Score" } do
+          %i.fa-solid.fa-pen-to-square
     .progress-bar
       .progress{style: "width: #{@exam.score(current_user)}%"}
   - else
     .font-secondary No score recorded
+    .icon-button
+      = link_to edit_exam_result_path(@exam), { title: "Edit #{@exam.name} Score" } do
+        %i.fa-solid.fa-pen-to-square
+- if @time_until_due
+  .countdown-container
+    .countdown-card
+      %h1= @time_until_due[0].to_i
+      %h3= "Days"
+    .countdown-card
+      %h1= @time_until_due[1].to_i
+      %h3= "Hours"
+    .countdown-card
+      %h1= @time_until_due[2].to_i
+      %h3= "Minutes"
+    .countdown-card
+      %h1=@time_until_due[3].to_i
+      %h3= "Seconds"

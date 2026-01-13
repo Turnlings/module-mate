@@ -28,9 +28,11 @@ RSpec.describe 'Module management', type: :system do
     login_as user
 
     uni_module = create(:uni_module, user: user)
-    visit uni_modules_path
+    visit '/'
 
-    expect(page).to have_content uni_module.code
+    expect(page).not_to have_content uni_module.code
+
+    visit uni_module_path(uni_module)
 
     find('button[title="Pin module"]').click
 

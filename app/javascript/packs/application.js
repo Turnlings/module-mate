@@ -7,6 +7,8 @@ import "chartjs-adapter-date-fns"
 import ClipboardJS from "clipboard";
 import "./theme.js"
 import "./mount_components";
+import "bootstrap/dist/js/bootstrap.bundle";
+import "./offcanvas_modal_fix";
 
 // Support component names relative to this directory:
 var componentRequireContext = require.context("../components", true);
@@ -53,6 +55,19 @@ document.addEventListener('turbo:load', () => {
   setupClipboard();
   redrawCharts();
 });
+
+// Fix for the graphs flitting in and out on turbo render
+Chartkick.config.autoDestroy = false
+
+window.addEventListener('turbo:before-render', () => {
+  Chartkick.eachChart(chart => {
+    if (!chart.element.isConnected) {
+      chart.destroy()
+      delete Chartkick.charts[chart.element.id]
+    }
+  })
+})
+// End of fix
 
 // Redraw on normal load (non-Turbo fallback)
 document.addEventListener('DOMContentLoaded', () => {

@@ -7,6 +7,7 @@ class Year < ApplicationRecord
   has_many :semesters, dependent: :destroy
   has_many :uni_modules, through: :semesters
   has_many :exams, through: :uni_modules
+  has_many :timelogs, through: :uni_modules
   validate :user_year_limit, on: :create
 
   def user_year_limit
@@ -17,6 +18,10 @@ class Year < ApplicationRecord
 
   def credits
     uni_modules.sum { |m| m.credit_share}
+  end
+
+  def total_minutes
+    timelogs.sum(:minutes)
   end
 
   # The average of all the grades of the semesters in this year

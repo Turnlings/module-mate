@@ -74,9 +74,9 @@ class UniModulesController < ApplicationController
   def pin
     @uni_module = UniModule.find(params[:id])
     if @uni_module.update(pinned: !@uni_module.pinned)
-      redirect_to uni_modules_path, notice: 'Module pin status updated successfully.'
+      redirect_to uni_module_path(@uni_module), notice: 'Module pin status updated successfully.'
     else
-      redirect_to uni_modules_path, alert: 'Failed to update pin status.'
+      redirect_to uni_module_path(@uni_module), alert: 'Failed to update pin status.'
     end
   end
 

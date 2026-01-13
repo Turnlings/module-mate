@@ -1,16 +1,15 @@
 .page-heading
-  .left-button
-    .icon-button
-      = link_to year_path(@semester.year) do
-        %i.fa-solid.fa-arrow-left
-  %h1= "#{@semester.year.name}/#{@semester.name}"
-  .right-button.button-row
-    .icon-button
-      = link_to edit_semester_path(@semester) do
-        %i.fa-solid.fa-pen-to-square
+  %nav
+    %ol.breadcrumb
+      %li.breadcrumb-item= link_to @semester.year.name, @semester.year
+      %li.breadcrumb-item.active= @semester.name
+  .button-row
     .icon-button 
       = link_to share_semester_url(@semester.share_token), { title: 'Share Template' } do
         %i.fa-solid.fa-share
+    .icon-button
+      = link_to edit_semester_path(@semester) do
+        %i.fa-solid.fa-pen-to-square
 
 -# Stats
 .stats-container 
@@ -24,25 +23,33 @@
     .stat-header Achieved Score
     .stat-content= number_with_precision(@semester.achieved_score(current_user), precision: 2) + '%'
 
-.cards-container
-  - @uni_modules.each do |uni_module|
-    = render partial: 'shared/module_card', locals: { uni_module: uni_module }
+.gt-empty-card
+  .heading
+    %h3 Modules
+  .body
+    .link-cards-list
+      - @uni_modules.each do |uni_module|
+        = render partial: 'shared/module_card', locals: { uni_module: uni_module }
 
-  = link_to '+ New Module', new_uni_module_path(semester_id: @semester.id), class: 'card-button'
+      = link_to '+ New Module', new_uni_module_path(semester_id: @semester.id), class: 'card-button'
 
 -# Graph
-.gt-card
-  .card-heading
-    %h2 Your Time Spent
-    = form_with url: request.path, method: :get, local: true, html: { class: "cumulative-toggle-form" } do |f|
-      - if params[:cumulative] != "false"
-        = f.hidden_field :cumulative, value: false
-        .background
-          = f.submit "", class: "toggle-true"
-      - else 
-        = f.hidden_field :cumulative, value: true
-        .background
-          = f.submit "", class: "toggle-false"
-      Cumulative
-  .chart-container
+.gt-empty-card
+  .heading
+    .mini-stat
+      .title Minutes Spent
+      .figure= @semester.total_minutes
+
+    = form_with url: request.path,
+                method: :get,
+                local: true,
+                html: { class: "gt-form cumulative-toggle-form" } do |f|
+
+      = f.select :cumulative,
+          [["Cumulative", "true"], ["Daily", "false"]],
+          { selected: params[:cumulative] || "true" },
+          { onchange: "this.form.submit()", class: "cumulative-dropdown text-muted" }
+
+  .body
+    .chart-container
     = line_chart @module_data, curve: false, legend: false, width: "100%" #, height:"100%"

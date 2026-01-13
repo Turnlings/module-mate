@@ -1,9 +1,9 @@
 :root {
   --sidebar: hsl(210, 2%, 10%);
   --bg-dark: hsl(210, 2%, 12%);
-  --bg: hsl(210, 2%, 15%);
-  --bg-half-light: hsl(210, 2%, 18%);
-  --bg-light: hsl(210, 2%, 25%);
+  --bg: hsl(210, 2%, 14%);
+  --bg-half-light: hsl(210, 2%, 16%);
+  --bg-light: hsl(210, 2%, 20%);
   --shadow: hsl(210, 2%, 5%);
 
   --brand: hsl(210, 80%, 30%);
@@ -24,14 +24,19 @@
   --chart-color-3: #8a750f;
   --chart-color-4: #33B648;
   --chart-color-5: #C266C2;
+
+  // Bootstrap overrides
+  --bs-secondary-color: var(--text-muted);
+  --bs-modal-color: var(--text);
+  --bs-modal-bg: var(--bg-half-light);
 }
 
 [data-theme="light"] {
-  --sidebar: hsl(210, 2%, 87%);
-  --bg-dark: hsl(210, 2%, 80%);
-  --bg: hsl(210, 2%, 90%);
-  --bg-half-light: hsl(210, 2%, 87%);
-  --bg-light: hsl(210, 2%, 70%);
+  --sidebar: hsl(210, 2%, 90%);
+  --bg-dark: hsl(210, 2%, 88%);
+  --bg: hsl(210, 2%, 87%);
+  --bg-half-light: hsl(210, 2%, 85%);
+  --bg-light: hsl(210, 2%, 83%);
   --shadow: hsl(210, 2%, 40%);
 
   // The same in lightmode
@@ -53,4 +58,7 @@
   --chart-color-3: #ccaa00;
   --chart-color-4: #00cc00;
   --chart-color-5: #C266C2;
+
+  // Bootstrap overrides
+  --bs-secondary-color: var(--text-muted);
 }

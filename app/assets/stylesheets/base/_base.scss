@@ -46,10 +46,14 @@ h3 {
   font-size: 1.2rem;
 }
 
+hr {
+  margin: 0;
+}
+
 // To support having the sidebar and no proper header
 .not-header {
-  width: calc(100% - 400px); 
-  margin-left: 400px;
+  width: calc(100% - 360px); 
+  margin-left: 360px;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -71,11 +75,11 @@ h3 {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding: 1rem;
+  padding: 1rem 2rem;
   width: 100%;
   max-width: $max-page-width;
   margin: 0 auto;
-  gap: 0.5rem;
+  gap: 1rem;
 
   @media (max-width: $breakpoint-md) {
     padding: 0.5rem;
@@ -84,6 +88,12 @@ h3 {
 
 @media (max-width: $breakpoint-sm) {
   .hide-on-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: $breakpoint-sm) {
+  .show-on-mobile {
     display: none !important;
   }
 }
@@ -116,4 +126,11 @@ h3 {
     fill: $bg-dark;
     opacity: 0.5;
   }
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
 }

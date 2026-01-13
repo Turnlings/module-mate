@@ -15,7 +15,10 @@
   }
 }
 
-.stats-container {
+.exams-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
   .exams {
     grid-column: span 2;
   }
@@ -32,4 +35,29 @@
   max-height: 200px;
   // aspect-ratio: 1/1;
   // height: auto;
+}
+
+.link-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  a {
+    @include card;
+
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: $text;
+
+    &:hover {
+      background-color: $bg-light;
+    }
+
+    .space-between {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
 }

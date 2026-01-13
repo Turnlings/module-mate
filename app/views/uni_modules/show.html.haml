@@ -1,13 +1,17 @@
-.page-heading
-  .left-button
-    .icon-button
-      = link_to semester_path(@semester) do
-        %i.fa-solid.fa-arrow-left
-  %h1.module-heading
-    .code= @uni_module.code 
-    .hide-on-mobile= " - " 
-    .name= @uni_module.name
-  .right-button.button-row
+.page-heading  
+  %nav
+    %ol.breadcrumb
+      %li.breadcrumb-item= link_to @semester.year.name, @semester.year
+      %li.breadcrumb-item= link_to @semester.name, @semester 
+      %li.breadcrumb-item.active= @uni_module.name
+  .button-row
+    = button_to pin_uni_module_path(@uni_module), method: :patch, class: 'icon-button', title: (@uni_module.pinned? ? 'Unpin module' : 'Pin module') do
+      - if @uni_module.pinned?
+        .icon-button
+          %i.fa-solid.fa-thumbtack
+      - else
+        .icon-button.unselected
+          %i.fa-solid.fa-thumbtack
     .icon-button
       = link_to edit_uni_module_path(@uni_module) do
         %i.fa-solid.fa-pen-to-square
@@ -24,14 +28,17 @@
     .stat-header Achieved Score
     .stat-content= number_with_precision(@uni_module.achieved_score(current_user), precision: 2) + '%'
 
+.exams-container
   .exams 
-    .gt-card
+    .gt-empty-card
       = render 'exams'
   .graph-split
-    .gt-card
-      %h2 Assessment Split
-      .chart-container
-        = pie_chart @exam_data, legend: false, width: "100%", library: { aspectRatio: "1|1" }, id: 'exam-chart'
+    .gt-empty-card
+      .heading
+        %h2 Assessment Split
+      .body
+        .chart-container
+          = pie_chart @exam_data, legend: false, width: "100%", library: { aspectRatio: "1|1" }, id: 'exam-chart'
 
 .row
   .col

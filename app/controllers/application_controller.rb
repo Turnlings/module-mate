@@ -3,6 +3,9 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!, :set_sidebar_content
 
+  # For modals
+  layout -> { turbo_frame_request? ? false : "application" }
+
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, alert: exception.message
   end

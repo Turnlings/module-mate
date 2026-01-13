@@ -30,15 +30,12 @@
               %h1 ModuleMate
             = link_to "Log in", new_user_session_path, class: "login"
       %main
-        %div 
-          - flash.each do |key, message|
-            - bootstrap_class = case key
-              - when 'notice' then 'alert-bar ab-notice'
-              - when 'alert' then 'alert-bar ab-danger'
-              - else 'alert-bar ab-warning'
-            %p{class: bootstrap_class}= message
+        #flash
+          = render "layouts/flash"
         .main-content
           = yield
+
+        = turbo_frame_tag "modal"
 
       %footer
         = link_to "ModuleMate", root_path
