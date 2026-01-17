@@ -8,26 +8,11 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-    @semesters = Semester.joins(:year)
-                         .where(years: { user_id: current_user.id })
-                         .includes(:uni_modules)
-
-    @year_data = current_user.years.order(weighting: :desc).map do |year|
-      {
-        year: year,
-        weighting: year.weighting,
-        progress: year.progress(current_user),
-        achieved: year.achieved_score(current_user)
-      }
-    end
+    @years = current_user.years.order(weighting: :desc)
 
     cumulative = params[:cumulative] != "false"
     service = TimelogGraphService.new(current_user, current_user, cumulative: cumulative)
     @module_data = service.call
-
-    @assessment_data = current_user.exam_results
-                                   .includes(:exam)
-                                   .map { |res| [res.exam.due, res.score] }
   end
 
   def quick_log_form; end
