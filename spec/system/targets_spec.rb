@@ -5,9 +5,10 @@ RSpec.describe 'Module targets' do
 
   context 'when you set a target' do
     let(:uni_module) { create(:uni_module, user: user) }
-    let!(:exam) { create(:exam, uni_module: uni_module) }
 
     before do
+      create(:exam, uni_module: uni_module)
+
       login_as user
 
       visit edit_uni_module_path(uni_module)
@@ -26,9 +27,10 @@ RSpec.describe 'Module targets' do
 
   context 'when you overwrite a target' do
     let(:uni_module) { create(:uni_module, user: user) }
-    let!(:exam) { create(:exam, uni_module: uni_module) }
 
     before do
+      create(:exam, uni_module: uni_module)
+
       login_as user
 
       visit edit_uni_module_path(uni_module)

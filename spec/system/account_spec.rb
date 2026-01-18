@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Account' do
   let(:user) { create(:user) }
 
-  context 'registration' do
+  context 'when registering' do
     before do
       visit new_user_registration_path
     end
@@ -53,7 +53,7 @@ RSpec.describe 'Account' do
     end
   end
 
-  context 'management' do
+  context 'when managin' do
     it 'can view account details' do
       login_as user
 

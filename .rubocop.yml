@@ -37,4 +37,12 @@ RSpec/MultipleExpectations:
 RSpec/ExampleLength:
   Enabled: false
 
-  
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/AbcSize:
+  Exclude:
+    - "app/controllers/**/*"
