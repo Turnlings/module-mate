@@ -9,10 +9,6 @@ class PagesController < ApplicationController
 
   def dashboard
     @years = current_user.years.order(weighting: :desc)
-
-    cumulative = params[:cumulative] != "false"
-    service = TimelogGraphService.new(current_user, current_user, cumulative: cumulative)
-    @module_data = service.call
   end
 
   def quick_log_form; end
