@@ -14,7 +14,10 @@ class TimelogGraphService
               else []
               end
 
-    modules.includes(:timelogs).map do |mod|
+    # All cases but UniModule
+    modules = modules.includes(:timelogs) if modules.is_a?(ActiveRecord::Relation)
+
+    modules.map do |mod|
       {
         name: mod.name,
         data: processed_data(mod)
