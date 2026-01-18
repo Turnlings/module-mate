@@ -17,7 +17,7 @@ class Year < ApplicationRecord
   end
 
   def credits
-    uni_modules.sum { |m| m.credit_share }
+    uni_modules.sum(&:credit_share)
   end
 
   def total_minutes
@@ -42,14 +42,14 @@ class Year < ApplicationRecord
   def progress(user)
     # Calculate for each module: credit_share * completion_percentage
     completed_credits = uni_modules.sum { |m| m.credit_share * m.completion_percentage(user) / 100.0 }
-    total_credits = uni_modules.sum { |m| m.credit_share }
+    total_credits = uni_modules.sum(&:credit_share)
 
     total_credits.zero? ? 0 : (completed_credits / total_credits) * 100
   end
 
   # The accumulated score of all the completed exams in this year
   def achieved_score(user)
-    total_credits = uni_modules.sum { |m| m.credit_share }
+    total_credits = uni_modules.sum(&:credit_share)
     return 0 if total_credits.zero?
 
     weighted_sum = uni_modules.sum { |m| m.credit_share * m.achieved_score(user) }

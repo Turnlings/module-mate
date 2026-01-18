@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'UniModules', type: :request do
+RSpec.describe 'UniModules' do
   let(:user) { create(:user) }
 
   before do
@@ -124,7 +124,7 @@ RSpec.describe 'UniModules', type: :request do
       patch pin_uni_module_path(uni_module)
 
       expect(response).to redirect_to(uni_module_path(uni_module))
-      expect(uni_module.reload.pinned).to eq(true)
+      expect(uni_module.reload.pinned).to be(true)
       expect(flash[:notice]).to eq('Module pin status updated successfully.')
     end
   end

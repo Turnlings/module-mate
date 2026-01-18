@@ -18,9 +18,6 @@ AllCops:
     - "config/environments/*.rb"
     - "spec/spec_helper.rb"
 
-Rails:
-  Enabled: true
-
 Style/Documentation:
   Enabled: false
 
@@ -36,3 +33,8 @@ Metrics/BlockLength:
 
 RSpec/MultipleExpectations:
   Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+  

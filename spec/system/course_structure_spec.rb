@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Course structure', type: :system do
+RSpec.describe 'Course structure' do
   let(:user) { create(:user) }
 
   context 'when creating year-semester-module setup' do

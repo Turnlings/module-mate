@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Account', type: :system do
+RSpec.describe 'Account' do
   let(:user) { create(:user) }
 
   context 'registration' do

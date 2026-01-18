@@ -2,15 +2,15 @@
 
 require 'rails_helper'
 
-RSpec.describe Exam, type: :model do
+RSpec.describe Exam do
   # The following tests using fixed historical days so that the tests are deterministic and repeatable
   context 'with multiple exams' do
     it 'returns the time remaining to the exam' do
-      exam1 = Exam.new
+      exam1 = described_class.new
       exam1.due = DateTime.new(2026, 1, 2, 0, 0, 0, 0)
-      exam2 = Exam.new
+      exam2 = described_class.new
       exam2.due = DateTime.new(2026, 3, 1, 0, 0, 0, 0)
-      exam3 = Exam.new
+      exam3 = described_class.new
       exam3.due = DateTime.new(2026, 4, 1, 0, 0, 0, 0)
       result1 = exam1.time_until_due(DateTime.new(2025, 12, 1, 0, 0, 0))
       # Intentionally use a fixed historical "current" date here so that the
@@ -27,7 +27,7 @@ RSpec.describe Exam, type: :model do
     end
 
     it 'returns the default [0, 0, 0, 0] given an nil input value' do
-      exam1 = Exam.new
+      exam1 = described_class.new
       exam1.due = DateTime.new(2026, 1, 2, 0, 0, 0, 0)
 
       result = exam1.time_until_due(nil)
@@ -38,7 +38,7 @@ RSpec.describe Exam, type: :model do
 
   context 'with an exam with the due date being nil' do
     it 'returns the default [0,0,0,0] value' do
-      exam1 = Exam.new
+      exam1 = described_class.new
       result = exam1.time_until_due(DateTime.new(2026, 1, 2, 0, 0, 0, 0))
       expect(result).to eq [0, 0, 0, 0]
     end

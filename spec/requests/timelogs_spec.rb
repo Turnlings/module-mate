@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Timelogs', type: :request do
+RSpec.describe 'Timelogs' do
   let(:user) { create(:user) }
 
   before do

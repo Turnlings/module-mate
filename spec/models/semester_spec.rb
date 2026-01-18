@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Semester, type: :model do
+RSpec.describe Semester do
   describe '#average_score' do
     let(:user) { create(:user) }
     let(:semester) { create(:semester) }

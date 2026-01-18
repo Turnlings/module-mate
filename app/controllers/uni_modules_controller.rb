@@ -8,7 +8,7 @@ class UniModulesController < ApplicationController
   def index
     @uni_modules = current_user.uni_modules
 
-    return unless params[:search].present?
+    return if params[:search].blank?
 
     query = "%#{params[:search]}%"
     @uni_modules = @uni_modules.where('LOWER(uni_modules.code) LIKE ? OR LOWER(uni_modules.name) LIKE ?',

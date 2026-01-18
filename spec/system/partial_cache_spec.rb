@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Partial caching', type: :system do
+RSpec.describe 'Partial caching' do
   let(:user) { create(:user) }
 
   context 'when you update an exam result' do

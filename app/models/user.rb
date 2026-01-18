@@ -51,7 +51,7 @@ class User < ApplicationRecord
     return 0 if years.empty?
 
     total = years.sum { |year| year.achieved_score(self) * year.weighting_non_null }
-    total_weight = years.sum { |year| year.weighting_non_null }
+    total_weight = years.sum(&:weighting_non_null)
     total / total_weight
   end
 

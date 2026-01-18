@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Semesters', type: :request do
+RSpec.describe 'Semesters' do
   let(:user) { create(:user) }
 
   before do

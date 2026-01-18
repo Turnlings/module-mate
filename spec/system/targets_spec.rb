@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Module targets', type: :system do
+RSpec.describe 'Module targets' do
   let(:user) { create(:user) }
 
   context 'when you set a target' do

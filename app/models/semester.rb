@@ -20,7 +20,7 @@ class Semester < ApplicationRecord
   end
 
   def credits
-    uni_modules.sum { |m| m.credit_share }
+    uni_modules.sum(&:credit_share)
   end
 
   def total_minutes
@@ -31,7 +31,7 @@ class Semester < ApplicationRecord
     valid_modules = uni_modules.reject { |m| m.weighted_average(user).nil? }
     return 0 if valid_modules.empty?
 
-    total_weight = valid_modules.sum { |m| m.credit_share }
+    total_weight = valid_modules.sum(&:credit_share)
     weighted_sum = valid_modules.sum { |m| m.credit_share * m.weighted_average(user) }
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
@@ -45,13 +45,13 @@ class Semester < ApplicationRecord
   end
 
   def achieved_score(user)
-    total_weight = uni_modules.sum { |m| m.credit_share }
+    total_weight = uni_modules.sum(&:credit_share)
     weighted_sum = uni_modules.sum { |m| m.credit_share * m.achieved_score(user) }
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
 
   def progress(user)
-    total_credits = uni_modules.sum { |m| m.credit_share }
+    total_credits = uni_modules.sum(&:credit_share)
     completed_credits = uni_modules.sum { |m| m.completion_percentage(user) * m.credit_share }
     total_credits.zero? ? 0 : (completed_credits / total_credits)
   end

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ExamResult, type: :model do
+RSpec.describe ExamResult do
   let(:user) { create(:user) }
 
   it 'touches the exam when updated' do

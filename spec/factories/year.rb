@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :year do
     name { 'First Year' }
-    association :user
+    user
   end
 end

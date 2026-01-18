@@ -9,7 +9,7 @@ class SemestersController < ApplicationController
   def index
     @semesters = current_user.semesters
 
-    return unless params[:search].present?
+    return if params[:search].blank?
 
     query = "%#{params[:search]}%"
     @semesters = @semesters.where('LOWER(semesters.name) LIKE ?', "%#{query.downcase}%")
@@ -90,7 +90,7 @@ class SemestersController < ApplicationController
       user_year = current_user.years.create!(name: year_name)
     end
     new_semester = Semester.create!(
-      name: shared_semester.name + ' (Imported)',
+      name: "#{shared_semester.name} (Imported)",
       year: user_year
     )
     shared_semester.uni_modules.each do |mod|

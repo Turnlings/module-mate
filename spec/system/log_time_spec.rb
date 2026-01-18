@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Logging time', type: :system do
+RSpec.describe 'Logging time' do
   let(:user) { create(:user) }
 
   context 'when quicklogging time from the homepage' do
@@ -32,7 +32,7 @@ RSpec.describe 'Logging time', type: :system do
       visit '/'
       click_on 'Quicklog'
 
-      fill_in 'module_code', with: uni_module.code + '123456'
+      fill_in 'module_code', with: "#{uni_module.code}123456"
       fill_in 'minutes', with: 10
 
       click_on 'Add Time'

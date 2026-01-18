@@ -75,11 +75,11 @@ class PagesController < ApplicationController
   def terms; end
 
   def not_found
-    render file: "#{Rails.public_path.join('404.html')}", status: :not_found
+    render file: Rails.public_path.join('404.html').to_s, status: :not_found
   end
 
   def internal_server_error
-    render file: "#{Rails.public_path.join('500.html')}", status: :internal_server_error
+    render file: Rails.public_path.join('500.html').to_s, status: :internal_server_error
   end
 
   def close_modal
