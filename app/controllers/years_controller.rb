@@ -24,8 +24,6 @@ class YearsController < ApplicationController
     @year = Year.new(year_params)
     @year.user = current_user
 
-    puts "Current user: #{current_user.inspect}"
-
     respond_to do |format|
       if @year.save
         format.html { redirect_to @year, notice: 'Year was successfully created.' }
