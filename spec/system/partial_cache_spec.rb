@@ -11,7 +11,7 @@ RSpec.describe 'Partial caching', type: :system do
 
       # Check year is set up and cache it
       visit root_path
-      expect(page).not_to have_content '50%'
+      expect(page).to have_no_content '50%'
       expect(page).to have_content '0%'
 
       # Set a result

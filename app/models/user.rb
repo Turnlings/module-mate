@@ -20,6 +20,7 @@ class User < ApplicationRecord
 
   # For ToS and Privacy Policy
   attr_accessor :terms_of_service
+
   validates :terms_of_service, acceptance: { accept: '1' }
   before_create :set_terms_agreed_at, if: -> { terms_of_service == '1' }
 
@@ -48,8 +49,9 @@ class User < ApplicationRecord
 
   def achieved_score
     return 0 if years.empty?
+
     total = years.sum { |year| year.achieved_score(self) * year.weighting_non_null }
-    total_weight =  years.sum { |year| year.weighting_non_null }
+    total_weight = years.sum { |year| year.weighting_non_null }
     total / total_weight
   end
 

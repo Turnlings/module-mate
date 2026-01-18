@@ -11,13 +11,13 @@ class Year < ApplicationRecord
   validate :user_year_limit, on: :create
 
   def user_year_limit
-    if user.years.count >= MAX_YEARS_PER_USER
-      errors.add(:base, "You can only have up to #{MAX_YEARS_PER_USER} years.")
-    end
+    return unless user.years.count >= MAX_YEARS_PER_USER
+
+    errors.add(:base, "You can only have up to #{MAX_YEARS_PER_USER} years.")
   end
 
   def credits
-    uni_modules.sum { |m| m.credit_share}
+    uni_modules.sum { |m| m.credit_share }
   end
 
   def total_minutes
@@ -27,12 +27,14 @@ class Year < ApplicationRecord
   # The average of all the grades of the semesters in this year
   def weighted_average(user)
     return 0 if semesters.empty? || credits.zero?
+
     weighted_sum = semesters.sum { |s| s.credits * s.weighted_average(user) }
     weighted_sum / credits
   end
 
   def weighting_non_null
     return 0 if weighting.nil?
+
     weighting
   end
 
@@ -57,6 +59,7 @@ class Year < ApplicationRecord
   # Good enough with weighted average TODO: use exam results instead
   def average_score(user)
     return 0 if uni_modules.empty?
+
     uni_modules.sum { |m| m.weighted_average(user) } / uni_modules.count
   end
 end

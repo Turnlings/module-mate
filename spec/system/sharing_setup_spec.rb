@@ -6,15 +6,15 @@ RSpec.describe 'Sharing setup', type: :system do
   context 'when you click the share button on semester' do
     it 'copies a shareable link to the semester' do
       login_as user
-      
+
       semester = create(:semester, user: user)
 
       visit semester_path(semester)
 
-      expect(page).to have_selector('a[title="Share Template"]')
+      expect(page).to have_css('a[title="Share Template"]')
       find('a[title="Share Template"]').click
 
-      expect(page).to have_selector('button[title="Copy Link"]')
+      expect(page).to have_css('button[title="Copy Link"]')
       find('button[title="Copy Link"]').click
 
       expect(page).to have_content 'Copied!'
@@ -58,6 +58,5 @@ RSpec.describe 'Sharing setup', type: :system do
     end
 
     expect(page).to have_content semester.name
-
   end
 end

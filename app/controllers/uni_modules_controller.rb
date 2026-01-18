@@ -8,10 +8,11 @@ class UniModulesController < ApplicationController
   def index
     @uni_modules = current_user.uni_modules
 
-    if params[:search].present?
-      query = "%#{params[:search]}%"
-      @uni_modules = @uni_modules.where("LOWER(uni_modules.code) LIKE ? OR LOWER(uni_modules.name) LIKE ?", query.downcase, query.downcase)
-    end
+    return unless params[:search].present?
+
+    query = "%#{params[:search]}%"
+    @uni_modules = @uni_modules.where('LOWER(uni_modules.code) LIKE ? OR LOWER(uni_modules.name) LIKE ?',
+                                      query.downcase, query.downcase)
   end
 
   # GET /uni_modules/1 or /uni_modules/1.json
@@ -30,7 +31,10 @@ class UniModulesController < ApplicationController
 
   # GET /uni_modules/1/edit
   def edit
-    @uni_module_target = UniModuleTarget.find_by(uni_module: @uni_module, user: current_user) || UniModuleTarget.new(user: current_user, uni_module: @uni_module)
+    @uni_module_target = UniModuleTarget.find_by(uni_module: @uni_module,
+                                                 user: current_user) || UniModuleTarget.new(
+                                                   user: current_user, uni_module: @uni_module
+                                                 )
   end
 
   # POST /uni_modules or /uni_modules.json
@@ -42,8 +46,8 @@ class UniModulesController < ApplicationController
         format.html { redirect_to @uni_module, notice: 'Uni module was successfully created.' }
         format.json { render :show, status: :created, location: @uni_module }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @uni_module.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @uni_module.errors, status: :unprocessable_content }
       end
     end
   end
@@ -55,8 +59,8 @@ class UniModulesController < ApplicationController
         format.html { redirect_to @uni_module, notice: 'Uni module was successfully updated.' }
         format.json { render :show, status: :ok, location: @uni_module }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @uni_module.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @uni_module.errors, status: :unprocessable_content }
       end
     end
   end

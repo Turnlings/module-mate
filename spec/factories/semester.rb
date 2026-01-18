@@ -4,7 +4,7 @@ FactoryBot.define do
       user { create(:user) }
     end
 
-    name { "Semester 1" }
+    name { 'Semester 1' }
 
     year { create(:year, user: user) }
   end

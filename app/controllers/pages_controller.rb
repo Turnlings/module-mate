@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home, :about, :contact, :help, :privacy, :terms]
+  skip_before_action :authenticate_user!, only: %i[home about contact help privacy terms]
 
   def home
     redirect_to dashboard_path if user_signed_in?
@@ -20,7 +20,7 @@ class PagesController < ApplicationController
       respond_to do |format|
         format.turbo_stream do
           flash.now[:alert] = 'Time logged must be positive.'
-          render 'pages/quick_log_error', status: :unprocessable_entity
+          render 'pages/quick_log_error', status: :unprocessable_content
         end
         format.html { redirect_to root_path, alert: 'Time logged must be positive.' }
       end
@@ -57,7 +57,7 @@ class PagesController < ApplicationController
       respond_to do |format|
         format.turbo_stream do
           flash.now[:alert] = 'Failed to log time.'
-          render 'pages/quick_log_error', status: :unprocessable_entity
+          render 'pages/quick_log_error', status: :unprocessable_content
         end
         format.html { redirect_to root_path, alert: 'Failed to log time.' }
       end
@@ -75,17 +75,17 @@ class PagesController < ApplicationController
   def terms; end
 
   def not_found
-    render file: "#{Rails.root}/public/404.html", status: :not_found
+    render file: "#{Rails.public_path.join('404.html')}", status: :not_found
   end
 
   def internal_server_error
-    render file: "#{Rails.root}/public/500.html", status: :internal_server_error
+    render file: "#{Rails.public_path.join('500.html')}", status: :internal_server_error
   end
 
   def close_modal
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_back fallback_location: root_path }
+      format.html { redirect_back_or_to(root_path) }
     end
   end
 end

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Course structure', type: :system do
   let(:user) { create(:user) }
 
-  context "when creating year-semester-module setup" do
+  context 'when creating year-semester-module setup' do
     before do
       login_as user
 
@@ -24,8 +24,8 @@ RSpec.describe 'Course structure', type: :system do
       click_on 'Save'
     end
 
-    it "everything is successfully created" do
+    it 'everything is successfully created' do
       expect(page).to have_content 'Intro to ModuleMate.app'
     end
   end
-end 
+end

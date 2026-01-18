@@ -12,14 +12,14 @@ class UsersController < ApplicationController
   # GET /users/1 or /users/1.json
   def show
     @exam_data = @user.exam_results
-      .includes(:exam)
-      .select { |res| res.exam&.due.present? && res.score.present? }
-      .map do |res|
-        {
-          name: res.exam.name,
-          data: [[res.exam.due.to_date, res.score.to_f]]
-        }
-      end
+                      .includes(:exam)
+                      .select { |res| res.exam&.due.present? && res.score.present? }
+                      .map do |res|
+                        {
+                          name: res.exam.name,
+                          data: [[res.exam.due.to_date, res.score.to_f]]
+                        }
+    end
 
     @exam_type_data = Exam.joins(:uni_module)
                           .where(uni_module: current_user.uni_modules)
@@ -32,17 +32,17 @@ class UsersController < ApplicationController
 
     # Get summed minutes per day as strings
     raw_logs = current_user.timelogs
-                .where("date >= ?", start_date.beginning_of_day)
-                .group(:date)
-                .sum(:minutes)
+                           .where('date >= ?', start_date.beginning_of_day)
+                           .group(:date)
+                           .sum(:minutes)
 
     # Normalize keys to string YYYY-MM-DD
     normalized_logs = raw_logs.transform_keys { |k| k.to_date.to_s }
 
     # Get exams grouped by their due dates
     exams_by_date = current_user.exams
-                      .where(due: start_date.beginning_of_day..end_date.end_of_day )
-                      .group_by { |exam| exam.due.to_date.to_s }
+                                .where(due: start_date.beginning_of_day..end_date.end_of_day)
+                                .group_by { |exam| exam.due.to_date.to_s }
 
     # Fill missing days with 0 and include exam names
     @contributions = (start_date..end_date).map do |date|

@@ -5,8 +5,8 @@ FactoryBot.define do
       semesters { [] }
     end
 
-    name { "Introduction to Software Engineering" }
-    code { "COM1001" }
+    name { 'Introduction to Software Engineering' }
+    code { 'COM1001' }
     credits { 20 }
 
     after(:create) do |uni_module, evaluator|

@@ -9,10 +9,10 @@ class SemestersController < ApplicationController
   def index
     @semesters = current_user.semesters
 
-    if params[:search].present?
-      query = "%#{params[:search]}%"
-      @semesters = @semesters.where("LOWER(semesters.name) LIKE ?", "%#{query.downcase}%")
-    end
+    return unless params[:search].present?
+
+    query = "%#{params[:search]}%"
+    @semesters = @semesters.where('LOWER(semesters.name) LIKE ?', "%#{query.downcase}%")
   end
 
   # GET /semesters/1 or /semesters/1.json
@@ -23,9 +23,9 @@ class SemestersController < ApplicationController
   # GET /semesters/new
   def new
     @semester = Semester.new
-    if params[:year_id]
-      @semester.year_id = params[:year_id]
-    end
+    return unless params[:year_id]
+
+    @semester.year_id = params[:year_id]
   end
 
   # GET /semesters/1/edit
@@ -40,8 +40,8 @@ class SemestersController < ApplicationController
         format.html { redirect_to @semester, notice: 'Semester was successfully created.' }
         format.json { render :show, status: :created, location: @semester }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @semester.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @semester.errors, status: :unprocessable_content }
       end
     end
   end
@@ -53,8 +53,8 @@ class SemestersController < ApplicationController
         format.html { redirect_to @semester, notice: 'Semester was successfully updated.' }
         format.json { render :show, status: :ok, location: @semester }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @semester.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @semester.errors, status: :unprocessable_content }
       end
     end
   end
@@ -69,7 +69,7 @@ class SemestersController < ApplicationController
     end
   end
 
-  def share 
+  def share
     @semester = Semester.find_by!(share_token: params[:share_token])
   end
 
@@ -82,7 +82,7 @@ class SemestersController < ApplicationController
   # POST /semesters/import
   def import
     shared_semester = Semester.find_by!(share_token: params[:share_token])
-    if params[:year_id].present? && params[:year_id] != "new"
+    if params[:year_id].present? && params[:year_id] != 'new'
       user_year = current_user.years.find(params[:year_id])
     else
       # Create a new year if requested
@@ -114,8 +114,8 @@ class SemestersController < ApplicationController
   def import_redirect
     if params[:share_token]
       redirect_to import_form_semester_path(params[:share_token])
-    else 
-      redirect_to new_semester_path(), error: 'Invalid share token'
+    else
+      redirect_to new_semester_path, error: 'Invalid share token'
     end
   end
 

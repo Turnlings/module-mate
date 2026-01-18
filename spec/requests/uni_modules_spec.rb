@@ -59,9 +59,10 @@ RSpec.describe 'UniModules', type: :request do
     it 'creates a uni module and redirects' do
       semester = create(:semester, user: user)
 
-      expect {
-        post uni_modules_path, params: { uni_module: { code: 'ABC123', name: 'Algorithms', credits: 10, semester_ids: [semester.id] } }
-      }.to change(UniModule, :count).by(1)
+      expect do
+        post uni_modules_path,
+             params: { uni_module: { code: 'ABC123', name: 'Algorithms', credits: 10, semester_ids: [semester.id] } }
+      end.to change(UniModule, :count).by(1)
 
       expect(response).to redirect_to(uni_module_path(UniModule.last))
       follow_redirect!
@@ -74,11 +75,12 @@ RSpec.describe 'UniModules', type: :request do
       # Trigger the custom validation (MAX_MODULES_PER_SEMESTER)
       create_list(:uni_module, UniModule::MAX_MODULES_PER_SEMESTER, user: user, semesters: [semester])
 
-      expect {
-        post uni_modules_path, params: { uni_module: { code: 'ZZZ999', name: 'Extra', credits: 10, semester_ids: [semester.id] } }
-      }.not_to change(UniModule, :count)
+      expect do
+        post uni_modules_path,
+             params: { uni_module: { code: 'ZZZ999', name: 'Extra', credits: 10, semester_ids: [semester.id] } }
+      end.not_to change(UniModule, :count)
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -106,9 +108,9 @@ RSpec.describe 'UniModules', type: :request do
     it 'destroys and redirects' do
       uni_module = create(:uni_module, user: user)
 
-      expect {
+      expect do
         delete uni_module_path(uni_module)
-      }.to change(UniModule, :count).by(-1)
+      end.to change(UniModule, :count).by(-1)
 
       expect(response).to have_http_status(:see_other)
       expect(response).to redirect_to(uni_modules_path)

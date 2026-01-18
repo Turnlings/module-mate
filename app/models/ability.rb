@@ -30,6 +30,7 @@ class Ability
     # https://github.com/CanCanCommunity/cancancan/blob/develop/docs/define_check_abilities.md
 
     return unless user.present?
+
     can :manage, Year, user_id: user.id
     can :manage, Semester, year: { user_id: user.id }
     can :manage, UniModule, semesters: { year: { user_id: user.id } }
