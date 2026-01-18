@@ -34,9 +34,9 @@ RSpec.describe 'Years', type: :request do
 
   describe 'POST /years' do
     it 'creates a year and redirects' do
-      expect {
+      expect do
         post years_path, params: { year: { name: 'New Year', weighting: 100 } }
-      }.to change(Year, :count).by(1)
+      end.to change(Year, :count).by(1)
 
       expect(response).to redirect_to(year_path(Year.last))
       follow_redirect!
@@ -47,11 +47,11 @@ RSpec.describe 'Years', type: :request do
       # Trigger the custom validation (MAX_YEARS_PER_USER)
       create_list(:year, Year::MAX_YEARS_PER_USER, user: user)
 
-      expect {
+      expect do
         post years_path, params: { year: { name: 'Extra Year', weighting: 10 } }
-      }.not_to change(Year, :count)
+      end.not_to change(Year, :count)
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -80,9 +80,9 @@ RSpec.describe 'Years', type: :request do
     it 'destroys and redirects' do
       year = create(:year, user: user)
 
-      expect {
+      expect do
         delete year_path(year)
-      }.to change(Year, :count).by(-1)
+      end.to change(Year, :count).by(-1)
 
       expect(response).to have_http_status(:see_other)
       expect(response).to redirect_to(root_path)

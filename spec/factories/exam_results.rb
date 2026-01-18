@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :exam_result do
-    association :user
-    association :exam
+    user
+    exam
     score { 75.5 }
   end
 end

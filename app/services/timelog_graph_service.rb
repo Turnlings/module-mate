@@ -7,9 +7,7 @@ class TimelogGraphService
 
   def call
     modules = case @scope
-              when User then @scope.uni_modules
-              when Year then @scope.uni_modules
-              when Semester then @scope.uni_modules
+              when User, Year, Semester then @scope.uni_modules
               when UniModule then [@scope]
               else []
               end

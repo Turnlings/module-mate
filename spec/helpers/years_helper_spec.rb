@@ -12,6 +12,6 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe YearsHelper, type: :helper do
+RSpec.describe YearsHelper do
   pending "add some examples to (or delete) #{__FILE__}"
 end

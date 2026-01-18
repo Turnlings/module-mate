@@ -64,9 +64,9 @@ RSpec.describe 'Semesters', type: :request do
   describe 'POST /semesters' do
     it 'creates a semester and redirects' do
       year = create(:year, user: user)
-      expect {
+      expect do
         post semesters_path, params: { semester: { name: 'New semester', year_id: year.id } }
-      }.to change(Semester, :count).by(1)
+      end.to change(Semester, :count).by(1)
 
       expect(response).to redirect_to(semester_path(Semester.last))
       follow_redirect!
@@ -79,11 +79,11 @@ RSpec.describe 'Semesters', type: :request do
       # Trigger the custom validation (MAX_SEMESTERS_PER_YEAR)
       create_list(:semester, Semester::MAX_SEMESTERS_PER_YEAR, user: user, year: year)
 
-      expect {
+      expect do
         post semesters_path, params: { semester: { name: 'Extra semester', year_id: year.id } }
-      }.not_to change(Semester, :count)
+      end.not_to change(Semester, :count)
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -103,7 +103,7 @@ RSpec.describe 'Semesters', type: :request do
       # Missing required year_id should fail validation and render :edit
       patch semester_path(semester), params: { semester: { year_id: nil } }
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -111,9 +111,9 @@ RSpec.describe 'Semesters', type: :request do
     it 'destroys and redirects' do
       semester = create(:semester, user: user)
 
-      expect {
+      expect do
         delete semester_path(semester)
-      }.to change(Semester, :count).by(-1)
+      end.to change(Semester, :count).by(-1)
 
       expect(response).to have_http_status(:see_other)
       expect(response).to redirect_to(semesters_path)
@@ -141,9 +141,9 @@ RSpec.describe 'Semesters', type: :request do
       shared = create(:semester) # different user
       target_year = create(:year, user: user)
 
-      expect {
+      expect do
         post import_semester_path(shared.share_token), params: { year_id: target_year.id }
-      }.to change(Semester, :count).by(1)
+      end.to change(Semester, :count).by(1)
 
       expect(response).to redirect_to(semester_path(Semester.last))
       follow_redirect!
@@ -153,10 +153,10 @@ RSpec.describe 'Semesters', type: :request do
     it 'imports into a new year when year_id is new' do
       shared = create(:semester)
 
-      expect {
+      expect do
         post import_semester_path(shared.share_token), params: { year_id: 'new', new_year_name: 'Imported Year' }
-      }.to change(Semester, :count).by(1)
-        .and change(Year, :count).by(1)
+      end.to change(Semester, :count).by(1)
+                                     .and change(Year, :count).by(1)
 
       expect(response).to redirect_to(semester_path(Semester.last))
     end

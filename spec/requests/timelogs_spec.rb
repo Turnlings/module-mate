@@ -29,10 +29,10 @@ RSpec.describe 'Timelogs', type: :request do
     it 'creates a timelog and redirects to the module' do
       uni_module = create(:uni_module, user: user)
 
-      expect {
+      expect do
         post uni_module_timelogs_path(uni_module),
              params: { timelog: { date: Date.current, minutes: 45, description: 'Study' } }
-      }.to change(Timelog, :count).by(1)
+      end.to change(Timelog, :count).by(1)
 
       expect(response).to redirect_to(uni_module_path(uni_module))
       expect(flash[:notice]).to eq('Timelog was successfully created.')
@@ -41,10 +41,10 @@ RSpec.describe 'Timelogs', type: :request do
     it 'creates even with missing minutes (no validations present)' do
       uni_module = create(:uni_module, user: user)
 
-      expect {
+      expect do
         post uni_module_timelogs_path(uni_module),
              params: { timelog: { date: Date.current, minutes: nil, description: 'Study' } }
-      }.to change(Timelog, :count).by(1)
+      end.to change(Timelog, :count).by(1)
 
       expect(response).to redirect_to(uni_module_path(uni_module))
     end
@@ -82,9 +82,9 @@ RSpec.describe 'Timelogs', type: :request do
     it 'destroys and redirects to the module' do
       timelog = create(:timelog, user: user)
 
-      expect {
+      expect do
         delete uni_module_timelog_path(timelog.uni_module, timelog)
-      }.to change(Timelog, :count).by(-1)
+      end.to change(Timelog, :count).by(-1)
 
       expect(response).to have_http_status(:see_other)
       expect(response).to redirect_to(uni_module_path(timelog.uni_module))

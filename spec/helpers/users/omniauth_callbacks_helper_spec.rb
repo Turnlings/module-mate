@@ -10,6 +10,6 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe Users::OmniauthCallbacksHelper, type: :helper do
+RSpec.describe Users::OmniauthCallbacksHelper do
   pending "add some examples to (or delete) #{__FILE__}"
 end

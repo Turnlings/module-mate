@@ -38,8 +38,8 @@ class ExamsController < ApplicationController
         format.html { redirect_to uni_module_exam_path(@uni_module, @exam), notice: 'Exam was successfully created.' }
         format.json { render :show, status: :created, location: @exam }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @exam.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @exam.errors, status: :unprocessable_content }
       end
     end
   end
@@ -53,8 +53,8 @@ class ExamsController < ApplicationController
         format.html { redirect_to uni_module_exam_path(@uni_module, @exam), notice: 'Exam was successfully updated.' }
         format.json { render :show, status: :ok, location: @exam }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @exam.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @exam.errors, status: :unprocessable_content }
       end
     end
   end
