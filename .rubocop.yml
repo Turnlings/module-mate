@@ -46,3 +46,6 @@ Metrics/MethodLength:
 Metrics/AbcSize:
   Exclude:
     - "app/controllers/**/*"
+
+RSpecRails/InferredSpecType:
+  Enabled: false

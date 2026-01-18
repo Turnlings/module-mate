@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Years' do
+RSpec.describe 'Years', type: :request do
   let(:user) { create(:user) }
 
   before do

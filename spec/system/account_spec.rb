@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Account' do
+RSpec.describe 'Account', type: :system do
   let(:user) { create(:user) }
 
   context 'when registering' do
@@ -53,7 +53,7 @@ RSpec.describe 'Account' do
     end
   end
 
-  context 'when managin' do
+  context 'when managing' do
     it 'can view account details' do
       login_as user
 

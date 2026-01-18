@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Visiting the homepage' do
+RSpec.describe 'Visiting the homepage', type: :system do
   let(:user) { create(:user) }
 
   it 'shows the welcome text' do

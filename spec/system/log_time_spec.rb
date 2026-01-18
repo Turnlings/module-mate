@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Logging time' do
+RSpec.describe 'Logging time', type: :system do
   let(:user) { create(:user) }
 
   context 'when quicklogging time from the homepage' do

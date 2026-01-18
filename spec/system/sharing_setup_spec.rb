@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Sharing setup' do
+RSpec.describe 'Sharing setup', type: :system do
   let(:user) { create(:user) }
 
   context 'when you click the share button on semester' do

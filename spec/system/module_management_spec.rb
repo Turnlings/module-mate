@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Module management' do
+RSpec.describe 'Module management', type: :system do
   let(:user) { create(:user) }
 
   it 'can add exams' do

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'UniModules' do
+RSpec.describe 'UniModules', type: :request do
   let(:user) { create(:user) }
 
   before do
