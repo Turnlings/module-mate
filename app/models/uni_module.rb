@@ -27,6 +27,10 @@ class UniModule < ApplicationRecord
     credits.to_f / semesters.count
   end
 
+  def total_minutes
+    timelogs.sum(:minutes)
+  end
+
   def exams_with_results(user)
     exams.joins(:exam_results)
          .where(exam_results: { user_id: user.id })
