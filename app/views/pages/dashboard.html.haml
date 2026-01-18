@@ -1,17 +1,5 @@
 -# Stats
-.stats-container 
-  .stat 
-    .stat-header Module Count
-    .stat-content= link_to current_user.uni_modules.count, uni_modules_path
-  .stat 
-    .stat-header Average Score
-    .stat-content= number_with_precision(current_user.average_score, precision: 2) + '%'
-  .stat 
-    .stat-header Achieved Score
-    .stat-content= number_with_precision(current_user.achieved_score, precision: 2) + '%'
-  .stat 
-    .stat-header Exams
-    .stat-content= current_user.exams.count
+= render partial: 'shared/dashboard_stats'
 
 -# Graph on left
 .gt-empty-card
@@ -32,7 +20,7 @@
 
   .body
     .chart-container
-      = line_chart @module_data, curve: false, legend: false, width: "100%", height:"300px", library: { responsive: true, maintainAspectRatio: false }
+      = line_chart time_dashboard_path(cumulative: params[:cumulative]), curve: false, legend: false, width: "100%", height:"300px", library: { responsive: true, maintainAspectRatio: false }
 
 -# Years
 .gt-empty-card
@@ -40,7 +28,7 @@
     %h3 Years
   .body
     .link-cards-list
-      - @year_data.each do |data|
-        = render partial: 'shared/year_card', locals: { data: data }
+      - @years.each do |year|
+        = render partial: 'shared/year_card', locals: { year: year }
 
       = link_to '+ New Year', new_year_path, class: 'card-button'

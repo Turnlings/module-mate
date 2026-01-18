@@ -6,9 +6,6 @@ class YearsController < ApplicationController
 
   # GET /years/1 or /years/1.json
   def show
-    cumulative = params[:cumulative] != "false"
-    service = TimelogGraphService.new(current_user, @year, cumulative: cumulative)
-    @module_data = service.call
   end
 
   # GET /years/new

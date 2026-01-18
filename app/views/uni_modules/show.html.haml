@@ -40,6 +40,27 @@
         .chart-container
           = pie_chart @exam_data, legend: false, width: "100%", library: { aspectRatio: "1|1" }, id: 'exam-chart'
 
+-# Graph
+.gt-empty-card
+  .heading
+    .mini-stat
+      .title Minutes Spent
+      .figure= @uni_module.total_minutes
+
+    = form_with url: request.path,
+                method: :get,
+                local: true,
+                html: { class: "gt-form cumulative-toggle-form" } do |f|
+
+      = f.select :cumulative,
+          [["Cumulative", "true"], ["Daily", "false"]],
+          { selected: params[:cumulative] || "true" },
+          { onchange: "this.form.submit()", class: "cumulative-dropdown text-muted" }
+
+  .body
+    .chart-container
+      = line_chart time_module_path(uni_module_id: @uni_module.id, cumulative: params[:cumulative]), curve: false, legend: false, width: "100%" #, height:"100%"
+      
 .row
   .col
     = render 'timelogs'

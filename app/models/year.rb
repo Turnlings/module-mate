@@ -3,7 +3,7 @@
 class Year < ApplicationRecord
   MAX_YEARS_PER_USER = 10
 
-  belongs_to :user
+  belongs_to :user, touch: true
   has_many :semesters, dependent: :destroy
   has_many :uni_modules, through: :semesters
   has_many :exams, through: :uni_modules

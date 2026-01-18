@@ -1,13 +1,12 @@
-- year = data[:year]
 - cache [year, current_user] do   
   = link_to year_path(year) do
     .space-between
       .name= year.name
-      .actual= "#{number_with_precision(data[:achieved], precision: 0)}%"
+      .actual= "#{number_with_precision(year.achieved_score(current_user), precision: 0)}%"
     .space-between
-      .font-secondary= "#{number_with_precision(data[:weighting], precision: 0)}% Weighting"
+      .font-secondary= "#{number_with_precision(year.weighting, precision: 0)}% Weighting"
       %div
-        - progress = data[:progress]
+        - progress = year.progress(current_user)
         - if progress == 100
           .chip-success.hide-on-mobile Completed
         .font-secondary= "#{number_with_precision(progress, precision: 0)}% Completed"

@@ -38,7 +38,8 @@ class Semester < ApplicationRecord
   # The average score of all exam results belonging to the semester
   def average_score(user)
     return 0 if exam_results.empty?
-    exam_results.sum(&:score).to_f / exam_results.count
+    scores = exam_results.map(&:score).compact
+    scores.sum.to_f / scores.size
   end
 
   def achieved_score(user)
