@@ -19,6 +19,8 @@ RSpec.describe 'Logging time', type: :system do
 
       visit uni_module_path(uni_module)
 
+      page.refresh
+
       expect(page).to have_content '10'
     end
 

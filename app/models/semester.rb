@@ -12,6 +12,8 @@ class Semester < ApplicationRecord
   validate :year_semester_limit, on: :create
 
   def year_semester_limit
+    return unless year
+
     if year.semesters.count >= MAX_SEMESTERS_PER_YEAR
       errors.add(:base, "You can only have up to #{MAX_SEMESTERS_PER_YEAR} semesters per year.")
     end

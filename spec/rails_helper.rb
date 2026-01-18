@@ -94,6 +94,9 @@ RSpec.configure do |config|
 
   config.include Warden::Test::Helpers, type: :system
 
+  # Devise helpers for request specs (e.g. sign_in/sign_out)
+  config.include Devise::Test::IntegrationHelpers, type: :request
+
   config.after(type: :system) do
     Warden.test_reset!
   end

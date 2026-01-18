@@ -39,4 +39,31 @@ RSpec.describe Semester, type: :model do
       end
     end
   end
+
+  describe "#progress" do
+    let(:user) { create(:user) }
+    let(:semester) { create(:semester) }
+
+    context "when there are no modules" do
+      it "returns 0" do
+        expect(semester.progress(user)).to eq(0)
+      end
+    end
+
+    context "when half the credits are completed" do
+      before do
+        exam1 = create(:exam, uni_module: create(:uni_module, semesters: [semester]))
+        exam2 = create(:exam, uni_module: create(:uni_module, semesters: [semester]))
+        exam3 = create(:exam, uni_module: exam1.uni_module)
+        exam4 = create(:exam, uni_module: exam2.uni_module)
+
+        create(:exam_result, exam: exam1, user: user, score: 65)
+        create(:exam_result, exam: exam2, user: user, score: 66)
+      end
+
+      it "returns 50%" do
+        expect(semester.progress(user)).to eq(50)
+      end
+    end
+  end
 end

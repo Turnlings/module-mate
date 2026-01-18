@@ -16,10 +16,10 @@
         %td= timelog.uni_module
         %td= timelog.minutes
         %td= timelog.description
-        %td= link_to 'Show', timelog
-        %td= link_to 'Edit', edit_timelog_path(timelog)
-        %td= link_to 'Destroy', timelog, method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Show', uni_module_timelog_path(timelog.uni_module, timelog)
+        %td= link_to 'Edit', edit_uni_module_timelog_path(timelog.uni_module, timelog)
+        %td= link_to 'Destroy', uni_module_timelog_path(timelog.uni_module, timelog), method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
-= link_to 'New Timelog', new_timelog_path
+= link_to 'New Timelog', new_uni_module_timelog_path(@uni_module)
