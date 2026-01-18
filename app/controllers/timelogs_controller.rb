@@ -6,7 +6,8 @@ class TimelogsController < ApplicationController
 
   # GET /timelogs or /timelogs.json
   def index
-    @timelogs = Timelog.all
+    @uni_module = UniModule.find(params[:uni_module_id])
+    @timelogs = @uni_module.timelogs.for_user(current_user).order(date: :desc)
   end
 
   # GET /timelogs/1 or /timelogs/1.json
