@@ -93,21 +93,9 @@ class SemestersController < ApplicationController
       name: "#{shared_semester.name} (Imported)",
       year: user_year
     )
-    shared_semester.uni_modules.each do |mod|
-      new_mod = new_semester.uni_modules.create!(
-        name: mod.name,
-        code: mod.code,
-        credits: mod.credits
-      )
-      mod.exams.each do |exam|
-        new_mod.exams.create!(
-          name: exam.name,
-          weight: exam.weight,
-          due: exam.due,
-          type: exam.type
-        )
-      end
-    end
+
+    copy_semester(shared_semester, new_semester)
+
     redirect_to semester_path(new_semester), notice: 'Semester imported! You can now edit it as your own.'
   end
 
@@ -129,5 +117,23 @@ class SemestersController < ApplicationController
   # Only allow a list of trusted parameters through.
   def semester_params
     params.require(:semester).permit(:name, :year_id)
+  end
+
+  def copy_semester(shared_semester, new_semester)
+    shared_semester.uni_modules.each do |mod|
+      new_mod = new_semester.uni_modules.create!(
+        name: mod.name,
+        code: mod.code,
+        credits: mod.credits
+      )
+      mod.exams.each do |exam|
+        new_mod.exams.create!(
+          name: exam.name,
+          weight: exam.weight,
+          due: exam.due,
+          type: exam.type
+        )
+      end
+    end
   end
 end
