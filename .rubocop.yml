@@ -18,6 +18,7 @@ AllCops:
     - "config/spring.rb"
     - "config/environments/*.rb"
     - "spec/spec_helper.rb"
+    - 'vendor/**/*'
 
 Style/Documentation:
   Enabled: false
