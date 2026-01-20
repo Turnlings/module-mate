@@ -38,8 +38,8 @@ class TimelogsController < ApplicationController
         format.html { redirect_to uni_module_path(@uni_module), notice: 'Timelog was successfully created.' }
         format.json { render :show, status: :created, location: @timelog }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @timelog.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @timelog.errors, status: :unprocessable_content }
       end
     end
   end
@@ -52,8 +52,8 @@ class TimelogsController < ApplicationController
         format.html { redirect_to uni_module_path(@uni_module), notice: 'Timelog was successfully updated.' }
         format.json { render :show, status: :ok, location: @timelog }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @timelog.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @timelog.errors, status: :unprocessable_content }
       end
     end
   end
@@ -64,7 +64,9 @@ class TimelogsController < ApplicationController
     @timelog.destroy!
 
     respond_to do |format|
-      format.html { redirect_to uni_module_path(@uni_module), status: :see_other, notice: 'Timelog was successfully deleted.' }
+      format.html do
+        redirect_to uni_module_path(@uni_module), status: :see_other, notice: 'Timelog was successfully deleted.'
+      end
       format.json { head :no_content }
     end
   end

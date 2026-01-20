@@ -2,13 +2,9 @@
 
 FactoryBot.define do
   factory :timelog do
-    transient do
-      owner { create(:user) }
-      module_record { create(:uni_module, user: owner) }
-    end
+    user
+    uni_module { association(:uni_module, user: user) }
 
-    uni_module { module_record }
-    user { owner }
     date { Date.current }
     minutes { 30 }
     description { 'Worked on assignments' }

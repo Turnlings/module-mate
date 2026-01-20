@@ -3,6 +3,7 @@
 class Ability
   include CanCan::Ability
 
+  # rubocop:disable Metrics/AbcSize
   def initialize(user)
     # Define abilities for the user here. For example:
     #
@@ -29,7 +30,8 @@ class Ability
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/blob/develop/docs/define_check_abilities.md
 
-    return unless user.present?
+    return if user.blank?
+
     can :manage, Year, user_id: user.id
     can :manage, Semester, year: { user_id: user.id }
     can :manage, UniModule, semesters: { year: { user_id: user.id } }
@@ -42,4 +44,5 @@ class Ability
     can :read, :privacy
     can :read, :terms
   end
+  # rubocop:enable Metrics/AbcSize
 end

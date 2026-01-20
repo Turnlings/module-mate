@@ -11,8 +11,8 @@ RSpec.describe 'Partial caching', type: :system do
 
       # Check year is set up and cache it
       visit root_path
-      expect(page).not_to have_content '50%'
       expect(page).to have_content '0%'
+      expect(page).to have_no_content '50%'
 
       # Set a result
       visit uni_module_exam_path(exam.uni_module, exam)
@@ -21,7 +21,7 @@ RSpec.describe 'Partial caching', type: :system do
       fill_in 'exam_result_score', with: 50
       click_on 'Save'
 
-      # Chek the year cards have updated
+      # Check the year cards have updated
       visit root_path
       expect(page).to have_content '50%'
     end

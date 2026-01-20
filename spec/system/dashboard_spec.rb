@@ -30,7 +30,7 @@ RSpec.describe 'Visiting the homepage', type: :system do
     create(:uni_module, semesters: [semester], credits: 30) # Another module to ensure calculation is correct
     exam = create(:exam, uni_module: uni_module)
     create(:exam_result, user: user, exam: exam, score: 80)
-    
+
     visit '/'
     expect(page).to have_content 'Achieved'
     expect(page).to have_content '20%'

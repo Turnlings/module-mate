@@ -1,11 +1,11 @@
 FactoryBot.define do
   factory :semester do
     transient do
-      user { create(:user) }
+      user { association(:user) }
     end
 
-    name { "Semester 1" }
+    name { 'Semester 1' }
 
-    year { create(:year, user: user) }
+    year { association(:year, user: user) }
   end
 end

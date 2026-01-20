@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks'
@@ -10,7 +11,7 @@ Rails.application.routes.draw do
   get 'semesters/share/:share_token', to: 'semesters#share', as: :share_semester
   get 'semesters/import_form/:share_token', to: 'semesters#import_form', as: :import_form_semester
   post 'semesters/import/:share_token', to: 'semesters#import', as: :import_semester
-  post "import_redirect", to: "semesters#import_redirect", as: :import_redirect_semester
+  post 'import_redirect', to: 'semesters#import_redirect', as: :import_redirect_semester
   resources :uni_modules do
     resources :exams
     resources :timelogs
@@ -19,17 +20,17 @@ Rails.application.routes.draw do
       patch :pin
     end
   end
-  resources :exam_results, only: [:create, :edit, :update]
-  resources :uni_module_targets, only: [:create, :update]
+  resources :exam_results, only: %i[create edit update]
+  resources :uni_module_targets, only: %i[create update]
 
   get 'quick_log_form', to: 'pages#quick_log_form'
   post 'quick_log', to: 'pages#quick_log'
   get 'close_modal', to: 'pages#close_modal'
 
-  get "charts/time_dashboard", as: :time_dashboard
-  get "charts/time_year", as: :time_year
-  get "charts/time_semester", as: :time_semester
-  get "charts/time_module", as: :time_module
+  get 'charts/time_dashboard', as: :time_dashboard
+  get 'charts/time_year', as: :time_year
+  get 'charts/time_semester', as: :time_semester
+  get 'charts/time_module', as: :time_module
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -49,7 +50,6 @@ Rails.application.routes.draw do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
 
-  if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: "/letter_opener"
-  end
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end
+# rubocop:enable Metrics/BlockLength

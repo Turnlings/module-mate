@@ -1,3 +1,4 @@
+# rubocop:disable Rails/SkipsModelValidations
 class AddDateToTimelogs < ActiveRecord::Migration[7.2]
   def change
     add_column :timelogs, :date, :date
@@ -12,3 +13,4 @@ class AddDateToTimelogs < ActiveRecord::Migration[7.2]
     end
   end
 end
+# rubocop:enable Rails/SkipsModelValidations

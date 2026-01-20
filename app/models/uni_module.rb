@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HasAndBelongsToMany
 class UniModule < ApplicationRecord
   MAX_MODULES_PER_SEMESTER = 20
 
   has_and_belongs_to_many :semesters
+  before_save :normalize_module_code
   after_commit :touch_semesters
 
   has_many :exams, dependent: :destroy
@@ -11,12 +13,10 @@ class UniModule < ApplicationRecord
   has_many :uni_module_targets, dependent: :destroy
   validate :semester_module_limit, on: :create
 
-  before_save :normalize_module_code
-
   def semester_module_limit
-    if semesters.any? && semesters.first.uni_modules.count >= MAX_MODULES_PER_SEMESTER
-      errors.add(:base, "You can only have up to #{MAX_MODULES_PER_SEMESTER} modules per semester.")
-    end
+    return unless semesters.any? && semesters.first.uni_modules.count >= MAX_MODULES_PER_SEMESTER
+
+    errors.add(:base, "You can only have up to #{MAX_MODULES_PER_SEMESTER} modules per semester.")
   end
 
   def normalize_module_code
@@ -80,3 +80,4 @@ class UniModule < ApplicationRecord
     semesters.each(&:touch)
   end
 end
+# rubocop:enable Rails/HasAndBelongsToMany

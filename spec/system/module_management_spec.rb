@@ -30,7 +30,8 @@ RSpec.describe 'Module management', type: :system do
     uni_module = create(:uni_module, user: user)
     visit '/'
 
-    expect(page).not_to have_content uni_module.code
+    expect(page).to have_content 'All Modules'
+    expect(page).to have_no_content uni_module.code
 
     visit uni_module_path(uni_module)
 
