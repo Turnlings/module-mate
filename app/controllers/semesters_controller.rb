@@ -11,8 +11,7 @@ class SemestersController < ApplicationController
 
     return if params[:search].blank?
 
-    query = "%#{params[:search]}%"
-    @semesters = @semesters.where('LOWER(semesters.name) LIKE ?', "%#{query.downcase}%")
+    @semesters = @semesters.where('LOWER(semesters.name) LIKE ?', "%#{params[:search].downcase}%")
   end
 
   # GET /semesters/1 or /semesters/1.json

@@ -26,10 +26,15 @@ class Exam < ApplicationRecord
   end
 
   def target(user)
-    return nil if !score(user).nil? || uni_module.target(user).nil?
-    return uni_module.target(user) if uni_module.completion_percentage(user).zero?
+    return if score(user) || uni_module.target(user).nil?
 
-    (uni_module.target(user) - uni_module.achieved_score(user)) / (100 - uni_module.completion_percentage(user)) * 100
+    module_target = uni_module.target(user)
+    completion = uni_module.completion_percentage(user)
+    achieved = uni_module.achieved_score(user)
+
+    return module_target if completion.zero?
+
+    (module_target - achieved) / (100 - completion) * 100
   end
 
   def result(user)
