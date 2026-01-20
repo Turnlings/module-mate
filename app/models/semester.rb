@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HasAndBelongsToMany
 class Semester < ApplicationRecord
   MAX_SEMESTERS_PER_YEAR = 6
 
@@ -62,3 +63,4 @@ class Semester < ApplicationRecord
     self.share_token ||= SecureRandom.urlsafe_base64(10)
   end
 end
+# rubocop:enable Rails/HasAndBelongsToMany

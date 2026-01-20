@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HasAndBelongsToMany
 class UniModule < ApplicationRecord
   MAX_MODULES_PER_SEMESTER = 20
 
@@ -79,3 +80,4 @@ class UniModule < ApplicationRecord
     semesters.each(&:touch)
   end
 end
+# rubocop:enable Rails/HasAndBelongsToMany
