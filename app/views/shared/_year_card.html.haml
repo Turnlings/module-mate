@@ -1,15 +1,16 @@
 - cache [year, current_user] do   
   = link_to year_path(year) do
+    - progress = year.progress(current_user)
+    - achieved_score = year.achieved_score(current_user)
     .space-between
-      .name= year.name
-      .actual= "#{number_with_precision(year.achieved_score(current_user), precision: 0)}%"
+      .space-between
+        .name= year.name
+        - if progress == 100
+          = class_badge(achieved_score)
+      .actual= "#{number_with_precision(achieved_score, precision: 0)}%"
     .space-between
       .font-secondary= "#{number_with_precision(year.weighting, precision: 0)}% Weighting"
-      %div
-        - progress = year.progress(current_user)
-        - if progress == 100
-          .chip-success.hide-on-mobile Completed
-        .font-secondary= "#{number_with_precision(progress, precision: 0)}% Completed"
+      .font-secondary= "#{number_with_precision(progress, precision: 0)}% Completed"
   
   -# .gt-card
   -#   .card-heading

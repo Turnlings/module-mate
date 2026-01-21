@@ -2,12 +2,13 @@
 - cache [semester, current_user] do   
   = link_to semester_path(semester) do
     - progress = semester.progress(current_user)
+    - achieved_score = semester.achieved_score(current_user)
     .space-between
       .space-between
         .name= semester.name
         - if progress == 100
-          .chip-success.hide-on-mobile.ms-2 Completed
-      .actual= "#{number_with_precision(semester.achieved_score(current_user), precision: 0)}%"
+          = class_badge(achieved_score)
+      .actual= "#{number_with_precision(achieved_score, precision: 0)}%"
     .space-between
       .font-secondary= "#{number_with_precision(semester.credits, precision: 0)} Credits"
       .font-secondary= "#{number_with_precision(progress, precision: 0)}% Completed"
