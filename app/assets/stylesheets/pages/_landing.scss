@@ -62,17 +62,30 @@
     }
   }
 
-  .track-time, .module {
-    padding: 0.5rem;
-  }
-
   .split-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-areas: "image content";
     gap: 3rem;
+
+    .image   { grid-area: image; }
+    .content { grid-area: content; }
 
     @media (max-width: $breakpoint-sm) {
       grid-template-columns: 1fr;
+      grid-template-areas:
+        "image"
+        "content";
+    }
+  }
+
+  .split-section.reverse {
+    grid-template-areas: "content image";
+
+    @media (max-width: $breakpoint-sm) {
+      grid-template-areas:
+        "image"
+        "content";
     }
   }
 
@@ -97,6 +110,7 @@
 
 .false-header {
   background-color: $sidebar;
+  border-bottom: 1px solid $bg-light;
 
   .content {
     max-width: $breakpoint-lg;
