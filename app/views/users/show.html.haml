@@ -13,7 +13,9 @@
 
 .gt-empty-card 
   .heading 
-    %h2 Activity
+    .mini-stat
+      .title Study Streak
+      .figure= "#{@user.study_streak} #{'day'.pluralize(@user.study_streak)}"
   .body{ data: { react_component: "ContributionGraph", props: ({ data: @contributions }).to_json } }
 
 .gt-empty-card
