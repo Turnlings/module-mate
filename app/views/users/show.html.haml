@@ -9,7 +9,7 @@
     %b Joined:
     = @user.created_at.strftime("%d %B, %Y")
 
-  = button_to "Logout", destroy_user_session_path, method: :delete, class: 'link-button'
+  = button_to "Logout", destroy_user_session_path, method: :delete, class: 'link-button mt-2'
 
 .gt-empty-card 
   .heading 
@@ -20,10 +20,10 @@
 
 .gt-empty-card
   .heading 
-    %h1 Assessments
+    %h2 Assessments
   .body
     .chart-container
       = line_chart @exam_data, legend: false, width: "100%", height:"300px", points: true, curve: false, library: { responsive: true, maintainAspectRatio: false }
-    %hr
+    %hr.my-2
     .chart-container
       = pie_chart @exam_type_data, legend: true, width: "100%", height:"300px"
