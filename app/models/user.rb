@@ -63,6 +63,26 @@ class User < ApplicationRecord
     timelogs.sum(:minutes)
   end
 
+  def study_streak(as_of: Date.yesterday)
+    days = timelogs
+           .where(date: ..as_of)
+           .distinct
+           .order(date: :desc)
+           .pluck(:date)
+
+    streak = 0
+    expected = as_of
+
+    days.each do |day|
+      break if day != expected
+
+      streak += 1
+      expected -= 1.day
+    end
+
+    streak
+  end
+
   private
 
   def set_terms_agreed_at
