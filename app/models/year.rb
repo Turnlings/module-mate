@@ -7,6 +7,7 @@ class Year < ApplicationRecord
   has_many :semesters, dependent: :destroy
   has_many :uni_modules, through: :semesters
   has_many :exams, through: :uni_modules
+  has_many :exam_results, through: :exams
   has_many :timelogs, through: :uni_modules
   validate :user_year_limit, on: :create
 
@@ -57,9 +58,10 @@ class Year < ApplicationRecord
   end
 
   # Good enough with weighted average TODO: use exam results instead
-  def average_score(user)
-    return 0 if uni_modules.empty?
+  def average_score(_user)
+    return 0 if exam_results.empty?
 
-    uni_modules.sum { |m| m.weighted_average(user) } / uni_modules.count
+    scores = exam_results.map(&:score).compact
+    scores.sum.to_f / scores.size
   end
 end
