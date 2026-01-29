@@ -83,7 +83,7 @@ class User < ApplicationRecord
       expected -= 1.day
     end
 
-    streak += 1 if timelogs.exists?(date: Date.today)
+    streak += 1 if timelogs.exists?(date: Time.zone.today)
 
     streak
   end
