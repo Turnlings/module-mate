@@ -5,7 +5,7 @@ class Year < ApplicationRecord
 
   belongs_to :user, touch: true
   has_many :semesters, dependent: :destroy
-  has_many :uni_modules, through: :semesters
+  has_many :uni_modules, -> { distinct }, through: :semesters
   has_many :exams, through: :uni_modules
   has_many :exam_results, through: :exams
   has_many :timelogs, through: :uni_modules
@@ -18,11 +18,14 @@ class Year < ApplicationRecord
   end
 
   def credits
-    uni_modules.sum(&:credit_share)
+    uni_modules.sum(&:credits)
   end
 
   def total_minutes
-    timelogs.sum(:minutes)
+    # When a module is associated to multiple semesters, the join behind
+    # `timelogs` can duplicate rows and cause sums to be inflated.
+    # Dedupe by timelog id before aggregating.
+    Timelog.where(id: timelogs.select(:id)).sum(:minutes)
   end
 
   # The average of all the grades of the semesters in this year
@@ -42,18 +45,18 @@ class Year < ApplicationRecord
   # The percentage of credits completed by the user in this year
   def progress(user)
     # Calculate for each module: credit_share * completion_percentage
-    completed_credits = uni_modules.sum { |m| m.credit_share * m.completion_percentage(user) / 100.0 }
-    total_credits = uni_modules.sum(&:credit_share)
+    completed_credits = uni_modules.sum { |m| m.credits * m.completion_percentage(user) / 100.0 }
+    total_credits = uni_modules.sum(&:credits)
 
     total_credits.zero? ? 0 : (completed_credits / total_credits) * 100
   end
 
   # The accumulated score of all the completed exams in this year
   def achieved_score(user)
-    total_credits = uni_modules.sum(&:credit_share)
+    total_credits = uni_modules.sum(&:credits)
     return 0 if total_credits.zero?
 
-    weighted_sum = uni_modules.sum { |m| m.credit_share * m.achieved_score(user) }
+    weighted_sum = uni_modules.sum { |m| m.credits * m.achieved_score(user) }
     weighted_sum / total_credits
   end
 

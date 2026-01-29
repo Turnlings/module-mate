@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   has_many :years, dependent: :destroy
   has_many :semesters, through: :years
-  has_many :uni_modules, through: :semesters
+  has_many :uni_modules, -> { distinct }, through: :semesters
   has_many :exams, through: :uni_modules
   has_many :exam_results, dependent: :destroy
   has_many :uni_module_targets, dependent: :destroy
