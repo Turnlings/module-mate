@@ -56,7 +56,7 @@ class User < ApplicationRecord
   end
 
   def pinned_modules
-    uni_modules.where(pinned: true)
+    uni_modules.where(pinned: true).distinct
   end
 
   def total_minutes
