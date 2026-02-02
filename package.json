@@ -32,14 +32,16 @@
     "d3": "^7.9.0",
     "prop-types": "^15.8.1",
     "react": "^19.1.1",
+    "react-aria": "^3.45.0",
     "react-dom": "^19.1.1",
+    "react-stately": "^3.43.0",
     "react_ujs": "^3.2.1",
     "shakapacker": "9.5.0",
     "stimulus": "^3.2.2",
     "terser-webpack-plugin": "5",
-    "webpack": "5",
+    "webpack": "^5",
     "webpack-assets-manifest": "5",
-    "webpack-cli": "4",
+    "webpack-cli": "^5",
     "webpack-merge": "5",
     "yarn": "^1.22.22"
   },
@@ -47,7 +49,7 @@
     "@babel/preset-react": "^7.27.1",
     "@swc/core": "^1.15.8",
     "swc-loader": "^0.2.6",
-    "webpack-dev-server": "5"
+    "webpack-dev-server": "^4"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

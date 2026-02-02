@@ -3,7 +3,7 @@
     .gt-form
       = form_with url: quick_log_path do |f|
         .split-row
-          = f.text_field :module_code, placeholder: 'Module Code', class: "m-0"
+          %div{ data: { react_component: "ModuleSelect", props: { data: @pinned_modules.as_json(only: %i[id code name]) }.to_json } }
           = f.number_field :minutes, placeholder: 'Minutes', class: "m-0"
 
         = f.submit 'Add Time', class: "link-button"
