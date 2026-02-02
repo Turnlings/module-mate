@@ -65,8 +65,31 @@ class PagesController < ApplicationController
   end
 
   def find_module
-    code = params[:module_code].to_s.strip.upcase
-    UniModule.where('code LIKE ?', "%#{code}%").first
+    raw = params[:module_code].to_s.strip
+    return if raw.blank?
+
+    normalized = raw.upcase
+
+    # If user typed just the numeric suffix (e.g. "2009"), match codes ending with it.
+    if normalized.match?(/\A\d+\z/)
+      suffix = normalized
+
+      candidates = UniModule
+                   .joins(semesters: :year)
+                   .where(years: { user_id: current_user.id })
+                   .where('UPPER(uni_modules.code) LIKE ?', "%#{suffix}")
+                   .distinct
+                   .to_a
+                   .select { |m| m.code.to_s.upcase.end_with?(suffix) }
+
+      return candidates.first
+    end
+
+    # Full code strict match (e.g. "COM2009")
+    UniModule
+      .joins(semesters: :year)
+      .where(years: { user_id: current_user.id })
+      .find_by(code: normalized)
   end
 
   def module_not_found
