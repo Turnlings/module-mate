@@ -117,6 +117,54 @@
       overflow: hidden;
       max-height: 240px;
       overflow-y: auto;
+
+      // Modern scrollbar
+      scrollbar-width: thin;
+      scrollbar-color: $bg-half-light transparent;
+
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: $bg-half-light;
+        border-radius: 999px;
+        border: 2px solid transparent;
+        background-clip: padding-box;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: $bg;
+        background-clip: padding-box;
+      }
+    }
+
+    &__sections {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__section {
+      &:not(:last-child) {
+        border-bottom: 1px solid $bg-half-light;
+      }
+    }
+
+    &__section-title {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      padding: 0.35rem 0.5rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      color: $text;
+      opacity: 0.75;
+      background: $bg-light;
+      border-bottom: 1px solid $bg-half-light;
     }
 
     &__empty {
