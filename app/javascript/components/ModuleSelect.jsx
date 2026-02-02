@@ -40,13 +40,14 @@ export default function ModuleSelect({ data = [] }) {
     setOpen(false);
   };
 
+  // Always submit something sensible:
+  // - if a module is selected, submit its code
+  // - otherwise submit whatever the user typed
+  const submittedCode = (selected?.code || query || "").trim();
+
   return (
     <div ref={containerRef} className="module-select">
-      <input
-        type="hidden"
-        name="module_code"
-        value={selected?.code || ""}
-      />
+      <input type="hidden" name="module_code" value={submittedCode} />
 
       <input
         type="text"
@@ -58,6 +59,16 @@ export default function ModuleSelect({ data = [] }) {
           setQuery(e.target.value);
           setSelected(null);
           setOpen(true);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            // If the dropdown is open and we have a clear top match, choose it.
+            // Otherwise allow the form to submit with what the user typed.
+            if (open && filtered.length > 0) {
+              e.preventDefault();
+              selectModule(filtered[0]);
+            }
+          }
         }}
         autoComplete="off"
       />
