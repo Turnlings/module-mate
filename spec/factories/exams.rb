@@ -6,7 +6,7 @@ FactoryBot.define do
 
     uni_module { association :uni_module, user: user }
 
-    name { "Final Exam" }
+    name { 'Final Exam' }
     weight { 50 }
   end
 end

@@ -35,3 +35,48 @@
   gap: 0.5rem;
   margin-bottom: 0.5rem;
 }
+
+.gt-empty-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  border: 1px solid $bg-half-light;
+
+  .heading {
+    background-color: $bg-half-light;
+    padding: 1rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+
+    display: flex;
+    justify-content: space-between;
+
+    h1, h2, h3, select {
+      margin: 0;
+      color: $text;
+    }
+
+    h2 {
+      font-weight: normal;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      padding: 0.5rem;
+    }
+  }
+
+  .body {
+    background-color: $bg;
+    padding: 1rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+
+    @media (max-width: $breakpoint-sm) {
+      padding: 0.5rem;
+    }
+  }
+}
+
+.gt-outline-card {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid $bg-light;
+}

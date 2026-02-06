@@ -1,45 +1,50 @@
 document.addEventListener("turbo:load", () => {
   const doc = document.documentElement;
-  const toggleBtn = document.getElementById("theme-toggle");
+  const toggleBtns = document.querySelectorAll(".theme-toggle");
 
   // Restore saved theme
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme) doc.dataset.theme = savedTheme;
 
-  if (!toggleBtn) { return; }
+  applyThemeToCharts();
 
-  // Add event listener
-  toggleBtn.addEventListener("click", () => {
-    const newTheme = doc.dataset.theme === "light" ? "dark" : "light";
-    doc.dataset.theme = newTheme;
-    localStorage.setItem("theme", newTheme);
+  if (!toggleBtns.length) return;
 
-    // Change just the theme colours of chartkick charts
-    Object.values(Chartkick.charts).forEach(chart => {
-      const currentColors = chart.options.colors || [];
-      const newColors = chartColors(); // 5 theme-specific colors
+  // Add event listener to all toggle buttons
+  toggleBtns.forEach(toggleBtn => {
+    // Prevent double-binding if Turbo restores from cache
+    if (toggleBtn.dataset.themeBound === "true") return;
+    toggleBtn.dataset.themeBound = "true";
 
-      // Overwrite only the first 5, keep the rest
-      const mergedColors = [...newColors, ...currentColors.slice(newColors.length)];
+    toggleBtn.addEventListener("click", () => {
+      const newTheme = doc.dataset.theme === "light" ? "dark" : "light";
+      doc.dataset.theme = newTheme;
+      localStorage.setItem("theme", newTheme);
 
-      chart.updateData(
-        chart.getData(),
-        Object.assign({}, chart.options, { colors: mergedColors })
-      );
+      applyThemeToCharts();
     });
   });
 });
 
-document.addEventListener("turbo:load", () => {
-  if (!window.Chartkick) return;
+function applyThemeToCharts() {
+  // Chartkick may not be loaded on all pages; don't throw.
+  if (!window.Chartkick || !Chartkick.charts) return;
 
-  Object.values(Chartkick.charts).forEach(chart => {
-    const currentColors = chart.options.colors || [];
-    const newColors = chartColors();
+  const charts = Object.values(Chartkick.charts);
+  if (!charts.length) return;
+
+  const newColors = chartColors();
+
+  charts.forEach(chart => {
+    const currentColors = (chart.options && chart.options.colors) || [];
     const mergedColors = [...newColors, ...currentColors.slice(newColors.length)];
-    chart.updateData(chart.getData(), Object.assign({}, chart.options, { colors: mergedColors }));
+
+    chart.updateData(
+      chart.getData(),
+      Object.assign({}, chart.options, { colors: mergedColors })
+    );
   });
-});
+}
 
 // Helper function for getting all the chart colours that fit the theme
 function chartColors() {

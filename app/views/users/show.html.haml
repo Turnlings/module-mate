@@ -9,18 +9,21 @@
     %b Joined:
     = @user.created_at.strftime("%d %B, %Y")
 
-  = button_to "Logout", destroy_user_session_path, method: :delete, class: 'link-button'
+  = button_to "Logout", destroy_user_session_path, method: :delete, class: 'link-button mt-2'
 
-.gt-card 
-  %h1.section-heading Activity
-  %div{ data: { react_component: "ContributionGraph", props: ({ data: @contributions }).to_json } }
+.gt-empty-card 
+  .heading 
+    .mini-stat
+      .title Study Streak
+      .figure= "#{@user.study_streak} #{'day'.pluralize(@user.study_streak)}"
+  .body{ data: { react_component: "ContributionGraph", props: ({ data: @contributions }).to_json } }
 
-.gt-card
-  %h1.section-heading Assessments
-  %h2 All Assessments
-  .chart-container
-    = line_chart @exam_data, legend: false, width: "100%", height:"300px", points: true, curve: false, library: { responsive: true, maintainAspectRatio: false }
-
-  %h2 Assessment Type
-  .chart-container
-    = pie_chart @exam_type_data, legend: false, width: "100%", height:"300px"
+.gt-empty-card
+  .heading 
+    %h2 Assessments
+  .body
+    .chart-container
+      = line_chart @exam_data, legend: false, width: "100%", height:"300px", points: true, curve: false, library: { responsive: true, maintainAspectRatio: false }
+    %hr.my-2
+    .chart-container
+      = pie_chart @exam_type_data, legend: true, width: "100%", height:"300px"

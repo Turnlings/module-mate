@@ -1,38 +1,50 @@
-- year = data[:year]
 - cache [year, current_user] do   
-  .gt-card
-    .card-heading
-      %h2= year.name
-      .icon-button.gt-card-link
-        = link_to year_path(year) do
-          %i.fa-solid.fa-arrow-right
-    .container-flex
-      .row.font-secondary
-        .col
-          .th-content
-            %span Weighting
-            - unless current_user.correct_weight_sum?
-              .icon-button.text-danger
-                %i.fa-solid.fa-triangle-exclamation{ title: 'Total weight must be 100%' }
-        .col Progress
-        .col Achieved
-      .row
-        .col
-          - if data[:weighting].present?
-            = "#{number_with_precision(data[:weighting], precision: 0)}%"
-          - else
-            = "N/A"
-        .col.d-flex.align-items-center
-          - progress = data[:progress]
-          = "#{number_with_precision(progress, precision: 0)}%"
-          - if progress == 100
-            .chip-success.hide-on-mobile Completed
-        .col= "#{number_with_precision(data[:achieved], precision: 0)}%"
-      .row
-        .col.progress-bar.mx-12px
-          - width = data[:weighting].presence || 0
-          .progress{style: "width: #{width}%"}
-        .col.progress-bar.mx-12px
-          .progress{style: "width: #{data[:progress]}%"}
-        .col.progress-bar.mx-12px
-          .progress{style: "width: #{data[:achieved]}%"}
+  = link_to year_path(year) do
+    - progress = year.progress(current_user)
+    - achieved_score = year.achieved_score(current_user)
+    .space-between
+      .space-between
+        .name= year.name
+        - if progress == 100
+          = class_badge(achieved_score)
+      .actual= "#{number_with_precision(achieved_score, precision: 0)}%"
+    .space-between
+      .font-secondary= "#{number_with_precision(year.weighting, precision: 0)}% Weighting"
+      .font-secondary= "#{number_with_precision(progress, precision: 0)}% Completed"
+  
+  -# .gt-card
+  -#   .card-heading
+  -#     %h2= year.name
+  -#     .icon-button.gt-card-link
+  -#       = link_to year_path(year) do
+  -#         %i.fa-solid.fa-arrow-right
+  -#   .container-flex
+  -#     .row.font-secondary
+  -#       .col
+  -#         .th-content
+  -#           %span Weighting
+  -#           - unless current_user.correct_weight_sum?
+  -#             .icon-button.text-danger
+  -#               %i.fa-solid.fa-triangle-exclamation{ title: 'Total weight must be 100%' }
+  -#       .col Progress
+  -#       .col Achieved
+  -#     .row
+  -#       .col
+  -#         - if data[:weighting].present?
+  -#           = "#{number_with_precision(data[:weighting], precision: 0)}%"
+  -#         - else
+  -#           = "N/A"
+  -#       .col.d-flex.align-items-center
+  -#         - progress = data[:progress]
+  -#         = "#{number_with_precision(progress, precision: 0)}%"
+  -#         - if progress == 100
+  -#           .chip-success.hide-on-mobile Completed
+  -#       .col= "#{number_with_precision(data[:achieved], precision: 0)}%"
+  -#     .row
+  -#       .col.progress-bar.mx-12px
+  -#         - width = data[:weighting].presence || 0
+  -#         .progress{style: "width: #{width}%"}
+  -#       .col.progress-bar.mx-12px
+  -#         .progress{style: "width: #{data[:progress]}%"}
+  -#       .col.progress-bar.mx-12px
+  -#         .progress{style: "width: #{data[:achieved]}%"}

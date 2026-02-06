@@ -1,40 +1,34 @@
-.page-heading
-  .left-button
-  %h1 Dashboard
-  .right-button.button-row
-
 -# Stats
-.stats-container 
-  .stat 
-    .stat-header Module Count
-    .stat-content= link_to current_user.uni_modules.count, uni_modules_path
-  .stat 
-    .stat-header Average Score
-    .stat-content= number_with_precision(current_user.average_score, precision: 2) + '%'
-  .stat 
-    .stat-header Achieved Score
-    .stat-content= number_with_precision(current_user.achieved_score, precision: 2) + '%'
+= render partial: 'shared/dashboard_stats'
 
-.cards-container
-  - @year_data.each do |data|
-    = render partial: 'shared/year_card', locals: { data: data }
-
-  = link_to '+ New Year', new_year_path, class: 'card-button'
-
-%h1.section-heading Statistics
 -# Graph on left
-.gt-card
-  .card-heading
-    %h2 Your Time Spent
-    = form_with url: request.path, method: :get, local: true, html: { class: "cumulative-toggle-form" } do |f|
-      - if params[:cumulative] != "false"
-        = f.hidden_field :cumulative, value: false
-        .background
-          = f.submit "", class: "toggle-true"
-      - else 
-        = f.hidden_field :cumulative, value: true
-        .background
-          = f.submit "", class: "toggle-false"
-      Cumulative
-  .chart-container
-    = line_chart @module_data, curve: false, legend: false, width: "100%", height:"300px", library: { responsive: true, maintainAspectRatio: false }
+.gt-empty-card
+  .heading
+    .mini-stat
+      .title Minutes Spent
+      .figure= current_user.total_minutes
+
+    = form_with url: request.path,
+                method: :get,
+                local: true,
+                html: { class: "gt-form cumulative-toggle-form" } do |f|
+
+      = f.select :cumulative,
+          [["Cumulative", "true"], ["Daily", "false"]],
+          { selected: params[:cumulative] || "true" },
+          { onchange: "this.form.submit()", class: "cumulative-dropdown text-muted" }
+
+  .body
+    .chart-container
+      = line_chart time_dashboard_path(cumulative: params[:cumulative]), curve: false, legend: false, width: "100%", height:"300px", library: { responsive: true, maintainAspectRatio: false }
+
+-# Years
+.gt-empty-card
+  .heading
+    %h3 Years
+  .body
+    .link-cards-list
+      - @years.each do |year|
+        = render partial: 'shared/year_card', locals: { year: year }
+
+      = link_to '+ New Year', new_year_path, class: 'card-button'

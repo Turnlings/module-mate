@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   has_many :years, dependent: :destroy
   has_many :semesters, through: :years
-  has_many :uni_modules, through: :semesters
+  has_many :uni_modules, -> { distinct }, through: :semesters
   has_many :exams, through: :uni_modules
   has_many :exam_results, dependent: :destroy
   has_many :uni_module_targets, dependent: :destroy
@@ -20,6 +20,7 @@ class User < ApplicationRecord
 
   # For ToS and Privacy Policy
   attr_accessor :terms_of_service
+
   validates :terms_of_service, acceptance: { accept: '1' }
   before_create :set_terms_agreed_at, if: -> { terms_of_service == '1' }
 
@@ -48,13 +49,43 @@ class User < ApplicationRecord
 
   def achieved_score
     return 0 if years.empty?
+
+    total_weight = years.sum(&:weighting_non_null)
+    return 0 if total_weight.zero?
+
     total = years.sum { |year| year.achieved_score(self) * year.weighting_non_null }
-    total_weight =  years.sum { |year| year.weighting_non_null }
+
     total / total_weight
   end
 
   def pinned_modules
-    uni_modules.where(pinned: true)
+    uni_modules.where(pinned: true).distinct
+  end
+
+  def total_minutes
+    timelogs.sum(:minutes)
+  end
+
+  def study_streak(as_of: Date.yesterday)
+    days = timelogs
+           .where(date: ..as_of)
+           .distinct
+           .order(date: :desc)
+           .pluck(:date)
+
+    streak = 0
+    expected = as_of
+
+    days.each do |day|
+      break if day != expected
+
+      streak += 1
+      expected -= 1.day
+    end
+
+    streak += 1 if timelogs.exists?(date: Time.zone.today)
+
+    streak
   end
 
   private

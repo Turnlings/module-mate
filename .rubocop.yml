@@ -1,0 +1,53 @@
+plugins:
+  - rubocop-capybara
+  - rubocop-factory_bot
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-rspec_rails
+  - rubocop-rake
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.2
+  Exclude:
+    - "db/schema.rb"
+    - "Gemfile"
+    - "lib/tasks/*.rake"
+    - "bin/*"
+    - "config/puma.rb"
+    - "config/spring.rb"
+    - "config/environments/*.rb"
+    - "spec/spec_helper.rb"
+    - 'vendor/**/*'
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/AbcSize:
+  Exclude:
+    - "app/controllers/**/*"
+
+RSpecRails/InferredSpecType:
+  Enabled: false

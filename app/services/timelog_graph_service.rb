@@ -7,14 +7,15 @@ class TimelogGraphService
 
   def call
     modules = case @scope
-              when User then @scope.uni_modules
-              when Year then @scope.uni_modules
-              when Semester then @scope.uni_modules
+              when User, Year, Semester then @scope.uni_modules
               when UniModule then [@scope]
               else []
               end
 
-    modules.includes(:timelogs).map do |mod|
+    # All cases but UniModule
+    modules = modules.includes(:timelogs) if modules.is_a?(ActiveRecord::Relation)
+
+    modules.map do |mod|
       {
         name: mod.name,
         data: processed_data(mod)

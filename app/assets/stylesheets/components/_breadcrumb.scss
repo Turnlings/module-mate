@@ -1,0 +1,18 @@
+.breadcrumb {
+  margin: 0;
+
+  .breadcrumb-item {
+    a {
+      color: $text-muted;
+      text-decoration: none;
+
+      &:hover {
+        color: $text;
+      }
+    }
+  }
+
+  .active {
+    color: $text
+  }
+}

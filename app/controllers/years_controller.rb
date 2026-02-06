@@ -5,11 +5,7 @@ class YearsController < ApplicationController
   authorize_resource
 
   # GET /years/1 or /years/1.json
-  def show
-    cumulative = params[:cumulative] != "false"
-    service = TimelogGraphService.new(current_user, @year, cumulative: cumulative)
-    @module_data = service.call
-  end
+  def show; end
 
   # GET /years/new
   def new
@@ -24,15 +20,13 @@ class YearsController < ApplicationController
     @year = Year.new(year_params)
     @year.user = current_user
 
-    puts "Current user: #{current_user.inspect}"
-
     respond_to do |format|
       if @year.save
         format.html { redirect_to @year, notice: 'Year was successfully created.' }
         format.json { render :show, status: :created, location: @year }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @year.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @year.errors, status: :unprocessable_content }
       end
     end
   end
@@ -44,8 +38,8 @@ class YearsController < ApplicationController
         format.html { redirect_to @year, notice: 'Year was successfully updated.' }
         format.json { render :show, status: :ok, location: @year }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @year.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @year.errors, status: :unprocessable_content }
       end
     end
   end

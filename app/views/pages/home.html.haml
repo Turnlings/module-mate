@@ -8,49 +8,52 @@
       = link_to "Get Started", new_user_registration_path, class: 'link-button main-action'
 
   .features 
-    .gt-card
-      %i.fa-solid.fa-hourglass-start
-      %h3 Track Time
+    .gt-empty-card
+      .body
+        %i.fa-solid.fa-hourglass-start
+        %h3 Track Time
 
-      %p.small Log study sessions quickly and see where your hours really go.
+        %p.small Log study sessions quickly and see where your hours really go.
 
-    .gt-card
-      %i.fa-solid.fa-calendar-days
-      %h3 Manage Exams 
+    .gt-empty-card
+      .body
+        %i.fa-solid.fa-calendar-days
+        %h3 Manage Exams 
 
-      %p.small Keep all your exam dates in one place and know what’s coming next.
+        %p.small Keep all your exam dates in one place and know what’s coming next.
 
-    .gt-card 
-      %i.fa-solid.fa-chart-simple
-      %h3 Record Scores
+    .gt-empty-card
+      .body
+        %i.fa-solid.fa-chart-simple
+        %h3 Record Scores
 
-      %p.small Track grades and see exactly what you need to hit your target.
+        %p.small Track grades and see exactly what you need to hit your target.
 
   .screenshots
     = image_tag "dashboard.png", alt: "ModuleMate Dashboard", class: "dashboard"
 
   .split-section
-    .left 
+    .image 
       = image_tag "track.png", alt: "Track Time", class: "track-time"
-    .right
+    .content
       %h2 Stay On Top
       %p Make sure no module gets ignored by tracking every minute. This could be the motivation you need to achieve your potential.
       %p Easily record short study sessions with the Quicklog feature.
 
 
-  .split-section
-    .left 
+  .split-section.reverse
+    .image 
+      = image_tag "module.png", alt: "Track Exams", class: "module"
+    .content
       %h2 Know Your Progress
       %p Just enter your course structure and your scores and ModuleMate will calculate your achieved score, aswell as what you need to get to achieve your target.
       %p Visual dashboards help you see which modules or assignments have the biggest impact on your final grade, so you can focus your efforts where it matters most.
-    .right
-      = image_tag "module.png", alt: "Track Exams", class: "module"
 
   .split-section
-    .left 
+    .image 
       .svg-wrapper
         = inline_svg "github.svg", class: "svg"
-    .right
+    .content
       %h2 Open Source & Free
       %p This project began as a personal tool for the original developer, but it’s open for anyone to explore and improve. Whether you’d like to add a feature, fix a bug, or just learn from the code, contributions are welcome!
       .action

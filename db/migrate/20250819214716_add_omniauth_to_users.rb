@@ -1,11 +1,9 @@
 class AddOmniauthToUsers < ActiveRecord::Migration[7.1]
   def change
-    unless column_exists?(:users, :provider)
-      add_column :users, :provider, :string
-    end
+    add_column :users, :provider, :string unless column_exists?(:users, :provider)
 
-    unless column_exists?(:users, :uid)
-      add_column :users, :uid, :string
-    end
+    return if column_exists?(:users, :uid)
+
+    add_column :users, :uid, :string
   end
 end

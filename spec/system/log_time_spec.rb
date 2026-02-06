@@ -10,13 +10,16 @@ RSpec.describe 'Logging time', type: :system do
       uni_module = create(:uni_module, user: user)
 
       visit '/'
+      click_on 'Quicklog'
 
-      fill_in 'module_code', with: uni_module.code
+      find('input[placeholder="Module Code"]').set(uni_module.code)
       fill_in 'minutes', with: 10
 
       click_on 'Add Time'
 
       visit uni_module_path(uni_module)
+
+      page.refresh
 
       expect(page).to have_content '10'
     end
@@ -27,8 +30,9 @@ RSpec.describe 'Logging time', type: :system do
       uni_module = create(:uni_module, user: user)
 
       visit '/'
+      click_on 'Quicklog'
 
-      fill_in 'module_code', with: uni_module.code + "123456"
+      find('input[placeholder="Module Code"]').set("#{uni_module.code}123456")
       fill_in 'minutes', with: 10
 
       click_on 'Add Time'
@@ -42,8 +46,9 @@ RSpec.describe 'Logging time', type: :system do
       uni_module = create(:uni_module, user: user)
 
       visit '/'
+      click_on 'Quicklog'
 
-      fill_in 'module_code', with: uni_module.code
+      find('input[placeholder="Module Code"]').set(uni_module.code)
       fill_in 'minutes', with: -1
 
       click_on 'Add Time'

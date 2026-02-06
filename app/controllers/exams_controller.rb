@@ -14,6 +14,7 @@ class ExamsController < ApplicationController
     time_zone = TZInfo::Timezone.get(Rails.application.config.time_zone)
     @time_until_due = @exam.time_until_due(time_zone.now)
     @uni_module = @exam.uni_module
+    @semester = @uni_module.semesters.first
   end
 
   # GET /exams/new
@@ -37,8 +38,8 @@ class ExamsController < ApplicationController
         format.html { redirect_to uni_module_exam_path(@uni_module, @exam), notice: 'Exam was successfully created.' }
         format.json { render :show, status: :created, location: @exam }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @exam.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @exam.errors, status: :unprocessable_content }
       end
     end
   end
@@ -52,8 +53,8 @@ class ExamsController < ApplicationController
         format.html { redirect_to uni_module_exam_path(@uni_module, @exam), notice: 'Exam was successfully updated.' }
         format.json { render :show, status: :ok, location: @exam }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @exam.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @exam.errors, status: :unprocessable_content }
       end
     end
   end

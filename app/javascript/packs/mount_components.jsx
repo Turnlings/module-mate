@@ -12,20 +12,20 @@ componentsContext.keys().forEach((key) => {
 // Map to store roots for each container
 const roots = new Map();
 
-function mountComponents() {
-  document.querySelectorAll("[data-react-component]").forEach((el) => {
+function mountComponents(root = document) {
+  root.querySelectorAll("[data-react-component]").forEach((el) => {
     const name = el.dataset.reactComponent;
     const props = el.dataset.props ? JSON.parse(el.dataset.props) : {};
     const Component = components[name];
 
     if (Component) {
       if (!roots.has(el)) {
-        const root = createRoot(el);
-        roots.set(el, root);
-        root.render(<Component {...props} />);
+        const reactRoot = createRoot(el);
+        roots.set(el, reactRoot);
+        reactRoot.render(<Component {...props} />);
       } else {
-        const root = roots.get(el);
-        root.render(<Component {...props} />);
+        const reactRoot = roots.get(el);
+        reactRoot.render(<Component {...props} />);
       }
     } else {
       console.error(`React component "${name}" not found.`);
@@ -33,5 +33,10 @@ function mountComponents() {
   });
 }
 
-document.addEventListener("turbo:load", mountComponents);
-document.addEventListener("DOMContentLoaded", mountComponents);
+document.addEventListener("turbo:load", () => mountComponents(document));
+document.addEventListener("DOMContentLoaded", () => mountComponents(document));
+
+// Ensure components mount when content is loaded into a Turbo Frame (e.g. modal)
+document.addEventListener("turbo:frame-load", (event) => {
+  mountComponents(event.target);
+});

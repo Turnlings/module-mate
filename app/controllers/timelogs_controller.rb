@@ -6,7 +6,8 @@ class TimelogsController < ApplicationController
 
   # GET /timelogs or /timelogs.json
   def index
-    @timelogs = Timelog.all
+    @uni_module = UniModule.find(params[:uni_module_id])
+    @timelogs = @uni_module.timelogs.for_user(current_user).order(date: :desc)
   end
 
   # GET /timelogs/1 or /timelogs/1.json
@@ -37,8 +38,8 @@ class TimelogsController < ApplicationController
         format.html { redirect_to uni_module_path(@uni_module), notice: 'Timelog was successfully created.' }
         format.json { render :show, status: :created, location: @timelog }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @timelog.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @timelog.errors, status: :unprocessable_content }
       end
     end
   end
@@ -51,8 +52,8 @@ class TimelogsController < ApplicationController
         format.html { redirect_to uni_module_path(@uni_module), notice: 'Timelog was successfully updated.' }
         format.json { render :show, status: :ok, location: @timelog }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @timelog.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @timelog.errors, status: :unprocessable_content }
       end
     end
   end
@@ -63,7 +64,9 @@ class TimelogsController < ApplicationController
     @timelog.destroy!
 
     respond_to do |format|
-      format.html { redirect_to uni_module_path(@uni_module), status: :see_other, notice: 'Timelog was successfully deleted.' }
+      format.html do
+        redirect_to uni_module_path(@uni_module), status: :see_other, notice: 'Timelog was successfully deleted.'
+      end
       format.json { head :no_content }
     end
   end

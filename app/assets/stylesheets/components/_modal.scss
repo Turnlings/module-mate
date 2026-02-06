@@ -1,0 +1,15 @@
+.gt-modal {
+  color: $text;
+  background-color: $bg-half-light;
+
+  .modal-header {
+    border-bottom: 1px solid $bg-light;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .btn-close {
+    --bs-btn-close-color: $text;
+    color: $text;
+  }
+}
