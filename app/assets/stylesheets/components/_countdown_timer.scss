@@ -5,10 +5,12 @@
   align-items: center;
   flex-basis: 25%;
   container-type: inline-size;
+  transition: transform 0.3s ease-in-out;
   h1{
     font-size: clamp(20px,70cqw, 7rem);
   }
 }
+
 
 .countdown-container{
   display: flex;
