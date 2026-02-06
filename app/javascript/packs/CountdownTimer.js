@@ -1,13 +1,11 @@
 'use strict'
 import {FetchRequest} from "@rails/request.js";
 
-let rotationValue = [0,0,0,0];
-
 /**
  * Starts the countdown timer.
  * By requesting the due date and then starting a function on an interval timer.
  */
-let intervalID =0;
+let intervalID = 0;
 function get_and_set_countdown_timer(){
     let containers = document.getElementsByClassName("countdown-container");
     if(intervalID !== 0){
@@ -18,7 +16,9 @@ function get_and_set_countdown_timer(){
         let href = window.location.href+".json";
 
         get_due_time(href).then(r => {
-            intervalID = setInterval(update_counter, 500, countdown, r);
+            // Update immediately, then once per second.
+            update_counter(countdown, r);
+            intervalID = setInterval(update_counter, 1000, countdown, r);
         });
     }
 }
@@ -37,11 +37,11 @@ function update_counter(countdownContainer, due_time){
     let hours = 0;
     let days = 0;
     if(diffTime >= 0){
+        diffTime = Math.floor(diffTime);
         const divmod = (x, y) => [Math.floor(x / y), x % y];
         [minutes, seconds] = divmod(diffTime,60);
         [hours, minutes] = divmod(minutes, 60);
         [days, hours] = divmod(hours, 24);
-        seconds = Math.floor(seconds);
     }
 
     update_sub_counter(0, days, countdownContainer);
@@ -51,36 +51,32 @@ function update_counter(countdownContainer, due_time){
 }
 
 /**
- * Updates the sub counter (e.g. days, hours, minutes and hours of the countdown timer)
+ * Updates the sub counter (e.g. days, hours, minutes and seconds of the countdown timer)
  * @param boxNumber The number from (0 to 3) that represents which box to change, the first box is days, the last box is seconds.
  * @param newContent Is the new value to put in the box.
  * @param countdownContainer is the countdown container
  */
 function update_sub_counter(boxNumber, newContent, countdownContainer){
-    let index = (boxNumber)*2+1;
+    const cards = countdownContainer.querySelectorAll('.countdown-card');
+    const card = cards[boxNumber];
+    if(!card) return;
 
-    let node = countdownContainer.childNodes[index];
-    let currentContent = node.childNodes[1].innerText;
-    if(currentContent.toString() !== newContent.toString()){
+    const numberEl = card.querySelector('h1');
+    if(!numberEl) return;
 
-        rotationValue[boxNumber] = rotationValue[boxNumber] + 1;
-        console.log(rotationValue[boxNumber])
-        node.style.transform = "rotate3d(1,0,0,"+rotationValue[boxNumber]+"turn)";
-    }
-    node.childNodes[1].innerText = newContent;
+    numberEl.innerText = newContent;
 }
 
 /**
- * Gets the a url request that returns json which includes the .due attribute
+ * Gets a url request that returns json which includes the .due attribute
  * @param url URL to fetch
  * @returns {Promise<*|Date>} return the date as a promise
  */
-async function get_due_time( url) {
+async function get_due_time(url) {
     const request = new FetchRequest('get', url)
     let response = await request.perform()
     if(response.ok){
         try {
-
             return new Date(Date.parse((await response.json).due))
         }catch(err){
             return err
