@@ -9,6 +9,7 @@ import "./theme.js"
 import "./mount_components";
 import "bootstrap/dist/js/bootstrap.bundle";
 import "./offcanvas_modal_fix";
+import "./CountdownTimer";
 
 // Support component names relative to this directory:
 var componentRequireContext = require.context("../components", true);

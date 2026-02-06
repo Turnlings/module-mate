@@ -15,6 +15,10 @@ class ExamsController < ApplicationController
     @time_until_due = @exam.time_until_due(time_zone.now)
     @uni_module = @exam.uni_module
     @semester = @uni_module.semesters.first
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @exam }
+    end
   end
 
   # GET /exams/new
