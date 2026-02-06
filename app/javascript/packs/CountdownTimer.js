@@ -41,7 +41,7 @@ function update_counter(countdownContainer, due_time){
         [minutes, seconds] = divmod(diffTime,60);
         [hours, minutes] = divmod(minutes, 60);
         [days, hours] = divmod(hours, 24);
-        seconds = Math.round(seconds);
+        seconds = Math.floor(seconds);
     }
 
     update_sub_counter(0, days, countdownContainer);
