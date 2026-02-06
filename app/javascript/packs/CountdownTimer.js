@@ -16,9 +16,8 @@ function get_and_set_countdown_timer(){
         let href = window.location.href+".json";
 
         get_due_time(href).then(r => {
-            // Update immediately, then once per second.
             update_counter(countdown, r);
-            intervalID = setInterval(update_counter, 1000, countdown, r);
+            intervalID = setInterval(update_counter, 100, countdown, r);
         });
     }
 }
