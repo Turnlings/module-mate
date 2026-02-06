@@ -27,10 +27,12 @@ Rails.application.routes.draw do
   post 'quick_log', to: 'pages#quick_log'
   get 'close_modal', to: 'pages#close_modal'
 
-  get 'charts/time_dashboard', as: :time_dashboard
-  get 'charts/time_year', as: :time_year
-  get 'charts/time_semester', as: :time_semester
-  get 'charts/time_module', as: :time_module
+  scope :charts, controller: :charts do
+    get :time_dashboard
+    get 'time_year/:id',     action: :time_year,     as: :time_year
+    get 'time_semester/:id', action: :time_semester, as: :time_semester
+    get 'time_module/:id',   action: :time_module,   as: :time_module
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

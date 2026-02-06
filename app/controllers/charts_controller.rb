@@ -8,7 +8,9 @@ class ChartsController < ApplicationController
   end
 
   def time_year
-    year = Year.find(params[:year_id])
+    year = Year.find(params[:id])
+    authorize! :read, year
+
     cumulative = params[:cumulative] != 'false'
     service = TimelogGraphService.new(current_user, year, cumulative: cumulative)
     data = service.call
@@ -17,7 +19,9 @@ class ChartsController < ApplicationController
   end
 
   def time_semester
-    semester = Semester.find(params[:semester_id])
+    semester = Semester.find(params[:id])
+    authorize! :read, semester
+
     cumulative = params[:cumulative] != 'false'
     service = TimelogGraphService.new(current_user, semester, cumulative: cumulative)
     data = service.call
@@ -26,7 +30,9 @@ class ChartsController < ApplicationController
   end
 
   def time_module
-    uni_module = UniModule.find(params[:uni_module_id])
+    uni_module = UniModule.find(params[:id])
+    authorize! :read, uni_module
+
     cumulative = params[:cumulative] != 'false'
     service = TimelogGraphService.new(current_user, uni_module, cumulative: cumulative)
     data = service.call
