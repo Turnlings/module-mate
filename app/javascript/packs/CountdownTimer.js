@@ -7,14 +7,18 @@ let rotationValue = [0,0,0,0];
  * Starts the countdown timer.
  * By requesting the due date and then starting a function on an interval timer.
  */
+let intervalID =0;
 function get_and_set_countdown_timer(){
     let containers = document.getElementsByClassName("countdown-container");
+    if(intervalID !== 0){
+        clearInterval(intervalID);
+    }
     if(containers.length > 0){
         let countdown = containers[0];
         let href = window.location.href+".json";
 
         get_due_time(href).then(r => {
-            setInterval(update_counter, 1000, countdown, r);
+            intervalID = setInterval(update_counter, 1000, countdown, r);
         });
     }
 }
@@ -60,6 +64,7 @@ function update_sub_counter(boxNumber, newContent, countdownContainer){
     if(currentContent.toString() !== newContent.toString()){
 
         rotationValue[boxNumber] = rotationValue[boxNumber] + 1;
+        console.log(rotationValue[boxNumber])
         node.style.transform = "rotate3d(1,0,0,"+rotationValue[boxNumber]+"turn)";
     }
     node.childNodes[1].innerText = newContent;
