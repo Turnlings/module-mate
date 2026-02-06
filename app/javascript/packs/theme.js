@@ -50,7 +50,7 @@ function applyThemeToCharts() {
 function chartColors() {
   const styles = getComputedStyle(document.documentElement);
   const colors = [];
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 20; i++) {
     const val = styles.getPropertyValue(`--chart-color-${i}`).trim();
     if (val) colors.push(val);
   }
