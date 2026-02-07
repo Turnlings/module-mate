@@ -22,6 +22,9 @@
       = f.label :threshold, "Threshold Score"
       = f.number_field :threshold, value: (@exam.threshold || 70), id: "exam_threshold", step: 0.01
     .field
+      = f.label :released, "Hand Out Date"
+      = f.datetime_local_field :released, include_blank: true, default: @exam.released
+    .field
       = f.label :due, "Due Date"
       = f.datetime_local_field :due, include_blank: true, default: @exam.due
     .field
