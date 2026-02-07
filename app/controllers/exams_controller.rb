@@ -81,7 +81,7 @@ class ExamsController < ApplicationController
     @exam = @uni_module.exams.find(params[:id])
     @exam.update(completed: true)
 
-    redirect_to uni_module_exam_path(@uni_module, @exam), notice: "Exam marked as completed."
+    redirect_to uni_module_exam_path(@uni_module, @exam), notice: 'Exam marked as completed.'
   end
 
   private
