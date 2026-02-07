@@ -17,7 +17,10 @@
       = f.text_field :name
     .field
       = f.label :type, "Exam Type"
-      = f.select :type, options_for_select([['Threshold', 'Threshold'],['Paper', 'Paper'],['Solo Coursework', 'Coursework::Solo'],['Group Coursework', 'Coursework::Group']], @exam.type)
+      = f.select :type, options_for_select([['Paper', 'Paper'],['Solo Coursework', 'Coursework::Solo'],['Group Coursework', 'Coursework::Group'], ['Threshold', 'Threshold']], @exam.type)
+    .field
+      = f.label :threshold, "Threshold Score"
+      = f.number_field :threshold, value: (@exam.threshold || 70), id: "exam_threshold", step: 0.01
     .field
       = f.label :due, "Due Date"
       = f.datetime_local_field :due, include_blank: true, default: @exam.due
