@@ -21,5 +21,8 @@
     .field
       = f.label :due, "Due Date"
       = f.datetime_local_field :due, include_blank: true, default: @exam.due
+    .field
+      = f.label :completed, "Completed"
+      = f.check_box :completed
     .actions
       = f.submit 'Save'

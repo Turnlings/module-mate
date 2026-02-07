@@ -27,7 +27,7 @@
       .icon-button
         = link_to edit_exam_result_path(@exam), { title: "Edit #{@exam.name} Score" } do
           %i.fa-solid.fa-pen-to-square
-- if @time_until_due
+- if @time_until_due && !@exam.completed
   .countdown-container
     .countdown-card
       %h1= @time_until_due[0].to_i
@@ -41,3 +41,7 @@
     .countdown-card
       %h1=@time_until_due[3].to_i
       %h3= "Seconds"
+
+- if !@exam.completed
+  = form_with url: mark_completed_uni_module_exam_path(@uni_module, @exam), method: :patch, local: true do |f|
+    = f.submit "Mark as Completed", class: "btn card-button w-100", data: { turbo_confirm: "Are you sure?" }
