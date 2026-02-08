@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   post 'semesters/import/:share_token', to: 'semesters#import', as: :import_semester
   post 'import_redirect', to: 'semesters#import_redirect', as: :import_redirect_semester
   resources :uni_modules do
-    resources :exams
+    resources :exams do
+      patch :mark_completed, on: :member
+    end
     resources :timelogs
 
     member do

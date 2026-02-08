@@ -5,6 +5,16 @@
 
 import Offcanvas from "bootstrap/js/dist/offcanvas";
 
+function cleanupOffcanvasArtifacts() {
+  // Sometimes Bootstrap leaves a backdrop around if the offcanvas is hidden while
+  // Turbo is swapping DOM. Clean up any leftovers.
+  document.querySelectorAll('.offcanvas-backdrop').forEach((b) => b.remove());
+  document.body.classList.remove('offcanvas-backdrop');
+  document.body.classList.remove('modal-open');
+  document.body.style.removeProperty('overflow');
+  document.body.style.removeProperty('padding-right');
+}
+
 function hideSidebarOffcanvasIfOpen() {
   const el = document.getElementById("sidebarOffcanvas");
   if (!el) return;
@@ -12,6 +22,9 @@ function hideSidebarOffcanvasIfOpen() {
   const instance = Offcanvas.getInstance(el) || Offcanvas.getOrCreateInstance(el);
   // Only hide if it's currently shown
   if (el.classList.contains("show")) instance.hide();
+
+  // Always attempt cleanup (no-op if nothing is stuck)
+  cleanupOffcanvasArtifacts();
 }
 
 function isModalFrameLink(target) {
@@ -24,8 +37,15 @@ document.addEventListener("turbo:load", () => {
   document.addEventListener("click", (e) => {
     if (!isModalFrameLink(e.target)) return;
 
-    // Let Turbo handle the click; then hide offcanvas so the backdrop doesn't block the modal.
-    // setTimeout ensures this runs after Turbo has initiated the request.
-    setTimeout(hideSidebarOffcanvasIfOpen, 0);
+    // Hide offcanvas immediately so the backdrop doesn't linger over the modal.
+    hideSidebarOffcanvasIfOpen();
+
+    // Also do a delayed cleanup in case Bootstrap adds the backdrop on the same tick.
+    setTimeout(cleanupOffcanvasArtifacts, 50);
   });
+});
+
+// When the modal frame finishes loading, ensure no offcanvas backdrop is still present.
+document.addEventListener('turbo:frame-load', (e) => {
+  if (e.target && e.target.id === 'modal') cleanupOffcanvasArtifacts();
 });

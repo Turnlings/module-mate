@@ -10,8 +10,9 @@
     font-size: clamp(20px,70cqw, 7rem);
   }
 
-  h3{
-    @media (max-width: $breakpoint-sm) {
+  @media (max-width: $breakpoint-sm) {
+    padding: 0.5rem;
+    h3{
       color: $text-muted;
       font-size: 0.8rem;
     }

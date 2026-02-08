@@ -7,6 +7,7 @@ class Threshold < Exam
   end
 
   def adjusted_score(user)
-    score(user) >= 70 ? 100 : 0
+    t = threshold.presence || 70
+    score(user) >= t ? 100 : 0
   end
 end
