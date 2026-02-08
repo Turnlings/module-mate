@@ -15,6 +15,10 @@ class ExamsController < ApplicationController
     @time_until_due = @exam.time_until_due(time_zone.now)
     @uni_module = @exam.uni_module
     @semester = @uni_module.semesters.first
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @exam }
+    end
   end
 
   # GET /exams/new
@@ -72,6 +76,14 @@ class ExamsController < ApplicationController
     end
   end
 
+  def mark_completed
+    @uni_module = UniModule.find(params[:uni_module_id])
+    @exam = @uni_module.exams.find(params[:id])
+    @exam.update(completed: true)
+
+    redirect_to uni_module_exam_path(@uni_module, @exam), notice: 'Exam marked as completed.'
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -81,6 +93,6 @@ class ExamsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def exam_params
-    params.require(:exam).permit(:weight, :name, :type, :uni_module_id, :due)
+    params.require(:exam).permit(:weight, :name, :type, :uni_module_id, :due, :completed, :threshold, :released)
   end
 end

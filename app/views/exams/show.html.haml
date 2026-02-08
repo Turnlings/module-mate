@@ -5,39 +5,52 @@
       %li.breadcrumb-item= link_to @semester.name, @semester 
       %li.breadcrumb-item= link_to @uni_module.name, @uni_module 
       %li.breadcrumb-item.active= @exam.name
-.gt-card
-  .card-heading
+.gt-empty-card
+  .heading
     %h1= @exam.name
     .icon-button
       = link_to edit_uni_module_exam_path(@uni_module, @exam) do
         %i.fa-solid.fa-pen-to-square
-  - if @exam.due
-    .font-secondary= @exam.due.strftime("%A %d %b %Y, %H:%M")
-  - if @exam.score(current_user)
-    .flex-row
-      %h1.mb-0= @exam.score(current_user).to_s + '%'
-      .icon-button
-        = link_to edit_exam_result_path(@exam), { title: "Edit #{@exam.name} Score" } do
-          %i.fa-solid.fa-pen-to-square
-    .progress-bar
-      .progress{style: "width: #{@exam.score(current_user)}%"}
-  - else
-    .flex-row
-      .font-secondary No score recorded
-      .icon-button
-        = link_to edit_exam_result_path(@exam), { title: "Edit #{@exam.name} Score" } do
-          %i.fa-solid.fa-pen-to-square
-- if @time_until_due
-  .countdown-container
-    .countdown-card
-      %h1= @time_until_due[0].to_i
-      %h3= "Days"
-    .countdown-card
-      %h1= @time_until_due[1].to_i
-      %h3= "Hours"
-    .countdown-card
-      %h1= @time_until_due[2].to_i
-      %h3= "Minutes"
-    .countdown-card
-      %h1=@time_until_due[3].to_i
-      %h3= "Seconds"
+  .body
+    - if @exam.score(current_user)
+      .flex-row
+        %h1.mb-0= @exam.score(current_user).to_s + '%'
+        .icon-button
+          = link_to edit_exam_result_path(@exam), { title: "Edit #{@exam.name} Score" } do
+            %i.fa-solid.fa-pen-to-square
+      .progress-bar
+        .progress{style: "width: #{@exam.score(current_user)}%"}
+    - else
+      .flex-row
+        .font-secondary No score recorded
+        .icon-button
+          = link_to edit_exam_result_path(@exam), { title: "Edit #{@exam.name} Score" } do
+            %i.fa-solid.fa-pen-to-square
+
+.gt-empty-card 
+  .heading
+    - if @exam.due
+      .font-secondary= @exam.due.strftime("%A %d %b %Y, %H:%M")
+    - else 
+      .font-secondary= "No due date set"
+  .body
+    - if @time_until_due && !@exam.completed
+      .countdown-container
+        .countdown-card
+          %h1= @time_until_due[0].to_i
+          %h3= "Days"
+        .countdown-card
+          %h1= @time_until_due[1].to_i
+          %h3= "Hours"
+        .countdown-card
+          %h1= @time_until_due[2].to_i
+          %h3= "Minutes"
+        .countdown-card
+          %h1=@time_until_due[3].to_i
+          %h3= "Seconds"
+
+    - if !@exam.completed
+      = form_with url: mark_completed_uni_module_exam_path(@uni_module, @exam), method: :patch, local: true do |f|
+        = f.submit "Mark as Completed", class: "btn card-button w-100", data: { turbo_confirm: "Are you sure?" }
+    - else
+      .font-secondary= "Exam Completed"
