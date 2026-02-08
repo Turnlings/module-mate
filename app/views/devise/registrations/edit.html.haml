@@ -1,40 +1,42 @@
 .form-card-container
-  .gt-card.gt-form
-    .form-heading
-      .icon-button
-        = link_to :back do
-          %i.fa-solid.fa-arrow-left
+  = link_to :back, class:'unstyle-link font-secondary mb-1' do
+    %i.fa-solid.fa-arrow-left
+    %span="Back"
+  .gt-empty-card.gt-form
+    .heading
       %h2 Edit Account
-    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-      = render "devise/shared/error_messages", resource: resource
-      .field
-        = f.label :email
-        %br/
-        = f.email_field :email, autofocus: true, autocomplete: "email"
-      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-        %div
-          Currently waiting confirmation for: #{resource.unconfirmed_email}
-      .field
-        = f.label :password
-        %i (leave blank if you don't want to change it)
-        %br/
-        = f.password_field :password, autocomplete: "new-password"
-        - if @minimum_password_length
+    .body
+      = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+        = render "devise/shared/error_messages", resource: resource
+        .field
+          = f.label :email
           %br/
-          %em
-            = @minimum_password_length
-            characters minimum
-      .field
-        = f.label :password_confirmation
-        %br/
-        = f.password_field :password_confirmation, autocomplete: "new-password"
-      .field
-        = f.label :current_password
-        %i (to confirm your changes)
-        %br/
-        = f.password_field :current_password, autocomplete: "current-password"
-      .actions
-        = f.submit "Update"
+          = f.email_field :email, autofocus: true, autocomplete: "email"
+        - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+          %div
+            Currently waiting confirmation for: #{resource.unconfirmed_email}
+        .field
+          = f.label :password
+          %i (leave blank if you don't want to change it)
+          %br/
+          = f.password_field :password, autocomplete: "new-password"
+          - if @minimum_password_length
+            %br/
+            %em
+              = @minimum_password_length
+              characters minimum
+        .field
+          = f.label :password_confirmation
+          %br/
+          = f.password_field :password_confirmation, autocomplete: "new-password"
+        .field
+          = f.label :current_password
+          %i (to confirm your changes)
+          %br/
+          = f.password_field :current_password, autocomplete: "current-password"
+        .actions
+          = f.submit "Update"
+
   .gt-card
     %h3 Cancel Account
     %div

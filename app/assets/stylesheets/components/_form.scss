@@ -67,6 +67,7 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 0.5rem;
+    margin-bottom: 0.5rem;
 
     // Ensure both inputs in a split row share space evenly.
     > * {

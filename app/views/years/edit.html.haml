@@ -1,12 +1,13 @@
 .form-card-container
-  .gt-card.gt-form
-    .form-heading
-      .icon-button
-        = link_to @year do
-          %i.fa-solid.fa-arrow-left
+  = link_to year_path(@year), class:'unstyle-link font-secondary mb-1' do
+    %i.fa-solid.fa-arrow-left
+    %span="Back to #{@year.name}"
+  .gt-empty-card.gt-form
+    .heading
       %h1 Editing Year
 
-    = render 'form'
+    .body
+      = render 'form'
 
   .gt-card
     %h2= "Delete " + @year.name 

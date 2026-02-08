@@ -3,11 +3,12 @@
     %i.fa-solid.fa-arrow-left
     %span="Back to #{@uni_module.code} - #{@exam.name}"
 
-  .gt-card
-    .card-heading
+  .gt-empty-card
+    .heading
       %h1 Editing exam
 
-    = render 'form'
+    .body
+      = render 'form'
 
   .gt-card
     %h2= "Delete " + @exam.name 
