@@ -86,17 +86,17 @@ class ExamsController < ApplicationController
 
   def upcoming_assessments
     @upcoming_assessments = Exam
-                          .joins(:uni_module)
-                          .where('due > ?', Time.current)
-                          .where(uni_module: current_user.uni_modules)
-                          .order(:due)
-                          .includes(:uni_module)
+                            .joins(:uni_module)
+                            .where('due > ?', Time.current)
+                            .where(uni_module: current_user.uni_modules)
+                            .order(:due)
+                            .includes(:uni_module)
 
     @all_assessments = Exam
-                      .joins(:uni_module)
-                      .where(uni_module: current_user.uni_modules)
-                      .order(:due)
-                      .includes(:uni_module)
+                       .joins(:uni_module)
+                       .where(uni_module: current_user.uni_modules)
+                       .order(:due)
+                       .includes(:uni_module)
   end
 
   private
