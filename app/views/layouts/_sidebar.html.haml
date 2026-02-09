@@ -26,6 +26,8 @@
       = link_to "Quicklog",
         quick_log_form_path,
         data: { turbo_frame: "modal"}
+      = link_to all_upcoming_assessments_path do
+        Assessments
       = link_to uni_modules_path do
         All Modules
       - if @pinned_modules.present?
@@ -43,18 +45,7 @@
       .font-secondary.px-3 Next Assessment
       - if @next_exams
         - @next_exams.each do |exam|
-          = link_to uni_module_exam_path(exam.uni_module, exam) do
-            .name-row
-              .text-truncate= exam.name
-              .mod-code= exam.uni_module.code
-            .date-row
-              .due-date.font-secondary
-                Due:
-                = exam.due.strftime("%d %b %Y, %H:%M")
-              - if exam.due < 1.day.from_now
-                .chip-danger= "#{((exam.due - Time.current)/1.hour).floor} Hours"
-              - elsif exam.due < 1.week.from_now
-                .chip-warning= "#{(exam.due.to_date - Date.today).to_i} Days"
+          = render partial: 'shared/exam_card', locals: { exam: exam }
       - else
         %span No upcoming assessments.
 
@@ -73,6 +64,8 @@
         = link_to "Quicklog",
           quick_log_form_path,
           data: { turbo_frame: "modal" }
+        = link_to all_upcoming_assessments_path do
+          Assessments
         = link_to uni_modules_path do
           All Modules
         - if @pinned_modules.present?
