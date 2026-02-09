@@ -1,0 +1,23 @@
+.gt-empty-card 
+  .heading
+    %h1 Upcoming Assessments
+
+  .body
+    .link-cards-list
+      - if @upcoming_assessments
+        - @upcoming_assessments.each do |exam|
+          = render partial: 'shared/exam_card', locals: { exam: exam }
+      - else
+        %span No upcoming assessments.
+
+.gt-empty-card 
+  .heading
+    %h1 All Assessments
+
+  .body
+    .link-cards-list
+      - if @all_assessments
+        - @all_assessments.each do |exam|
+          = render partial: 'shared/exam_card', locals: { exam: exam }
+      - else
+        %span No assessments. Create one on the relevant module page.

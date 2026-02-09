@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
                   .where('due > ?', Time.current)
                   .where(uni_module: current_user.uni_modules)
                   .order(:due)
-                  .limit(3)
+                  .limit(1)
                   .includes(:uni_module)
   end
 end

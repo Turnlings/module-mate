@@ -1,0 +1,16 @@
+= link_to uni_module_exam_path(exam.uni_module, exam) do
+  .name-row
+    .text-truncate= exam.name
+    .mod-code= exam.uni_module.code
+  - if exam.due
+    .date-row
+      .due-date.font-secondary
+        Due:
+        = exam.due.strftime("%d %b %Y, %H:%M")
+      - if exam.due < Time.current
+        - if exam.completed
+          .chip-success= "Completed"
+      - elsif exam.due < 1.day.from_now
+        .chip-danger= "#{((exam.due - Time.current)/1.hour).floor} Hours"
+      - elsif exam.due < 1.week.from_now
+        .chip-warning= "#{(exam.due.to_date - Date.today).to_i} Days"
