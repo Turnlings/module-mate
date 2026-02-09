@@ -40,7 +40,7 @@
       %hr
 
       -# TODO: Do I want a link to all upcoming exams 
-      .font-secondary.px-3 Upcoming Assessments
+      .font-secondary.px-3 Next Assessment
       - if @next_exams
         - @next_exams.each do |exam|
           = link_to uni_module_exam_path(exam.uni_module, exam) do
