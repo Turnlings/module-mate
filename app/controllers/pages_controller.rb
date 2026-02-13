@@ -21,7 +21,7 @@ class PagesController < ApplicationController
     @uni_module = find_module
     return module_not_found unless @uni_module
 
-    @timelog = build_timelog(minutes)
+    @timelog = build_timelog(minutes, params[:description])
 
     @timelog.save ? respond_success : respond_failed
   end
@@ -96,11 +96,14 @@ class PagesController < ApplicationController
     respond_error('Module not found.', :not_found)
   end
 
-  def build_timelog(minutes)
+  def build_timelog(minutes, description = nil)
     @uni_module.timelogs.new(
-      minutes: minutes,
-      user: current_user,
-      date: Date.current
+      {
+        minutes: minutes,
+        user: current_user,
+        date: Date.current,
+        description: description
+      }.compact
     )
   end
 
