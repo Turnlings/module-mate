@@ -8,11 +8,19 @@
                 method: :get,
                 local: true,
                 html: { class: "gt-form cumulative-toggle-form" } do |f|
-
-      = f.select :cumulative,
-          [["Cumulative", "true"], ["Daily", "false"]],
-          { selected: params[:cumulative] || "true" },
-          { onchange: "this.form.submit()", class: "cumulative-dropdown text-muted" }
+      .split-row
+        = f.select :date_since,
+            [ ["All Time", "all"],
+              ["Last Week", "1_week"],
+              ["Last Month", "1_month"],
+              ["Last 3 Months", "3_months"],
+              ["Last 6 Months", "6_months"]],
+            { selected: params[:date_since] || "all" },
+            { onchange: "this.form.submit()", class: "cumulative-dropdown text-muted" }
+        = f.select :cumulative,
+            [["Cumulative", "true"], ["Daily", "false"]],
+            { selected: params[:cumulative] || "true" },
+            { onchange: "this.form.submit()", class: "cumulative-dropdown text-muted" }
 
   .body
     .chart-container

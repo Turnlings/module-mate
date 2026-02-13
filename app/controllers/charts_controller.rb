@@ -1,7 +1,7 @@
 class ChartsController < ApplicationController
   def time_dashboard
     cumulative = params[:cumulative] != 'false'
-    service = TimelogGraphService.new(current_user, current_user, cumulative: cumulative)
+    service = TimelogGraphService.new(current_user, current_user, cumulative: cumulative, date_since_s: params[:date_since])
     data = service.call
 
     render json: data
@@ -12,7 +12,7 @@ class ChartsController < ApplicationController
     authorize! :read, year
 
     cumulative = params[:cumulative] != 'false'
-    service = TimelogGraphService.new(current_user, year, cumulative: cumulative)
+    service = TimelogGraphService.new(current_user, year, cumulative: cumulative, date_since_s: params[:date_since])
     data = service.call
 
     render json: data
@@ -23,7 +23,7 @@ class ChartsController < ApplicationController
     authorize! :read, semester
 
     cumulative = params[:cumulative] != 'false'
-    service = TimelogGraphService.new(current_user, semester, cumulative: cumulative)
+    service = TimelogGraphService.new(current_user, semester, cumulative: cumulative, date_since_s: params[:date_since])
     data = service.call
 
     render json: data
@@ -34,7 +34,7 @@ class ChartsController < ApplicationController
     authorize! :read, uni_module
 
     cumulative = params[:cumulative] != 'false'
-    service = TimelogGraphService.new(current_user, uni_module, cumulative: cumulative)
+    service = TimelogGraphService.new(current_user, uni_module, cumulative: cumulative, date_since_s: params[:date_since])
     data = service.call
 
     render json: data
