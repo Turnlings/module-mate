@@ -34,22 +34,4 @@
       = link_to '+ New Module', new_uni_module_path(semester_id: @semester.id), class: 'card-button'
 
 -# Graph
-.gt-empty-card
-  .heading
-    .mini-stat
-      .title Minutes Spent
-      .figure= @semester.total_minutes
-
-    = form_with url: request.path,
-                method: :get,
-                local: true,
-                html: { class: "gt-form cumulative-toggle-form" } do |f|
-
-      = f.select :cumulative,
-          [["Cumulative", "true"], ["Daily", "false"]],
-          { selected: params[:cumulative] || "true" },
-          { onchange: "this.form.submit()", class: "cumulative-dropdown text-muted" }
-
-  .body
-    .chart-container
-      = line_chart time_semester_path(semester_id: @semester.id, cumulative: params[:cumulative]), curve: false, legend: false, width: "100%" #, height:"100%"
+= render partial: 'shared/time_chart', locals: { subject: @semester, time_path: -> { time_semester_path(semester_id: @semester.id, cumulative: params[:cumulative]) } }
