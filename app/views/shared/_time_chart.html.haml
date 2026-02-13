@@ -8,7 +8,7 @@
                 method: :get,
                 local: true,
                 html: { class: "gt-form cumulative-toggle-form" } do |f|
-      .split-row
+      .split-row.mobile-col
         = f.select :date_since,
             [ ["All Time", "all"],
               ["Last Week", "1_week"],
