@@ -1,0 +1,27 @@
+.gt-empty-card
+  .heading
+    .mini-stat
+      .title Minutes Spent
+      .figure= subject.total_minutes
+
+    = form_with url: request.path,
+                method: :get,
+                local: true,
+                html: { class: "gt-form cumulative-toggle-form" } do |f|
+      .split-row.mobile-col
+        = f.select :date_since,
+            [ ["All Time", "all"],
+              ["Last Week", "1_week"],
+              ["Last Month", "1_month"],
+              ["Last 3 Months", "3_months"],
+              ["Last 6 Months", "6_months"]],
+            { selected: params[:date_since] || "all" },
+            { onchange: "this.form.submit()", class: "cumulative-dropdown text-muted" }
+        = f.select :cumulative,
+            [["Cumulative", "true"], ["Daily", "false"]],
+            { selected: params[:cumulative] || "true" },
+            { onchange: "this.form.submit()", class: "cumulative-dropdown text-muted" }
+
+  .body
+    .chart-container
+      = line_chart time_path.call, curve: false, legend: false, width: "100%", height:"300px", library: { responsive: true, maintainAspectRatio: false }
