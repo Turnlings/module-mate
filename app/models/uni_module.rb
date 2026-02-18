@@ -27,8 +27,13 @@ class UniModule < ApplicationRecord
     credits.to_f / semesters.count
   end
 
-  def total_minutes
-    timelogs.sum(:minutes)
+  def total_minutes(since_string = 'all')
+    since = TimelogGraphService.date_of(since_string)
+
+    scope = timelogs
+    scope = scope.where(date: since..) if since.present?
+
+    scope.sum(:minutes)
   end
 
   def exams_with_results(user)

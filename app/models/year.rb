@@ -21,11 +21,16 @@ class Year < ApplicationRecord
     uni_modules.sum(&:credits)
   end
 
-  def total_minutes
+  def total_minutes(since_string = 'all')
     # When a module is associated to multiple semesters, the join behind
     # `timelogs` can duplicate rows and cause sums to be inflated.
     # Dedupe by timelog id before aggregating.
-    Timelog.where(id: timelogs.select(:id)).sum(:minutes)
+    since = TimelogGraphService.date_of(since_string)
+
+    scope = Timelog.where(id: timelogs.select(:id))
+    scope = scope.where(date: since..) if since.present?
+
+    scope.sum(:minutes)
   end
 
   # The average of all the grades of the semesters in this year
