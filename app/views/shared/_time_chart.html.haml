@@ -2,7 +2,7 @@
   .heading
     .mini-stat
       .title Minutes Spent
-      .figure= subject.total_minutes
+      .figure= subject.total_minutes(date_since)
 
     = form_with url: request.path,
                 method: :get,

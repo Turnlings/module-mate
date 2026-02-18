@@ -2,7 +2,7 @@
 = render partial: 'shared/dashboard_stats'
 
 -# Graph on left
-= render partial: 'shared/time_chart', locals: { subject: current_user, time_path: -> { time_dashboard_path(cumulative: params[:cumulative], date_since: params[:date_since]) } }
+= render partial: 'shared/time_chart', locals: { subject: current_user, time_path: -> { time_dashboard_path(cumulative: params[:cumulative], date_since: params[:date_since]) }, date_since: params[:date_since] }
 
 -# Years
 .gt-empty-card

@@ -24,6 +24,23 @@ class TimelogGraphService
     end
   end
 
+  def self.date_of(since_string)
+    case since_string
+    when 'all'
+      start_date = nil
+    when '1_week'
+      start_date = 1.week.ago.to_date
+    when '1_month'
+      start_date = 1.month.ago.to_date
+    when '3_months'
+      start_date = 3.months.ago.to_date
+    when '6_months'
+      start_date = 6.months.ago.to_date
+    end
+
+    start_date
+  end
+
   private
 
   def processed_data(mod)
@@ -40,19 +57,6 @@ class TimelogGraphService
   end
 
   def date_of(since_string)
-    case since_string
-    when 'all'
-      start_date = nil
-    when '1_week'
-      start_date = 1.week.ago.to_date
-    when '1_month'
-      start_date = 1.month.ago.to_date
-    when '3_months'
-      start_date = 3.months.ago.to_date
-    when '6_months'
-      start_date = 6.months.ago.to_date
-    end
-
-    start_date
+    self.class.date_of(since_string)
   end
 end

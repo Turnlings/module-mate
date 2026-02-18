@@ -62,8 +62,13 @@ class User < ApplicationRecord
     uni_modules.where(pinned: true).distinct
   end
 
-  def total_minutes
-    timelogs.sum(:minutes)
+  def total_minutes(since_string = 'all')
+    since = TimelogGraphService.date_of(since_string)
+
+    scope = timelogs
+    scope = scope.where(date: since..) if since.present?
+
+    scope.sum(:minutes)
   end
 
   def study_streak(as_of: Date.yesterday)
