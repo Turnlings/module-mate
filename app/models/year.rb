@@ -18,7 +18,7 @@ class Year < ApplicationRecord
   end
 
   def credits
-    uni_modules.sum(&:credits)
+    uni_modules.sum { |m| m.credits.to_i }
   end
 
   def total_minutes(since_string = 'all')
@@ -58,10 +58,10 @@ class Year < ApplicationRecord
 
   # The accumulated score of all the completed exams in this year
   def achieved_score(user)
-    total_credits = uni_modules.sum(&:credits)
+    total_credits = uni_modules.sum { |m| m.credits.to_i }
     return 0 if total_credits.zero?
 
-    weighted_sum = uni_modules.sum { |m| m.credits * m.achieved_score(user) }
+    weighted_sum = uni_modules.sum { |m| m.credits.to_i * m.achieved_score(user) }
     weighted_sum / total_credits
   end
 
