@@ -6,7 +6,8 @@ class ExamsController < ApplicationController
 
   # GET /exams or /exams.json
   def index
-    @exams = Exam.all
+    @uni_module = UniModule.find(params[:uni_module_id])
+    @exams = @uni_module.exams
   end
 
   # GET /exams/1 or /exams/1.json
