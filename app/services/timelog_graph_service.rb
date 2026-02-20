@@ -51,9 +51,7 @@ class TimelogGraphService
 
     raw = raw_scope.group_by_day(:date).sum(:minutes)
 
-    unless @cumulative
-      return raw.reject { |_date, minutes| minutes.to_i.zero? }
-    end
+    return raw.reject { |_date, minutes| minutes.to_i.zero? } unless @cumulative
 
     total = 0
     raw.transform_values { |m| total += m }
