@@ -50,7 +50,8 @@ class TimelogGraphService
     raw_scope = raw_scope.where(date: start_date..) if start_date.present?
 
     raw = raw_scope.group_by_day(:date).sum(:minutes)
-    return raw unless @cumulative
+
+    return raw.reject { |_date, minutes| minutes.to_i.zero? } unless @cumulative
 
     total = 0
     raw.transform_values { |m| total += m }
