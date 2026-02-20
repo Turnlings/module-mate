@@ -50,8 +50,8 @@ class Year < ApplicationRecord
   # The percentage of credits completed by the user in this year
   def progress(user)
     # Calculate for each module: credit_share * completion_percentage
-    completed_credits = uni_modules.sum { |m| m.credits * m.completion_percentage(user) / 100.0 }
-    total_credits = uni_modules.sum(&:credits)
+    completed_credits = uni_modules.sum { |m| m.credits.to_i * m.completion_percentage(user) / 100.0 }
+    total_credits = uni_modules.sum { |m| m.credits.to_i }
 
     total_credits.zero? ? 0 : (completed_credits / total_credits) * 100
   end
