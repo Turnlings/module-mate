@@ -35,4 +35,4 @@
 
 -# Graph
 = turbo_frame_tag "semester_time_chart" do
-  = render partial: 'shared/time_chart', locals: { subject: @semester, time_path: -> { time_semester_path(semester_id: @semester.id, cumulative: params[:cumulative], date_since: params[:date_since]) }, date_since: params[:date_since] }
+  = render partial: 'shared/time_chart', locals: { subject: @semester, time_path: -> { time_semester_path(id: @semester.id, cumulative: params[:cumulative], date_since: params[:date_since]) }, date_since: params[:date_since], form_url: semester_path(@semester), turbo_frame_id: "semester_time_chart" }
