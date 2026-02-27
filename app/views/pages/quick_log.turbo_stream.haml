@@ -1,2 +1,21 @@
 = turbo_stream.replace "modal" do
   = turbo_frame_tag "modal"
+
+= turbo_stream.replace "dashboard_time_chart" do 
+  = turbo_frame_tag "dashboard_time_chart" do
+    = render partial: 'shared/time_chart', locals: { subject: current_user, time_path: -> { time_dashboard_path(cumulative: params[:cumulative], date_since: params[:date_since]) }, date_since: params[:date_since] }
+
+- if @ql_year.present?
+  = turbo_stream.replace "year_time_chart" do 
+    = turbo_frame_tag "year_time_chart" do
+      = render partial: 'shared/time_chart', locals: { subject: @ql_year, time_path: -> { time_year_path(id: @ql_year.id, cumulative: params[:cumulative], date_since: params[:date_since]) }, date_since: params[:date_since] }
+
+- if @ql_semester.present?
+  = turbo_stream.replace "semester_time_chart" do 
+    = turbo_frame_tag "semester_time_chart" do
+      = render partial: 'shared/time_chart', locals: { subject: @ql_semester, time_path: -> { time_semester_path(id: @ql_semester.id, cumulative: params[:cumulative], date_since: params[:date_since]) }, date_since: params[:date_since] }
+
+- if @ql_uni_module.present?
+  = turbo_stream.replace "uni_module_time_chart" do 
+    = turbo_frame_tag "uni_module_time_chart" do
+      = render partial: 'shared/time_chart', locals: { subject: @ql_uni_module, time_path: -> { time_module_path(id: @ql_uni_module.id, cumulative: params[:cumulative], date_since: params[:date_since]) }, date_since: params[:date_since] }

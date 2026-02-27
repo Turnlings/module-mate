@@ -1,3 +1,8 @@
+- quicklog_params = {}
+- quicklog_params[:year_id] = @year.id if defined?(@year) && @year.present?
+- quicklog_params[:semester_id] = @semester.id if defined?(@semester) && @semester.present?
+- quicklog_params[:uni_module_id] = @uni_module.id if defined?(@uni_module) && @uni_module.present?
+
 .top  
   .side-heading
     .d-flex.flex-row.align-items-center
@@ -24,7 +29,7 @@
       = link_to root_path do
         Dashboard
       = link_to "Quicklog",
-        quick_log_form_path,
+        quick_log_form_path(quicklog_params),
         data: { turbo_frame: "modal"}
       = link_to all_upcoming_assessments_path do
         Assessments
@@ -62,7 +67,7 @@
         = link_to root_path do
           Dashboard
         = link_to "Quicklog",
-          quick_log_form_path,
+          quick_log_form_path(quicklog_params),
           data: { turbo_frame: "modal" }
         = link_to all_upcoming_assessments_path do
           Assessments
