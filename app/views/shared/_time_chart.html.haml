@@ -4,10 +4,13 @@
       .title Minutes Spent
       .figure= subject.total_minutes(date_since)
 
-    = form_with url: request.path,
+    - form_url = local_assigns[:form_url].presence || request.path
+    - turbo_frame_id = local_assigns[:turbo_frame_id]
+    - form_data = turbo_frame_id.present? ? { turbo_frame: turbo_frame_id } : {}
+    = form_with url: form_url,
                 method: :get,
-                local: true,
-                html: { class: "gt-form cumulative-toggle-form" } do |f|
+                data: form_data.merge(turbo: true),
+                html: { class: "gt-form cumulative-toggle-form", action: form_url } do |f|
       .split-row.mobile-col
         = f.select :date_since,
             [ ["All Time", "all"],
@@ -16,11 +19,11 @@
               ["Last 3 Months", "3_months"],
               ["Last 6 Months", "6_months"]],
             { selected: params[:date_since] || "all" },
-            { onchange: "this.form.submit()", class: "cumulative-dropdown text-muted" }
+            { onchange: "this.form.requestSubmit()", class: "cumulative-dropdown text-muted" }
         = f.select :cumulative,
             [["Cumulative", "true"], ["Daily", "false"]],
             { selected: params[:cumulative] || "true" },
-            { onchange: "this.form.submit()", class: "cumulative-dropdown text-muted" }
+            { onchange: "this.form.requestSubmit()", class: "cumulative-dropdown text-muted" }
 
   .body
     .chart-container
