@@ -2,6 +2,14 @@
   = render "shared/modal_wrapper", title: "Quicklog" do
     .gt-form
       = form_with url: quick_log_path do |f|
+        -# Send context so the turbo_stream response knows which chart(s) to refresh
+        - if defined?(@year) && @year.present?
+          = hidden_field_tag :year_id, @year.id
+        - if defined?(@semester) && @semester.present?
+          = hidden_field_tag :semester_id, @semester.id
+        - if defined?(@uni_module) && @uni_module.present?
+          = hidden_field_tag :uni_module_id, @uni_module.id
+
         .split-row
           %div{ data: { react_component: "ModuleSelect", props: { data: current_user.uni_modules.as_json(only: %i[id code name]), pinned: current_user.pinned_modules.as_json(only: %i[id code name]) }.to_json } }
           = f.number_field :minutes, placeholder: 'Minutes', class: "m-0"
@@ -13,6 +21,14 @@
   .gt-outline-card.gt-form
     %h2 Quicklog
     = form_with url: quick_log_path, local: true do |f|
+      -# Send context so the turbo_stream response knows which chart(s) to refresh
+      - if defined?(@year) && @year.present?
+        = hidden_field_tag :year_id, @year.id
+      - if defined?(@semester) && @semester.present?
+        = hidden_field_tag :semester_id, @semester.id
+      - if defined?(@uni_module) && @uni_module.present?
+        = hidden_field_tag :uni_module_id, @uni_module.id
+
       .split-row
         %div{ data: { react_component: "ModuleSelect", props: { data: current_user.uni_modules.as_json(only: %i[id code name]), pinned: current_user.pinned_modules.as_json(only: %i[id code name]) }.to_json } }
         = f.number_field :minutes, placeholder: 'Minutes', class: "m-0"

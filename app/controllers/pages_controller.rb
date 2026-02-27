@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[home about contact help privacy terms]
 
@@ -11,7 +12,11 @@ class PagesController < ApplicationController
     @years = current_user.years.order(weighting: :desc)
   end
 
-  def quick_log_form; end
+  def quick_log_form
+    @year = current_user.years.find_by(id: params[:year_id]) if params[:year_id].present?
+    @semester = current_user.semesters.find_by(id: params[:semester_id]) if params[:semester_id].present?
+    @uni_module = current_user.uni_modules.find_by(id: params[:uni_module_id]) if params[:uni_module_id].present?
+  end
 
   # Allows for the user to give a module code and minutes and get the time quickly logged
   def quick_log
@@ -22,6 +27,11 @@ class PagesController < ApplicationController
     return module_not_found unless @uni_module
 
     @timelog = build_timelog(minutes, params[:description])
+
+    # Set for the Turbo re-renders
+    @ql_year = current_user.years.find_by(id: params[:year_id]) if params[:year_id].present?
+    @ql_semester = current_user.semesters.find_by(id: params[:semester_id]) if params[:semester_id].present?
+    @ql_uni_module = current_user.uni_modules.find_by(id: params[:uni_module_id]) if params[:uni_module_id].present?
 
     @timelog.save ? respond_success : respond_failed
   end
@@ -128,3 +138,4 @@ class PagesController < ApplicationController
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

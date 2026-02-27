@@ -34,4 +34,5 @@
       = link_to '+ New Module', new_uni_module_path(semester_id: @semester.id), class: 'card-button'
 
 -# Graph
-= render partial: 'shared/time_chart', locals: { subject: @semester, time_path: -> { time_semester_path(semester_id: @semester.id, cumulative: params[:cumulative], date_since: params[:date_since]) }, date_since: params[:date_since] }
+= turbo_frame_tag "semester_time_chart" do
+  = render partial: 'shared/time_chart', locals: { subject: @semester, time_path: -> { time_semester_path(semester_id: @semester.id, cumulative: params[:cumulative], date_since: params[:date_since]) }, date_since: params[:date_since] }

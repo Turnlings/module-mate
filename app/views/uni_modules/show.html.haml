@@ -41,7 +41,8 @@
           = pie_chart @exam_data, legend: false, width: "100%", library: { aspectRatio: "1|1" }, id: 'exam-chart'
 
 -# Graph
-= render partial: 'shared/time_chart', locals: { subject: @uni_module, time_path: -> { time_module_path(uni_module_id: @uni_module.id, cumulative: params[:cumulative], date_since: params[:date_since]) }, date_since: params[:date_since] }
+= turbo_frame_tag "uni_module_time_chart" do
+  = render partial: 'shared/time_chart', locals: { subject: @uni_module, time_path: -> { time_module_path(uni_module_id: @uni_module.id, cumulative: params[:cumulative], date_since: params[:date_since]) }, date_since: params[:date_since] }
       
 .row
   .col
