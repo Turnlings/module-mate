@@ -58,6 +58,8 @@ class Year < ApplicationRecord
 
   # The accumulated score of all the completed exams in this year
   def achieved_score(user)
+    return final_score if final_score.present?
+
     total_credits = uni_modules.sum { |m| m.credits.to_i }
     return 0 if total_credits.zero?
 
