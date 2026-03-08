@@ -115,7 +115,7 @@ class SemestersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def semester_params
-    params.require(:semester).permit(:name, :year_id)
+    params.require(:semester).permit(:name, :year_id, :final_score)
   end
 
   def copy_semester(shared_semester, new_semester)

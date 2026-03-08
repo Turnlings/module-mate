@@ -12,6 +12,14 @@
   .stat-header {
     color: $text-muted;
     font-size: $secondary-size;
+
+    a {
+      color: $text-muted;
+      text-decoration: none;
+      &:hover {
+        color: $text;
+      }
+    }
   }
 
   .stat-content {

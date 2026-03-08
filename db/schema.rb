@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_02_07_224304) do
+ActiveRecord::Schema[7.2].define(version: 2026_03_08_211127) do
   create_table "exam_results", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "exam_id", null: false
@@ -50,6 +50,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_07_224304) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "share_token"
+    t.decimal "final_score", precision: 5, scale: 2
     t.index ["share_token"], name: "index_semesters_on_share_token", unique: true
     t.index ["year_id"], name: "index_semesters_on_year_id"
   end
@@ -91,6 +92,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_07_224304) do
     t.integer "credits"
     t.decimal "target"
     t.boolean "pinned", default: false
+    t.decimal "final_score", precision: 5, scale: 2
   end
 
   create_table "users", force: :cascade do |t|
@@ -113,6 +115,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_07_224304) do
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.float "weighting"
+    t.decimal "final_score", precision: 5, scale: 2
     t.index ["user_id"], name: "index_years_on_user_id"
   end
 
