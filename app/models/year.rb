@@ -60,6 +60,19 @@ class Year < ApplicationRecord
   def achieved_score(user)
     return final_score if final_score.present?
 
+    # If any semester has a final_score, use semester-level weighting.
+    if semesters.any? { |s| s.final_score.present? }
+      total_credits = semesters.sum { |s| s.credits.to_f }
+      return 0 if total_credits.zero?
+
+      weighted_sum = semesters.sum do |s|
+        score = s.final_score.present? ? s.final_score.to_f : s.achieved_score(user).to_f
+        s.credits.to_f * score
+      end
+
+      return weighted_sum / total_credits
+    end
+
     total_credits = uni_modules.sum { |m| m.credits.to_i }
     return 0 if total_credits.zero?
 
