@@ -60,24 +60,9 @@ class Year < ApplicationRecord
   def achieved_score(user)
     return final_score if final_score.present?
 
-    # If any semester has a final_score, use semester-level weighting.
-    if semesters.any? { |s| s.final_score.present? }
-      total_credits = semesters.sum { |s| s.credits.to_f }
-      return 0 if total_credits.zero?
+    return achieved_score_by_semester(user) if semesters.any? { |s| s.final_score.present? }
 
-      weighted_sum = semesters.sum do |s|
-        score = s.final_score.present? ? s.final_score.to_f : s.achieved_score(user).to_f
-        s.credits.to_f * score
-      end
-
-      return weighted_sum / total_credits
-    end
-
-    total_credits = uni_modules.sum { |m| m.credits.to_i }
-    return 0 if total_credits.zero?
-
-    weighted_sum = uni_modules.sum { |m| m.credits.to_i * m.achieved_score(user) }
-    weighted_sum / total_credits
+    achieved_score_by_module(user)
   end
 
   # Good enough with weighted average TODO: use exam results instead
@@ -86,5 +71,32 @@ class Year < ApplicationRecord
 
     scores = exam_results.map(&:score).compact
     scores.sum.to_f / scores.size
+  end
+
+  private
+
+  def achieved_score_by_semester(user)
+    total_credits = semesters.sum { |s| s.credits.to_f }
+    return 0 if total_credits.zero?
+
+    weighted_sum = semesters.sum do |semester|
+      semester.credits.to_f * semester_score_for_year(semester, user)
+    end
+
+    weighted_sum / total_credits
+  end
+
+  def semester_score_for_year(semester, user)
+    return semester.final_score.to_f if semester.final_score.present?
+
+    semester.achieved_score(user).to_f
+  end
+
+  def achieved_score_by_module(user)
+    total_credits = uni_modules.sum { |m| m.credits.to_i }
+    return 0 if total_credits.zero?
+
+    weighted_sum = uni_modules.sum { |m| m.credits.to_i * m.achieved_score(user) }
+    weighted_sum / total_credits
   end
 end
