@@ -20,7 +20,9 @@
     .stat-header Average Score
     .stat-content= number_with_precision(@semester.average_score(current_user), precision: 2) + '%'
   .stat 
-    .stat-header Achieved Score
+    .stat-header 
+      = link_to edit_semester_path(@semester, anchor: 'final_score') do
+        Achieved Score
     .stat-content= number_with_precision(@semester.achieved_score(current_user), precision: 2) + '%'
 
 .gt-empty-card
