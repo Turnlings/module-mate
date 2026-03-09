@@ -39,14 +39,13 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit_target
-  end
+  def edit_target; end
 
   def update_target
     if @user.update(target_params)
       redirect_to user_path(@user), notice: 'Target grade was successfully updated.'
     else
-      render :edit_target, status: :unprocessable_entity
+      render :edit_target, status: :unprocessable_content
     end
   end
 
