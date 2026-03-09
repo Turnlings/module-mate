@@ -12,5 +12,5 @@
       .stat-header Achieved Score
       .stat-content= number_with_precision(current_user.achieved_score, precision: 2) + '%'
     .stat 
-      .stat-header Exams
-      .stat-content= current_user.exams.count
+      .stat-header Predicted
+      .stat-content= number_with_precision(current_user.predicted_score, precision: 2) + '%'

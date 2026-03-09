@@ -47,6 +47,8 @@ class UniModule < ApplicationRecord
   end
 
   def progress(user)
+    return 100 if final_score.present?
+
     exams_with_results(user).sum(:weight)
   end
 
