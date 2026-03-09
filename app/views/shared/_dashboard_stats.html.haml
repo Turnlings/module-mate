@@ -1,8 +1,10 @@
 - cache [current_user] do  
   .stats-container 
     .stat 
-      .stat-header Module Count
-      .stat-content= link_to current_user.uni_modules.count, uni_modules_path
+      .stat-header 
+        = link_to user_path(current_user) do
+          Study Streak
+      .stat-content= "#{current_user.study_streak} #{'day'.pluralize(current_user.study_streak)}"
     .stat 
       .stat-header Average Score
       .stat-content= number_with_precision(current_user.average_score, precision: 2) + '%'
