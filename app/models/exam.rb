@@ -37,6 +37,13 @@ class Exam < ApplicationRecord
     (module_target - achieved) / (100 - completion) * 100
   end
 
+  def estimated_score(user)
+    return score(user) if score(user)
+
+    estimated = estimated_score_value(user)
+    estimated.positive? ? estimated : 0
+  end
+
   def result(user)
     ExamResult.find_by(user: user, exam: self)
   end
@@ -53,5 +60,21 @@ class Exam < ApplicationRecord
     hh, mm = mm.divmod(60)
     dd, hh = hh.divmod(24)
     [dd, hh, mm, ss]
+  end
+
+  private
+
+  def estimated_score_value(user)
+    remaining_weight = weight.to_f / 100
+    return 0 if remaining_weight.zero?
+
+    score_without_this = estimated_score_without_this_exam(user)
+    (uni_module.final_score.to_f - score_without_this) / remaining_weight
+  end
+
+  def estimated_score_without_this_exam(user)
+    uni_module.exams.where.not(id: id).sum do |exam|
+      exam.score(user).to_f * exam.weight / 100
+    end
   end
 end

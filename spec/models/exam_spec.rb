@@ -43,4 +43,48 @@ RSpec.describe Exam do
       expect(result).to eq [0, 0, 0, 0]
     end
   end
+
+  describe '#estimated_score' do
+    let(:user) { create(:user) }
+    let(:uni_module) { create(:uni_module) }
+    let(:exam) { create(:exam, uni_module: uni_module) }
+
+    context 'when the user has no exam result' do
+      it 'returns 0' do
+        expect(exam.estimated_score(user)).to eq(0)
+      end
+    end
+
+    context 'when the user has an exam result' do
+      it 'returns the score from the exam result' do
+        create(:exam_result, exam: exam, user: user, score: 85)
+        expect(exam.estimated_score(user)).to eq(85)
+      end
+    end
+
+    context 'when the user has an exam result with a score of 0' do
+      it 'returns 0' do
+        create(:exam_result, exam: exam, user: user, score: 0)
+        expect(exam.estimated_score(user)).to eq(0)
+      end
+    end
+
+    context 'when the user has an exam result with a score greater than 100' do
+      it 'returns the score from the exam result without capping at 100' do
+        create(:exam_result, exam: exam, user: user, score: 120)
+        expect(exam.estimated_score(user)).to eq(120)
+      end
+    end
+
+    context 'when the module has a final score and other exams with results' do
+      let(:uni_module) { create(:uni_module, final_score: 80) }
+      let!(:exam) { create(:exam, uni_module: uni_module, weight: 50) }
+      let!(:other_exam) { create(:exam, uni_module: uni_module, weight: 50) }
+
+      it 'returns the final score if it is present' do
+        create(:exam_result, exam: other_exam, user: user, score: 70)
+        expect(exam.estimated_score(user)).to eq(90)
+      end
+    end
+  end
 end

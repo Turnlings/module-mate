@@ -15,6 +15,8 @@
             .name= exam.name
             - if exam.score(current_user)
               .actual= "#{number_with_precision(exam.score(current_user), precision: 2)}%"
+            - elsif @uni_module.final_score.present? && exam.estimated_score(current_user).positive? && exam.estimated_score(current_user) <= 100
+              .required.text-muted= "Estimated: #{number_with_precision(exam.estimated_score(current_user), precision: 2)}%"
             - elsif exam.target(current_user)
               .required.text-muted= "Required: #{number_with_precision(exam.target(current_user), precision: 2)}%"
             - else 
