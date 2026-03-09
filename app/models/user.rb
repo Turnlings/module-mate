@@ -59,7 +59,7 @@ class User < ApplicationRecord
   end
 
   def predicted_score
-    return 0 if years.empty?
+    return 0 if years.empty? || progress.zero?
 
     achieved_score * 100 / progress
   end
