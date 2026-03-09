@@ -5,7 +5,12 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
-  resources :users, only: [:show]
+  resources :users, only: [:show] do
+    member do
+      get :edit_target
+      patch :update_target
+    end
+  end
   resources :years, except: [:index]
   resources :semesters
   get 'semesters/share/:share_token', to: 'semesters#share', as: :share_semester

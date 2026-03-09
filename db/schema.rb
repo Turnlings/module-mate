@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_03_08_211127) do
+ActiveRecord::Schema[7.2].define(version: 2026_03_09_232146) do
   create_table "exam_results", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "exam_id", null: false
@@ -106,6 +106,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_08_211127) do
     t.string "uid"
     t.string "email"
     t.datetime "terms_of_service_agreed_at"
+    t.decimal "target"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

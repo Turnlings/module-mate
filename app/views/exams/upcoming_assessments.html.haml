@@ -4,7 +4,7 @@
 
   .body
     .link-cards-list
-      - if @upcoming_assessments
+      - if @upcoming_assessments.present?
         - @upcoming_assessments.each do |exam|
           = render partial: 'shared/exam_card', locals: { exam: exam }
       - else

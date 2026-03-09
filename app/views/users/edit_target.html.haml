@@ -1,0 +1,28 @@
+.page-heading
+  %nav
+    %ol.breadcrumb
+      %li.breadcrumb-item= link_to 'Profile', user_path(@user)
+      %li.breadcrumb-item.active Target
+
+.gt-empty-card
+  .heading
+    %h2 Target grade
+  .body
+    .gt-form
+      = form_for @user, url: update_target_user_path(@user), method: :patch do |f|
+        - if @user.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@user.errors.count, 'error')} prohibited this from being saved:"
+            %ul
+              - @user.errors.full_messages.each do |message|
+                %li= message
+
+        .field
+          = f.label :target do
+            Target
+            %span.font-secondary= " (%)"
+          %p.font-secondary.mb-0 Used to calculate what you need going forward.
+          = f.number_field :target, step: 0.01, min: 0, max: 100
+
+        .actions
+          = f.submit 'Save'

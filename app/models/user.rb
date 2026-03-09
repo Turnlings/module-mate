@@ -58,6 +58,12 @@ class User < ApplicationRecord
     total / total_weight
   end
 
+  def predicted_score
+    return 0 if years.empty? || progress.zero?
+
+    achieved_score * 100 / progress
+  end
+
   def pinned_modules
     uni_modules.where(pinned: true).distinct
   end
@@ -91,6 +97,13 @@ class User < ApplicationRecord
     streak += 1 if timelogs.exists?(date: Time.zone.today)
 
     streak
+  end
+
+  def progress
+    return 0 if uni_modules.empty?
+
+    total_progress = years.sum { |year| year.progress(self) * year.weighting_non_null }
+    total_progress / 100.0
   end
 
   private
