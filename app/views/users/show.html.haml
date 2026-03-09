@@ -20,7 +20,16 @@
 
 .gt-empty-card
   .heading 
-    %h2 Assessments
+    .mini-stat
+      .flex-row
+        .title Target
+        .icon-button
+          = link_to edit_target_user_path(@user), class: "title" do
+            %i.fa-solid.fa-pen-to-square
+      - if @user.target.present?
+        .figure= number_with_precision(@user.target, precision: 2) + '%'
+      - else
+        .title No target grade set
   .body
     .chart-container
       = line_chart @exam_data, legend: false, width: "100%", height:"300px", points: true, curve: false, library: { responsive: true, maintainAspectRatio: false }

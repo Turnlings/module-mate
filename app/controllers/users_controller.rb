@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show]
+  before_action :set_user, only: %i[show edit_target update_target]
   authorize_resource
 
   # GET /users or /users.json
@@ -39,6 +39,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit_target
+  end
+
+  def update_target
+    if @user.update(target_params)
+      redirect_to user_path(@user), notice: 'Target grade was successfully updated.'
+    else
+      render :edit_target, status: :unprocessable_entity
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -72,5 +83,9 @@ class UsersController < ApplicationController
 
     # Normalize keys to string YYYY-MM-DD
     raw_logs.transform_keys { |k| k.to_date.to_s }
+  end
+
+  def target_params
+    params.require(:user).permit(:target)
   end
 end
