@@ -1,6 +1,10 @@
 = turbo_stream.replace "modal" do
   = turbo_frame_tag "modal"
 
+= turbo_stream.replace "dashboard_study_streak" do
+  = turbo_frame_tag "dashboard_study_streak" do
+    .stat-content= "#{current_user.study_streak} #{'day'.pluralize(current_user.study_streak)}"
+
 = turbo_stream.replace "dashboard_time_chart" do 
   = turbo_frame_tag "dashboard_time_chart" do
     = render partial: 'shared/time_chart', locals: { subject: current_user, time_path: -> { time_dashboard_path(cumulative: params[:cumulative], date_since: params[:date_since]) }, date_since: params[:date_since], form_url: dashboard_path, turbo_frame_id: "dashboard_time_chart" }
