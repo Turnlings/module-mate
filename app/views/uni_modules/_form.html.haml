@@ -29,6 +29,9 @@
         %span.font-secondary= " (%)"
       %p.font-secondary.mb-0 Override the calculated score with your official result.
       = f.number_field :final_score, step: 0.01, min: 0, max: 100
+    .field
+      = f.label :color, "Graph Colour"
+      = f.color_field :color
 
     .actions
       = f.submit 'Save'

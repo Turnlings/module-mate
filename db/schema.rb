@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_03_09_232146) do
+ActiveRecord::Schema[7.2].define(version: 2026_03_11_155618) do
   create_table "exam_results", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "exam_id", null: false
@@ -93,6 +93,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_09_232146) do
     t.decimal "target"
     t.boolean "pinned", default: false
     t.decimal "final_score", precision: 5, scale: 2
+    t.string "color"
   end
 
   create_table "users", force: :cascade do |t|
