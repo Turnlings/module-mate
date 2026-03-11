@@ -95,6 +95,6 @@ class UniModulesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def uni_module_params
-    params.require(:uni_module).permit(:code, :name, :credits, :target, :final_score, semester_ids: [])
+    params.require(:uni_module).permit(:code, :name, :credits, :target, :final_score, :color, semester_ids: [])
   end
 end

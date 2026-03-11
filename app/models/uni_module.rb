@@ -82,6 +82,10 @@ class UniModule < ApplicationRecord
     target.score
   end
 
+  def chart_color(index)
+    color.presence || MODULE_COLORS[index % MODULE_COLORS.length]
+  end
+
   private
 
   def touch_semesters
