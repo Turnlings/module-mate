@@ -1,11 +1,18 @@
 .gt-modal {
   color: $text;
   background-color: $bg-half-light;
+  border-radius: 0.5rem;
 
   .modal-header {
-    border-bottom: 1px solid $bg-light;
     display: flex;
     justify-content: space-between;
+    border-bottom: none;
+  }
+
+  .modal-body {
+    background-color: $bg;
+    border: 1px solid $bg-half-light;
+    border-radius: 0.5rem;
   }
 
   .btn-close {
