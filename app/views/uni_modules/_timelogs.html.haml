@@ -1,9 +1,10 @@
 .gt-empty-card
   .heading
     %h2 Timelog
-    .icon-button
-      = link_to new_uni_module_timelog_path(@uni_module), title: 'Log time' do
-        %i.fa-solid.fa-plus
+    = link_to new_uni_module_timelog_path(@uni_module), class: 'icon-button light', title: 'Log time' do
+      %i.fa-solid.fa-plus
+      %span Log Time
+
   .body
     %table.gt-table.mt-0
       %thead
@@ -19,8 +20,8 @@
             %td= timelog.created_at.strftime('%Y-%m-%d')
             %td= timelog.minutes
             %td= timelog.description
-            %td.text-end
-              .icon-button
-                = link_to edit_uni_module_timelog_path(@uni_module, timelog) do
-                  %i.fa-solid.fa-pen-to-square
+            %td
+              = link_to edit_uni_module_timelog_path(@uni_module, timelog), class: 'icon-button' do
+                %i.fa-solid.fa-pen-to-square
+                %span Edit
     = paginate @timelogs

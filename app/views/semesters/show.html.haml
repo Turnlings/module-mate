@@ -4,12 +4,12 @@
       %li.breadcrumb-item= link_to @semester.year.name, @semester.year
       %li.breadcrumb-item.active= @semester.name
   .button-row
-    .icon-button 
-      = link_to share_semester_url(@semester.share_token), { title: 'Share Template' } do
-        %i.fa-solid.fa-share
-    .icon-button
-      = link_to edit_semester_path(@semester) do
-        %i.fa-solid.fa-pen-to-square
+    = link_to share_semester_url(@semester.share_token), class: 'icon-button', title: 'Share Template' do
+      %i.fa-solid.fa-share
+      %span Share
+    = link_to edit_semester_path(@semester), class: 'icon-button' do
+      %i.fa-solid.fa-pen-to-square
+      %span Edit
 
 -# Stats
 .stats-container 
