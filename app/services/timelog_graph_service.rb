@@ -17,6 +17,7 @@ class TimelogGraphService
     modules = modules.includes(:timelogs) if modules.is_a?(ActiveRecord::Relation)
 
     modules
+      .sort_by(&:created_at)
       .map do |mod|
         {
           name: mod.name,
