@@ -16,10 +16,13 @@ class TimelogGraphService
     # All cases but UniModule
     modules = modules.includes(:timelogs) if modules.is_a?(ActiveRecord::Relation)
 
-    modules.map do |mod|
+    modules.sort_by(&:created_at).filter_map do |mod|
+      data = processed_data(mod)
+      next if data.blank?
+
       {
         name: mod.name,
-        data: processed_data(mod)
+        data: data
       }
     end
   end
