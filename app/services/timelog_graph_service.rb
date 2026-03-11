@@ -16,12 +16,13 @@ class TimelogGraphService
     # All cases but UniModule
     modules = modules.includes(:timelogs) if modules.is_a?(ActiveRecord::Relation)
 
-    modules.map do |mod|
-      {
-        name: mod.name,
-        data: processed_data(mod)
-      }
-    end
+    modules
+      .map do |mod|
+        {
+          name: mod.name,
+          data: processed_data(mod)
+        }
+      end.reject { |m| m[:data].blank? }
   end
 
   def self.date_of(since_string)
