@@ -2,19 +2,25 @@
   width: 100%;
   padding: 0.5rem;
   text-align: center;
-  margin: 0;
+  border-radius: 0.5rem;
 }
 
 .ab-notice {
-  background-color: $success;
+  color: $success;
+  border: 2px solid $success;
+  background-color: color-mix(in srgb, $success 10%, transparent);
 }
 
 .ab-danger {
-  background-color: $danger;
+  color: $danger;
+  border: 2px solid $danger;
+  background-color: color-mix(in srgb, $danger 10%, transparent);
 }
 
 .ab-warning {
-  background-color: $warning;
+  color: $warning;
+  border: 2px solid $warning;
+  background-color: color-mix(in srgb, $warning 10%, transparent);
 }
 
 .text-danger {
