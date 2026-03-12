@@ -6,14 +6,16 @@
   .gt-card.gt-form
     .card-heading 
       %h2= "Edit Score for #{@exam.name}"
-    = form_for [@exam_result] do |f|
-      = f.hidden_field :exam_id, value: @exam.id
+    = turbo_frame_tag "exam_score_#{@exam.id}" do
+      .gt-form
+        = form_for [@exam_result] do |f|
+          = f.hidden_field :exam_id, value: @exam.id
 
-      .field
-        = f.label :score do
-          Percentage
-          %span.font-secondary= " (%)"
-        = f.text_field :score
+          .field
+            = f.label :score do
+              Percentage
+              %span.font-secondary= " (%)"
+            = f.text_field :score
 
-      .actions
-        = f.submit 'Save'
+          .actions
+            = f.submit 'Save'

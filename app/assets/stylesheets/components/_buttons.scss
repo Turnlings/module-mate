@@ -17,6 +17,7 @@
 
 .icon-button {
   display: flex;
+  flex-direction: row !important;
   gap: 0.5em;
   border: 2px solid $bg-half-light;
   background-color: $bg;
@@ -33,18 +34,14 @@
     border: 2px solid $bg-light;
     background-color: $bg-half-light;
   }
-
-  i{
-
-  }
-
-  span{
-
-  }
 }
 
 .icon-button.light {
-  background-color: $bg-light;
+  background-color: $bg-half-light;
+
+  &:hover{
+    background-color: $bg-light;
+  }
 }
 
 .button-row {

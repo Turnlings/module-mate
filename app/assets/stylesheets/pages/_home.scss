@@ -1,12 +1,16 @@
 .page-heading {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
 
   font-size: 1.5rem;
 
   @media (max-width: $breakpoint-sm) {
     font-size: 1rem;
+    flex-direction: column;
+    align-items: start;
   }
 }
 

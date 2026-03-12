@@ -26,6 +26,7 @@ class UniModulesController < ApplicationController
 
   # GET /uni_modules/new
   def new
+    @semester = Semester.find(params[:semester_id]) if params[:semester_id]
     @uni_module = UniModule.new(semester_ids: [params[:semester_id]])
   end
 

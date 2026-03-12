@@ -21,7 +21,7 @@
             %td= timelog.minutes
             %td= timelog.description
             %td
-              = link_to edit_uni_module_timelog_path(@uni_module, timelog), class: 'icon-button' do
+              = link_to edit_uni_module_timelog_path(@uni_module, timelog), class: 'icon-button light' do
                 %i.fa-solid.fa-pen-to-square
                 %span Edit
     = paginate @timelogs

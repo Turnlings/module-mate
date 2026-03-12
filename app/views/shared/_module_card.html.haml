@@ -1,5 +1,5 @@
 - cache [uni_module.semesters.first, uni_module, current_user] do  
-  = link_to uni_module_path(uni_module) do
+  = link_to uni_module_path(uni_module), data: { turbo_frame: "_top" } do
     - progress = uni_module.progress(current_user)
     - achieved_score = uni_module.achieved_score(current_user)
     .space-between

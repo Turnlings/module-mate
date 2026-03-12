@@ -1,23 +1,28 @@
 .form-card-container
-  .gt-empty-card
-    .heading
-      %h1 New Semester
+  = turbo_frame_tag "semesters" do
+    .gt-empty-card
+      .heading
+        %h3 New Semester
 
-    .body
-      = render 'form'
+        = link_to year_path(@semester.year), class: 'icon-button light' do
+          %i.fa-solid.fa-arrow-left
+          %span Back
 
-  .gt-card
-    .card-heading
-      %h1 Import Semester
+      .body
+        = render 'form'
 
-    %span.font-secondary 
-      You can copy the template of another users semester.
+    .gt-card
+      .card-heading
+        %h1 Import Semester
 
-    .gt-form
-      = form_with url: import_redirect_semester_path(), method: :post, local: true do |f|
-        .field
-          = f.label :share_token, "Enter Code"
-          = f.text_field :share_token
-        
-        .actions
-          = f.submit 'Import'
+      %span.font-secondary 
+        You can copy the template of another users semester.
+
+      .gt-form
+        = form_with url: import_redirect_semester_path(), method: :post, local: true do |f|
+          .field
+            = f.label :share_token, "Enter Code"
+            = f.text_field :share_token
+          
+          .actions
+            = f.submit 'Import'
