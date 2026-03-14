@@ -1,6 +1,7 @@
 .gt-card {
   @include card;
 
+  width: 100%;
   position: relative;
 }
 
@@ -37,6 +38,7 @@
 }
 
 .gt-empty-card {
+  width: 100%;
   display: flex;
   flex-direction: column;
   border-radius: 0.5rem;

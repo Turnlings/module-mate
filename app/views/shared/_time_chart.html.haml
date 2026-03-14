@@ -11,7 +11,7 @@
                 method: :get,
                 data: form_data.merge(turbo: true),
                 html: { class: "gt-form cumulative-toggle-form", action: form_url } do |f|
-      .split-row.mobile-col
+      .split-row.mobile-col.h-100
         = f.select :date_since,
             [ ["All Time", "all"],
               ["Last Week", "1_week"],

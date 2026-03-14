@@ -20,6 +20,7 @@
   flex-direction: row !important;
   gap: 0.5em;
   border: 2px solid $bg-half-light;
+  box-sizing: border-box;
   background-color: $bg;
   color: $text-muted;
   font-size: 0.8em;
