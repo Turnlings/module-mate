@@ -7,6 +7,12 @@
 
   .stat {
     @include card;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   .stat-header {
@@ -26,11 +32,18 @@
     color: $brand-light;
     font-size: 2rem;
     line-height: 2rem;
+    display: flex;
+    flex-direction: row;
     text-decoration: none;
+    align-items: baseline;
 
     a {
       color: inherit;
       text-decoration: inherit;
+    }
+
+    .label {
+      margin-left: 0.3rem;
     }
   }
 
@@ -47,7 +60,14 @@
     }
 
     .stat-content {
-      font-size: 1rem;
+      font-size: 1.2rem;
+      line-height: 1.2rem;
+      white-space: nowrap;
+
+      .label {
+        margin-left: 0.1rem;
+        font-size: 0.9rem;
+      }
     }
   }
 }

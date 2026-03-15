@@ -5,7 +5,9 @@
         = link_to user_path(current_user) do
           Study Streak
       = turbo_frame_tag "dashboard_study_streak" do
-        .stat-content= "#{current_user.study_streak} #{'day'.pluralize(current_user.study_streak)}"
+        .stat-content
+          = current_user.study_streak
+          .label= "#{'day'.pluralize(current_user.study_streak)}"
     .stat 
       .stat-header Average Score
       .stat-content= number_with_precision(current_user.average_score, precision: 2) + '%'
