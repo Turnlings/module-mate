@@ -36,7 +36,7 @@ RSpec.describe 'ExamResults', type: :request do
              params: { exam_result: { exam_id: exam.id, score: 80 } }
       end.to change(ExamResult, :count).by(1)
 
-      expect(response).to redirect_to(uni_module_path(exam.uni_module))
+      expect(response).to redirect_to(uni_module_exam_path(exam.uni_module, exam))
       expect(flash[:notice]).to eq('Exam result was successfully created.')
     end
 
@@ -48,7 +48,7 @@ RSpec.describe 'ExamResults', type: :request do
              params: { exam_result: { exam_id: exam.id, score: nil } }
       end.not_to change(ExamResult, :count)
 
-      expect(response).to redirect_to(uni_module_path(exam.uni_module))
+      expect(response).to redirect_to(uni_module_exam_path(exam.uni_module, exam))
       expect(flash[:alert]).to eq('Failed to create exam result.')
     end
 
@@ -70,7 +70,7 @@ RSpec.describe 'ExamResults', type: :request do
       patch exam_result_path(exam_result),
             params: { exam_result: { score: 90 } }
 
-      expect(response).to redirect_to(uni_module_path(exam_result.exam.uni_module))
+      expect(response).to redirect_to(uni_module_exam_path(exam_result.exam.uni_module, exam_result.exam))
       expect(flash[:notice]).to eq('Exam result was successfully updated.')
       expect(exam_result.reload.score.to_f).to eq(90.0)
     end
@@ -83,7 +83,7 @@ RSpec.describe 'ExamResults', type: :request do
               params: { exam_result: { score: '' } }
       end.to change(ExamResult, :count).by(-1)
 
-      expect(response).to redirect_to(uni_module_path(exam_result.exam.uni_module))
+      expect(response).to redirect_to(uni_module_exam_path(exam_result.exam.uni_module, exam_result.exam))
       expect(flash[:notice]).to eq('Exam result was removed.')
     end
 
@@ -96,7 +96,7 @@ RSpec.describe 'ExamResults', type: :request do
       patch exam_result_path(exam_result),
             params: { exam_result: { score: 42 } }
 
-      expect(response).to redirect_to(uni_module_path(exam_result.exam.uni_module))
+      expect(response).to redirect_to(uni_module_exam_path(exam_result.exam.uni_module, exam_result.exam))
       expect(flash[:alert]).to eq('Failed to update exam result.')
     end
   end

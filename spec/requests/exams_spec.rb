@@ -57,7 +57,7 @@ RSpec.describe 'Exams', type: :request do
              params: { exam: { name: 'Midterm', weight: 30, due: 1.week.from_now, completed: false } }
       end.to change(Exam, :count).by(1)
 
-      expect(response).to redirect_to(uni_module_exam_path(uni_module, Exam.last))
+      expect(response).to redirect_to(uni_module_path(uni_module))
       follow_redirect!
       expect(response.body).to include('Exam was successfully created.')
     end

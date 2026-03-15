@@ -1,5 +1,5 @@
 .gt-form
-  = form_for @uni_module do |f|
+  = form_for @uni_module, data: { turbo_frame: "_top" } do |f|
     - if @uni_module.errors.any?
       #error_explanation
         %h2= "#{pluralize(@uni_module.errors.count, "error")} prohibited this uni_module from being saved:"

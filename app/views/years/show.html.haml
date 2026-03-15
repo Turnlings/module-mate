@@ -24,9 +24,9 @@
 = turbo_frame_tag "semesters" do
   .gt-empty-card
     .heading
-      %h3 Semesters
+      %h2 Semesters
 
-      = link_to new_semester_path(year_id: @year.id), class: 'icon-button light' do
+      = link_to new_semester_path(year_id: @year.id), class: 'icon-button light', title: 'Add New Semester' do
         %i.fa-solid.fa-plus
         %span Add
     .body

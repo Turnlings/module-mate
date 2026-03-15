@@ -28,9 +28,9 @@
 = turbo_frame_tag "modules" do
   .gt-empty-card
     .heading
-      %h3 Modules
+      %h2 Modules
 
-      = link_to new_uni_module_path(semester_id: @semester.id), class: 'icon-button light' do
+      = link_to new_uni_module_path(semester_id: @semester.id), class: 'icon-button light', title: 'Add New Module' do
         %i.fa-solid.fa-plus
         %span Add
     .body

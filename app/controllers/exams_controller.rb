@@ -40,7 +40,7 @@ class ExamsController < ApplicationController
 
     respond_to do |format|
       if @exam.save
-        format.html { redirect_to uni_module_exam_path(@uni_module, @exam), notice: 'Exam was successfully created.' }
+        format.html { redirect_to uni_module_path(@uni_module), notice: 'Exam was successfully created.' }
         format.json { render :show, status: :created, location: @exam }
       else
         format.html { render :new, status: :unprocessable_content }
