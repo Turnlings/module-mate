@@ -26,9 +26,9 @@
     .mini-stat
       .flex-row
         .title Target
-        .icon-button
-          = link_to edit_target_user_path(@user), class: "title" do
-            %i.fa-solid.fa-pen-to-square
+        = link_to edit_target_user_path(@user), class: "title icon-button" do
+          %i.fa-solid.fa-pen-to-square
+          %span Edit
       - if @user.target.present?
         .figure= number_with_precision(@user.target, precision: 2) + '%'
       - else

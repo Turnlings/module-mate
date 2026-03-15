@@ -26,8 +26,16 @@ class UniModulesController < ApplicationController
 
   # GET /uni_modules/new
   def new
-    @semester = Semester.find(params[:semester_id]) if params[:semester_id]
-    @uni_module = UniModule.new(semester_ids: [params[:semester_id]])
+    if params[:semester_id].present?
+      @semester = current_user.semesters.find_by(id: params[:semester_id])
+      @uni_module = if @semester
+                      UniModule.new(semester_ids: [@semester.id])
+                    else
+                      UniModule.new
+                    end
+    else
+      @uni_module = UniModule.new
+    end
   end
 
   # GET /uni_modules/1/edit
