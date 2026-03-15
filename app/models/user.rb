@@ -78,8 +78,6 @@ class User < ApplicationRecord
   end
 
   def study_streak(as_of: Date.yesterday)
-    return 15
-
     days = timelogs
            .where(date: ..as_of)
            .distinct

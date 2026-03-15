@@ -25,6 +25,7 @@ class UniModule < ApplicationRecord
 
   def credit_share
     return 0.0 if credits.nil?
+
     credits.to_f / semesters.size
   end
 
