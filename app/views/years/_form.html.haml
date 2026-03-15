@@ -1,5 +1,5 @@
 .gt-form
-  = form_for @year do |f|
+  = form_for @year, data: { turbo_frame: "_top" } do |f|
     - if @year.errors.any?
       #error_explanation
         %h2= "#{pluralize(@year.errors.count, "error")} prohibited this year from being saved:"

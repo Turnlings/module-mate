@@ -1,6 +1,6 @@
   
 - cache [semester, current_user] do   
-  = link_to semester_path(semester) do
+  = link_to semester_path(semester), data: { turbo_frame: "_top" } do
     - progress = semester.progress(current_user)
     - achieved_score = semester.achieved_score(current_user)
     .space-between

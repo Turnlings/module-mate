@@ -4,12 +4,12 @@
       %li.breadcrumb-item= link_to @semester.year.name, @semester.year
       %li.breadcrumb-item.active= @semester.name
   .button-row
-    .icon-button 
-      = link_to share_semester_url(@semester.share_token), { title: 'Share Template' } do
-        %i.fa-solid.fa-share
-    .icon-button
-      = link_to edit_semester_path(@semester) do
-        %i.fa-solid.fa-pen-to-square
+    = link_to share_semester_url(@semester.share_token), class: 'icon-button', title: 'Share Template' do
+      %i.fa-solid.fa-share
+      %span Share
+    = link_to edit_semester_path(@semester), class: 'icon-button' do
+      %i.fa-solid.fa-pen-to-square
+      %span Edit
 
 -# Stats
 .stats-container 
@@ -25,15 +25,18 @@
         Achieved Score
     .stat-content= number_with_precision(@semester.achieved_score(current_user), precision: 2) + '%'
 
-.gt-empty-card
-  .heading
-    %h3 Modules
-  .body
-    .link-cards-list
-      - @uni_modules.each do |uni_module|
-        = render partial: 'shared/module_card', locals: { uni_module: uni_module }
+= turbo_frame_tag "modules" do
+  .gt-empty-card
+    .heading
+      %h2 Modules
 
-      = link_to '+ New Module', new_uni_module_path(semester_id: @semester.id), class: 'card-button'
+      = link_to new_uni_module_path(semester_id: @semester.id), class: 'icon-button light', title: 'Add New Module' do
+        %i.fa-solid.fa-plus
+        %span Add
+    .body
+      .link-cards-list
+        - @uni_modules.each do |uni_module|
+          = render partial: 'shared/module_card', locals: { uni_module: uni_module }
 
 -# Graph
 = turbo_frame_tag "semester_time_chart" do

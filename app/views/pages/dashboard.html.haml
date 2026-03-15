@@ -6,12 +6,15 @@
   = render partial: 'shared/time_chart', locals: { subject: current_user, time_path: -> { time_dashboard_path(cumulative: params[:cumulative], date_since: params[:date_since]) }, date_since: params[:date_since], form_url: dashboard_path, turbo_frame_id: "dashboard_time_chart" }
 
 -# Years
-.gt-empty-card
-  .heading
-    %h3 Years
-  .body
-    .link-cards-list
-      - @years.each do |year|
-        = render partial: 'shared/year_card', locals: { year: year }
+= turbo_frame_tag "years" do
+  .gt-empty-card
+    .heading
+      %h2 Years
 
-      = link_to '+ New Year', new_year_path, class: 'card-button'
+      = link_to new_year_path, class: 'icon-button light', title: 'Add New Year' do
+        %i.fa-solid.fa-plus
+        %span Add
+    .body
+      .link-cards-list
+        - @years.each do |year|
+          = render partial: 'shared/year_card', locals: { year: year }

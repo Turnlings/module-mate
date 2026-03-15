@@ -20,23 +20,23 @@ class ExamResultsController < ApplicationController
     @exam_result.user = current_user
 
     if @exam_result.save
-      redirect_to uni_module_path(@uni_module), notice: 'Exam result was successfully created.'
+      redirect_to uni_module_exam_path(@uni_module, @exam), notice: 'Exam result was successfully created.'
     else
-      redirect_to uni_module_path(@uni_module), alert: 'Failed to create exam result.'
+      redirect_to uni_module_exam_path(@uni_module, @exam), alert: 'Failed to create exam result.'
     end
   end
 
   def update
     if exam_result_params[:score].blank?
       @exam_result.destroy
-      redirect_to uni_module_path(@uni_module), notice: 'Exam result was removed.'
+      redirect_to uni_module_exam_path(@uni_module, @exam), notice: 'Exam result was removed.'
       return
     end
 
     if @exam_result.update(exam_result_params)
-      redirect_to uni_module_path(@uni_module), notice: 'Exam result was successfully updated.'
+      redirect_to uni_module_exam_path(@uni_module, @exam), notice: 'Exam result was successfully updated.'
     else
-      redirect_to uni_module_path(@uni_module), alert: 'Failed to update exam result.'
+      redirect_to uni_module_exam_path(@uni_module, @exam), alert: 'Failed to update exam result.'
     end
   end
 

@@ -5,16 +5,16 @@
       %li.breadcrumb-item= link_to @semester.name, @semester 
       %li.breadcrumb-item.active= @uni_module.name
   .button-row
-    = button_to pin_uni_module_path(@uni_module), method: :patch, class: 'icon-button', title: (@uni_module.pinned? ? 'Unpin module' : 'Pin module') do
+    = button_to pin_uni_module_path(@uni_module), method: :patch, class: (@uni_module.pinned? ? 'icon-button' : 'icon-button unselected'), title: (@uni_module.pinned? ? 'Unpin module' : 'Pin module') do
       - if @uni_module.pinned?
-        .icon-button
-          %i.fa-solid.fa-thumbtack
+        %i.fa-solid.fa-thumbtack
+        %span Unpin
       - else
-        .icon-button.unselected
-          %i.fa-solid.fa-thumbtack
-    .icon-button
-      = link_to edit_uni_module_path(@uni_module) do
-        %i.fa-solid.fa-pen-to-square
+        %i.fa-solid.fa-thumbtack
+        %span Pin
+    = link_to edit_uni_module_path(@uni_module), class: 'icon-button' do
+      %i.fa-solid.fa-pen-to-square
+      %span Edit
 
 -# Stats
 .stats-container 

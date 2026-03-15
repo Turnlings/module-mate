@@ -3,9 +3,9 @@
     %ol.breadcrumb
       %li.breadcrumb-item.active= @year.name
   .right-button.button-row
-    .icon-button
-      = link_to edit_year_path(@year) do
-        %i.fa-solid.fa-pen-to-square
+    = link_to edit_year_path(@year), class: 'icon-button' do
+      %i.fa-solid.fa-pen-to-square
+      %span Edit
 
 -# Stats
 .stats-container 
@@ -21,15 +21,18 @@
         Achieved Score
     .stat-content= number_with_precision(@year.achieved_score(current_user), precision: 2) + '%'
 
-.gt-empty-card
-  .heading
-    %h3 Semesters
-  .body
-    .link-cards-list
-      - @year.semesters.each do |semester|
-        = render partial: 'shared/semester_card', locals: { semester: semester }
+= turbo_frame_tag "semesters" do
+  .gt-empty-card
+    .heading
+      %h2 Semesters
 
-      = link_to '+ New Semester', new_semester_path(year_id: @year.id), class: 'card-button'
+      = link_to new_semester_path(year_id: @year.id), class: 'icon-button light', title: 'Add New Semester' do
+        %i.fa-solid.fa-plus
+        %span Add
+    .body
+      .link-cards-list
+        - @year.semesters.each do |semester|
+          = render partial: 'shared/semester_card', locals: { semester: semester }
 
 -# Graph
 = turbo_frame_tag "year_time_chart" do

@@ -1,11 +1,16 @@
-.form-card-container  
-  = link_to uni_module_path(@uni_module), class:'unstyle-link font-secondary mb-1' do
+.form-card-container
+  = link_to uni_module_path(@uni_module), class: 'unstyle-link font-secondary mb-1' do
     %i.fa-solid.fa-arrow-left
     %span="Back to #{@uni_module.code}"
 
-  .gt-empty-card
-    .heading
-      %h1 New exam
+  = turbo_frame_tag "exams" do
+    .gt-empty-card
+      .heading  
+        %h2 New Assessment
 
-    .body
-      = render 'form'
+        = link_to uni_module_path(@uni_module), class: 'icon-button light' do
+          %i.fa-solid.fa-arrow-left
+          %span Back
+
+      .body
+        = render 'form'

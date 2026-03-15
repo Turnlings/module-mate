@@ -1,15 +1,18 @@
 .gt-card
   .card-heading
     %h1.text-truncate= @user.email
-    .icon-button
-      = link_to edit_user_registration_path do
-        %i.fa-solid.fa-pen-to-square
 
   .font-secondary
     %b Joined:
     = @user.created_at.strftime("%d %B, %Y")
 
-  = button_to "Logout", destroy_user_session_path, method: :delete, class: 'link-button mt-2'
+  .button-row.fs-5.mt-2
+    = link_to edit_user_registration_path, class: 'icon-button' do
+      %i.fa-solid.fa-pen-to-square
+      %span Edit Details
+    = button_to destroy_user_session_path, data: { confirm: "Are you sure you want to log out?", turbo_confirm: "Are you sure you want to log out?" }, method: :delete, class: 'icon-button' do
+      %i.fa-solid.fa-right-from-bracket
+      %span Logout
 
 .gt-empty-card 
   .heading 
@@ -23,9 +26,9 @@
     .mini-stat
       .flex-row
         .title Target
-        .icon-button
-          = link_to edit_target_user_path(@user), class: "title" do
-            %i.fa-solid.fa-pen-to-square
+        = link_to edit_target_user_path(@user), class: "title icon-button" do
+          %i.fa-solid.fa-pen-to-square
+          %span Edit
       - if @user.target.present?
         .figure= number_with_precision(@user.target, precision: 2) + '%'
       - else

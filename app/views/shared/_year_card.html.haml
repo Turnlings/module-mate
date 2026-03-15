@@ -1,5 +1,5 @@
-- cache [year, current_user] do   
-  = link_to year_path(year) do
+- cache [year, current_user] do
+  = link_to year_path(year), data: { turbo_frame: "_top" } do
     - progress = year.progress(current_user)
     - achieved_score = year.achieved_score(current_user)
     .space-between

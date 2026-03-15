@@ -1,5 +1,5 @@
 .gt-form
-  = form_for @semester do |f|
+  = form_for @semester, data: { turbo_frame: "_top" } do |f|
     - if @semester.errors.any?
       #error_explanation
         %h2= "#{pluralize(@semester.errors.count, "error")} prohibited this semester from being saved:"

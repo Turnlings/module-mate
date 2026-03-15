@@ -12,12 +12,12 @@ RSpec.describe 'Course structure', type: :system do
       fill_in 'Weighting', with: 100
       click_on 'Save'
 
-      click_on '+ New Semester'
+      find("a[title='Add New Semester']").click
       select 'First year', from: 'Year'
       fill_in 'Name', with: 'First semester'
       click_on 'Save'
 
-      click_on '+ New Module'
+      find("a[title='Add New Module']").click
       fill_in 'Code', with: 'MM101'
       fill_in 'Name', with: 'Intro to ModuleMate.app'
       fill_in 'Credits', with: 10
