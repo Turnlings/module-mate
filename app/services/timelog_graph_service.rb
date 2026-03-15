@@ -65,13 +65,24 @@ class TimelogGraphService
       raw = timelog_data[mod.id] || {}
       next if raw.blank?
 
-      data = cumulative? ? cumulative_sum(raw) : raw.reject { |_d, m| m.to_i.zero? }
+      trimmed = trim_to_active_range(raw)
+      data = cumulative? ? cumulative_sum(trimmed) : trimmed.reject { |_d, m| m.to_i.zero? }
       {
         name: mod.name,
         data: data,
         color: mod.chart_color(i)
       }
     end
+  end
+
+  def trim_to_active_range(data)
+    return data if data.blank?
+
+    dates = data.keys.reject { |date| data[date].to_i.zero? }
+    return data if dates.blank?
+
+    first, last = dates.minmax
+    data.select { |date, _| date.between?(first, last) }
   end
 
   def cumulative_sum(data)
