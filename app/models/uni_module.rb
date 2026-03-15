@@ -24,7 +24,8 @@ class UniModule < ApplicationRecord
   end
 
   def credit_share
-    credits.to_f / semesters.count
+    return 0.0 if credits.nil?
+    credits.to_f / semesters.size
   end
 
   def total_minutes(since_string = 'all')
