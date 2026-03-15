@@ -3,23 +3,69 @@ class TimelogGraphService
     @user = user
     @scope = scope
     @cumulative = cumulative
-    @date_since_s = date_since_s
+    @start_date = self.class.date_of(date_since_s)
   end
 
   def call
-    modules = case @scope
-              when User, Year, Semester then @scope.uni_modules
-              when UniModule then [@scope]
-              else []
-              end
+    modules = resolved_modules
+    return [] if modules.empty?
 
-    # All cases but UniModule
-    modules = modules.includes(:timelogs) if modules.is_a?(ActiveRecord::Relation)
+    timelog_data = grouped_timelog_data(modules)
+    build_chart_data(modules, timelog_data)
+  end
 
-    modules.sort_by(&:created_at).filter_map.with_index do |mod, i|
-      data = processed_data(mod)
-      next if data.blank?
+  def self.date_of(since_string)
+    case since_string
+    when 'all'      then nil
+    when '1_week'   then 1.week.ago.to_date
+    when '1_month'  then 1.month.ago.to_date
+    when '3_months' then 3.months.ago.to_date
+    when '6_months' then 6.months.ago.to_date
+    end
+  end
 
+  private
+
+  def cumulative?
+    @cumulative
+  end
+
+  def resolved_modules
+    case @scope
+    when User, Year, Semester
+      @scope.uni_modules.order(:created_at).to_a
+    when UniModule
+      [@scope]
+    else
+      []
+    end
+  end
+
+  def grouped_timelog_data(modules)
+    module_ids = modules.map(&:id)
+    scope = build_timelog_scope(module_ids)
+    results = scope.group(:uni_module_id).group_by_day(:date).sum(:minutes)
+    build_grouped_data_hash(results)
+  end
+
+  def build_timelog_scope(module_ids)
+    scope = Timelog.for_user(@user).where(uni_module_id: module_ids)
+    scope = scope.where(date: @start_date..) if @start_date
+    scope
+  end
+
+  def build_grouped_data_hash(results)
+    results.each_with_object(Hash.new { |h, k| h[k] = {} }) do |((mod_id, date), minutes), acc|
+      acc[mod_id][date] = minutes
+    end
+  end
+
+  def build_chart_data(modules, timelog_data)
+    modules.filter_map.with_index do |mod, i|
+      raw = timelog_data[mod.id] || {}
+      next if raw.blank?
+
+      data = cumulative? ? cumulative_sum(raw) : raw.reject { |_d, m| m.to_i.zero? }
       {
         name: mod.name,
         data: data,
@@ -28,40 +74,8 @@ class TimelogGraphService
     end
   end
 
-  def self.date_of(since_string)
-    case since_string
-    when 'all'
-      start_date = nil
-    when '1_week'
-      start_date = 1.week.ago.to_date
-    when '1_month'
-      start_date = 1.month.ago.to_date
-    when '3_months'
-      start_date = 3.months.ago.to_date
-    when '6_months'
-      start_date = 6.months.ago.to_date
-    end
-
-    start_date
-  end
-
-  private
-
-  def processed_data(mod)
-    start_date = date_of(@date_since_s)
-
-    raw_scope = mod.timelogs.for_user(@user)
-    raw_scope = raw_scope.where(date: start_date..) if start_date.present?
-
-    raw = raw_scope.group_by_day(:date).sum(:minutes)
-
-    return raw.reject { |_date, minutes| minutes.to_i.zero? } unless @cumulative
-
+  def cumulative_sum(data)
     total = 0
-    raw.transform_values { |m| total += m }
-  end
-
-  def date_of(since_string)
-    self.class.date_of(since_string)
+    data.transform_values { |m| total += m }
   end
 end
