@@ -7,10 +7,11 @@
       .due-date.font-secondary
         Due:
         = exam.due.strftime("%d %b %Y, %H:%M")
-      - if exam.due < Time.current
+      .space-between
         - if exam.completed
           .chip-success= "Completed"
-      - elsif exam.due < 1.day.from_now
-        .chip-danger= "#{((exam.due - Time.current)/1.hour).floor} Hours"
-      - elsif exam.due < 1.week.from_now
-        .chip-warning= "#{(exam.due.to_date - Date.today).to_i} Days"
+        - if exam.due < Time.current
+        - elsif exam.due < 1.day.from_now
+          .chip-danger{ class: ( "hide-on-mobile" if exam.completed ) }= "#{((exam.due - Time.current)/1.hour).floor} Hours"
+        - elsif exam.due < 1.week.from_now
+          .chip-warning{ class: ( "hide-on-mobile" if exam.completed ) }= "#{(exam.due.to_date - Date.today).to_i} Days"
