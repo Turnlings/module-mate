@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
                   .joins(:uni_module)
                   .where('due > ?', Time.current)
                   .where(uni_module: current_user.uni_modules)
+                  .where(completed: false)
                   .order(:due)
                   .limit(1)
                   .includes(:uni_module)

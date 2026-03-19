@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '3.3.0'
+ruby '3.3.1'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.2.0'
@@ -90,7 +90,7 @@ end
 
 gem 'bootstrap', '~> 5.3'
 gem 'chartkick'
-gem 'devise', '~> 4.9'
+gem 'devise', '~> 5.0'
 gem 'groupdate'
 gem 'haml-rails'
 gem 'sassc-rails'
@@ -111,6 +111,7 @@ gem 'postmark-rails'
 
 gem 'inline_svg'
 
-gem "react-rails", '~> 3.2'
+gem 'react-rails', '~> 3.2'
+gem 'connection_pool', '~> 2.4'
 
-gem "shakapacker", "~> 9.5.0"
+gem 'shakapacker', '~> 9.5.0'
