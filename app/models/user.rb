@@ -47,6 +47,14 @@ class User < ApplicationRecord
     exam_results.sum(:score) / exam_results.count.to_f
   end
 
+  def total_credits
+    years.sum { |year| year.credits * year.weighting_non_null }
+  end
+
+  def completed_credits
+    years.sum { |year| year.completed_credits(self) * year.weighting_non_null }
+  end
+
   def achieved_score
     return 0 if years.empty?
 
@@ -59,9 +67,9 @@ class User < ApplicationRecord
   end
 
   def predicted_score
-    return 0 if years.empty? || progress.zero?
+    return 0 if years.empty? || progress.zero? || completed_credits.zero?
 
-    achieved_score * 100 / progress
+    achieved_score * total_credits / completed_credits
   end
 
   def pinned_modules
