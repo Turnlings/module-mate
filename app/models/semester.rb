@@ -21,6 +21,8 @@ class Semester < ApplicationRecord
   end
 
   def credits
+    return 0 if uni_modules.empty?
+
     uni_modules.sum(&:credit_share)
   end
 
@@ -61,9 +63,8 @@ class Semester < ApplicationRecord
   def progress(user)
     return 100 if final_score.present?
 
-    total_credits = uni_modules.sum(&:credit_share)
     completed_credits = uni_modules.sum { |m| m.completion_percentage(user) * m.credit_share }
-    total_credits.zero? ? 0 : (completed_credits / total_credits)
+    credits.zero? ? 0 : (completed_credits / credits)
   end
 
   private

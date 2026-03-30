@@ -18,7 +18,7 @@ class Year < ApplicationRecord
   end
 
   def credits
-    uni_modules.sum { |m| m.credits.to_i }
+    semesters.sum(&:credits)
   end
 
   def total_minutes(since_string = 'all')
@@ -42,20 +42,37 @@ class Year < ApplicationRecord
   end
 
   def weighting_non_null
-    return 0 if weighting.nil?
+    return 0 if weighting.nil? || (uni_modules.empty? && final_score.nil?)
 
     weighting
+  end
+
+  def completed_credits(user)
+    return 0 if uni_modules.empty?
+
+    uni_modules.sum { |m| m.credits.to_i * m.completion_percentage(user) / 100.0 }
   end
 
   # The percentage of credits completed by the user in this year
   def progress(user)
     return 100 if final_score.present?
 
-    # Calculate for each module: credit_share * completion_percentage
-    completed_credits = uni_modules.sum { |m| m.credits.to_i * m.completion_percentage(user) / 100.0 }
+    completed_credits = completed_credits(user)
     total_credits = uni_modules.sum { |m| m.credits.to_i }
 
     total_credits.zero? ? 0 : (completed_credits / total_credits) * 100
+  end
+
+  def predicted_score(user)
+    return final_score if final_score.present?
+
+    # Use achieved_score for completed portion, extrapolate for the rest
+    progress = self.progress(user) / 100.0
+    return 0 if progress.zero?
+
+    achieved = achieved_score(user)
+
+    (achieved / progress).clamp(0, 100)
   end
 
   # The accumulated score of all the completed exams in this year
