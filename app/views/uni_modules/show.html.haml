@@ -23,12 +23,12 @@
     .stat-content= number_with_precision(@uni_module.credits, precision: 0)
   .stat 
     .stat-header Weighted Average
-    .stat-content= number_with_precision(@uni_module.weighted_average(current_user), precision: 2) + '%'
+    .stat-content= number_to_percentage(@uni_module.weighted_average(current_user), precision: 2)
   .stat 
     .stat-header 
       = link_to edit_uni_module_path(@uni_module, anchor: 'final_score') do
         Achieved Score
-    .stat-content= number_with_precision(@uni_module.achieved_score(current_user), precision: 2) + '%'
+    .stat-content= number_to_percentage(@uni_module.achieved_score(current_user), precision: 2)
 
 .exams-container
   .exams 

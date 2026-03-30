@@ -10,10 +10,10 @@
           .label= "#{'day'.pluralize(current_user.study_streak)}"
     .stat 
       .stat-header Average Score
-      .stat-content= number_with_precision(current_user.average_score, precision: 2) + '%'
+      .stat-content= number_to_percentage(current_user.average_score, precision: 2)
     .stat 
       .stat-header Achieved Score
-      .stat-content= number_with_precision(current_user.achieved_score, precision: 2) + '%'
+      .stat-content= number_to_percentage(current_user.achieved_score, precision: 2)
     .stat 
       .stat-header Predicted
-      .stat-content= number_with_precision(current_user.predicted_score, precision: 2) + '%'
+      .stat-content= number_to_percentage(current_user.predicted_score, precision: 2)
