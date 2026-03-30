@@ -14,12 +14,12 @@
     .stat-content= number_with_precision(@year.credits, precision: 0)
   .stat 
     .stat-header Average Score
-    .stat-content= number_with_precision(@year.average_score(current_user), precision: 2) + '%'
+    .stat-content= number_to_percentage(@year.average_score(current_user), precision: 2)
   .stat 
     .stat-header
       = link_to edit_year_path(@year, anchor: 'final_score') do
         Achieved Score
-    .stat-content= number_with_precision(@year.achieved_score(current_user), precision: 2) + '%'
+    .stat-content= number_to_percentage(@year.achieved_score(current_user), precision: 2)
 
 = turbo_frame_tag "semesters" do
   .gt-empty-card

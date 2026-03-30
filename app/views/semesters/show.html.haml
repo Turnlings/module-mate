@@ -18,12 +18,12 @@
     .stat-content= number_with_precision(@semester.credits, precision: 0)
   .stat 
     .stat-header Average Score
-    .stat-content= number_with_precision(@semester.average_score(current_user), precision: 2) + '%'
+    .stat-content= number_to_percentage(@semester.average_score(current_user), precision: 2)
   .stat 
     .stat-header 
       = link_to edit_semester_path(@semester, anchor: 'final_score') do
         Achieved Score
-    .stat-content= number_with_precision(@semester.achieved_score(current_user), precision: 2) + '%'
+    .stat-content= number_to_percentage(@semester.achieved_score(current_user), precision: 2)
 
 = turbo_frame_tag "modules" do
   .gt-empty-card

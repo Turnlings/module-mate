@@ -30,7 +30,7 @@
           %i.fa-solid.fa-pen-to-square
           %span Edit
       - if @user.target.present?
-        .figure= number_with_precision(@user.target, precision: 2) + '%'
+        .figure= number_to_percentage(@user.target, precision: 2)
       - else
         .title No target grade set
   .body

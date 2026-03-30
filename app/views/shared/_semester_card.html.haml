@@ -8,7 +8,7 @@
         .name= semester.name
         - if progress == 100
           = class_badge(achieved_score)
-      .actual= "#{number_with_precision(achieved_score, precision: 0)}%"
+      .actual= number_to_percentage(achieved_score, precision: 0)
     .space-between
       .font-secondary= "#{number_with_precision(semester.credits, precision: 0)} Credits"
-      .font-secondary= "#{number_with_precision(progress, precision: 0)}% Completed"
+      .font-secondary= "#{number_to_percentage(progress, precision: 0)} Completed"
