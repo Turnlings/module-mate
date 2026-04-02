@@ -1,5 +1,5 @@
 .gt-form
-  = form_for [@uni_module, @exam] do |f|
+  = form_for [@uni_module, @exam], html: { data: { controller: "assessment" } } do |f|
     - if @exam.errors.any?
       #error_explanation
         %h2= "#{pluralize(@exam.errors.count, "error")} prohibited this exam from being saved:"
@@ -17,11 +17,11 @@
       = f.text_field :name
     .field
       = f.label :type, "Exam Type"
-      = f.select :type, options_for_select([['Paper', 'Paper'],['Solo Coursework', 'Coursework::Solo'],['Group Coursework', 'Coursework::Group'], ['Threshold', 'Threshold']], @exam.type)
-    .field
+      = f.select :type, options_for_select([['Paper', 'Paper'],['Solo Coursework', 'Coursework::Solo'],['Group Coursework', 'Coursework::Group'], ['Threshold', 'Threshold']], @exam.type), {}, data: { assessment_target: "type", action: "change->assessment#toggle" }
+    .field{ data: { assessment_target: "threshold" } }
       = f.label :threshold, "Threshold Score"
       = f.number_field :threshold, value: (@exam.threshold || 70), id: "exam_threshold", step: 0.01
-    .field
+    .field{ data: { assessment_target: "coursework" } }
       = f.label :released, "Hand Out Date"
       = f.datetime_local_field :released, include_blank: true, default: @exam.released
     .field
