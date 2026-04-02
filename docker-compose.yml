@@ -1,0 +1,58 @@
+# Launches a production server which only allows SSL connections.
+#
+# Accessible on localhost:3001 (via SSL only).
+#
+# Note: This does not configure postmark for emails.
+#
+# Requires your .env to contain:
+# GOOGLE_CLIENT_ID=<provided by Google Cloud>
+# GOOGLE_CLIENT_SECRET=<provided by Google Cloud>
+# DEVISE_SECRET_KEY=<a random secret key>
+# SECRET_KEY_BASE=<a random secret key>
+# POSTGRES_NAME=rails
+# POSTGRES_USER=mm
+# POSTGRES_PASSWORD=<secure alphanumeric password>
+
+name: module-mate
+
+services:
+  module-mate:
+    build: .
+    ports:
+      - "3001:3000"
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_NAME}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      DEVISE_SECRET_KEY: ${DEVISE_SECRET_KEY}
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+    networks:
+      - rails
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_NAME}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - rails
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+
+networks:
+  rails:
+    driver: bridge
