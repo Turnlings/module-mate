@@ -12,6 +12,8 @@ import "./offcanvas_modal_fix";
 import "./CountdownTimer";
 import "./threshold_value.js"
 
+import AssessmentController from "../controllers/assessment_controller.js"
+
 // Support component names relative to this directory:
 var componentRequireContext = require.context("../components", true);
 var ReactRailsUJS = require("react_ujs");
@@ -82,5 +84,7 @@ const application = Application.start()
 // Configure Stimulus development experience
 application.debug = false
 window.Stimulus   = application
+
+application.register("assessment", AssessmentController)
 
 export { application }
