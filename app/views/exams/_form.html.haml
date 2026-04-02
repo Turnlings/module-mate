@@ -18,7 +18,7 @@
     .field
       = f.label :type, "Exam Type"
       = f.select :type, options_for_select([['Paper', 'Paper'],['Solo Coursework', 'Coursework::Solo'],['Group Coursework', 'Coursework::Group'], ['Threshold', 'Threshold']], @exam.type), {}, data: { assessment_target: "type", action: "change->assessment#toggle" }
-    .field
+    .field{ data: { assessment_target: "threshold" } }
       = f.label :threshold, "Threshold Score"
       = f.number_field :threshold, value: (@exam.threshold || 70), id: "exam_threshold", step: 0.01
     .field{ data: { assessment_target: "coursework" } }

@@ -10,7 +10,6 @@ import "./mount_components";
 import "bootstrap/dist/js/bootstrap.bundle";
 import "./offcanvas_modal_fix";
 import "./CountdownTimer";
-import "./threshold_value.js"
 
 import AssessmentController from "../controllers/assessment_controller.js"
 
