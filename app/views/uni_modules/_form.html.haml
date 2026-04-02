@@ -8,7 +8,7 @@
             %li= message
     .field
       = f.label :semester_ids, "Semesters"
-      = f.collection_check_boxes :semester_ids, current_user.semesters, :id, :name do |b|
+      = f.collection_check_boxes :semester_ids, current_user.semesters.order(:created_at), :id, :name do |b|
         .checkbox
           = b.check_box
           = "#{b.object.year.name} / #{b.object.name}"
