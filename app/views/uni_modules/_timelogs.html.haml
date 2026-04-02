@@ -17,7 +17,7 @@
       %tbody
         - @timelogs.each do |timelog|
           %tr.timelog-row
-            %td= timelog.created_at.strftime('%Y-%m-%d')
+            %td= timelog.date.strftime('%Y-%m-%d')
             %td= timelog.minutes
             %td= timelog.description
             %td
