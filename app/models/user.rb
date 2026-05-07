@@ -82,6 +82,17 @@ class User < ApplicationRecord
     weighted_sum / total_weight
   end
 
+  def required_score_for_threshold(threshold)
+    p = progress / 100.0
+    a = achieved_score
+
+    return threshold if p.zero?
+    return 0 if p == 1 && a >= threshold
+    return nil if p == 1 && a < threshold
+
+    ((threshold - a * p) / (1 - p))
+  end
+
   def pinned_modules
     uni_modules.where(pinned: true).distinct
   end
