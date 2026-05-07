@@ -88,6 +88,7 @@ class User < ApplicationRecord
 
     return threshold if p.zero?
     return 0 if p == 1 && a >= threshold
+    return nil if p == 1 && a < threshold
 
     (threshold - a) / (1 - p)
   end
