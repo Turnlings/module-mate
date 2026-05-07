@@ -66,9 +66,9 @@ class User < ApplicationRecord
     total / total_weight
   end
 
-  # Returns the weighted average of completed years (with final_score or progress > 0), respecting all weightings and final grades. No extrapolation.
+  # Returns the weighted average of years' predicted scores
   def predicted_score
-    valid_years = years.select { |year| year.final_score.present? || year.progress(self) > 0 }
+    valid_years = years.select { |year| year.final_score.present? || year.progress(self).positive? }
     return 0 if valid_years.empty?
 
     total_weight = valid_years.sum(&:weighting_non_null)

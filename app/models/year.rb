@@ -63,18 +63,16 @@ class Year < ApplicationRecord
     total_credits.zero? ? 0 : (completed_credits / total_credits) * 100
   end
 
-  # Returns the predicted score for the year: final_score if present, otherwise weighted average of completed modules/semesters. No extrapolation.
+  # Returns the predicted score for the year
   def predicted_score(user)
     return final_score if final_score.present?
 
-    valid_modules = uni_modules.select { |m| m.final_score.present? || m.completion_percentage(user) > 0 }
-    return 0 if valid_modules.empty?
+    progress = self.progress(user) / 100.0
+    return 0 if progress.zero?
 
-    total_credits = valid_modules.sum { |m| m.credits.to_f }
-    return 0 if total_credits.zero?
-
-    weighted_sum = valid_modules.sum { |m| m.credits.to_f * m.achieved_score(user) }
-    weighted_sum / total_credits
+    achieved = achieved_score(user)
+    extrapolated = achieved / progress
+    extrapolated.clamp(0, 100)
   end
 
   # The accumulated score of all the completed exams in this year

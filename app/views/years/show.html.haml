@@ -20,6 +20,9 @@
       = link_to edit_year_path(@year, anchor: 'final_score') do
         Achieved Score
     .stat-content= number_to_percentage(@year.achieved_score(current_user), precision: 2)
+  .stat 
+    .stat-header Predicted Score
+    .stat-content= number_to_percentage(@year.predicted_score(current_user), precision: 2)
 
 = turbo_frame_tag "semesters" do
   .gt-empty-card
