@@ -63,16 +63,16 @@ class Year < ApplicationRecord
     total_credits.zero? ? 0 : (completed_credits / total_credits) * 100
   end
 
+  # Returns the predicted score for the year
   def predicted_score(user)
     return final_score if final_score.present?
 
-    # Use achieved_score for completed portion, extrapolate for the rest
     progress = self.progress(user) / 100.0
     return 0 if progress.zero?
 
     achieved = achieved_score(user)
-
-    (achieved / progress).clamp(0, 100)
+    extrapolated = achieved / progress
+    extrapolated.clamp(0, 100)
   end
 
   # The accumulated score of all the completed exams in this year

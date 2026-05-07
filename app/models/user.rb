@@ -66,10 +66,31 @@ class User < ApplicationRecord
     total / total_weight
   end
 
+  # Returns the weighted average of years' predicted scores
   def predicted_score
-    return 0 if years.empty? || progress.zero? || completed_credits.zero?
+    valid_years = years.select { |year| year.final_score.present? || year.progress(self).positive? }
+    return 0 if valid_years.empty?
 
-    achieved_score * total_credits / completed_credits
+    total_weight = valid_years.sum(&:weighting_non_null)
+    return 0 if total_weight.zero?
+
+    weighted_sum = valid_years.sum do |year|
+      year_score = year.predicted_score(self)
+      year_score * year.weighting_non_null
+    end
+
+    weighted_sum / total_weight
+  end
+
+  def required_score_for_threshold(threshold)
+    p = progress / 100.0
+    a = achieved_score
+
+    return threshold if p.zero?
+    return 0 if p == 1 && a >= threshold
+    return nil if p == 1 && a < threshold
+
+    ((threshold - (a * p)) / (1 - p))
   end
 
   def pinned_modules
