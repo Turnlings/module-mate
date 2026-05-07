@@ -66,10 +66,20 @@ class User < ApplicationRecord
     total / total_weight
   end
 
+  # Returns the weighted average of completed years (with final_score or progress > 0), respecting all weightings and final grades. No extrapolation.
   def predicted_score
-    return 0 if years.empty? || progress.zero? || completed_credits.zero?
+    valid_years = years.select { |year| year.final_score.present? || year.progress(self) > 0 }
+    return 0 if valid_years.empty?
 
-    achieved_score * total_credits / completed_credits
+    total_weight = valid_years.sum(&:weighting_non_null)
+    return 0 if total_weight.zero?
+
+    weighted_sum = valid_years.sum do |year|
+      year_score = year.predicted_score(self)
+      year_score * year.weighting_non_null
+    end
+
+    weighted_sum / total_weight
   end
 
   def pinned_modules
