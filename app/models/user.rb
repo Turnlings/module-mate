@@ -90,7 +90,7 @@ class User < ApplicationRecord
     return 0 if p == 1 && a >= threshold
     return nil if p == 1 && a < threshold
 
-    ((threshold - (a * p)) / (1 - p))
+    (threshold - a) / (1 - p)
   end
 
   def pinned_modules
