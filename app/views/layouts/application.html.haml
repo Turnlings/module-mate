@@ -30,6 +30,8 @@
               %h1 ModuleMate
             = link_to "Log in", new_user_session_path, class: "login"
       %main
+        .alert-bar.ab-danger 
+          Warning: There are issues related to assessment times that may take a few days to fix. In the meantime users are advised to double check any deadlines and not to change incorrect times as they should be reverted once a fix is found.
         #flash
           = render "layouts/flash"
         .main-content
