@@ -21,6 +21,17 @@
       .figure= "#{@user.study_streak} #{'day'.pluralize(@user.study_streak)}"
   .body{ data: { react_component: "ContributionGraph", props: ({ data: @contributions }).to_json } }
 
+.stats-container 
+  .stat 
+    .stat-header Average Score
+    .stat-content= number_to_percentage(@user.average_score, precision: 2)
+  .stat 
+    .stat-header Achieved Score
+    .stat-content= number_to_percentage(@user.achieved_score, precision: 2)
+  .stat 
+    .stat-header Predicted
+    .stat-content= number_to_percentage(@user.predicted_score, precision: 2)
+
 .gt-empty-card
   .heading 
     .mini-stat

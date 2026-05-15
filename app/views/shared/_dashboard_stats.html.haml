@@ -9,8 +9,9 @@
           = current_user.study_streak
           .label= "#{'day'.pluralize(current_user.study_streak)}"
     .stat 
-      .stat-header Average Score
-      .stat-content= number_to_percentage(current_user.average_score, precision: 2)
+      .stat-header Minutes Today
+      = turbo_frame_tag "dashboard_minutes_today" do
+        .stat-content= current_user.minutes_today
     .stat 
       .stat-header Achieved Score
       .stat-content= number_to_percentage(current_user.achieved_score, precision: 2)
