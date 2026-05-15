@@ -99,7 +99,7 @@ gem 'kaminari', '~> 1.2'
 
 gem 'dotenv-rails', '~> 3.1'
 
-gem 'rack', '>= 3.1.16'
+gem 'rack', '>= 3.2.6'
 
 gem 'omniauth'
 gem 'omniauth-rails_csrf_protection'
