@@ -106,6 +106,10 @@ class User < ApplicationRecord
     scope.sum(:minutes)
   end
 
+  def minutes_today
+    timelogs.where(date: Time.zone.today).sum(:minutes)
+  end
+
   def study_streak(as_of: Date.yesterday)
     days = timelogs
            .where(date: ..as_of)
