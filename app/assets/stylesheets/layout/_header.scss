@@ -159,6 +159,7 @@ header {
 .date-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 @media (max-width: $breakpoint-lg) {
