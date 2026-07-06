@@ -27,40 +27,32 @@
   color: $danger;
 }
 
-.chip-success {
+@mixin chip {
   display: flex;
   align-items: center;
-  border: 1px solid $success;
   border-radius: 15px;
-  color: $success;
   font-size: $secondary-size;
   line-height: $secondary-size;
   margin-left: 12px;
   padding: 2px 8px;
 }
 
+.chip-success {
+  @include chip;
+  border: 1px solid $success;
+  color: $success;
+}
+
 .chip-warning {
-  display: flex;
-  align-items: center;
+  @include chip;
   border: 1px solid $warning;
-  border-radius: 15px;
   color: $warning;
-  font-size: $secondary-size;
-  line-height: $secondary-size;
-  margin-left: 12px;
-  padding: 0 8px;
 }
 
 .chip-danger {
-  display: flex;
-  align-items: center;
+  @include chip;
   border: 1px solid $danger;
-  border-radius: 15px;
   color: $danger;
-  font-size: $secondary-size;
-  line-height: $secondary-size;
-  margin-left: 12px;
-  padding: 0 8px;
 }
 
 [data-theme="light"] {
