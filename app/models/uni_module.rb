@@ -48,12 +48,6 @@ class UniModule < ApplicationRecord
     exams.sum(:weight) == 100
   end
 
-  def progress(user)
-    return 100 if final_score.present?
-
-    exams_with_results(user).sum(:weight)
-  end
-
   # Gets the average score of all of the completed exams so far, weighted by credits
   def weighted_average(user)
     valid_exams = exams_with_results(user)
@@ -72,11 +66,12 @@ class UniModule < ApplicationRecord
 
   # Gets the percentage completion of the module based on the exams taken
   def completion_percentage(user)
-    return 0 unless exams.exists?
     return 100 if final_score.present?
 
     exams_with_results(user).sum(:weight)
   end
+
+  alias progress completion_percentage
 
   def target(user)
     target = UniModuleTarget.find_by(user: user, uni_module: self)
