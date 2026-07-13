@@ -60,6 +60,18 @@ class Semester < ApplicationRecord
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
 
+  # Gets the highest possible percentage grade of the semester, if all uncompleted assessments were 100%
+  def highest_achievable_score(user)
+    return final_score if final_score.present?
+    return 0 if uni_modules.empty?
+
+    total_credits = credits
+    return 0 if total_credits.zero?
+
+    weighted_sum = uni_modules.sum { |m| m.highest_achievable_score(user) * m.credit_share }
+    (weighted_sum / total_credits).round(2)
+  end
+
   def progress(user)
     return 100 if final_score.present?
 

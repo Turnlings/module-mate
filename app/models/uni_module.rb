@@ -78,6 +78,17 @@ class UniModule < ApplicationRecord
     exams_with_results(user).sum(:weight)
   end
 
+  # Gets the highest possible percentage grade of the module, if all uncompleted assessments were 100%
+  def highest_achievable_score(user)
+    return final_score if final_score.present?
+
+    current = achieved_score(user)
+    done = completion_percentage(user)
+    return 100 if done == 0 && current == 0
+
+    ((current * done) + (100 * (100 - done))) / 100.0
+  end
+
   def target(user)
     target = UniModuleTarget.find_by(user: user, uni_module: self)
     return nil if target.nil? || target.score.nil?

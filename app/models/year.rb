@@ -47,6 +47,18 @@ class Year < ApplicationRecord
     weighting
   end
 
+  # Gets the highest possible percentage grade of the year, if all uncompleted assessments were 100%
+  def highest_achievable_score(user)
+    return final_score if final_score.present?
+    return 0 if semesters.empty?
+
+    total_credits = credits
+    return 0 if total_credits.zero?
+
+    weighted_sum = semesters.sum { |s| s.highest_achievable_score(user) * s.credits }
+    (weighted_sum / total_credits).round(2)
+  end
+
   def completed_credits(user)
     return 0 if uni_modules.empty?
 
@@ -83,6 +95,8 @@ class Year < ApplicationRecord
 
     achieved_score_by_module(user)
   end
+
+
 
   # Good enough with weighted average TODO: use exam results instead
   def average_score(_user)
