@@ -74,10 +74,7 @@ class User < ApplicationRecord
     total_weight = valid_years.sum(&:weighting_non_null)
     return 0 if total_weight.zero?
 
-    weighted_sum = valid_years.sum { |year|
-      year_score = year.predicted_score(self)
-      year_score * year.weighting_non_null
-    }
+    weighted_sum = valid_years.sum { |year| year.predicted_score(self) * year.weighting_non_null }
 
     weighted_sum / total_weight
   end

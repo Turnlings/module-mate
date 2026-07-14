@@ -96,8 +96,6 @@ class Year < ApplicationRecord
     achieved_score_by_module(user)
   end
 
-
-
   # Good enough with weighted average TODO: use exam results instead
   def average_score(_user)
     return 0 if exam_results.empty?
