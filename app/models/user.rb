@@ -74,12 +74,21 @@ class User < ApplicationRecord
     total_weight = valid_years.sum(&:weighting_non_null)
     return 0 if total_weight.zero?
 
-    weighted_sum = valid_years.sum do |year|
-      year_score = year.predicted_score(self)
-      year_score * year.weighting_non_null
-    end
+    weighted_sum = valid_years.sum { |year| year.predicted_score(self) * year.weighting_non_null }
 
     weighted_sum / total_weight
+  end
+
+  # Gets the highest possible percentage grade of the user, if all uncompleted assessments were 100%
+  def highest_achievable_score
+    valid_years = years.select { |year| year.weighting_non_null.positive? }
+    return 0 if valid_years.empty?
+
+    total_weight = valid_years.sum(&:weighting_non_null)
+    return 0 if total_weight.zero?
+
+    weighted_sum = valid_years.sum { |year| year.highest_achievable_score(self) * year.weighting_non_null }
+    (weighted_sum / total_weight).round(2)
   end
 
   def required_score_for_threshold(threshold)

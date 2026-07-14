@@ -28,6 +28,9 @@
   .stat 
     .stat-header Achieved Score
     .stat-content= number_to_percentage(@user.achieved_score, precision: 2)
+  .stat
+    .stat-header Highest Achievable Score
+    .stat-content= number_to_percentage(@user.highest_achievable_score, precision: 2)
   .stat 
     .stat-header Predicted
     .stat-content= number_to_percentage(@user.predicted_score, precision: 2)
