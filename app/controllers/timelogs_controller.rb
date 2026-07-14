@@ -80,6 +80,6 @@ class TimelogsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def timelog_params
-    params.require(:timelog).permit(:uni_module_id, :date, :minutes, :description)
+    params.expect(timelog: %i[uni_module_id date minutes description])
   end
 end

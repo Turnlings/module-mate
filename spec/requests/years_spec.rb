@@ -71,7 +71,7 @@ RSpec.describe 'Years', type: :request do
 
       patch year_path(year), params: { year: { user_id: other_user.id } }
 
-      expect(response).to redirect_to(year_path(year))
+      expect(response).to have_http_status(:bad_request)
       expect(year.reload.user).to eq(user)
     end
   end

@@ -63,6 +63,6 @@ class YearsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def year_params
-    params.require(:year).permit(:name, :weighting, :final_score)
+    params.expect(year: %i[name weighting final_score])
   end
 end
