@@ -77,11 +77,11 @@ class UniModule < ApplicationRecord
   def highest_achievable_score(user)
     return final_score if final_score.present?
 
-    current = achieved_score(user)
+    achieved = achieved_score(user)
     done = completion_percentage(user)
-    return 100 if done == 0 && current == 0
+    return 100 if done.zero? && achieved.zero?
 
-    ((current * done) + (100 * (100 - done))) / 100.0
+    (achieved + (100 - done)).clamp(0.0, 100.0)
   end
 
   def target(user)
