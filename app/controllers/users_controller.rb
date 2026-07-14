@@ -53,7 +53,7 @@ class UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:email)
+    params.expect(user: [:email])
   end
 
   def exam_data
@@ -80,6 +80,6 @@ class UsersController < ApplicationController
   end
 
   def target_params
-    params.require(:user).permit(:target)
+    params.expect(user: [:target])
   end
 end

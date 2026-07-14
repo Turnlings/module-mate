@@ -51,6 +51,6 @@ class ExamResultsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def exam_result_params
-    params.require(:exam_result).permit(:score, :exam_id, :user_id)
+    params.expect(exam_result: %i[score exam_id user_id])
   end
 end
