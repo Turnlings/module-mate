@@ -32,6 +32,6 @@ class UniModuleTargetsController < ApplicationController
   end
 
   def uni_module_target_params
-    params.require(:uni_module_target).permit(:score, :uni_module_id, :user_id)
+    params.expect(uni_module_target: %i[score uni_module_id user_id])
   end
 end
