@@ -11,19 +11,34 @@
       %i.fa-solid.fa-pen-to-square
       %span Edit
 
--# Stats
-.stats-container 
-  .stat 
-    .stat-header Credits
-    .stat-content= number_with_precision(@semester.credits, precision: 0)
-  .stat 
-    .stat-header Average Score
-    .stat-content= number_to_percentage(@semester.average_score(current_user), precision: 2)
-  .stat 
-    .stat-header 
-      = link_to edit_semester_path(@semester, anchor: 'final_score') do
-        Achieved Score
-    .stat-content= number_to_percentage(@semester.achieved_score(current_user), precision: 2)
+.flex-col.align-left{ data: { controller: "toggle" } }
+  .score-section.w-100
+    .main 
+      %h3 ACHIEVED
+      .stat= number_to_percentage(@semester.achieved_score(current_user), precision: 1)
+    .items
+      .item 
+        %h3 CREDITS
+        .stat= number_with_precision(@semester.credits, precision: 0)
+      .item 
+        %h3 ON TRACK
+        .stat= classification(@semester.predicted_score(current_user))
+      .right.button-row 
+        %button.icon-button.h-100{ data: { action: "click->toggle#toggle", toggle_target: "button" } }
+          %i.fa-solid.fa-angle-down
+          %span More Stats
+  
+  .stats-container.w-100{ data: { toggle_target: "content" }, hidden: true }
+    .stat 
+      .stat-header Average Score
+      .stat-content= number_to_percentage(@semester.average_score(current_user), precision: 2)
+    .stat 
+      .stat-header 
+        = link_to edit_semester_path(@semester, anchor: 'final_score') do
+          Achieved Score
+      .stat-content= number_to_percentage(@semester.achieved_score(current_user), precision: 2)
+
+  .body.w-100{ data: { react_component: "SegmentedBar", props: { data: @segmented_bar_data }.to_json} }
 
 = turbo_frame_tag "modules" do
   .gt-empty-card

@@ -13,6 +13,7 @@ export default function SegmentedBar({ data = []}) {
         background: "var(--bg)",
         borderRadius: 10,
         overflow: "hidden",
+        border: "2px solid var(--bg-half-light)",
       }}
     >
       {data && data.map((segment, i) => {
@@ -43,9 +44,9 @@ export default function SegmentedBar({ data = []}) {
             position: "absolute",
             left: `${tick}%`,
             top: 0,
-            width: 2,
+            width: "2px",
             height: "100%",
-            background: "var(--bg-dark)",
+            background: "var(--bg-half-light)",
             transform: "translateX(-50%)",
           }}
         />

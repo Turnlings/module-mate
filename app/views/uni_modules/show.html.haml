@@ -43,7 +43,7 @@
       .stat-header Predicted Score
       .stat-content= number_to_percentage(@uni_module.predicted_score(current_user), precision: 2)
 
-  .body.w-100{ data: { react_component: "SegmentedBar", props: { data: @segmented_bar_data }.to_json } }
+  .body.w-100{ data: { react_component: "SegmentedBar", props: { data: @segmented_bar_data }.to_json} }
 
 .exams-container
   .exams 
