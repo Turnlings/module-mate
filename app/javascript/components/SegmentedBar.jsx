@@ -15,7 +15,7 @@ export default function SegmentedBar({
       style={{
         position: "relative",
         width: "100%",
-        height: 20,
+        height: "1rem",
         background: "var(--bg)",
         borderRadius: 10,
         overflow: "hidden",

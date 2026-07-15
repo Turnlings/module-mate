@@ -27,7 +27,7 @@
         .stat= number_with_precision(@uni_module.credits, precision: 0)
       .item 
         %h3 ON TRACK
-        .stat= "2:1"
+        .stat= classification(@uni_module.predicted_score(current_user))
       .right.button-row 
         %button.icon-button.h-100{ data: { action: "click->toggle#toggle", toggle_target: "button" } }
           %i.fa-solid.fa-angle-down
@@ -35,13 +35,13 @@
   
   .stats-container.w-100{ data: { toggle_target: "content" }, hidden: true }
     .stat 
-      .stat-header Weighted Average
-      .stat-content= number_to_percentage(@uni_module.weighted_average(current_user), precision: 2)
-    .stat 
       .stat-header 
         = link_to edit_uni_module_path(@uni_module, anchor: 'final_score') do
           Achieved Score
       .stat-content= number_to_percentage(@uni_module.achieved_score(current_user), precision: 2)
+    .stat 
+      .stat-header Predicted Score
+      .stat-content= number_to_percentage(@uni_module.predicted_score(current_user), precision: 2)
 
   .body.w-100{ data: { react_component: "SegmentedBar"} }
 
