@@ -1,12 +1,6 @@
 import React from "react";
 
-export default function SegmentedBar({
-  values = [
-    { end: 52, color: "var(--brand-light)", name: "Achieved" }, // blue
-    { end: 78, color: "var(--brand)", name: "Predicted" },
-    { end: 91, color: "var(--bg-half-light)", name: "Maximum" },
-  ],
-}) {
+export default function SegmentedBar({ data = []}) {
   let previous = 0;
   const ticks = [40, 50, 60, 70];
 
@@ -21,15 +15,15 @@ export default function SegmentedBar({
         overflow: "hidden",
       }}
     >
-      {values.map((segment, i) => {
-        const width = segment.end - previous;
+      {data && data.map((segment, i) => {
+        const width = segment.value - previous;
         const left = previous;
-        previous = segment.end;
+        previous = segment.value;
 
         return (
           <div
             key={i}
-            title={`${segment.name}: ${segment.end}%`}
+            title={`${segment.name}: ${segment.value}%`}
             style={{
               position: "absolute",
               left: `${left}%`,

@@ -21,6 +21,11 @@ class UniModulesController < ApplicationController
                  .where(uni_module: @uni_module)
                  .pluck(:name, :weight)
                  .to_h
+
+    @segmented_bar_data = [
+      { name: 'Achieved', value: @uni_module.achieved_score(current_user), color: "var(--brand-light)" },
+      { name: 'Predicted', value: @uni_module.predicted_score(current_user), color: "var(--brand)" }
+    ]
     @timelogs = @uni_module.timelogs.for_user(current_user).order(date: :desc).page(params[:page]).per(5)
   end
 
