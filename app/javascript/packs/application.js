@@ -12,6 +12,7 @@ import "./offcanvas_modal_fix";
 import "./CountdownTimer";
 
 import AssessmentController from "../controllers/assessment_controller.js"
+import ToggleController from "../controllers/toggle_controller.js"
 
 // Support component names relative to this directory:
 var componentRequireContext = require.context("../components", true);
@@ -85,5 +86,6 @@ application.debug = false
 window.Stimulus   = application
 
 application.register("assessment", AssessmentController)
+application.register("toggle", ToggleController)
 
 export { application }

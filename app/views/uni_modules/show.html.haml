@@ -1,36 +1,49 @@
-%div  
-  .page-heading  
-    %nav
-      %ol.breadcrumb
-        %li.breadcrumb-item= link_to @semester.year.name, @semester.year
-        %li.breadcrumb-item= link_to @semester.name, @semester 
-        %li.breadcrumb-item.active= @uni_module.name
-    .button-row
-      = button_to pin_uni_module_path(@uni_module), method: :patch, class: (@uni_module.pinned? ? 'icon-button' : 'icon-button unselected'), title: (@uni_module.pinned? ? 'Unpin module' : 'Pin module') do
-        - if @uni_module.pinned?
-          %i.fa-solid.fa-thumbtack
-          %span Unpin
-        - else
-          %i.fa-solid.fa-thumbtack
-          %span Pin
-      = link_to edit_uni_module_path(@uni_module), class: 'icon-button' do
-        %i.fa-solid.fa-pen-to-square
-        %span Edit
+.page-heading  
+  %nav
+    %ol.breadcrumb
+      %li.breadcrumb-item= link_to @semester.year.name, @semester.year
+      %li.breadcrumb-item= link_to @semester.name, @semester 
+      %li.breadcrumb-item.active= @uni_module.name
+  .button-row
+    = button_to pin_uni_module_path(@uni_module), method: :patch, class: (@uni_module.pinned? ? 'icon-button' : 'icon-button unselected'), title: (@uni_module.pinned? ? 'Unpin module' : 'Pin module') do
+      - if @uni_module.pinned?
+        %i.fa-solid.fa-thumbtack
+        %span Unpin
+      - else
+        %i.fa-solid.fa-thumbtack
+        %span Pin
+    = link_to edit_uni_module_path(@uni_module), class: 'icon-button' do
+      %i.fa-solid.fa-pen-to-square
+      %span Edit
 
-  .text-muted= number_with_precision(@uni_module.credits, precision: 0) + " CREDITS"
+.flex-col.align-left{ data: { controller: "toggle" } }
+  .score-section.w-100
+    .main 
+      %h3 ACHIEVED
+      .stat= number_to_percentage(@uni_module.achieved_score(current_user), precision: 1)
+    .items
+      .item 
+        %h3 CREDITS
+        .stat= number_with_precision(@uni_module.credits, precision: 0)
+      .item 
+        %h3 ON TRACK
+        .stat= "2:1"
+      .right.button-row 
+        %button.icon-button.h-100{ data: { action: "click->toggle#toggle", toggle_target: "button" } }
+          %i.fa-solid.fa-angle-down
+          %span More Stats
+  
+  .stats-container.w-100{ data: { toggle_target: "content" }, hidden: true }
+    .stat 
+      .stat-header Weighted Average
+      .stat-content= number_to_percentage(@uni_module.weighted_average(current_user), precision: 2)
+    .stat 
+      .stat-header 
+        = link_to edit_uni_module_path(@uni_module, anchor: 'final_score') do
+          Achieved Score
+      .stat-content= number_to_percentage(@uni_module.achieved_score(current_user), precision: 2)
 
--# Stats
-.stats-container 
-  .stat 
-    .stat-header Weighted Average
-    .stat-content= number_to_percentage(@uni_module.weighted_average(current_user), precision: 2)
-  .stat 
-    .stat-header 
-      = link_to edit_uni_module_path(@uni_module, anchor: 'final_score') do
-        Achieved Score
-    .stat-content= number_to_percentage(@uni_module.achieved_score(current_user), precision: 2)
-
-.body{ data: { react_component: "SegmentedBar"} }
+  .body.w-100{ data: { react_component: "SegmentedBar"} }
 
 .exams-container
   .exams 
