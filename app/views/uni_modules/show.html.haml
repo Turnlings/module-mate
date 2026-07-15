@@ -1,26 +1,26 @@
-.page-heading  
-  %nav
-    %ol.breadcrumb
-      %li.breadcrumb-item= link_to @semester.year.name, @semester.year
-      %li.breadcrumb-item= link_to @semester.name, @semester 
-      %li.breadcrumb-item.active= @uni_module.name
-  .button-row
-    = button_to pin_uni_module_path(@uni_module), method: :patch, class: (@uni_module.pinned? ? 'icon-button' : 'icon-button unselected'), title: (@uni_module.pinned? ? 'Unpin module' : 'Pin module') do
-      - if @uni_module.pinned?
-        %i.fa-solid.fa-thumbtack
-        %span Unpin
-      - else
-        %i.fa-solid.fa-thumbtack
-        %span Pin
-    = link_to edit_uni_module_path(@uni_module), class: 'icon-button' do
-      %i.fa-solid.fa-pen-to-square
-      %span Edit
+%div  
+  .page-heading  
+    %nav
+      %ol.breadcrumb
+        %li.breadcrumb-item= link_to @semester.year.name, @semester.year
+        %li.breadcrumb-item= link_to @semester.name, @semester 
+        %li.breadcrumb-item.active= @uni_module.name
+    .button-row
+      = button_to pin_uni_module_path(@uni_module), method: :patch, class: (@uni_module.pinned? ? 'icon-button' : 'icon-button unselected'), title: (@uni_module.pinned? ? 'Unpin module' : 'Pin module') do
+        - if @uni_module.pinned?
+          %i.fa-solid.fa-thumbtack
+          %span Unpin
+        - else
+          %i.fa-solid.fa-thumbtack
+          %span Pin
+      = link_to edit_uni_module_path(@uni_module), class: 'icon-button' do
+        %i.fa-solid.fa-pen-to-square
+        %span Edit
+
+  .text-muted= number_with_precision(@uni_module.credits, precision: 0) + " CREDITS"
 
 -# Stats
 .stats-container 
-  .stat 
-    .stat-header Credits
-    .stat-content= number_with_precision(@uni_module.credits, precision: 0)
   .stat 
     .stat-header Weighted Average
     .stat-content= number_to_percentage(@uni_module.weighted_average(current_user), precision: 2)
@@ -29,6 +29,8 @@
       = link_to edit_uni_module_path(@uni_module, anchor: 'final_score') do
         Achieved Score
     .stat-content= number_to_percentage(@uni_module.achieved_score(current_user), precision: 2)
+
+.body{ data: { react_component: "SegmentedBar"} }
 
 .exams-container
   .exams 
