@@ -20,6 +20,9 @@ class ExamsController < ApplicationController
       format.html { render :show }
       format.json { render json: @exam }
     end
+    @segmented_bar_data = [
+      { name: 'Achieved', value: @exam.achieved_score(current_user), color: "var(--brand-light)" }
+    ]
   end
 
   # GET /exams/new

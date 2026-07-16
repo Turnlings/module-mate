@@ -30,6 +30,8 @@
               %i.fa-solid.fa-pen-to-square
               %span Record Score
 
+= render partial: 'shared/score_section', locals: { academic_entity: @exam, segmented_bar_data: @segmented_bar_data }
+
 .gt-empty-card 
   .heading
     - if @exam.due

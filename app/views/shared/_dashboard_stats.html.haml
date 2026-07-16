@@ -1,20 +1,33 @@
-- cache [current_user] do  
-  .stats-container 
-    .stat 
-      .stat-header 
-        = link_to user_path(current_user) do
-          Study Streak
-      = turbo_frame_tag "dashboard_study_streak" do
-        .stat-content
-          = current_user.study_streak
-          .label= "#{'day'.pluralize(current_user.study_streak)}"
-    .stat 
-      .stat-header Minutes Today
-      = turbo_frame_tag "dashboard_minutes_today" do
-        .stat-content= current_user.minutes_today
-    .stat 
-      .stat-header Achieved Score
-      .stat-content= number_to_percentage(current_user.achieved_score, precision: 2)
-    .stat 
-      .stat-header Predicted
-      .stat-content= number_to_percentage(current_user.predicted_score, precision: 2)
+- cache [current_user] do 
+  .flex-col.align-left{ data: { controller: "toggle" } }
+    .score-section.w-100
+      .main 
+        %h3 ACHIEVED
+        .stat= number_to_percentage(current_user.achieved_score, precision: 1)
+      .items
+        - if current_user.progress > 0
+          .item 
+            %h3 ON TRACK
+            .stat= classification(current_user.predicted_score)
+          .item 
+            %h3 STUDY STREAK
+            = turbo_frame_tag "dashboard_study_streak" do
+              .stat= "#{current_user.study_streak} #{'day'.pluralize(current_user.study_streak)}"
+          .item 
+            %h3 MINUTES TODAY
+            = turbo_frame_tag "dashboard_minutes_today" do
+              .stat= current_user.minutes_today
+          .right.button-row 
+            %button.icon-button.h-100{ data: { action: "click->toggle#toggle", toggle_target: "button" } }
+              %i.fa-solid.fa-angle-down
+              %span More Stats
+    
+      .stats-container.w-100{ data: { toggle_target: "content" }, hidden: true }
+        .stat 
+          .stat-header Achieved Score
+          .stat-content= number_to_percentage(current_user.achieved_score, precision: 2)
+        .stat 
+          .stat-header Predicted
+          .stat-content= number_to_percentage(current_user.predicted_score, precision: 2)
+
+    .body.w-100{ data: { react_component: "SegmentedBar", props: { data: @segmented_bar_data }.to_json} }

@@ -24,7 +24,7 @@ export default function SegmentedBar({ data = []}) {
         return (
           <div
             key={i}
-            title={`${segment.name}: ${segment.value}%`}
+            title={`${segment.name}:  ${Number(segment.value).toFixed(2)}%`}
             style={{
               position: "absolute",
               left: `${left}%`,

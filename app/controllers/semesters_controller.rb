@@ -18,8 +18,8 @@ class SemestersController < ApplicationController
   def show
     @uni_modules = @semester.uni_modules
     @segmented_bar_data = [
-      { name: 'Achieved', value: @semester.achieved_score(current_user), color: "var(--brand-light)" },
-      { name: 'Predicted', value: @semester.predicted_score(current_user), color: "var(--brand)" }
+      { name: 'Achieved', value: @semester.achieved_score(current_user).round(2), color: "var(--brand-light)" },
+      { name: 'Predicted', value: @semester.predicted_score(current_user).round(2), color: "var(--brand)" }
     ]
   end
 
