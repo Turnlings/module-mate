@@ -17,6 +17,10 @@ class SemestersController < ApplicationController
   # GET /semesters/1 or /semesters/1.json
   def show
     @uni_modules = @semester.uni_modules
+    @segmented_bar_data = [
+      { name: 'Achieved', value: @semester.achieved_score(current_user).round(2), color: 'var(--brand-light)' },
+      { name: 'Predicted', value: @semester.predicted_score(current_user).round(2), color: 'var(--brand)' }
+    ]
   end
 
   # GET /semesters/new

@@ -5,7 +5,12 @@ class YearsController < ApplicationController
   authorize_resource
 
   # GET /years/1 or /years/1.json
-  def show; end
+  def show
+    @segmented_bar_data = [
+      { name: 'Achieved', value: @year.achieved_score(current_user).round(2), color: 'var(--brand-light)' },
+      { name: 'Predicted', value: @year.predicted_score(current_user).round(2), color: 'var(--brand)' }
+    ]
+  end
 
   # GET /years/new
   def new

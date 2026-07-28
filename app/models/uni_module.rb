@@ -56,6 +56,8 @@ class UniModule < ApplicationRecord
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
 
+  alias predicted_score weighted_average
+
   # Gets the score you have got so far, ie. the score you would get if you stopped now
   def achieved_score(user)
     return final_score if final_score.present?

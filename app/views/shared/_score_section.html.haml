@@ -1,0 +1,37 @@
+.flex-col.align-left{ data: { controller: "toggle" } }
+  .score-section.w-100
+    .main 
+      %h3 ACHIEVED
+      .stat= number_to_percentage(academic_entity.achieved_score(current_user), precision: 1)
+    .items
+      - if academic_entity.is_a?(Year) || academic_entity.is_a?(Exam)
+        .item 
+          %h3 WEIGHTING
+          .stat= number_to_percentage(academic_entity.weighting, precision: 0)
+      - else
+        .item 
+          %h3 CREDITS
+          .stat= number_with_precision(academic_entity.credits, precision: 0)
+      - if not academic_entity.is_a?(Exam) && academic_entity.progress(current_user) > 0
+        .item 
+          %h3 ON TRACK
+          .stat= classification(academic_entity.predicted_score(current_user))
+      
+      - if not academic_entity.is_a?(Exam)
+        .right.button-row 
+          %button.icon-button.h-100{ data: { action: "click->toggle#toggle", toggle_target: "button" } }
+            %i.fa-solid.fa-angle-down
+            %span More Stats
+  
+  - if not academic_entity.is_a?(Exam)
+    .stats-container.w-100{ data: { toggle_target: "content" }, hidden: true }
+      .stat 
+        .stat-header 
+          = link_to edit_uni_module_path(academic_entity, anchor: 'final_score') do
+            Achieved Score
+        .stat-content= number_to_percentage(academic_entity.achieved_score(current_user), precision: 2)
+      .stat 
+        .stat-header Predicted Score
+        .stat-content= number_to_percentage(academic_entity.predicted_score(current_user), precision: 2)
+
+  .body.w-100{ data: { react_component: "SegmentedBar", props: { data: segmented_bar_data }.to_json} }

@@ -62,6 +62,24 @@ class Exam < ApplicationRecord
     [dd, hh, mm, ss]
   end
 
+  def weighting
+    weight
+  end
+
+  def progress(user)
+    return 0 if score(user).nil?
+
+    100
+  end
+
+  def predicted_score(user)
+    return score(user) if score(user)
+
+    0
+  end
+
+  alias achieved_score score
+
   private
 
   def estimated_score_value(user)
