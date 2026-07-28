@@ -38,10 +38,13 @@
 }
 
 .icon-button.light {
-  background-color: $bg-half-light;
+  background-color: $bg-light;
+  height: 30px;
+  font-size: 1em;
+  border: none;
 
   &:hover{
-    background-color: $bg-light;
+    background-color: $bg-half-light;
   }
 }
 
