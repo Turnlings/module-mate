@@ -17,7 +17,7 @@ Try the app live: [ModuleMate](https://modulemate.app)
 ### Requirements
 
 - Ruby 3.3.1
-- Rails 7.2.3
+- Rails 8.0.0
 
 ### Setup
 

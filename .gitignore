@@ -41,6 +41,9 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+.yarn
+.pnp.*
+mise.toml
 
 # Ignore coverage from simplecov.
 /coverage/
