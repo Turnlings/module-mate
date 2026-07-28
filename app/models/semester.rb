@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Rails/HasAndBelongsToMany
-class Semester < ApplicationRecord
+class Semester < AcademicUnit
   MAX_SEMESTERS_PER_YEAR = 6
 
   belongs_to :year, touch: true
@@ -12,12 +12,20 @@ class Semester < ApplicationRecord
   before_create :generate_share_token
   validate :year_semester_limit, on: :create
 
-  def year_semester_limit
-    return unless year
+  def achieved_score(user)
+    return final_score if final_score.present?
 
-    return unless year.semesters.count >= MAX_SEMESTERS_PER_YEAR
+    total_weight = uni_modules.sum(&:credit_share)
+    weighted_sum = uni_modules.includes(exams: :exam_results).sum { |m| m.credit_share * m.achieved_score(user) }
+    total_weight.zero? ? 0 : (weighted_sum / total_weight)
+  end
 
-    errors.add(:base, "You can only have up to #{MAX_SEMESTERS_PER_YEAR} semesters per year.")
+  def predicted_score(user)
+    return final_score if final_score.present?
+
+    total_weight = uni_modules.sum(&:credit_share)
+    weighted_sum = uni_modules.includes(exams: :exam_results).sum { |m| m.credit_share * m.predicted_score(user) }
+    total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
 
   def credits
@@ -52,22 +60,6 @@ class Semester < ApplicationRecord
     scores.sum.to_f / scores.size
   end
 
-  def achieved_score(user)
-    return final_score if final_score.present?
-
-    total_weight = uni_modules.sum(&:credit_share)
-    weighted_sum = uni_modules.includes(exams: :exam_results).sum { |m| m.credit_share * m.achieved_score(user) }
-    total_weight.zero? ? 0 : (weighted_sum / total_weight)
-  end
-
-  def predicted_score(user)
-    return final_score if final_score.present?
-
-    total_weight = uni_modules.sum(&:credit_share)
-    weighted_sum = uni_modules.includes(exams: :exam_results).sum { |m| m.credit_share * m.predicted_score(user) }
-    total_weight.zero? ? 0 : (weighted_sum / total_weight)
-  end
-
   def progress(user)
     return 100 if final_score.present?
 
@@ -79,6 +71,14 @@ class Semester < ApplicationRecord
 
   def generate_share_token
     self.share_token ||= SecureRandom.urlsafe_base64(10)
+  end
+
+  def year_semester_limit
+    return unless year
+
+    return unless year.semesters.count >= MAX_SEMESTERS_PER_YEAR
+
+    errors.add(:base, "You can only have up to #{MAX_SEMESTERS_PER_YEAR} semesters per year.")
   end
 end
 # rubocop:enable Rails/HasAndBelongsToMany

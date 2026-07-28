@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Year < ApplicationRecord
+class Year < AcademicUnit
   MAX_YEARS_PER_USER = 10
 
   belongs_to :user, touch: true
@@ -11,10 +11,25 @@ class Year < ApplicationRecord
   has_many :timelogs, through: :uni_modules
   validate :user_year_limit, on: :create
 
-  def user_year_limit
-    return unless user.years.count >= MAX_YEARS_PER_USER
+  # The accumulated score of all the completed exams in this year
+  def achieved_score(user)
+    return final_score if final_score.present?
 
-    errors.add(:base, "You can only have up to #{MAX_YEARS_PER_USER} years.")
+    return achieved_score_by_semester(user) if semesters.any? { |s| s.final_score.present? }
+
+    achieved_score_by_module(user)
+  end
+
+  # Returns the predicted score for the year
+  def predicted_score(user)
+    return final_score if final_score.present?
+
+    progress = self.progress(user) / 100.0
+    return 0 if progress.zero?
+
+    achieved = achieved_score(user)
+    extrapolated = achieved / progress
+    extrapolated.clamp(0, 100)
   end
 
   def credits
@@ -63,27 +78,6 @@ class Year < ApplicationRecord
     total_credits.zero? ? 0 : (completed_credits / total_credits) * 100
   end
 
-  # Returns the predicted score for the year
-  def predicted_score(user)
-    return final_score if final_score.present?
-
-    progress = self.progress(user) / 100.0
-    return 0 if progress.zero?
-
-    achieved = achieved_score(user)
-    extrapolated = achieved / progress
-    extrapolated.clamp(0, 100)
-  end
-
-  # The accumulated score of all the completed exams in this year
-  def achieved_score(user)
-    return final_score if final_score.present?
-
-    return achieved_score_by_semester(user) if semesters.any? { |s| s.final_score.present? }
-
-    achieved_score_by_module(user)
-  end
-
   # Good enough with weighted average TODO: use exam results instead
   def average_score(_user)
     return 0 if exam_results.empty?
@@ -117,5 +111,11 @@ class Year < ApplicationRecord
 
     weighted_sum = uni_modules.sum { |m| m.credits.to_i * m.achieved_score(user) }
     weighted_sum / total_credits
+  end
+
+  def user_year_limit
+    return unless user.years.count >= MAX_YEARS_PER_USER
+
+    errors.add(:base, "You can only have up to #{MAX_YEARS_PER_USER} years.")
   end
 end

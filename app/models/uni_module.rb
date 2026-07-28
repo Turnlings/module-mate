@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Rails/HasAndBelongsToMany
-class UniModule < ApplicationRecord
+class UniModule < AcademicUnit
   MAX_MODULES_PER_SEMESTER = 20
 
   has_and_belongs_to_many :semesters
@@ -13,10 +13,27 @@ class UniModule < ApplicationRecord
   has_many :uni_module_targets, dependent: :destroy
   validate :semester_module_limit, on: :create
 
-  def semester_module_limit
-    return unless semesters.any? && semesters.first.uni_modules.count >= MAX_MODULES_PER_SEMESTER
+  # Gets the score you have got so far, ie. the score you would get if you stopped now
+  def achieved_score(user)
+    return final_score if final_score.present?
 
-    errors.add(:base, "You can only have up to #{MAX_MODULES_PER_SEMESTER} modules per semester.")
+    valid_exams = exams_with_results(user)
+    valid_exams.sum { |exam| exam.adjusted_score(user) * exam.weight / 100 }
+  end
+
+  # Gets the average score of all of the completed exams so far, weighted by credits
+  def predicted_score(user)
+    valid_exams = exams_with_results(user)
+    total_weight = valid_exams.sum(&:weight)
+    weighted_sum = valid_exams.sum { |exam| exam.weight * exam.adjusted_score(user) }
+    total_weight.zero? ? 0 : (weighted_sum / total_weight)
+  end
+
+  alias weighted_average predicted_score
+
+  # Required to override the parent class
+  def credits
+    read_attribute(:credits)
   end
 
   def normalize_module_code
@@ -48,24 +65,6 @@ class UniModule < ApplicationRecord
     exams.sum(:weight) == 100
   end
 
-  # Gets the average score of all of the completed exams so far, weighted by credits
-  def weighted_average(user)
-    valid_exams = exams_with_results(user)
-    total_weight = valid_exams.sum(&:weight)
-    weighted_sum = valid_exams.sum { |exam| exam.weight * exam.adjusted_score(user) }
-    total_weight.zero? ? 0 : (weighted_sum / total_weight)
-  end
-
-  alias predicted_score weighted_average
-
-  # Gets the score you have got so far, ie. the score you would get if you stopped now
-  def achieved_score(user)
-    return final_score if final_score.present?
-
-    valid_exams = exams_with_results(user)
-    valid_exams.sum { |exam| exam.adjusted_score(user) * exam.weight / 100 }
-  end
-
   # Gets the percentage completion of the module based on the exams taken
   def completion_percentage(user)
     return 100 if final_score.present?
@@ -91,6 +90,12 @@ class UniModule < ApplicationRecord
   def touch_semesters
     # Can't use touch_all as that does't trigger callbacks
     semesters.each(&:touch)
+  end
+
+  def semester_module_limit
+    return unless semesters.any? && semesters.first.uni_modules.count >= MAX_MODULES_PER_SEMESTER
+
+    errors.add(:base, "You can only have up to #{MAX_MODULES_PER_SEMESTER} modules per semester.")
   end
 end
 # rubocop:enable Rails/HasAndBelongsToMany
