@@ -62,7 +62,7 @@ class Semester < ApplicationRecord
 
   def predicted_score(user)
     return final_score if final_score.present?
-    
+
     total_weight = uni_modules.sum(&:credit_share)
     weighted_sum = uni_modules.includes(exams: :exam_results).sum { |m| m.credit_share * m.predicted_score(user) }
     total_weight.zero? ? 0 : (weighted_sum / total_weight)

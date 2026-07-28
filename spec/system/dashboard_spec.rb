@@ -32,7 +32,7 @@ RSpec.describe 'Visiting the homepage', type: :system do
     create(:exam_result, user: user, exam: exam, score: 80)
 
     visit '/'
-    expect(page).to have_content 'Achieved'
+    expect(page).to have_content 'ACHIEVED'
     expect(page).to have_content '20%'
   end
 end

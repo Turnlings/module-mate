@@ -11,8 +11,8 @@ class PagesController < ApplicationController
   def dashboard
     @years = current_user.years.order(weighting: :desc)
     @segmented_bar_data = [
-      { name: 'Achieved', value: current_user.achieved_score.round(2), color: "var(--brand-light)" },
-      { name: 'Predicted', value: current_user.predicted_score.round(2), color: "var(--brand)" }
+      { name: 'Achieved', value: current_user.achieved_score.round(2), color: 'var(--brand-light)' },
+      { name: 'Predicted', value: current_user.predicted_score.round(2), color: 'var(--brand)' }
     ]
   end
 

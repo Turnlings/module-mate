@@ -68,7 +68,14 @@ class Exam < ApplicationRecord
 
   def progress(user)
     return 0 if score(user).nil?
+
     100
+  end
+
+  def predicted_score(user)
+    return score(user) if score(user)
+
+    0
   end
 
   alias achieved_score score
