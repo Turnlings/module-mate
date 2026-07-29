@@ -21,18 +21,15 @@ class UniModule < AcademicUnit
     valid_exams.sum { |exam| exam.adjusted_score(user) * exam.weight / 100 }
   end
 
-  # Gets the average score of all of the completed exams so far, weighted by credits
-  def predicted_score(user)
+  def weighted_sum_predicted_score(user)
     valid_exams = exams_with_results(user)
-    total_weight = valid_exams.sum(&:weight)
-    weighted_sum = valid_exams.sum { |exam| exam.weight * exam.adjusted_score(user) }
-    total_weight.zero? ? 0 : (weighted_sum / total_weight)
+    valid_exams.sum { |exam| credits * exam.weight * exam.adjusted_score(user) }
   end
 
   def completed_credits(user)
     completion_percentage(user) * credits / 100.0
   end
-  
+
   # Required to override the parent class implementation
   def credits
     read_attribute(:credits)

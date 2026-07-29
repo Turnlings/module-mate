@@ -20,16 +20,8 @@ class Year < AcademicUnit
     achieved_score_by_module(user)
   end
 
-  # Returns the predicted score for the year
-  def predicted_score(user)
-    return final_score if final_score.present?
-
-    progress = self.progress(user) / 100.0
-    return 0 if progress.zero?
-
-    achieved = achieved_score(user)
-    extrapolated = achieved / progress
-    extrapolated.clamp(0, 100)
+  def weighted_sum_predicted_score(user)
+    semesters.sum { |s| s.credits * s.predicted_score(user) }
   end
 
   def completed_credits(user)

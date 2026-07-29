@@ -13,7 +13,14 @@ class AcademicUnit < ApplicationRecord
     end
 
     def predicted_score(user)
-      raise NotImplementedError, "Subclasses must implement the predicted_score method"
+      return final_score if final_score.present?
+      return 0 if credits.zero?
+
+      weighted_sum_predicted_score(user) / credits
+    end
+
+    def weighted_sum_predicted_score(user)
+      raise NotImplementedError, "Subclasses must implement the weighted_sum_predicted_score method"
     end
 
     def progress(user)
