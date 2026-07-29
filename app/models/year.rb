@@ -36,14 +36,6 @@ class Year < AcademicUnit
     semesters.sum(&:credits)
   end
 
-  # The average of all the grades of the semesters in this year
-  def weighted_average(user)
-    return 0 if semesters.empty? || credits.zero?
-
-    weighted_sum = semesters.sum { |s| s.credits * s.weighted_average(user) }
-    weighted_sum / credits
-  end
-
   def weighting_non_null
     return 0 if weighting.nil? || (uni_modules.empty? && final_score.nil?)
 
@@ -64,14 +56,6 @@ class Year < AcademicUnit
     total_credits = uni_modules.sum { |m| m.credits.to_i }
 
     total_credits.zero? ? 0 : (completed_credits / total_credits) * 100
-  end
-
-  # Good enough with weighted average TODO: use exam results instead
-  def average_score(_user)
-    return 0 if exam_results.empty?
-
-    scores = exam_results.map(&:score).compact
-    scores.sum.to_f / scores.size
   end
 
   private

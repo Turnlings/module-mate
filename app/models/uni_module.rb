@@ -29,9 +29,7 @@ class UniModule < AcademicUnit
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
 
-  alias weighted_average predicted_score
-
-  # Required to override the parent class
+  # Required to override the parent class implementation
   def credits
     read_attribute(:credits)
   end

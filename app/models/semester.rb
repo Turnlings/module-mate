@@ -34,23 +34,6 @@ class Semester < AcademicUnit
     uni_modules.sum(&:credit_share)
   end
 
-  def weighted_average(user)
-    valid_modules = uni_modules.reject { |m| m.weighted_average(user).nil? }
-    return 0 if valid_modules.empty?
-
-    total_weight = valid_modules.sum(&:credit_share)
-    weighted_sum = valid_modules.sum { |m| m.credit_share * m.weighted_average(user) }
-    total_weight.zero? ? 0 : (weighted_sum / total_weight)
-  end
-
-  # The average score of all exam results belonging to the semester
-  def average_score(_user)
-    return 0 if exam_results.empty?
-
-    scores = exam_results.map(&:score).compact
-    scores.sum.to_f / scores.size
-  end
-
   def progress(user)
     return 100 if final_score.present?
 

@@ -22,6 +22,7 @@ class Exam < ApplicationRecord
   end
 
   def adjusted_score(user)
+    # Default behaviour that is overriden by child classes
     score(user)
   end
 
