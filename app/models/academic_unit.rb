@@ -16,6 +16,16 @@ class AcademicUnit < ApplicationRecord
       raise NotImplementedError, "Subclasses must implement the predicted_score method"
     end
 
+    def progress(user)
+      return 100 if final_score.present?
+
+      credits.zero? ? 0 : (completed_credits / credits)
+    end
+
+    def completed_credits(user)
+      raise NotImplementedError, "Subclasses must implement the completed_credits method"
+    end
+
     def credits
       raise NotImplementedError, "Subclasses must implement the credits method"
     end

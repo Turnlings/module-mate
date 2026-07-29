@@ -29,6 +29,10 @@ class UniModule < AcademicUnit
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
 
+  def completed_credits(user)
+    completion_percentage(user) * credits / 100.0
+  end
+  
   # Required to override the parent class implementation
   def credits
     read_attribute(:credits)

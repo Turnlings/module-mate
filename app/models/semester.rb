@@ -28,17 +28,14 @@ class Semester < AcademicUnit
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
 
+  def completed_credits(user)
+    uni_modules.sum { |m| m.completion_percentage(user) * m.credit_share }
+  end
+
   def credits
     return 0 if uni_modules.empty?
 
     uni_modules.sum(&:credit_share)
-  end
-
-  def progress(user)
-    return 100 if final_score.present?
-
-    completed_credits = uni_modules.sum { |m| m.completion_percentage(user) * m.credit_share }
-    credits.zero? ? 0 : (completed_credits / credits)
   end
 
   private
