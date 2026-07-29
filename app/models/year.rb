@@ -36,18 +36,6 @@ class Year < AcademicUnit
     semesters.sum(&:credits)
   end
 
-  def total_minutes(since_string = 'all')
-    # When a module is associated to multiple semesters, the join behind
-    # `timelogs` can duplicate rows and cause sums to be inflated.
-    # Dedupe by timelog id before aggregating.
-    since = TimelogGraphService.date_of(since_string)
-
-    scope = Timelog.where(id: timelogs.select(:id))
-    scope = scope.where(date: since..) if since.present?
-
-    scope.sum(:minutes)
-  end
-
   # The average of all the grades of the semesters in this year
   def weighted_average(user)
     return 0 if semesters.empty? || credits.zero?

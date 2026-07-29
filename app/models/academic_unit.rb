@@ -25,6 +25,12 @@ class AcademicUnit < ApplicationRecord
     end
 
     def total_minutes(since_string = 'all')
-      raise NotImplementedError, "Subclasses must implement the total_minutes method"
+      since = TimelogGraphService.date_of(since_string)
+
+      scope = timelogs # Relies on the subclass defining 'has_many :timelogs'
+      scope = Timelog.where(id: scope.select(:id))
+      scope = scope.where(date: since..) if since.present?
+
+      scope.sum(:minutes)
     end
 end

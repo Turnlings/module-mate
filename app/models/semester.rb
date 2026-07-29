@@ -34,15 +34,6 @@ class Semester < AcademicUnit
     uni_modules.sum(&:credit_share)
   end
 
-  def total_minutes(since_string = 'all')
-    since = TimelogGraphService.date_of(since_string)
-
-    scope = timelogs
-    scope = scope.where(date: since..) if since.present?
-
-    scope.sum(:minutes)
-  end
-
   def weighted_average(user)
     valid_modules = uni_modules.reject { |m| m.weighted_average(user).nil? }
     return 0 if valid_modules.empty?

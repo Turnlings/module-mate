@@ -46,15 +46,6 @@ class UniModule < AcademicUnit
     credits.to_f / semesters.size
   end
 
-  def total_minutes(since_string = 'all')
-    since = TimelogGraphService.date_of(since_string)
-
-    scope = timelogs
-    scope = scope.where(date: since..) if since.present?
-
-    scope.sum(:minutes)
-  end
-
   def exams_with_results(user)
     exams.joins(:exam_results)
          .where(exam_results: { user_id: user.id })
