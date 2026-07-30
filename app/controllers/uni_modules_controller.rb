@@ -41,6 +41,8 @@ class UniModulesController < ApplicationController
     else
       @uni_module = UniModule.new
     end
+
+    @uni_module.color = MODULE_COLORS[current_user.uni_modules.count % MODULE_COLORS.length]
   end
 
   # GET /uni_modules/1/edit
