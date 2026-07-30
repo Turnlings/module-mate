@@ -21,18 +21,19 @@ class UniModule < AcademicUnit
     valid_exams.sum { |exam| exam.adjusted_score(user) * exam.weight / 100 }
   end
 
-  def weighted_sum_predicted_score(user)
-    valid_exams = exams_with_results(user)
-    valid_exams.sum { |exam| credits * exam.weight * exam.adjusted_score(user) }
-  end
-
   def completed_credits(user)
-    completion_percentage(user) * credits / 100.0
+    return 0 if exams.empty?
+
+    completion_percentage(user) * credits / 100
   end
 
   # Required to override the parent class implementation
   def credits
     read_attribute(:credits)
+  end
+
+  def weight
+    credits / semesters.sum(&:credits) * semesters.sum(&:weight)
   end
 
   def normalize_module_code
@@ -43,12 +44,6 @@ class UniModule < AcademicUnit
     return 0.0 if credits.nil?
 
     credits.to_f / semesters.size
-  end
-
-  def exams_with_results(user)
-    exams.joins(:exam_results)
-         .where(exam_results: { user_id: user.id })
-         .where.not(exam_results: { score: nil })
   end
 
   def correct_weight_sum?

@@ -26,6 +26,10 @@ class Exam < ApplicationRecord
     score(user)
   end
 
+  def total_weight
+    weight / 100.0 * uni_module.weight
+  end
+
   def target(user)
     return if score(user) || uni_module.target(user).nil?
 

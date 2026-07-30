@@ -33,5 +33,15 @@
       .stat 
         .stat-header Predicted Score
         .stat-content= number_to_percentage(academic_entity.predicted_score(current_user), precision: 2)
+      - if academic_entity.respond_to?(:completion_percentage)
+        .stat 
+          .stat-header Completion
+          .stat-content= number_to_percentage(academic_entity.completion_percentage(current_user), precision: 2)
+      .stat 
+        .stat-header Credits Completed
+        .stat-content= number_with_precision(academic_entity.completed_credits(current_user), precision: 2)
+      .stat 
+        .stat-header Weighting
+        .stat-content= number_to_percentage(academic_entity.weight, precision: 3)
 
   .body.w-100{ data: { react_component: "SegmentedBar", props: { data: segmented_bar_data }.to_json} }

@@ -1,53 +1,61 @@
 class AcademicUnit < ApplicationRecord
-    self.abstract_class = true
+  self.abstract_class = true
 
-    # AcademicUnit interface:
-    # - AchievedScore
-    # - PredictedScore
-    # - Credits
-    # - Weight
-    # - TotalMinutes
+  # AcademicUnit interface:
+  # - AchievedScore
+  # - PredictedScore
+  # - Credits
+  # - Weight
+  # - TotalMinutes
 
-    def achieved_score(user)
-      raise NotImplementedError, "Subclasses must implement the achieved_score method"
-    end
+  def achieved_score(user)
+    raise NotImplementedError, "Subclasses must implement the achieved_score method"
+  end
 
-    def predicted_score(user)
-      return final_score if final_score.present?
-      return 0 if credits.zero?
+  def weighted_average_completed(user)
+    return final_score if final_score.present?
+    return 0 if completed_credits(user).zero?
 
-      weighted_sum_predicted_score(user) / credits
-    end
+    completed_exams = exams_with_results(user)
+    score = completed_exams.sum { |exam| exam.adjusted_score(user) * exam.total_weight }
+    completed_weight = completed_exams.sum(&:total_weight)
 
-    def weighted_sum_predicted_score(user)
-      raise NotImplementedError, "Subclasses must implement the weighted_sum_predicted_score method"
-    end
+    score / completed_weight
+  end
 
-    def progress(user)
-      return 100 if final_score.present?
+  alias predicted_score weighted_average_completed
 
-      credits.zero? ? 0 : (completed_credits / credits)
-    end
+  def progress(user)
+    return 100 if final_score.present?
 
-    def completed_credits(user)
-      raise NotImplementedError, "Subclasses must implement the completed_credits method"
-    end
+    credits.zero? ? 0 : (completed_credits(user) / credits) * 100
+  end
 
-    def credits
-      raise NotImplementedError, "Subclasses must implement the credits method"
-    end
+  def completed_credits(user)
+    raise NotImplementedError, "Subclasses must implement the completed_credits method"
+  end
 
-    def weight
-      raise NotImplementedError, "Subclasses must implement the weight method"
-    end
+  def credits
+    raise NotImplementedError, "Subclasses must implement the credits method"
+  end
 
-    def total_minutes(since_string = 'all')
-      since = TimelogGraphService.date_of(since_string)
+  def weight
+    raise NotImplementedError, "Subclasses must implement the weight method"
+  end
 
-      scope = timelogs # Relies on the subclass defining 'has_many :timelogs'
-      scope = Timelog.where(id: scope.select(:id))
-      scope = scope.where(date: since..) if since.present?
+  def total_minutes(since_string = 'all')
+    since = TimelogGraphService.date_of(since_string)
 
-      scope.sum(:minutes)
-    end
+    scope = timelogs # Relies on the subclass defining 'has_many :timelogs'
+    scope = Timelog.where(id: scope.select(:id))
+    scope = scope.where(date: since..) if since.present?
+
+    scope.sum(:minutes)
+  end
+
+  def exams_with_results(user)
+    exams.joins(:exam_results)
+         .where(exam_results: { user_id: user.id })
+         .where.not(exam_results: { score: nil })
+  end
 end
