@@ -1,15 +1,8 @@
 class AcademicUnit < ApplicationRecord
   self.abstract_class = true
 
-  # AcademicUnit interface:
-  # - AchievedScore
-  # - PredictedScore
-  # - Credits
-  # - Weight
-  # - TotalMinutes
-
   def achieved_score(user)
-    raise NotImplementedError, "Subclasses must implement the achieved_score method"
+    raise NotImplementedError, 'Subclasses must implement the achieved_score method'
   end
 
   def weighted_average_completed(user)
@@ -32,15 +25,15 @@ class AcademicUnit < ApplicationRecord
   end
 
   def completed_credits(user)
-    raise NotImplementedError, "Subclasses must implement the completed_credits method"
+    raise NotImplementedError, 'Subclasses must implement the completed_credits method'
   end
 
   def credits
-    raise NotImplementedError, "Subclasses must implement the credits method"
+    raise NotImplementedError, 'Subclasses must implement the credits method'
   end
 
   def weight
-    raise NotImplementedError, "Subclasses must implement the weight method"
+    raise NotImplementedError, 'Subclasses must implement the weight method'
   end
 
   def total_minutes(since_string = 'all')

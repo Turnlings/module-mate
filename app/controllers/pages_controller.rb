@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[home about contact help privacy terms]
 
@@ -142,4 +141,3 @@ class PagesController < ApplicationController
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

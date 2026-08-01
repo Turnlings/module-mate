@@ -34,6 +34,7 @@ class UniModule < AcademicUnit
 
   def weight
     return 0 if semesters.empty?
+
     (credits / semesters.sum(&:credits)) * semesters.sum(&:weight)
   end
 

@@ -48,6 +48,10 @@ Metrics/MethodLength:
 Metrics/AbcSize:
   Exclude:
     - "app/controllers/**/*"
+  Max: 25
+
+Metrics/ClassLength:
+  Max: 200
 
 RSpecRails/InferredSpecType:
   Enabled: false

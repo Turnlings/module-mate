@@ -66,7 +66,7 @@ class User < ApplicationRecord
   def predicted_score
     return 0 if years.empty?
 
-    total_weight = years.sum{ |y| y.weight * y.progress(self) / 100.0 }
+    total_weight = years.sum { |y| y.weight * y.progress(self) / 100.0 }
     weighted_sum = years.sum { |y| y.weight * y.progress(self) / 100.0 * y.predicted_score(self) }
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end

@@ -23,7 +23,7 @@ class Year < AcademicUnit
   def predicted_score(user)
     return final_score if final_score.present?
 
-    total_weight = semesters.sum{ |s| s.weight * s.progress(user) / 100.0 }
+    total_weight = semesters.sum { |s| s.weight * s.progress(user) / 100.0 }
     weighted_sum = semesters.sum { |s| s.weight * s.progress(user) / 100.0 * s.predicted_score(user) }
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
