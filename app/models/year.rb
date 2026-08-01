@@ -20,6 +20,14 @@ class Year < AcademicUnit
     achieved_score_by_module(user)
   end
 
+  def predicted_score(user)
+    return final_score if final_score.present?
+
+    total_weight = semesters.sum{ |s| s.weight * s.progress(user) / 100.0 }
+    weighted_sum = semesters.sum { |s| s.weight * s.progress(user) / 100.0 * s.predicted_score(user) }
+    total_weight.zero? ? 0 : (weighted_sum / total_weight)
+  end
+
   def completed_credits(user)
     return 0 if uni_modules.empty?
 
@@ -27,7 +35,7 @@ class Year < AcademicUnit
   end
 
   def credits
-    uni_modules.sum(&:credits)
+    uni_modules.sum(:credits)
   end
 
   def weight

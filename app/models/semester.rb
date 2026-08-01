@@ -20,6 +20,14 @@ class Semester < AcademicUnit
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
 
+  def predicted_score(user)
+    return final_score if final_score.present?
+
+    total_weight = uni_modules.sum{ |m| m.credit_share * m.progress(user) / 100.0 }
+    weighted_sum = uni_modules.includes(exams: :exam_results).sum { |m| m.credit_share * m.progress(user) / 100.0 * m.predicted_score(user) }
+    total_weight.zero? ? 0 : (weighted_sum / total_weight)
+  end
+
   def completed_credits(user)
     uni_modules.sum { |m| m.completion_percentage(user)/100 * m.credit_share }
   end

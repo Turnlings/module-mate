@@ -29,11 +29,12 @@ class UniModule < AcademicUnit
 
   # Required to override the parent class implementation
   def credits
-    read_attribute(:credits)
+    read_attribute(:credits) || 0
   end
 
   def weight
-    credits / semesters.sum(&:credits) * semesters.sum(&:weight)
+    return 0 if semesters.empty?
+    (credits / semesters.sum(&:credits)) * semesters.sum(&:weight)
   end
 
   def normalize_module_code
