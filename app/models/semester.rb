@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Rails/HasAndBelongsToMany
-class Semester < ApplicationRecord
+class Semester < AcademicUnit
   MAX_SEMESTERS_PER_YEAR = 6
 
   belongs_to :year, touch: true
@@ -11,46 +11,6 @@ class Semester < ApplicationRecord
   has_many :timelogs, through: :uni_modules
   before_create :generate_share_token
   validate :year_semester_limit, on: :create
-
-  def year_semester_limit
-    return unless year
-
-    return unless year.semesters.count >= MAX_SEMESTERS_PER_YEAR
-
-    errors.add(:base, "You can only have up to #{MAX_SEMESTERS_PER_YEAR} semesters per year.")
-  end
-
-  def credits
-    return 0 if uni_modules.empty?
-
-    uni_modules.sum(&:credit_share)
-  end
-
-  def total_minutes(since_string = 'all')
-    since = TimelogGraphService.date_of(since_string)
-
-    scope = timelogs
-    scope = scope.where(date: since..) if since.present?
-
-    scope.sum(:minutes)
-  end
-
-  def weighted_average(user)
-    valid_modules = uni_modules.reject { |m| m.weighted_average(user).nil? }
-    return 0 if valid_modules.empty?
-
-    total_weight = valid_modules.sum(&:credit_share)
-    weighted_sum = valid_modules.sum { |m| m.credit_share * m.weighted_average(user) }
-    total_weight.zero? ? 0 : (weighted_sum / total_weight)
-  end
-
-  # The average score of all exam results belonging to the semester
-  def average_score(_user)
-    return 0 if exam_results.empty?
-
-    scores = exam_results.map(&:score).compact
-    scores.sum.to_f / scores.size
-  end
 
   def achieved_score(user)
     return final_score if final_score.present?
@@ -63,22 +23,40 @@ class Semester < ApplicationRecord
   def predicted_score(user)
     return final_score if final_score.present?
 
-    total_weight = uni_modules.sum(&:credit_share)
-    weighted_sum = uni_modules.includes(exams: :exam_results).sum { |m| m.credit_share * m.predicted_score(user) }
+    total_weight = uni_modules.sum { |m| m.credit_share * m.progress(user) / 100.0 }
+
+    weighted_sum = uni_modules.includes(exams: :exam_results).sum do |m|
+      m.credit_share * m.progress(user) / 100.0 * m.predicted_score(user)
+    end
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
 
-  def progress(user)
-    return 100 if final_score.present?
+  def completed_credits(user)
+    uni_modules.sum { |m| m.completion_percentage(user) / 100 * m.credit_share }
+  end
 
-    completed_credits = uni_modules.sum { |m| m.completion_percentage(user) * m.credit_share }
-    credits.zero? ? 0 : (completed_credits / credits)
+  def credits
+    return 0 if uni_modules.empty?
+
+    uni_modules.sum(&:credit_share)
+  end
+
+  def weight
+    year.weight * credits / year.credits
   end
 
   private
 
   def generate_share_token
     self.share_token ||= SecureRandom.urlsafe_base64(10)
+  end
+
+  def year_semester_limit
+    return unless year
+
+    return unless year.semesters.count >= MAX_SEMESTERS_PER_YEAR
+
+    errors.add(:base, "You can only have up to #{MAX_SEMESTERS_PER_YEAR} semesters per year.")
   end
 end
 # rubocop:enable Rails/HasAndBelongsToMany
