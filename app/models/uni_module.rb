@@ -45,7 +45,7 @@ class UniModule < AcademicUnit
   def credit_share
     return 0.0 if credits.nil?
 
-    credits.to_f / semesters.size
+    credits.to_f / semesters.length
   end
 
   def correct_weight_sum?
@@ -56,7 +56,9 @@ class UniModule < AcademicUnit
   def completion_percentage(user)
     return 100 if final_score.present?
 
-    exams_with_results(user).sum(:weight)
+    Rails.cache.fetch([self, "completion_percentage_#{user.id}"]) do
+      exams_with_results(user).sum(:weight)
+    end
   end
 
   alias progress completion_percentage
