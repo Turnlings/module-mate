@@ -19,8 +19,7 @@
         %span Add
     .body
       .link-cards-list
-        - @year.semesters.each do |semester|
-          = render partial: 'shared/semester_card', locals: { semester: semester }
+        = render partial: 'shared/semester_card', collection: @year.semesters, as: :semester, cached: true
 
 -# Graph
 = turbo_frame_tag "year_time_chart" do
