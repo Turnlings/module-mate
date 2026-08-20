@@ -18,8 +18,7 @@ class ExamsController < ApplicationController
     @semester = @uni_module.semesters.first
     @segmented_bar_data = [
       { name: 'Achieved', value: @exam.achieved_score(current_user), color: 'var(--brand-light)' },
-      { name: 'Required', value: @exam.target(current_user), color: 'var(--brand)' },
-      { name: 'Estimated', value: @exam.estimated_score(current_user), color: 'var(--brand)' }
+      { name: 'Required', value: @exam.target(current_user), color: 'var(--brand)' }
     ]
     respond_to do |format|
       format.html { render :show }
