@@ -15,28 +15,35 @@ class Semester < AcademicUnit
   def achieved_score(user)
     return final_score if final_score.present?
 
-    modules_list = uni_modules.includes(exams: :exam_results).to_a
+    Rails.cache.fetch([self, "achieved_score", user.id]) do
+      modules_list = uni_modules.includes(exams: :exam_results).to_a
 
-    total_weight = modules_list.sum(&:credit_share)
-    weighted_sum = modules_list.sum { |mod| mod.credit_share * mod.achieved_score(user) }
-    total_weight.zero? ? 0 : (weighted_sum / total_weight)
+      total_weight = modules_list.sum(&:credit_share)
+      weighted_sum = modules_list.sum do |mod|
+        mod.credit_share * mod.achieved_score(user)
+      end
+
+      total_weight.zero? ? 0 : weighted_sum / total_weight
+    end
   end
 
   def predicted_score(user)
     return final_score if final_score.present?
 
-    modules_list = uni_modules.includes(exams: :exam_results).to_a
+    Rails.cache.fetch([self, "predicted_score", user.id]) do
+      modules_list = uni_modules.includes(exams: :exam_results).to_a
 
-    total_weight = 0
-    weighted_sum = 0
+      total_weight = 0
+      weighted_sum = 0
 
-    modules_list.each do |mod|
-      module_weight = mod.credit_share * mod.progress(user) / 100.0
-      total_weight += module_weight
-      weighted_sum += module_weight * mod.predicted_score(user)
+      modules_list.each do |mod|
+        module_weight = mod.credit_share * mod.progress(user) / 100.0
+        total_weight += module_weight
+        weighted_sum += module_weight * mod.predicted_score(user)
+      end
+
+      total_weight.zero? ? 0 : (weighted_sum / total_weight)
     end
-
-    total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
 
   def completed_credits(user)
