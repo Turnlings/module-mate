@@ -5,15 +5,28 @@
 = turbo_frame_tag "dashboard_time_chart" do
   = render partial: 'shared/time_chart', locals: { subject: current_user, time_path: -> { time_dashboard_path(cumulative: params[:cumulative], date_since: params[:date_since]) }, date_since: params[:date_since], form_url: dashboard_path, turbo_frame_id: "dashboard_time_chart" }
 
--# Years
-= turbo_frame_tag "years" do
-  .gt-empty-card
-    .heading
-      %h2 Years
+.flex-row.mobile-col.align-top
+  -# Years
+  = turbo_frame_tag "years", class: "years-frame" do
+    .gt-empty-card.w-100
+      .heading
+        %h2 Years
 
-      = link_to new_year_path, class: 'icon-button light', title: 'Add New Year' do
-        %i.fa-solid.fa-plus
-        %span Add
+        = link_to new_year_path, class: 'icon-button light', title: 'Add New Year' do
+          %i.fa-solid.fa-plus
+          %span Add
+      .body
+        .link-cards-list
+          = render partial: 'shared/year_card', collection: @years, as: :year, cached: true
+
+  .gt-empty-card.threshold
+    .heading
+      %h2.text-muted REQUIRED SCORES
     .body
-      .link-cards-list
-        = render partial: 'shared/year_card', collection: @years, as: :year, cached: true
+      - thresholds = []
+      - thresholds << current_user.target if current_user.target.present?
+      - thresholds += [70, 60, 50, 40]
+      - thresholds.each do |threshold|
+        .flex-row.space-between
+          .text-muted= "#{threshold}%:"
+          = number_to_percentage(current_user.required_score_for_threshold(threshold), precision: 2)
