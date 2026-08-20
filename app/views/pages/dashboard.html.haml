@@ -16,5 +16,4 @@
         %span Add
     .body
       .link-cards-list
-        - @years.each do |year|
-          = render partial: 'shared/year_card', locals: { year: year }
+        = render partial: 'shared/year_card', collection: @years, as: :year, cached: true

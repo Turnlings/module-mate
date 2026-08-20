@@ -58,7 +58,7 @@ class User < ApplicationRecord
   def achieved_score
     return 0 if years.empty?
 
-    total = years.sum { |year| year.achieved_score(self) * year.weighting_non_null }
+    total = years.includes(semesters: { uni_modules: { exams: :exam_results } }).sum { |year| year.achieved_score(self) * year.weighting_non_null }
 
     total / 100.0
   end
@@ -66,8 +66,10 @@ class User < ApplicationRecord
   def predicted_score
     return 0 if years.empty?
 
-    total_weight = years.sum { |y| y.weight * y.progress(self) / 100.0 }
-    weighted_sum = years.sum { |y| y.weight * y.progress(self) / 100.0 * y.predicted_score(self) }
+    ys = years.includes(semesters: { uni_modules: { exams: :exam_results } })
+
+    total_weight = ys.sum { |y| y.weight * y.progress(self) / 100.0 }
+    weighted_sum = ys.sum { |y| y.weight * y.progress(self) / 100.0 * y.predicted_score(self) }
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
 

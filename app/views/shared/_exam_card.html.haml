@@ -1,17 +1,18 @@
-= link_to uni_module_exam_path(exam.uni_module, exam), data: { turbo_frame: "_top" } do
-  .name-row
-    .text-truncate= exam.name
-    .mod-code= exam.uni_module.code
-  - if exam.due
-    .date-row
-      .due-date.font-secondary
-        Due:
-        = exam.due.strftime("%d %b %Y, %H:%M")
-      .space-between
-        - if exam.completed
-          .chip-success= "Completed"
-        - if exam.due < Time.current
-        - elsif exam.due < 1.day.from_now
-          .chip-danger{ class: ( "hide-on-mobile" if exam.completed ) }= "#{((exam.due - Time.current)/1.hour).floor} Hours"
-        - elsif exam.due < 1.week.from_now
-          .chip-warning{ class: ( "hide-on-mobile" if exam.completed ) }= "#{(exam.due.to_date - Date.today).to_i} Days"
+- cache [exam.uni_module, exam, current_user] do  
+  = link_to uni_module_exam_path(exam.uni_module, exam), data: { turbo_frame: "_top" } do
+    .name-row
+      .text-truncate= exam.name
+      .mod-code= exam.uni_module.code
+    - if exam.due
+      .date-row
+        .due-date.font-secondary
+          Due:
+          = exam.due.strftime("%d %b %Y, %H:%M")
+        .space-between
+          - if exam.completed
+            .chip-success= "Completed"
+          - if exam.due < Time.current
+          - elsif exam.due < 1.day.from_now
+            .chip-danger{ class: ( "hide-on-mobile" if exam.completed ) }= "#{((exam.due - Time.current)/1.hour).floor} Hours"
+          - elsif exam.due < 1.week.from_now
+            .chip-warning{ class: ( "hide-on-mobile" if exam.completed ) }= "#{(exam.due.to_date - Date.today).to_i} Days"

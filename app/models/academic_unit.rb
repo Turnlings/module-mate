@@ -47,7 +47,7 @@ class AcademicUnit < ApplicationRecord
   end
 
   def exams_with_results(user)
-    exams.joins(:exam_results)
+    exams.eager_load(:exam_results)
          .where(exam_results: { user_id: user.id })
          .where.not(exam_results: { score: nil })
   end

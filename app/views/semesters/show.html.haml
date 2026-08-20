@@ -24,8 +24,7 @@
         %span Add
     .body
       .link-cards-list
-        - @uni_modules.each do |uni_module|
-          = render partial: 'shared/module_card', locals: { uni_module: uni_module }
+        = render partial: 'shared/module_card', collection: @uni_modules, as: :uni_module, cached: true
 
 -# Graph
 = turbo_frame_tag "semester_time_chart" do

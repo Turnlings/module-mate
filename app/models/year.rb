@@ -15,16 +15,29 @@ class Year < AcademicUnit
   def achieved_score(user)
     return final_score if final_score.present?
 
-    return achieved_score_by_semester(user) if semesters.any? { |s| s.final_score.present? }
+    semesters_list = semesters.to_a
 
-    achieved_score_by_module(user)
+    Rails.cache.fetch([self, "achieved_score_#{user.id}"]) do
+      return achieved_score_by_semester(user, semesters_list) if semesters_list.any? { |semester| semester.final_score.present? }
+
+      achieved_score_by_module(user)
+    end
   end
 
   def predicted_score(user)
     return final_score if final_score.present?
 
-    total_weight = semesters.sum { |s| s.weight * s.progress(user) / 100.0 }
-    weighted_sum = semesters.sum { |s| s.weight * s.progress(user) / 100.0 * s.predicted_score(user) }
+    sems = semesters.includes(uni_modules: { exams: :exam_results }).to_a
+
+    total_weight = 0
+    weighted_sum = 0
+
+    sems.each do |semester|
+      semester_weight = semester.weight * semester.progress(user) / 100.0
+      total_weight += semester_weight
+      weighted_sum += semester_weight * semester.predicted_score(user)
+    end
+
     total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
 
@@ -52,11 +65,11 @@ class Year < AcademicUnit
 
   private
 
-  def achieved_score_by_semester(user)
-    total_credits = semesters.sum { |s| s.credits.to_f }
+  def achieved_score_by_semester(user, semesters_list = semesters.to_a)
+    total_credits = semesters_list.sum { |semester| semester.credits.to_f }
     return 0 if total_credits.zero?
 
-    weighted_sum = semesters.sum do |semester|
+    weighted_sum = semesters_list.sum do |semester|
       semester.credits.to_f * semester_score_for_year(semester, user)
     end
 
