@@ -15,7 +15,7 @@ class Semester < AcademicUnit
   def achieved_score(user)
     return final_score if final_score.present?
 
-    Rails.cache.fetch([self, "achieved_score", user.id]) do
+    Rails.cache.fetch([self, 'achieved_score', user.id]) do
       modules_list = uni_modules.includes(exams: :exam_results).to_a
 
       total_weight = modules_list.sum(&:credit_share)
@@ -30,7 +30,7 @@ class Semester < AcademicUnit
   def predicted_score(user)
     return final_score if final_score.present?
 
-    Rails.cache.fetch([self, "predicted_score", user.id]) do
+    Rails.cache.fetch([self, 'predicted_score', user.id]) do
       modules_list = uni_modules.includes(exams: :exam_results).to_a
 
       total_weight = 0
@@ -53,7 +53,7 @@ class Semester < AcademicUnit
   def credits
     return 0 if uni_modules.empty?
 
-    Rails.cache.fetch([self, "credits"]) do
+    Rails.cache.fetch([self, 'credits']) do
       uni_modules.sum(&:credit_share)
     end
   end

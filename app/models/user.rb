@@ -58,7 +58,9 @@ class User < ApplicationRecord
   def achieved_score
     return 0 if years.empty?
 
-    total = years.includes(semesters: { uni_modules: { exams: :exam_results } }).sum { |year| year.achieved_score(self) * year.weighting_non_null }
+    total = years.includes(semesters: { uni_modules: { exams: :exam_results } }).sum do |year|
+      year.achieved_score(self) * year.weighting_non_null
+    end
 
     total / 100.0
   end

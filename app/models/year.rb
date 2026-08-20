@@ -18,7 +18,9 @@ class Year < AcademicUnit
     semesters_list = semesters.to_a
 
     Rails.cache.fetch([self, "achieved_score_#{user.id}"]) do
-      return achieved_score_by_semester(user, semesters_list) if semesters_list.any? { |semester| semester.final_score.present? }
+      return achieved_score_by_semester(user, semesters_list) if semesters_list.any? do |semester|
+        semester.final_score.present?
+      end
 
       achieved_score_by_module(user)
     end
@@ -27,7 +29,7 @@ class Year < AcademicUnit
   def predicted_score(user)
     return final_score if final_score.present?
 
-    Rails.cache.fetch([self, "predicted_score", user.id]) do
+    Rails.cache.fetch([self, 'predicted_score', user.id]) do
       sems = semesters.includes(uni_modules: { exams: :exam_results }).to_a
 
       total_weight = 0
