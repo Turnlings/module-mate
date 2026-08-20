@@ -16,7 +16,7 @@ RSpec.describe 'Account', type: :system do
 
       click_on 'Sign up'
 
-      expect(page).to have_content 'Dashboard'
+      expect(page).to have_text 'Dashboard'
     end
 
     it 'errors if an invalid email is entered' do
@@ -27,7 +27,7 @@ RSpec.describe 'Account', type: :system do
 
       click_on 'Sign up'
 
-      expect(page).to have_no_content 'Dashboard'
+      expect(page).to have_no_text 'Dashboard'
     end
 
     it 'errors if a password is too short' do
@@ -38,7 +38,7 @@ RSpec.describe 'Account', type: :system do
 
       click_on 'Sign up'
 
-      expect(page).to have_content 'Password is too short'
+      expect(page).to have_text 'Password is too short'
     end
 
     it 'errors if confirmation does not match password' do
@@ -49,7 +49,7 @@ RSpec.describe 'Account', type: :system do
 
       click_on 'Sign up'
 
-      expect(page).to have_content 'Password confirmation doesn'
+      expect(page).to have_text 'Password confirmation doesn'
     end
   end
 
@@ -59,7 +59,7 @@ RSpec.describe 'Account', type: :system do
 
       visit user_path(user)
 
-      expect(page).to have_content user.email
+      expect(page).to have_text user.email
     end
 
     it 'can edit account details' do
@@ -67,7 +67,7 @@ RSpec.describe 'Account', type: :system do
 
       visit user_path(user)
 
-      expect(page).to have_content user.email
+      expect(page).to have_text user.email
 
       visit edit_user_registration_path
 
@@ -76,7 +76,7 @@ RSpec.describe 'Account', type: :system do
 
       click_on 'Update'
 
-      expect(page).to have_content 'changed@account.com'
+      expect(page).to have_text 'changed@account.com'
     end
 
     it 'can delete account' do
@@ -94,7 +94,7 @@ RSpec.describe 'Account', type: :system do
       fill_in 'Email', with: 'test@example.com'
       fill_in 'Password', with: 'password'
 
-      expect(page).to have_no_content 'Dashboard'
+      expect(page).to have_no_text 'Dashboard'
     end
   end
 end

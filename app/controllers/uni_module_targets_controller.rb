@@ -5,7 +5,7 @@ class UniModuleTargetsController < ApplicationController
   authorize_resource
 
   def create
-    @uni_module = UniModule.find(params[:uni_module_target][:uni_module_id])
+    @uni_module = UniModule.find(params.expect(:uni_module_target)[:uni_module_id])
     @uni_module_target = @uni_module.uni_module_targets.new(uni_module_target_params)
     @uni_module_target.user = current_user
 
@@ -27,7 +27,7 @@ class UniModuleTargetsController < ApplicationController
   private
 
   def set_uni_module_target
-    @uni_module_target = UniModuleTarget.find(params[:id])
+    @uni_module_target = UniModuleTarget.find(params.expect(:id))
     @uni_module = @uni_module_target.uni_module
   end
 

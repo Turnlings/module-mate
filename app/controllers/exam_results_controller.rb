@@ -5,7 +5,7 @@ class ExamResultsController < ApplicationController
   authorize_resource
 
   def edit
-    @exam = Exam.find(params[:id])
+    @exam = Exam.find(params.expect(:id))
     @exam_result = if @exam.result(current_user).nil?
                      ExamResult.new(user: current_user, exam: @exam)
                    else
@@ -14,7 +14,7 @@ class ExamResultsController < ApplicationController
   end
 
   def create
-    @exam = Exam.find(params[:exam_result][:exam_id])
+    @exam = Exam.find(params.expect(:exam_result)[:exam_id])
     @uni_module = @exam.uni_module
     @exam_result = @exam.exam_results.new(exam_result_params)
     @exam_result.user = current_user
@@ -44,7 +44,7 @@ class ExamResultsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_exam_result
-    @exam_result = ExamResult.find(params[:id])
+    @exam_result = ExamResult.find(params.expect(:id))
     @exam = @exam_result.exam
     @uni_module = @exam.uni_module
   end

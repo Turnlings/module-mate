@@ -92,7 +92,7 @@ class UniModulesController < ApplicationController
   end
 
   def pin
-    @uni_module = UniModule.find(params[:id])
+    @uni_module = UniModule.find(params.expect(:id))
     if @uni_module.update(pinned: !@uni_module.pinned)
       redirect_to uni_module_path(@uni_module), notice: 'Module pin status updated successfully.'
     else
@@ -104,7 +104,7 @@ class UniModulesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_uni_module
-    @uni_module = UniModule.find(params[:id])
+    @uni_module = UniModule.find(params.expect(:id))
 
     @semester = @uni_module.semesters.first
   end

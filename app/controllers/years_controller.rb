@@ -63,7 +63,7 @@ class YearsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_year
-    @year = Year.find(params[:id])
+    @year = Year.find(params.expect(:id))
   end
 
   # Only allow a list of trusted parameters through.

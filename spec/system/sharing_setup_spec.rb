@@ -17,7 +17,7 @@ RSpec.describe 'Sharing setup', type: :system do
       expect(page).to have_css('button[title="Copy Link"]')
       find('button[title="Copy Link"]').click
 
-      expect(page).to have_content 'Copied!'
+      expect(page).to have_text 'Copied!'
     end
   end
 
@@ -36,7 +36,7 @@ RSpec.describe 'Sharing setup', type: :system do
         click_on 'Import'
       end
 
-      expect(page).to have_content semester.name
+      expect(page).to have_text semester.name
     end
   end
 
@@ -57,6 +57,6 @@ RSpec.describe 'Sharing setup', type: :system do
       click_on 'Import'
     end
 
-    expect(page).to have_content semester.name
+    expect(page).to have_text semester.name
   end
 end

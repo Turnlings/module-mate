@@ -6,7 +6,7 @@ class ExamsController < ApplicationController
 
   # GET /exams or /exams.json
   def index
-    @uni_module = UniModule.find(params[:uni_module_id])
+    @uni_module = UniModule.find(params.expect(:uni_module_id))
     @exams = @uni_module.exams
   end
 
@@ -28,7 +28,7 @@ class ExamsController < ApplicationController
 
   # GET /exams/new
   def new
-    @uni_module = UniModule.find(params[:uni_module_id])
+    @uni_module = UniModule.find(params.expect(:uni_module_id))
     @exam = @uni_module.exams.new
   end
 
@@ -39,7 +39,7 @@ class ExamsController < ApplicationController
 
   # POST /exams or /exams.json
   def create
-    @uni_module = UniModule.find(params[:uni_module_id])
+    @uni_module = UniModule.find(params.expect(:uni_module_id))
     @exam = @uni_module.exams.new(exam_params)
 
     respond_to do |format|
@@ -82,8 +82,8 @@ class ExamsController < ApplicationController
   end
 
   def mark_completed
-    @uni_module = UniModule.find(params[:uni_module_id])
-    @exam = @uni_module.exams.find(params[:id])
+    @uni_module = UniModule.find(params.expect(:uni_module_id))
+    @exam = @uni_module.exams.find(params.expect(:id))
     @exam.update(completed: true)
 
     redirect_to uni_module_exam_path(@uni_module, @exam), notice: 'Exam marked as completed.'
@@ -108,7 +108,7 @@ class ExamsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_exam
-    @exam = Exam.find(params[:id])
+    @exam = Exam.find(params.expect(:id))
   end
 
   # Only allow a list of trusted parameters through.

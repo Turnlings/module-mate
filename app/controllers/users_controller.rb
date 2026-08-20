@@ -48,7 +48,7 @@ class UsersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find(params.expect(:id))
   end
 
   # Only allow a list of trusted parameters through.
@@ -61,10 +61,10 @@ class UsersController < ApplicationController
          .includes(:exam)
          .select { |res| res.exam&.due.present? && res.score.present? }
          .map do |res|
-           {
-             name: res.exam.name,
-             data: [[res.exam.due.to_date, res.score.to_f]]
-           }
+      {
+        name: res.exam.name,
+        data: [[res.exam.due.to_date, res.score.to_f]]
+      }
     end
   end
 

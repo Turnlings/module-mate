@@ -11,7 +11,7 @@ class SemestersController < ApplicationController
 
     return if params[:search].blank?
 
-    @semesters = @semesters.where('LOWER(semesters.name) LIKE ?', "%#{params[:search].downcase}%")
+    @semesters = @semesters.where('LOWER(semesters.name) LIKE ?', "%#{params.expect(:search).downcase}%")
   end
 
   # GET /semesters/1 or /semesters/1.json
@@ -73,20 +73,20 @@ class SemestersController < ApplicationController
   end
 
   def share
-    @semester = Semester.find_by!(share_token: params[:share_token])
+    @semester = Semester.find_by!(share_token: params.expect(:share_token))
   end
 
   # GET /semesters/import_form/:share_token
   def import_form
-    @semester = Semester.find_by!(share_token: params[:share_token])
+    @semester = Semester.find_by!(share_token: params.expect(:share_token))
     @years = current_user.years.order(:name)
   end
 
   # POST /semesters/import
   def import
-    shared_semester = Semester.find_by!(share_token: params[:share_token])
+    shared_semester = Semester.find_by!(share_token: params.expect(:share_token))
     if params[:year_id].present? && params[:year_id] != 'new'
-      user_year = current_user.years.find(params[:year_id])
+      user_year = current_user.years.find(params.expect(:year_id))
     else
       # Create a new year if requested
       year_name = params[:new_year_name].presence || "Imported Year #{Time.current.year}"
@@ -114,7 +114,7 @@ class SemestersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_semester
-    @semester = Semester.find(params[:id])
+    @semester = Semester.find(params.expect(:id))
   end
 
   # Only allow a list of trusted parameters through.

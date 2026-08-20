@@ -25,7 +25,7 @@ RSpec.describe 'Course structure', type: :system do
     end
 
     it 'everything is successfully created' do
-      expect(page).to have_content 'Intro to ModuleMate.app'
+      expect(page).to have_text 'Intro to ModuleMate.app'
     end
   end
 end

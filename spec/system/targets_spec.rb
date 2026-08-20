@@ -21,7 +21,7 @@ RSpec.describe 'Module targets', type: :system do
 
     it 'shows up next the the exams' do
       visit uni_module_path(uni_module)
-      expect(page).to have_content '43'
+      expect(page).to have_text '43'
     end
   end
 
@@ -53,7 +53,7 @@ RSpec.describe 'Module targets', type: :system do
 
     it 'recalculates the required score' do
       visit uni_module_path(uni_module)
-      expect(page).to have_content '72'
+      expect(page).to have_text '72'
     end
   end
 end

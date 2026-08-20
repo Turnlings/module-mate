@@ -8,7 +8,7 @@ RSpec.describe 'Visiting the homepage', type: :system do
   it 'shows the welcome text' do
     login_as user
     visit '/'
-    expect(page).to have_content 'Dashboard'
+    expect(page).to have_text 'Dashboard'
   end
 
   it 'shows year progress' do
@@ -16,10 +16,10 @@ RSpec.describe 'Visiting the homepage', type: :system do
     create(:year, user: user, name: 'Year 1', weighting: 25)
     create(:year, user: user, name: 'Year 2', weighting: 75)
     visit '/'
-    expect(page).to have_content 'Year 1'
-    expect(page).to have_content 'Year 2'
-    expect(page).to have_content '25%'
-    expect(page).to have_content '75%'
+    expect(page).to have_text 'Year 1'
+    expect(page).to have_text 'Year 2'
+    expect(page).to have_text '25%'
+    expect(page).to have_text '75%'
   end
 
   it 'shows the achieved score' do
@@ -32,7 +32,7 @@ RSpec.describe 'Visiting the homepage', type: :system do
     create(:exam_result, user: user, exam: exam, score: 80)
 
     visit '/'
-    expect(page).to have_content 'ACHIEVED'
-    expect(page).to have_content '20%'
+    expect(page).to have_text 'ACHIEVED'
+    expect(page).to have_text '20%'
   end
 end
