@@ -53,11 +53,11 @@
     &:hover {
       background-color: $bg-light;
     }
-
-    .space-between {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-    }
   }
+}
+
+.space-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

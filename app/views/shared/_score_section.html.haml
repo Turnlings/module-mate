@@ -3,7 +3,12 @@
     .score-section.w-100
       .main 
         %h3 ACHIEVED
-        .stat= number_to_percentage(academic_entity.achieved_score(current_user), precision: 1)
+        .flex-row.space-between
+          .stat= number_to_percentage(academic_entity.achieved_score(current_user), precision: 1)
+          - if academic_entity.is_a?(Exam)
+            = link_to edit_exam_result_path(@exam), class: 'icon-button record-score-button', title: "Edit #{@exam.name} Score" do
+              %i.fa-solid.fa-pen-to-square
+              %span Record Score
       .items
         - if academic_entity.is_a?(Year) || academic_entity.is_a?(Exam)
           .item 
