@@ -27,18 +27,20 @@ class Year < AcademicUnit
   def predicted_score(user)
     return final_score if final_score.present?
 
-    sems = semesters.includes(uni_modules: { exams: :exam_results }).to_a
+    Rails.cache.fetch([self, "predicted_score", user.id]) do
+      sems = semesters.includes(uni_modules: { exams: :exam_results }).to_a
 
-    total_weight = 0
-    weighted_sum = 0
+      total_weight = 0
+      weighted_sum = 0
 
-    sems.each do |semester|
-      semester_weight = semester.weight * semester.progress(user) / 100.0
-      total_weight += semester_weight
-      weighted_sum += semester_weight * semester.predicted_score(user)
+      sems.each do |semester|
+        semester_weight = semester.weight * semester.progress(user) / 100.0
+        total_weight += semester_weight
+        weighted_sum += semester_weight * semester.predicted_score(user)
+      end
+
+      total_weight.zero? ? 0 : (weighted_sum / total_weight)
     end
-
-    total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
 
   def completed_credits(user)
