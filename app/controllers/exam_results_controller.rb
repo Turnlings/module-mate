@@ -14,7 +14,7 @@ class ExamResultsController < ApplicationController
   end
 
   def create
-    exam_result_params = params.require(:exam_result).permit(:score, :exam_id, :user_id)
+    exam_result_params = params.expect(exam_result: %i[score exam_id user_id])
     @exam = Exam.find(exam_result_params[:exam_id])
     @uni_module = @exam.uni_module
     @exam_result = @exam.exam_results.new(exam_result_params)
@@ -52,6 +52,6 @@ class ExamResultsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def exam_result_params
-    params.require(:exam_result).permit(:score, :exam_id, :user_id)
+    params.expect(exam_result: %i[score exam_id user_id])
   end
 end

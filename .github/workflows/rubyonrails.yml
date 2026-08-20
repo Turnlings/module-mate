@@ -37,9 +37,6 @@ jobs:
       - name: Install JS dependencies
         run: yarn install --immutable
 
-      - name: Install JS dependencies
-        run: yarn install --frozen-lockfile
-
       - name: Precompile Shakapacker packs
         run: RAILS_ENV=test bin/rails assets:precompile
 

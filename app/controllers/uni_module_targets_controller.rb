@@ -5,7 +5,7 @@ class UniModuleTargetsController < ApplicationController
   authorize_resource
 
   def create
-    uni_module_target_params = params.require(:uni_module_target).permit(:score, :uni_module_id, :user_id)
+    uni_module_target_params = params.expect(uni_module_target: %i[score uni_module_id user_id])
     @uni_module = UniModule.find(uni_module_target_params[:uni_module_id])
     @uni_module_target = @uni_module.uni_module_targets.new(uni_module_target_params)
     @uni_module_target.user = current_user
@@ -33,6 +33,6 @@ class UniModuleTargetsController < ApplicationController
   end
 
   def uni_module_target_params
-    params.require(:uni_module_target).permit(:score, :uni_module_id, :user_id)
+    params.expect(uni_module_target: %i[score uni_module_id user_id])
   end
 end

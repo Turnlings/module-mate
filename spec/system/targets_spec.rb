@@ -23,7 +23,7 @@ RSpec.describe 'Module targets', type: :system do
       visit uni_module_path(uni_module)
 
       within('.exams') do
-        expect(page).to have_selector('.required', text: 'Required: 43.00%')
+        expect(page).to have_css('.required', text: 'Required: 43.00%')
       end
     end
   end
@@ -58,7 +58,7 @@ RSpec.describe 'Module targets', type: :system do
       visit uni_module_path(uni_module)
 
       within('.exams') do
-        expect(page).to have_selector('.required', text: 'Required: 72.00%')
+        expect(page).to have_css('.required', text: 'Required: 72.00%')
       end
     end
   end
