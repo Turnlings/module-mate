@@ -4,7 +4,11 @@
       .main 
         %h3 ACHIEVED
         .flex-row.space-between
-          .stat= number_to_percentage(academic_entity.achieved_score(current_user), precision: 1)
+          - achieved_score = academic_entity.achieved_score(current_user)
+          - if achieved_score.nil?
+            .stat= "N/A"
+          - else
+            .stat= number_to_percentage(achieved_score, precision: 1)
           - if academic_entity.is_a?(Exam)
             = link_to edit_exam_result_path(@exam), class: 'icon-button record-score-button', title: "Edit #{@exam.name} Score" do
               %i.fa-solid.fa-pen-to-square
