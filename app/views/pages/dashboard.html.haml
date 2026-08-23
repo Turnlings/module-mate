@@ -23,10 +23,20 @@
     .heading
       %h2.text-muted REQUIRED SCORES
     .body
-      - thresholds = []
-      - thresholds << current_user.target if current_user.target.present?
-      - thresholds += [70, 60, 50, 40]
+      - user_target = current_user.target.present? ? current_user.target.to_i : nil
+      - thresholds = [user_target, 70, 60, 50, 40].compact.uniq
       - thresholds.each do |threshold|
         .flex-row.space-between
-          .text-muted= "#{threshold}%:"
-          = number_to_percentage(current_user.required_score_for_threshold(threshold), precision: 2)
+          .text-muted= "#{number_to_percentage(threshold, precision: 1)}:"
+          - score = current_user.required_score_for_threshold(threshold)
+          - if score.present?
+            - if score < 0
+              .text-success= number_to_percentage(score, precision: 2)
+            - elsif score > 100
+              .text-danger= number_to_percentage(score, precision: 2)
+            -else
+              = number_to_percentage(score, precision: 2)
+          - else
+            %span.text-muted N/A
+
+      = link_to "Add your own target.", edit_target_user_path(current_user), class: "small" if current_user.target.blank?

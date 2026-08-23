@@ -25,6 +25,7 @@ class UniModule < AcademicUnit
 
   def completed_credits(user)
     return 0 if exams.empty?
+    return credits if final_score.present?
 
     completion_percentage(user) * credits / 100
   end

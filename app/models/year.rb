@@ -49,12 +49,13 @@ class Year < AcademicUnit
 
   def completed_credits(user)
     return 0 if uni_modules.empty?
+    return credits if final_score.present?
 
-    uni_modules.sum { |m| m.credits.to_i * m.completion_percentage(user) / 100.0 }
+    semesters.sum { |semester| semester.completed_credits(user) }
   end
 
   def credits
-    uni_modules.sum(:credits)
+    semesters.sum(&:credits)
   end
 
   def weight

@@ -49,6 +49,8 @@ class Semester < AcademicUnit
   end
 
   def completed_credits(user)
+    return credits if final_score.present?
+
     uni_modules.sum { |m| m.completion_percentage(user) / 100 * m.credit_share }
   end
 
