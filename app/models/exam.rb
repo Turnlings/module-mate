@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Exam < ApplicationRecord
+  include Hashid::Rails
+
   MAX_EXAMS_PER_MODULE = 20
 
   belongs_to :uni_module, touch: true

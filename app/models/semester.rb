@@ -2,6 +2,8 @@
 
 # rubocop:disable Rails/HasAndBelongsToMany
 class Semester < AcademicUnit
+  include Hashid::Rails
+
   MAX_SEMESTERS_PER_YEAR = 6
 
   belongs_to :year, touch: true

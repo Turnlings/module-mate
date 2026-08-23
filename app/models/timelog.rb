@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Timelog < ApplicationRecord
+  include Hashid::Rails
+
   belongs_to :uni_module
   belongs_to :user, touch: true
 

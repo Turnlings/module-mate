@@ -163,6 +163,10 @@ GEM
       activesupport (>= 5.1)
       haml (>= 4.0.6)
       railties (>= 5.1)
+    hashid-rails (1.4.1)
+      activerecord (>= 4.0)
+      hashids (~> 1.0)
+    hashids (1.0.6)
     hashie (5.1.0)
       logger
     i18n (1.15.2)
@@ -503,6 +507,7 @@ DEPENDENCIES
   factory_bot_rails
   groupdate
   haml-rails
+  hashid-rails (~> 1.0)
   inline_svg
   jbuilder
   kaminari (~> 1.2)

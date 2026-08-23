@@ -2,6 +2,8 @@
 
 # rubocop:disable Rails/HasAndBelongsToMany
 class UniModule < AcademicUnit
+  include Hashid::Rails
+
   MAX_MODULES_PER_SEMESTER = 20
 
   has_and_belongs_to_many :semesters
