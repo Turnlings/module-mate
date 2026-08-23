@@ -152,3 +152,12 @@ hr {
 .align-left {
   align-items: start;
 }
+
+a {
+  color: $text-muted;
+  text-decoration: underline;
+
+  &:hover {
+    color: $text;
+  }
+}

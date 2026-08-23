@@ -19,22 +19,24 @@
     - if @exam.due
       .font-secondary= @exam.due.strftime("%A %d %b %Y, %H:%M")
     - else 
-      .font-secondary= "No due date set"
+      .font-secondary
+        = "No due date set. ".html_safe
+        = link_to "Add a due date.", edit_uni_module_exam_path(@uni_module, @exam)
   .body
     - if @time_until_due && !@exam.completed
       .countdown-container
         .countdown-card
           %h1= @time_until_due[0].to_i
-          %h3= "Days"
+          .text-muted= "DAYS"
         .countdown-card
           %h1= @time_until_due[1].to_i
-          %h3= "Hours"
+          .text-muted= "HOURS"
         .countdown-card
           %h1= @time_until_due[2].to_i
-          %h3= "Minutes"
+          .text-muted= "MINUTES"
         .countdown-card
           %h1=@time_until_due[3].to_i
-          %h3= "Seconds"
+          .text-muted= "SECONDS"
 
     - if !@exam.completed
       = form_with url: mark_completed_uni_module_exam_path(@uni_module, @exam), method: :patch, local: true do |f|
