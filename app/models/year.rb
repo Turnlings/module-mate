@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Year < AcademicUnit
+  include Hashid::Rails
+
   MAX_YEARS_PER_USER = 10
 
   belongs_to :user, touch: true

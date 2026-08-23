@@ -115,3 +115,5 @@ gem 'react-rails', '~> 3.2'
 gem 'connection_pool', '~> 2.4'
 
 gem 'shakapacker', '~> 9.5.0'
+
+gem 'hashid-rails', "~> 1.0"
