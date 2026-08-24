@@ -31,11 +31,11 @@
           - score = current_user.required_score_for_threshold(threshold)
           - if score.present?
             - if score < 0
-              .text-success= number_to_percentage(score, precision: 2)
+              .text-success= number_to_percentage(score, precision: 1)
             - elsif score > 100
-              .text-danger= number_to_percentage(score, precision: 2)
+              .text-danger= number_to_percentage(score, precision: 1)
             -else
-              = number_to_percentage(score, precision: 2)
+              = number_to_percentage(score, precision: 1)
           - else
             %span.text-muted N/A
 

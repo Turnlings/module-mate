@@ -15,7 +15,7 @@ RSpec.describe TimelogGraphService do
   end
 
   describe 'private helpers' do
-    let(:service) { described_class.new(instance_double(User), instance_double(TimelogGraphService)) }
+    let(:service) { described_class.new(instance_double(User), instance_double(described_class)) }
 
     it 'computes cumulative sums' do
       data = { Date.new(2020, 1, 1) => 1, Date.new(2020, 1, 2) => 2, Date.new(2020, 1, 3) => 3 }
