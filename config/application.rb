@@ -33,5 +33,7 @@ module GradeTracker
 
     # Temporarily support unencrypted data while migrating over
     config.active_record.encryption.support_unencrypted_data = true
+
+    config.active_support.to_time_preserves_timezone = :zone
   end
 end
