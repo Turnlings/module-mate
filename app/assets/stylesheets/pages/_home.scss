@@ -46,6 +46,13 @@
   border-spacing: 0 0.5rem;
   margin: 0.5rem 0;
 
+  th {
+    color: $text-muted;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 0.8rem;
+  }
+
   .exam-row, .timelog-row {
     text-align: left;
 

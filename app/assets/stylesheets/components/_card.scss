@@ -59,6 +59,7 @@
 
     h2 {
       font-weight: normal;
+      color: $text-muted;
     }
 
     @media (max-width: $breakpoint-sm) {

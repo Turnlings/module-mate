@@ -21,7 +21,7 @@
 
   .gt-empty-card.threshold
     .heading
-      %h2.text-muted REQUIRED SCORES
+      %h2 Required Scores
     .body
       - user_target = current_user.target.present? ? current_user.target.to_i : nil
       - thresholds = [user_target, 70, 60, 50, 40].compact.uniq
