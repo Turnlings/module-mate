@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Exam do
+RSpec.describe Exam, type: :model do
   # The following tests using fixed historical days so that the tests are deterministic and repeatable
   context 'with multiple exams' do
     it 'returns the time remaining to the exam' do
@@ -85,6 +85,31 @@ RSpec.describe Exam do
         create(:exam_result, exam: other_exam, user: user, score: 70)
         expect(exam.estimated_score(user)).to eq(90)
       end
+    end
+  end
+
+  describe '#time_until_due' do
+    it 'returns zeros when due is nil' do
+      exam = described_class.new(due: nil)
+      expect(exam.time_until_due(Time.current)).to eq([0, 0, 0, 0])
+    end
+
+    it 'returns zeros when date is nil' do
+      exam = described_class.new(due: 1.day.from_now)
+      expect(exam.time_until_due(nil)).to eq([0, 0, 0, 0])
+    end
+
+    it 'returns zeros when due is in the past' do
+      exam = described_class.new(due: 1.day.ago)
+      expect(exam.time_until_due(Time.current)).to eq([0, 0, 0, 0])
+    end
+
+    it 'calculates days, hours, minutes and seconds' do
+      due = Time.zone.parse('2026-01-02 03:04:05')
+      exam = described_class.new(due: due)
+      now = Time.zone.parse('2026-01-01 00:00:00')
+
+      expect(exam.time_until_due(now)).to eq([1, 3, 4, 5])
     end
   end
 end
