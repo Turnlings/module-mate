@@ -15,13 +15,13 @@ RSpec.describe TimelogGraphService do
   end
 
   describe 'private helpers' do
-    let(:service) { described_class.new(double('User'), double('Scope')) }
+    let(:service) { described_class.new(instance_double(User), instance_double(TimelogGraphService)) }
 
     it 'computes cumulative sums' do
       data = { Date.new(2020, 1, 1) => 1, Date.new(2020, 1, 2) => 2, Date.new(2020, 1, 3) => 3 }
       expect(service.send(:cumulative_sum, data)).to eq({ Date.new(2020, 1, 1) => 1,
-                                                         Date.new(2020, 1, 2) => 3,
-                                                         Date.new(2020, 1, 3) => 6 })
+                                                          Date.new(2020, 1, 2) => 3,
+                                                          Date.new(2020, 1, 3) => 6 })
     end
 
     it 'trims to active range keeping middle zeros' do
@@ -49,7 +49,7 @@ RSpec.describe TimelogGraphService do
     end
 
     it 'builds chart data from modules and timelog data' do
-      mod = double('UniModule', id: 1, name: 'Mod A', chart_color: '#abc')
+      mod = instance_double(UniModule, id: 1, name: 'Mod A', chart_color: '#abc')
       modules = [mod]
       d = Date.new(2020, 1, 1)
       timelog_data = { 1 => { d => 4 } }
