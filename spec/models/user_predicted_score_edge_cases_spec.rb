@@ -20,7 +20,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'handles multiple years with some modules completed and some with final_score' do
-      create(:year, user: user, final_score: 90, weighting: 60)
+      year = create(:year, user: user, final_score: 90, weighting: 60)
       year2 = create(:year, user: user, final_score: nil, weighting: 40)
       semester2 = create(:semester, year: year2, user: user)
       mod2a = create(:uni_module, semesters: [semester2], user: user, credits: 10)
@@ -29,8 +29,10 @@ RSpec.describe User, type: :model do
       create(:exam, uni_module: mod2b, weight: 100)
       create(:exam_result, user: user, exam: exam2a, score: 80)
       # mod2b has no results
-      # year2 predicted = 80, so user.predicted_score = (90*0.6)+(80*0.4)
-      expect(user.predicted_score).to eq((90 * 0.6) + (80 * 0.4))
+      expect(semester2.predicted_score(user)).to eq(80)
+      expect(year2.predicted_score(user)).to eq(80)
+      expect(year.predicted_score(user)).to eq(90)
+      expect(user.predicted_score).to eq(((90 * 0.6) + (80 * 0.2)) / (0.6 + 0.2))
     end
 
     it 'returns correct score when all years have final_score' do
