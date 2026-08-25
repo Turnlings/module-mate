@@ -1,0 +1,25 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+    open-pull-requests-limit: 10
+
+    groups:
+      dependency-updates:
+        applies-to: version-updates
+        patterns:
+          - "*"
+
+      security-updates:
+        applies-to: security-updates
+        patterns:
+          - "*"
+
+    labels:
+      - "dependencies"
+
+    commit-message:
+      prefix: "deps"
