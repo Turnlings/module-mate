@@ -17,9 +17,9 @@ class Year < AcademicUnit
   def achieved_score(user)
     return final_score if final_score.present?
 
-    semesters_list = semesters.to_a
-
     Rails.cache.fetch([self, "achieved_score_#{user.id}"]) do
+      semesters_list = semesters.to_a
+
       return achieved_score_by_semester(user, semesters_list) if semesters_list.any? do |semester|
         semester.final_score.present?
       end
