@@ -11,19 +11,8 @@
       %i.fa-solid.fa-pen-to-square
       %span Edit
 
--# Stats
-.stats-container 
-  .stat 
-    .stat-header Credits
-    .stat-content= number_with_precision(@semester.credits, precision: 0)
-  .stat 
-    .stat-header Average Score
-    .stat-content= number_to_percentage(@semester.average_score(current_user), precision: 2)
-  .stat 
-    .stat-header 
-      = link_to edit_semester_path(@semester, anchor: 'final_score') do
-        Achieved Score
-    .stat-content= number_to_percentage(@semester.achieved_score(current_user), precision: 2)
+= render partial: 'shared/score_section', locals: { academic_entity: @semester, segmented_bar_data: @segmented_bar_data }
+
 
 = turbo_frame_tag "modules" do
   .gt-empty-card
@@ -35,8 +24,7 @@
         %span Add
     .body
       .link-cards-list
-        - @uni_modules.each do |uni_module|
-          = render partial: 'shared/module_card', locals: { uni_module: uni_module }
+        = render partial: 'shared/module_card', collection: @uni_modules, as: :uni_module, cached: true
 
 -# Graph
 = turbo_frame_tag "semester_time_chart" do

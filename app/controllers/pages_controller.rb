@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[home about contact help privacy terms]
 
@@ -10,6 +9,10 @@ class PagesController < ApplicationController
 
   def dashboard
     @years = current_user.years.order(weighting: :desc)
+    @segmented_bar_data = [
+      { name: 'Achieved', value: current_user.achieved_score.round(2), color: 'var(--brand-light)' },
+      { name: 'Predicted', value: current_user.predicted_score.round(2), color: 'var(--brand)' }
+    ]
   end
 
   def quick_log_form
@@ -138,4 +141,3 @@ class PagesController < ApplicationController
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

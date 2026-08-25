@@ -70,6 +70,19 @@ header {
     @media (max-width: $breakpoint-lg) {
       display: none;
     }
+
+    .see-all {
+      font-size: $secondary-size;
+      color: $text-muted;
+      text-decoration: none;
+      padding: 0;
+
+      &:hover {
+        color: $text;
+        text-decoration: underline;
+        background-color: transparent !important;
+      }
+    }
   }
 
   .account-bottom {

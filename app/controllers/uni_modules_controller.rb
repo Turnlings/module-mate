@@ -21,6 +21,11 @@ class UniModulesController < ApplicationController
                  .where(uni_module: @uni_module)
                  .pluck(:name, :weight)
                  .to_h
+
+    @segmented_bar_data = [
+      { name: 'Achieved', value: @uni_module.achieved_score(current_user).round(2), color: 'var(--brand-light)' },
+      { name: 'Predicted', value: @uni_module.predicted_score(current_user).round(2), color: 'var(--brand)' }
+    ]
     @timelogs = @uni_module.timelogs.for_user(current_user).order(date: :desc).page(params[:page]).per(5)
   end
 
@@ -36,6 +41,8 @@ class UniModulesController < ApplicationController
     else
       @uni_module = UniModule.new
     end
+
+    @uni_module.color = MODULE_COLORS[current_user.uni_modules.count % MODULE_COLORS.length]
   end
 
   # GET /uni_modules/1/edit
@@ -85,7 +92,7 @@ class UniModulesController < ApplicationController
   end
 
   def pin
-    @uni_module = UniModule.find(params[:id])
+    @uni_module = UniModule.find(params.expect(:id))
     if @uni_module.update(pinned: !@uni_module.pinned)
       redirect_to uni_module_path(@uni_module), notice: 'Module pin status updated successfully.'
     else
@@ -97,7 +104,7 @@ class UniModulesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_uni_module
-    @uni_module = UniModule.find(params[:id])
+    @uni_module = UniModule.find(params.expect(:id))
 
     @semester = @uni_module.semesters.first
   end

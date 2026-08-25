@@ -21,7 +21,10 @@ RSpec.describe 'Module targets', type: :system do
 
     it 'shows up next the the exams' do
       visit uni_module_path(uni_module)
-      expect(page).to have_content '43'
+
+      within('.exams') do
+        expect(page).to have_css('.required', text: 'Required: 43.00%')
+      end
     end
   end
 
@@ -53,7 +56,10 @@ RSpec.describe 'Module targets', type: :system do
 
     it 'recalculates the required score' do
       visit uni_module_path(uni_module)
-      expect(page).to have_content '72'
+
+      within('.exams') do
+        expect(page).to have_css('.required', text: 'Required: 72.00%')
+      end
     end
   end
 end

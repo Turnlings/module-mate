@@ -21,7 +21,7 @@ RSpec.describe 'Logging time', type: :system do
 
       page.refresh
 
-      expect(page).to have_content '10'
+      expect(page).to have_text '10'
     end
 
     it 'informs the user if it cannot match the module code' do
@@ -37,7 +37,7 @@ RSpec.describe 'Logging time', type: :system do
 
       click_on 'Add Time'
 
-      expect(page).to have_content 'Module not found.'
+      expect(page).to have_text 'Module not found.'
     end
 
     it 'does not let the user log negative minutes' do
@@ -53,7 +53,7 @@ RSpec.describe 'Logging time', type: :system do
 
       click_on 'Add Time'
 
-      expect(page).to have_content 'Time logged must be positive.'
+      expect(page).to have_text 'Time logged must be positive.'
     end
   end
 
@@ -74,8 +74,8 @@ RSpec.describe 'Logging time', type: :system do
 
       click_on 'Save'
 
-      expect(page).to have_content '28'
-      expect(page).to have_content 'Working on some stuff'
+      expect(page).to have_text '28'
+      expect(page).to have_text 'Working on some stuff'
     end
   end
 end

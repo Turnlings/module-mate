@@ -7,22 +7,7 @@
       %i.fa-solid.fa-pen-to-square
       %span Edit
 
--# Stats
-.stats-container 
-  .stat 
-    .stat-header Credits
-    .stat-content= number_with_precision(@year.credits, precision: 0)
-  .stat 
-    .stat-header Average Score
-    .stat-content= number_to_percentage(@year.average_score(current_user), precision: 2)
-  .stat 
-    .stat-header
-      = link_to edit_year_path(@year, anchor: 'final_score') do
-        Achieved Score
-    .stat-content= number_to_percentage(@year.achieved_score(current_user), precision: 2)
-  .stat 
-    .stat-header Predicted Score
-    .stat-content= number_to_percentage(@year.predicted_score(current_user), precision: 2)
+= render partial: 'shared/score_section', locals: { academic_entity: @year, segmented_bar_data: @segmented_bar_data }
 
 = turbo_frame_tag "semesters" do
   .gt-empty-card
@@ -34,8 +19,7 @@
         %span Add
     .body
       .link-cards-list
-        - @year.semesters.each do |semester|
-          = render partial: 'shared/semester_card', locals: { semester: semester }
+        = render partial: 'shared/semester_card', collection: @year.semesters, as: :semester, cached: true
 
 -# Graph
 = turbo_frame_tag "year_time_chart" do

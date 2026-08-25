@@ -5,16 +5,38 @@
 = turbo_frame_tag "dashboard_time_chart" do
   = render partial: 'shared/time_chart', locals: { subject: current_user, time_path: -> { time_dashboard_path(cumulative: params[:cumulative], date_since: params[:date_since]) }, date_since: params[:date_since], form_url: dashboard_path, turbo_frame_id: "dashboard_time_chart" }
 
--# Years
-= turbo_frame_tag "years" do
-  .gt-empty-card
-    .heading
-      %h2 Years
+.flex-row.mobile-col.align-top
+  -# Years
+  = turbo_frame_tag "years", class: "years-frame" do
+    .gt-empty-card.w-100
+      .heading
+        %h2 Years
 
-      = link_to new_year_path, class: 'icon-button light', title: 'Add New Year' do
-        %i.fa-solid.fa-plus
-        %span Add
+        = link_to new_year_path, class: 'icon-button light', title: 'Add New Year' do
+          %i.fa-solid.fa-plus
+          %span Add
+      .body
+        .link-cards-list
+          = render partial: 'shared/year_card', collection: @years, as: :year, cached: true
+
+  .gt-empty-card.threshold
+    .heading
+      %h2 Required Scores
     .body
-      .link-cards-list
-        - @years.each do |year|
-          = render partial: 'shared/year_card', locals: { year: year }
+      - user_target = current_user.target.present? ? current_user.target.to_i : nil
+      - thresholds = [user_target, 70, 60, 50, 40].compact.uniq
+      - thresholds.each do |threshold|
+        .flex-row.space-between
+          .text-muted= "#{number_to_percentage(threshold, precision: 1)}:"
+          - score = current_user.required_score_for_threshold(threshold)
+          - if score.present?
+            - if score < 0
+              .text-success= number_to_percentage(score, precision: 1)
+            - elsif score > 100
+              .text-danger= number_to_percentage(score, precision: 1)
+            -else
+              = number_to_percentage(score, precision: 1)
+          - else
+            %span.text-muted N/A
+
+      = link_to "Add your own target.", edit_target_user_path(current_user), class: "small" if current_user.target.blank?

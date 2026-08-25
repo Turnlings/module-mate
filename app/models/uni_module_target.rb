@@ -2,5 +2,5 @@
 
 class UniModuleTarget < ApplicationRecord
   belongs_to :user
-  belongs_to :uni_module
+  belongs_to :uni_module, touch: true
 end

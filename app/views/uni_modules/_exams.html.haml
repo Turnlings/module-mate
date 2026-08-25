@@ -12,17 +12,18 @@
     - if @uni_module.exams.present?
       .link-cards-list
         - @uni_module.exams.each do |exam|
-          = link_to uni_module_exam_path(@uni_module, exam), data: { turbo_frame: "_top" } do
-            .space-between
-              .name= exam.name
-              - if exam.score(current_user)
-                .actual= "#{number_with_precision(exam.score(current_user), precision: 2)}%"
-              - elsif @uni_module.final_score.present? && exam.estimated_score(current_user).positive? && exam.estimated_score(current_user) <= 100
-                .required.text-muted= "Estimated: #{number_with_precision(exam.estimated_score(current_user), precision: 2)}%"
-              - elsif exam.target(current_user)
-                .required.text-muted= "Required: #{number_with_precision(exam.target(current_user), precision: 2)}%"
-              - else 
-                .empty.text-muted= "No Score"
-            .space-between
-              .font-secondary= exam.weight.to_s + '% Weighting'
-              .font-secondary= exam.due&.strftime("%-d %b %Y")
+          - cache [exam.uni_module, exam, current_user] do
+            = link_to uni_module_exam_path(@uni_module, exam), data: { turbo_frame: "_top" } do
+              .space-between
+                .name= exam.name
+                - if exam.score(current_user)
+                  .actual= "#{number_with_precision(exam.score(current_user), precision: 2)}%"
+                - elsif @uni_module.final_score.present? && exam.estimated_score(current_user).positive? && exam.estimated_score(current_user) <= 100
+                  .required.text-muted= "Estimated: #{number_with_precision(exam.estimated_score(current_user), precision: 2)}%"
+                - elsif exam.target(current_user)
+                  .required.text-muted= "Required: #{number_with_precision(exam.target(current_user), precision: 2)}%"
+                - else 
+                  .empty.text-muted= "No Score"
+              .space-between
+                .font-secondary= exam.weight.to_s + '% Weighting'
+                .font-secondary= exam.due&.strftime("%-d %b %Y")

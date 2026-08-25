@@ -6,7 +6,7 @@ class TimelogsController < ApplicationController
 
   # GET /timelogs or /timelogs.json
   def index
-    @uni_module = UniModule.find(params[:uni_module_id])
+    @uni_module = UniModule.find(params.expect(:uni_module_id))
     @timelogs = @uni_module.timelogs.for_user(current_user).order(date: :desc)
   end
 
@@ -17,7 +17,7 @@ class TimelogsController < ApplicationController
 
   # GET /timelogs/new
   def new
-    @uni_module = UniModule.find(params[:uni_module_id])
+    @uni_module = UniModule.find(params.expect(:uni_module_id))
     @timelog = @uni_module.timelogs.new
     @timelog.date = Date.current
   end
@@ -29,7 +29,7 @@ class TimelogsController < ApplicationController
 
   # POST /timelogs or /timelogs.json
   def create
-    @uni_module = UniModule.find(params[:uni_module_id])
+    @uni_module = UniModule.find(params.expect(:uni_module_id))
     @timelog = @uni_module.timelogs.new(timelog_params)
     @timelog.user = current_user
 
@@ -75,7 +75,7 @@ class TimelogsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_timelog
-    @timelog = Timelog.find(params[:id])
+    @timelog = Timelog.find(params.expect(:id))
   end
 
   # Only allow a list of trusted parameters through.

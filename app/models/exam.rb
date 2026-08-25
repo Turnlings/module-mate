@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Exam < ApplicationRecord
+  include Hashid::Rails
+
   MAX_EXAMS_PER_MODULE = 20
 
   belongs_to :uni_module, touch: true
@@ -15,14 +17,19 @@ class Exam < ApplicationRecord
   end
 
   def score(user)
-    result = ExamResult.find_by(user: user, exam: self)
+    result = exam_result_for(user)
     return nil if result.nil?
 
     result.score
   end
 
   def adjusted_score(user)
+    # Default behaviour that is overriden by child classes
     score(user)
+  end
+
+  def total_weight
+    weight / 100.0 * uni_module.weight
   end
 
   def target(user)
@@ -45,7 +52,7 @@ class Exam < ApplicationRecord
   end
 
   def result(user)
-    ExamResult.find_by(user: user, exam: self)
+    exam_result_for(user)
   end
 
   def time_until_due(date)
@@ -62,7 +69,35 @@ class Exam < ApplicationRecord
     [dd, hh, mm, ss]
   end
 
+  def weighting
+    weight
+  end
+
+  def progress(user)
+    return 0 if score(user).nil?
+
+    100
+  end
+
+  def predicted_score(user)
+    return score(user) if score(user)
+
+    0
+  end
+
+  alias achieved_score score
+
   private
+
+  def exam_result_for(user)
+    @exam_result_for ||= {}
+
+    @exam_result_for[user.id] ||= if exam_results.loaded?
+                                    exam_results.find { |exam_result| exam_result.user_id == user.id }
+                                  else
+                                    exam_results.find_by(user: user)
+                                  end
+  end
 
   def estimated_score_value(user)
     remaining_weight = weight.to_f / 100

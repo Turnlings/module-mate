@@ -27,13 +27,15 @@ jobs:
 
       # Install Node.js & Yarn for Shakapacker
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'yarn'
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Install JS dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Precompile Shakapacker packs
         run: RAILS_ENV=test bin/rails assets:precompile

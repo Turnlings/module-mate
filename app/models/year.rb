@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class Year < ApplicationRecord
+class Year < AcademicUnit
+  include Hashid::Rails
+
   MAX_YEARS_PER_USER = 10
 
   belongs_to :user, touch: true
@@ -11,34 +13,53 @@ class Year < ApplicationRecord
   has_many :timelogs, through: :uni_modules
   validate :user_year_limit, on: :create
 
-  def user_year_limit
-    return unless user.years.count >= MAX_YEARS_PER_USER
+  # The accumulated score of all the completed exams in this year
+  def achieved_score(user)
+    return final_score if final_score.present?
 
-    errors.add(:base, "You can only have up to #{MAX_YEARS_PER_USER} years.")
+    semesters_list = semesters.to_a
+
+    Rails.cache.fetch([self, "achieved_score_#{user.id}"]) do
+      return achieved_score_by_semester(user, semesters_list) if semesters_list.any? do |semester|
+        semester.final_score.present?
+      end
+
+      achieved_score_by_module(user)
+    end
+  end
+
+  def predicted_score(user)
+    return final_score if final_score.present?
+
+    Rails.cache.fetch([self, 'predicted_score', user.id]) do
+      sems = semesters.includes(uni_modules: { exams: :exam_results }).to_a
+
+      total_weight = 0
+      weighted_sum = 0
+
+      sems.each do |semester|
+        semester_weight = semester.weight * semester.progress(user) / 100.0
+        total_weight += semester_weight
+        weighted_sum += semester_weight * semester.predicted_score(user)
+      end
+
+      total_weight.zero? ? 0 : (weighted_sum / total_weight)
+    end
+  end
+
+  def completed_credits(user)
+    return 0 if uni_modules.empty?
+    return credits if final_score.present?
+
+    semesters.sum { |semester| semester.completed_credits(user) }
   end
 
   def credits
     semesters.sum(&:credits)
   end
 
-  def total_minutes(since_string = 'all')
-    # When a module is associated to multiple semesters, the join behind
-    # `timelogs` can duplicate rows and cause sums to be inflated.
-    # Dedupe by timelog id before aggregating.
-    since = TimelogGraphService.date_of(since_string)
-
-    scope = Timelog.where(id: timelogs.select(:id))
-    scope = scope.where(date: since..) if since.present?
-
-    scope.sum(:minutes)
-  end
-
-  # The average of all the grades of the semesters in this year
-  def weighted_average(user)
-    return 0 if semesters.empty? || credits.zero?
-
-    weighted_sum = semesters.sum { |s| s.credits * s.weighted_average(user) }
-    weighted_sum / credits
+  def weight
+    weighting_non_null / 100.0
   end
 
   def weighting_non_null
@@ -47,58 +68,15 @@ class Year < ApplicationRecord
     weighting
   end
 
-  def completed_credits(user)
-    return 0 if uni_modules.empty?
-
-    uni_modules.sum { |m| m.credits.to_i * m.completion_percentage(user) / 100.0 }
-  end
-
   # The percentage of credits completed by the user in this year
-  def progress(user)
-    return 100 if final_score.present?
-
-    completed_credits = completed_credits(user)
-    total_credits = uni_modules.sum { |m| m.credits.to_i }
-
-    total_credits.zero? ? 0 : (completed_credits / total_credits) * 100
-  end
-
-  # Returns the predicted score for the year
-  def predicted_score(user)
-    return final_score if final_score.present?
-
-    progress = self.progress(user) / 100.0
-    return 0 if progress.zero?
-
-    achieved = achieved_score(user)
-    extrapolated = achieved / progress
-    extrapolated.clamp(0, 100)
-  end
-
-  # The accumulated score of all the completed exams in this year
-  def achieved_score(user)
-    return final_score if final_score.present?
-
-    return achieved_score_by_semester(user) if semesters.any? { |s| s.final_score.present? }
-
-    achieved_score_by_module(user)
-  end
-
-  # Good enough with weighted average TODO: use exam results instead
-  def average_score(_user)
-    return 0 if exam_results.empty?
-
-    scores = exam_results.map(&:score).compact
-    scores.sum.to_f / scores.size
-  end
 
   private
 
-  def achieved_score_by_semester(user)
-    total_credits = semesters.sum { |s| s.credits.to_f }
+  def achieved_score_by_semester(user, semesters_list = semesters.to_a)
+    total_credits = semesters_list.sum { |semester| semester.credits.to_f }
     return 0 if total_credits.zero?
 
-    weighted_sum = semesters.sum do |semester|
+    weighted_sum = semesters_list.sum do |semester|
       semester.credits.to_f * semester_score_for_year(semester, user)
     end
 
@@ -117,5 +95,11 @@ class Year < ApplicationRecord
 
     weighted_sum = uni_modules.sum { |m| m.credits.to_i * m.achieved_score(user) }
     weighted_sum / total_credits
+  end
+
+  def user_year_limit
+    return unless user.years.count >= MAX_YEARS_PER_USER
+
+    errors.add(:base, "You can only have up to #{MAX_YEARS_PER_USER} years.")
   end
 end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include Hashid::Rails
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -58,28 +60,21 @@ class User < ApplicationRecord
   def achieved_score
     return 0 if years.empty?
 
-    total_weight = years.sum(&:weighting_non_null)
-    return 0 if total_weight.zero?
-
-    total = years.sum { |year| year.achieved_score(self) * year.weighting_non_null }
-
-    total / total_weight
-  end
-
-  # Returns the weighted average of years' predicted scores
-  def predicted_score
-    valid_years = years.select { |year| year.final_score.present? || year.progress(self).positive? }
-    return 0 if valid_years.empty?
-
-    total_weight = valid_years.sum(&:weighting_non_null)
-    return 0 if total_weight.zero?
-
-    weighted_sum = valid_years.sum do |year|
-      year_score = year.predicted_score(self)
-      year_score * year.weighting_non_null
+    total = years.includes(semesters: { uni_modules: { exams: :exam_results } }).sum do |year|
+      year.achieved_score(self) * year.weighting_non_null
     end
 
-    weighted_sum / total_weight
+    total / 100.0
+  end
+
+  def predicted_score
+    return 0 if years.empty?
+
+    ys = years.includes(semesters: { uni_modules: { exams: :exam_results } })
+
+    total_weight = ys.sum { |y| y.weight * y.progress(self) / 100.0 }
+    weighted_sum = ys.sum { |y| y.weight * y.progress(self) / 100.0 * y.predicted_score(self) }
+    total_weight.zero? ? 0 : (weighted_sum / total_weight)
   end
 
   def required_score_for_threshold(threshold)

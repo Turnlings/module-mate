@@ -44,16 +44,6 @@
         .figure= number_to_percentage(@user.target, precision: 2)
       - else
         .title No target grade set
-  .body
-    .gt-card
-      Target score to reach thresholds (EXPERIMENTAL)
-      - thresholds = []
-      - thresholds << @user.target if @user.target.present?
-      - thresholds += [70, 60, 50, 40]
-      - thresholds.each do |threshold|
-        .flex-row
-          %span.text-muted= "#{threshold}%:"
-          %span= number_to_percentage(@user.required_score_for_threshold(threshold), precision: 2)
 
 .gt-empty-card
   .heading 

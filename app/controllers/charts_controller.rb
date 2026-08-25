@@ -9,7 +9,7 @@ class ChartsController < ApplicationController
   end
 
   def time_year
-    year = Year.find(params[:id])
+    year = Year.find(params.expect(:id))
     authorize! :read, year
 
     cumulative = params[:cumulative] != 'false'
@@ -20,7 +20,7 @@ class ChartsController < ApplicationController
   end
 
   def time_semester
-    semester = Semester.find(params[:id])
+    semester = Semester.find(params.expect(:id))
     authorize! :read, semester
 
     cumulative = params[:cumulative] != 'false'
@@ -31,7 +31,7 @@ class ChartsController < ApplicationController
   end
 
   def time_module
-    uni_module = UniModule.find(params[:id])
+    uni_module = UniModule.find(params.expect(:id))
     authorize! :read, uni_module
 
     cumulative = params[:cumulative] != 'false'

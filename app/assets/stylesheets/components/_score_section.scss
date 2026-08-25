@@ -1,0 +1,38 @@
+.score-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  h3 {
+    color: $text-muted;
+    font-size: $secondary-size;
+    margin: 0;
+  }
+
+  .items {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .stat {
+    color: $brand-light;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+  }
+
+  .main {
+    .stat{
+      font-size: 3rem;
+      line-height: 3rem;
+    }
+  }
+
+  .right {
+    margin-left: auto;
+  }
+
+  .button-row {
+    font-size: 1.5rem;
+  }
+}

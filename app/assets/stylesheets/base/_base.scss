@@ -148,3 +148,16 @@ hr {
   width: 100%;
   gap: 1rem;
 }
+
+.align-left {
+  align-items: start;
+}
+
+a {
+  color: $text-muted;
+  text-decoration: underline;
+
+  &:hover {
+    color: $text;
+  }
+}

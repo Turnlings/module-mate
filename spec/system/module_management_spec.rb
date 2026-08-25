@@ -17,11 +17,11 @@ RSpec.describe 'Module management', type: :system do
     fill_in 'Name', with: 'Test Exam'
     click_on 'Save'
 
-    expect(page).to have_content 'Test Exam'
+    expect(page).to have_text 'Test Exam'
 
     visit uni_module_path(uni_module)
 
-    expect(page).to have_content 'Test Exam'
+    expect(page).to have_text 'Test Exam'
   end
 
   it 'can pin a module' do
@@ -30,8 +30,8 @@ RSpec.describe 'Module management', type: :system do
     uni_module = create(:uni_module, user: user)
     visit '/'
 
-    expect(page).to have_content 'All Modules'
-    expect(page).to have_no_content uni_module.code
+    expect(page).to have_text 'All Modules'
+    expect(page).to have_no_text uni_module.code
 
     visit uni_module_path(uni_module)
 
@@ -39,6 +39,6 @@ RSpec.describe 'Module management', type: :system do
 
     visit '/'
 
-    expect(page).to have_content uni_module.code
+    expect(page).to have_text uni_module.code
   end
 end

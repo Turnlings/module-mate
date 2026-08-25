@@ -31,8 +31,6 @@
       = link_to "Quicklog",
         quick_log_form_path(quicklog_params),
         data: { turbo_frame: "modal"}
-      = link_to all_upcoming_assessments_path do
-        Assessments
       = link_to uni_modules_path do
         All Modules
       - if @pinned_modules.present?
@@ -47,7 +45,11 @@
       %hr
 
       -# TODO: Do I want a link to all upcoming exams 
-      .font-secondary.px-3 Next Assessment
+      .space-between
+        .font-secondary.px-3 Next Assessment
+        = link_to all_upcoming_assessments_path, class: "see-all px-3" do
+          See All
+
       - if @next_exams
         - @next_exams.each do |exam|
           = render partial: 'shared/exam_card', locals: { exam: exam }

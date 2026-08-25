@@ -3,7 +3,6 @@
 class Ability
   include CanCan::Ability
 
-  # rubocop:disable Metrics/AbcSize
   def initialize(user)
     # Define abilities for the user here. For example:
     #
@@ -44,5 +43,4 @@ class Ability
     can :read, :privacy
     can :read, :terms
   end
-  # rubocop:enable Metrics/AbcSize
 end

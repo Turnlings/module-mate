@@ -3,11 +3,11 @@
 
 = turbo_stream.replace "dashboard_study_streak" do
   = turbo_frame_tag "dashboard_study_streak" do
-    .stat-content= "#{current_user.study_streak} #{'day'.pluralize(current_user.study_streak)}"
+    .stat= "#{current_user.study_streak} #{'day'.pluralize(current_user.study_streak)}"
 
 = turbo_stream.replace "dashboard_minutes_today" do
   = turbo_frame_tag "dashboard_minutes_today" do
-    .stat-content= current_user.minutes_today
+    .stat= current_user.minutes_today
 
 = turbo_stream.replace "dashboard_time_chart" do 
   = turbo_frame_tag "dashboard_time_chart" do
