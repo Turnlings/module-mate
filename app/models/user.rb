@@ -58,28 +58,17 @@ class User < ApplicationRecord
   end
 
   def achieved_score
-    return 0 if years.empty?
-
-    total = years.includes(semesters: { uni_modules: { exams: :exam_results } }).sum do |year|
-      year.achieved_score(self) * year.weighting_non_null
-    end
-
-    total / 100.0
+    dashboard_stats[:achieved_score]
   end
 
   def predicted_score
-    return 0 if years.empty?
-
-    ys = years.includes(semesters: { uni_modules: { exams: :exam_results } })
-
-    total_weight = ys.sum { |y| y.weight * y.progress(self) / 100.0 }
-    weighted_sum = ys.sum { |y| y.weight * y.progress(self) / 100.0 * y.predicted_score(self) }
-    total_weight.zero? ? 0 : (weighted_sum / total_weight)
+    dashboard_stats[:predicted_score]
   end
 
   def required_score_for_threshold(threshold)
-    p = progress / 100.0
-    a = achieved_score
+    stats = dashboard_stats
+    p = stats[:progress] / 100.0
+    a = stats[:achieved_score]
 
     return threshold if p.zero?
     return 0 if p == 1 && a >= threshold
@@ -128,13 +117,57 @@ class User < ApplicationRecord
   end
 
   def progress
-    return 0 if uni_modules.empty?
-
-    total_progress = years.sum { |year| year.progress(self) * year.weighting_non_null }
-    total_progress / 100.0
+    dashboard_stats[:progress]
   end
 
   private
+
+  def dashboard_stats
+    @dashboard_stats ||= calculate_dashboard_stats
+  end
+
+  def calculate_achieved_score
+    return 0 if years.empty?
+
+    @ys ||= years.includes(semesters: { uni_modules: { exams: :exam_results } })
+
+    total = @ys.sum do |year|
+      year.achieved_score(self) * year.weighting_non_null
+    end
+
+    total / 100.0
+  end
+
+  def calculate_predicted_score
+    return 0 if years.empty?
+
+    @ys ||= years.includes(semesters: { uni_modules: { exams: :exam_results } })
+
+    total_weight = @ys.sum { |y| y.weight * y.progress(self) / 100.0 }
+    weighted_sum = @ys.sum { |y| y.weight * y.progress(self) / 100.0 * y.predicted_score(self) }
+    total_weight.zero? ? 0 : (weighted_sum / total_weight)
+  end
+
+  def calculate_progress
+    return 0 if uni_modules.empty?
+
+    @ys ||= years.includes(semesters: { uni_modules: { exams: :exam_results } })
+
+    total_progress = @ys.sum { |year| year.progress(self) * year.weighting_non_null }
+    total_progress / 100.0
+  end
+
+  def calculate_dashboard_stats
+    return { achieved_score: 0, predicted_score: 0, progress: 0 } if years.empty?
+
+    @ys ||= years.includes(semesters: { uni_modules: { exams: :exam_results } })
+
+    {
+      achieved_score: calculate_achieved_score,
+      predicted_score: calculate_predicted_score,
+      progress: calculate_progress
+    }
+  end
 
   def set_terms_agreed_at
     self.terms_of_service_agreed_at = Time.current

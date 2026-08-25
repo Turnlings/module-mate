@@ -21,7 +21,9 @@ class AcademicUnit < ApplicationRecord
   def progress(user)
     return 100 if final_score.present?
 
-    credits.zero? ? 0 : (completed_credits(user) / credits) * 100
+    Rails.cache.fetch([self, 'progress', user.id]) do
+      credits.zero? ? 0 : (completed_credits(user) / credits) * 100
+    end
   end
 
   def completed_credits(user)
