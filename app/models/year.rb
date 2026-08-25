@@ -43,7 +43,7 @@ class Year < AcademicUnit
         weighted_sum += semester_weight * semester.predicted_score(user)
       end
 
-      total_weight.zero? ? 0 : (weighted_sum / total_weight)
+      total_weight.zero? || total_weight.nan? ? 0 : (weighted_sum / total_weight)
     end
   end
 

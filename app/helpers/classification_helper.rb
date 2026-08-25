@@ -5,8 +5,8 @@ module ClassificationHelper
     when 60...70 then '2:1'
     when 50...60 then '2:2'
     when 40...50 then '3rd'
-    when 0 then '...'
-    else 'Fail'
+    when 1...40 then 'Fail'
+    else '...'
     end
   end
 end

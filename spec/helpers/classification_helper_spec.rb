@@ -39,7 +39,7 @@ RSpec.describe ClassificationHelper, type: :helper do
     end
 
     it 'returns "Fail" for scores below 40' do
-      expect(helper.classification(-1)).to eq('Fail')
+      expect(helper.classification(2)).to eq('Fail')
       expect(helper.classification(39)).to eq('Fail')
     end
   end
