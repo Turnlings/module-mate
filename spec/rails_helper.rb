@@ -83,7 +83,9 @@ RSpec.configure do |config|
     def execute_cdp(cmd, params = {})
       super
     rescue Selenium::WebDriver::Error::InvalidArgumentError => e
-      raise unless cmd == 'Storage.clearDataForOrigin' && params[:origin] == '*' && e.message.include?('is not a valid URL')
+      unless cmd == 'Storage.clearDataForOrigin' && params[:origin] == '*' && e.message.include?('is not a valid URL')
+        raise
+      end
     end
   end)
 

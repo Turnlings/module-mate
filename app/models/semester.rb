@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Rails/HasAndBelongsToMany
+# rubocop:disable-next Rails/HasAndBelongsToMany
 class Semester < AcademicUnit
   include Hashid::Rails
 
@@ -82,4 +82,3 @@ class Semester < AcademicUnit
     errors.add(:base, "You can only have up to #{MAX_SEMESTERS_PER_YEAR} semesters per year.")
   end
 end
-# rubocop:enable Rails/HasAndBelongsToMany

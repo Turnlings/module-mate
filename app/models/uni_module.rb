@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Rails/HasAndBelongsToMany
+# rubocop:disable-next Rails/HasAndBelongsToMany
 class UniModule < AcademicUnit
   include Hashid::Rails
 
@@ -90,4 +90,3 @@ class UniModule < AcademicUnit
     errors.add(:base, "You can only have up to #{MAX_MODULES_PER_SEMESTER} modules per semester.")
   end
 end
-# rubocop:enable Rails/HasAndBelongsToMany
