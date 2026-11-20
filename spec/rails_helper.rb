@@ -76,6 +76,17 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
   config.include Capybara::DSL
 
+  # Chrome 158+ rejects CDP Storage.clearDataForOrigin when origin is '*'.
+  # Capybara currently uses '*' during reset, so ignore only this known
+  # incompatibility to keep system spec teardown working.
+  Capybara::Selenium::Driver::ChromeDriver.prepend(Module.new do
+    def execute_cdp(cmd, params = {})
+      super
+    rescue Selenium::WebDriver::Error::InvalidArgumentError => e
+      raise unless cmd == 'Storage.clearDataForOrigin' && params[:origin] == '*' && e.message.include?('is not a valid URL')
+    end
+  end)
+
   Capybara.register_driver :selenium_chrome_headless do |app|
     options = Selenium::WebDriver::Chrome::Options.new
     options.add_argument('--headless')
