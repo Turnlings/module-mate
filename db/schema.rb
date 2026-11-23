@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_15_211353) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_15_211353) do
   create_table "exam_results", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "exam_id", null: false
@@ -33,15 +33,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_15_211353) do
     t.datetime "released"
     t.decimal "threshold"
     t.index ["uni_module_id"], name: "index_exams_on_uni_module_id"
-  end
-
-  create_table "gradeds", force: :cascade do |t|
-    t.decimal "weighting"
-    t.decimal "score"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "uni_module_id", null: false
-    t.index ["uni_module_id"], name: "index_gradeds_on_uni_module_id"
   end
 
   create_table "semesters", force: :cascade do |t|
@@ -98,6 +89,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_15_211353) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -106,9 +98,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_15_211353) do
     t.datetime "updated_at", null: false
     t.string "provider"
     t.string "uid"
-    t.string "email"
     t.datetime "terms_of_service_agreed_at"
     t.decimal "target"
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -125,7 +117,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_15_211353) do
   add_foreign_key "exam_results", "exams"
   add_foreign_key "exam_results", "users"
   add_foreign_key "exams", "uni_modules"
-  add_foreign_key "gradeds", "uni_modules"
   add_foreign_key "semesters", "years"
   add_foreign_key "timelogs", "uni_modules"
   add_foreign_key "timelogs", "users"

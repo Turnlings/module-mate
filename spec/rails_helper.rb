@@ -110,6 +110,10 @@ RSpec.configure do |config|
   # Devise helpers for request specs (e.g. sign_in/sign_out)
   config.include Devise::Test::IntegrationHelpers, type: :request
 
+  config.before do
+    Rails.cache.clear
+  end
+
   config.after(type: :system) do
     Warden.test_reset!
   end
