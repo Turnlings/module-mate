@@ -16,6 +16,17 @@ RSpec.describe 'Account', type: :system do
 
       click_on 'Sign up'
 
+      expect(page).to have_text 'A message with a confirmation link has been sent to your email address'
+
+      registered_user = User.find_by!(email: 'test@account.com')
+      registered_user.confirm
+
+      visit new_user_session_path
+
+      fill_in 'Email', with: 'test@account.com'
+      fill_in 'Password', with: 'Test_Password123'
+      click_on 'Sign in'
+
       expect(page).to have_text 'Dashboard'
     end
 
@@ -66,8 +77,7 @@ RSpec.describe 'Account', type: :system do
       login_as user
 
       visit user_path(user)
-
-      expect(page).to have_text user.email
+      expect(page).to have_text(user.email)
 
       visit edit_user_registration_path
 

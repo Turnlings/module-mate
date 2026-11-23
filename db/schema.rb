@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_15_211353) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_23_213050) do
   create_table "exam_results", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "exam_id", null: false
@@ -100,6 +100,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_15_211353) do
     t.string "uid"
     t.datetime "terms_of_service_agreed_at"
     t.decimal "target"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
