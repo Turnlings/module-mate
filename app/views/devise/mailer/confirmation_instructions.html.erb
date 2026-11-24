@@ -1,5 +1,32 @@
-<p>Welcome <%= @email %>!</p>
+<div style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 30px; text-align: center;">
+  <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; padding: 30px; text-align: left; border: 1px solid #e0e0e0;">
+    
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 30px;">
+      <h1 style="color: hsl(210, 80%, 30%); margin: 0; font-size: 24px;">ModuleMate</h1>
+      <!-- TODO: When I get a logo, replace the text with <img src="LOGO_URL" alt="ModuleMate" style="height:40px;"> -->
+    </div>
 
-<p>You can confirm your account email through the link below:</p>
+    <p style="color: hsl(0, 0%, 20%); font-size: 16px; margin-bottom: 20px;">
+      Welcome <%= @email %>!,
+    </p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+    <p style="color: hsl(0, 0%, 20%); font-size: 16px; margin-bottom: 30px;">
+      You can confirm your account email through the link below:
+    </p>
+
+    <p style="text-align: center; margin: 30px 0;">
+      <a href="<%= confirmation_url(@resource, confirmation_token: @token) %>"
+         style="background-color: hsl(210, 80%, 30%); color: hsl(0, 0%, 95%);
+                text-decoration: none; padding: 14px 28px; border-radius: 6px;
+                font-weight: bold; font-size: 16px; display: inline-block;">
+        Confirm my account
+      </a>
+    </p>
+
+    <!-- Footer -->
+    <p style="color: hsl(0, 0%, 60%); font-size: 14px; text-align: center; margin-top: 40px;">
+      Thank you for using ModuleMate<br>
+    </p>
+  </div>
+</div>
