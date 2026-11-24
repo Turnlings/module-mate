@@ -117,4 +117,6 @@ RSpec.configure do |config|
   config.after(type: :system) do
     Warden.test_reset!
   end
+
+  RSpec::Matchers.define_negated_matcher :not_change, :change
 end
