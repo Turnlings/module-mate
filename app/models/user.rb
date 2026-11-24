@@ -26,12 +26,15 @@ class User < ApplicationRecord
   before_create :set_terms_agreed_at, if: -> { terms_of_service == '1' }
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0, 20]
-      user.skip_confirmation! # Skip email confirmation for OAuth users
-      # Add other user info as needed
-    end
+    user = where(provider: auth.provider, uid: auth.uid).first_or_initialize
+
+    user.email = auth.info.email
+    user.password = Devise.friendly_token[0, 20] if user.new_record?
+
+    user.skip_confirmation! unless user.confirmed?
+
+    user.save!
+    user
   end
 
   def credits
