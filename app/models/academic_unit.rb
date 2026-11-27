@@ -48,6 +48,12 @@ class AcademicUnit < ApplicationRecord
     scope.sum(:minutes)
   end
 
+  def average_time_per_credit(since_string = 'all')
+    return 0 if credits.zero?
+
+    total_minutes(since_string) / credits
+  end
+
   def exams_with_results(user)
     exams.eager_load(:exam_results)
          .where(exam_results: { user_id: user.id })

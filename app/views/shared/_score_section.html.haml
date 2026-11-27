@@ -50,5 +50,12 @@
         .stat 
           .stat-header Credits Completed
           .stat-content= number_with_precision(academic_entity.completed_credits(current_user), precision: 2)
+        .stat 
+          .stat-header Mins per Credit
+          - avg_time_per_credit = academic_entity.average_time_per_credit()
+          - if avg_time_per_credit.nil?
+            .stat-content= "N/A"
+          - else
+            .stat-content= avg_time_per_credit.round(2)
 
     .body.w-100{ data: { react_component: "SegmentedBar", props: { data: segmented_bar_data }.to_json} }
