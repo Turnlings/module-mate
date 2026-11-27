@@ -61,7 +61,7 @@ class AcademicUnit < ApplicationRecord
     latest_log_date = timelogs.maximum(:date)
     return nil unless latest_log_date
 
-    days_since_first_log = (latest_log_date - first_log_date).to_i
+    days_since_first_log = (latest_log_date - first_log_date).to_i + 1 # Inclusive
     return total_minutes if days_since_first_log.zero?
 
     total_minutes.to_f / days_since_first_log

@@ -34,4 +34,30 @@ RSpec.describe UniModule do
       end
     end
   end
+
+  describe '#average_time_per_day' do
+    let(:user) { create(:user) }
+    let(:uni_module) { create(:uni_module) }
+
+    context 'when there are no timelogs' do
+      it 'returns nil' do
+        expect(uni_module.average_time_per_day).to be_nil
+      end
+    end
+
+    context 'when there are timelogs' do
+      before do
+        create(:timelog, user: user, uni_module: uni_module, date: 2.days.ago, minutes: 60)
+        create(:timelog, user: user, uni_module: uni_module, date: 1.day.ago, minutes: 90)
+      end
+
+      it 'calculates the average time per day' do
+        total_minutes = 60 + 90 # 150 minutes
+        days_count = 2
+        expected_average = total_minutes / days_count.to_f
+
+        expect(uni_module.average_time_per_day).to eq(expected_average)
+      end
+    end
+  end
 end
