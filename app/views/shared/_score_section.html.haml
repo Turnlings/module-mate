@@ -57,5 +57,12 @@
             .stat-content= "N/A"
           - else
             .stat-content= avg_time_per_credit.round(2)
+        .stat
+          .stat-header Avg Mins per Day
+          - avg_time_per_day = academic_entity.average_time_per_day()
+          - if avg_time_per_day.nil?
+            .stat-content= "N/A"
+          - else
+            .stat-content= avg_time_per_day.round(2)
 
     .body.w-100{ data: { react_component: "SegmentedBar", props: { data: segmented_bar_data }.to_json} }

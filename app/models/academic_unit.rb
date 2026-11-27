@@ -54,6 +54,19 @@ class AcademicUnit < ApplicationRecord
     total_minutes(since_string) / credits
   end
 
+  def average_time_per_day
+    first_log_date = timelogs.minimum(:date)
+    return nil unless first_log_date
+
+    latest_log_date = timelogs.maximum(:date)
+    return nil unless latest_log_date
+
+    days_since_first_log = (latest_log_date - first_log_date).to_i
+    return total_minutes if days_since_first_log.zero?
+
+    total_minutes.to_f / days_since_first_log
+  end
+
   def exams_with_results(user)
     exams.eager_load(:exam_results)
          .where(exam_results: { user_id: user.id })
